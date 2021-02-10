@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	
+	">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+	<!-- root-context.xml 파일은 서버 구동 시 web.xml에서 가장먼저 읽어 들이는 설정 파일이다.
+	
+			DB 연결 정보(JDBC, Mybatis, DBCP), AOP, 트랜잭션 처리 관련 설정,
+			파일 업로드관련 설정 등과 같은 프로젝트 전반적으로 사용될 설정을 작성함.
+	 -->
+	
+	<!-- DBCP 사용을 위한 DataSource를 Bean으로 등록 -->
+	<!-- destroy-method="close" : 주어진 세션을 자동으로 반환(close)하라는 설정 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+
+       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+       <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+       <property name="username" value="spring"/>
+       <property name="password" value="spring"/>
+       <!-- defaultAutoCommit: 풀에서 생성 된 연결의 기본 자동 커밋 상태입니다. 설정하지 않으면 setAutoCommit 메서드가 호출되지 않습니다. -->
+       <property name="defaultAutoCommit" value="false"/>
+
+       <!-- 커넥션 풀 설정 -->
+       <property name="initialSize" value="10"/> <!-- 초기 커넥션 수, 기본 0 -->
+       <property name="maxTotal" value="500"/> <!-- 최대 커넥션 수, 기본 8 -->
+       <property name="maxIdle" value="100"/> <!-- 유휴 상태로 존재할 수 있는 커넥션 최대 수, 기본 8-->
+       <property name="minIdle" value="10"/> <!-- 유휴 상태로 존재할 수 있는 커넥션 최소 수, 기본 0 -->
+       <property name="maxWaitMillis" value="60000"/> <!-- 예외 발생 전 커넥션이 반환 될 떄 까지 대기하는 최대 시간(ms), 기본 -1(무기한) -->
+
+  </bean>
+		
+	<!-- 
+	SqlSession : sql구문을 DB에 전달, 실행하는 객체
+	SqlSessionFactory : SqlSession을 만드는 객체
+	sqlSessionFactoryBean : mybatis 설정 파일(mybatis-config.xml)과 Connection Pool 정보를 이용하여 SqlSessionFactory를 만드는 객체
+	sqlSessionTemplate : SqlSession 객체에 트랜잭션 처리 역할이 가능하도록 하는 객체
+	-->
+	
+	<!-- 마이바티스 SqlSession 등록하기 (xml 방식으로 bean 등록)-->
+	<!-- SqlSessionFactoryBean: MyBatis 설정파일을 바탕으로 SqlSessionFactory를 생성한다. Spring Bean으로 등록해야 한다.
+		
+	 -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- mybatis-config.xml 설정 불러오기 -->   
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>  
+		<property name="dataSource" ref="dataSource"/> 
+	</bean>
+	
+	<!-- SqlSessionTemplate : 기본 SQL 실행  + 트랜잭션 관리 역할을 하는 SqlSession을 생성할 수 있게 하는 객체(Spring bean으로 등록해야함.)-->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryBean"/>
+	</bean>
+		
+	<!-- 스프링에서 사용하는 proxy를 이용한 트랜잭션 제어가 안될 경우 추가적인 트랜잭션 매니저를 추가해서 문제 해결 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	    <property name="dataSource" ref="dataSource"/>
+	</bean>
+		
+	<tx:annotation-driven proxy-target-class="true"/>
+	
+		
+	<!-- 파일 업로드를 위한 CommonsMultipartResolver 객체 bean 등록 -->
+	<!-- MultipartResolver를 bean으로 등록하면
+			multipart/form-data 형식의 요청을 받게될 경우
+			스프링 컨테이너가 해당 bean을 제어하여 input type="file"태그를 별도로 얻어와서 처리하여
+			MultipartFile 객체로 반환해줌
+			
+			- input type="file"에 파일에 업로드가 됐든, 안됐든 무조건 얻어옴.
+			- 태그 하나 또는 업로된 파일 하나당 MultipartFile 객체 하나가 반환됨.
+			
+			- MultipartResolver가 파일 관련된 내용 (multipart/form-data)를
+				다 처리하므로 나머지 일반 텍스트 형태의 데이털르 별도 처리 없이 사용가능.
+	 -->
+	<bean id="multipartResolver"
+				class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600" />
+		<property name="maxUploadSizePerFile" value="20971520" />
+		<property name="maxInMemorySize" value="104857600" />
+	</bean>
+	<!-- 
+		maxUploadSize : 한 요청당 업로드가 허용되는 최대 용량 (byte 단위)
+		maxUploadSizePerFile : 한 파일당 업로드가 허용되는 최대 용량 (byte 단위)
+		maxInMemorySize : 파일을 디스크에 저장하지 않고 메모리에 유지하도록
+											허용하는 최대용량(byte 단위)
+											지정된 용량보다 업로드 파일이 더 큰 경우 파일로 저장함.
+											(기본값  10240byte)
+		
+		104857600 byte == 100MB
+	 -->
+</beans>

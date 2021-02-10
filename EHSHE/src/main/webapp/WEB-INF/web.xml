@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_3_1.xsd">
+
+	<!-- web.xml 파일(배포 서술자)
+			- WAP(Web Appliction Server, tomcat) 실행 시 제일 처음으로 읽어 들이는 파일
+			- 서버 실행 시  초기에 설정할 내용 또는 설정이 작성된 파일을 읽고 수행하도록 web.xml 파일에 등록	
+			- 서브릿 실행 이전에 서블릿 초기화 용도로도 사용
+			
+			+ 프로젝트의 웹 모듈 버전과 web.xml의 버전은 같아야 함.
+	 -->
+
+	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<!-- context-param : 설정에 사용할 파라미터 설정 -->
+	<context-param>
+		<!-- contextConfigLocation : 설정 파일 경로(변수명) -->
+		<param-name>contextConfigLocation</param-name>
+		
+		<!-- 실제 root-context.xml의 경로
+				classpath : 프로젝트의 소스 폴더로 등록된 폴더의 경로 ->
+		 -->
+		<param-value>
+			classpath:spring/root-context.xml
+			classpath:spring/spring-security.xml
+		</param-value>
+	</context-param>
+	
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<!-- listener : context-param에 작성된 설정 파일을 읽어 스프링 컨테이너를 생성하는 리스너 객체
+		- 서버 실행 시 가장 먼저 로딩(pre-loading) 되어야 하는 xml 설정 문서를 읽어들이는 역할
+			-> 이를 이용해 스프링 컨테이너 생성
+	 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Processes application requests -->
+	<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/appServlet/servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<!-- 한글 깨짐을 방지하기 위한 인코딩 필터 추가 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>
+			org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+
+
+
+
+
+</web-app>
