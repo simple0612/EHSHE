@@ -29,7 +29,7 @@
 	<a class="nav-link" href="${contextPath}">데이트</a>
 	<a class="nav-link" href="${contextPath}">SHOP</a>
 	<a class="nav-link" href="${contextPath}">커뮤니티</a>
-	<a class="nav-link" href="${contextPath}">Login</a>
+	<a class="nav-link" href="${contextPath}/member/loginpage">Login</a>
     
 </body>
 </html>
