@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class MemberController {
 
 	
-	@RequestMapping("loginpage")
+	@RequestMapping("login")
 	public String loginView() {
-		return "member/loginpage";
+		return "member/login";
 	}
 
 	
