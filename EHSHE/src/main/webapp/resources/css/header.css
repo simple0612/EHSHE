@@ -1,0 +1,304 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400&display=swap');
+.ft {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+
+*{ margin:0; padding:0;}
+
+.btn_area{
+    position:fixed;
+    top:28px;
+    left:45px;
+    height:40px;
+    width: 40px;
+    text-align: center;
+    background: #F5dF4D;
+    border-radius: 3px;
+    cursor:pointer;
+    transition:left 0.4s ease;
+    z-index: 20;
+}
+.btn_area.click{
+    left:300px;
+}
+
+.btn_area span{
+    color:white;
+    font-size:24px;
+    line-height: 40px;
+}
+.btn_area.click span:before{
+    content:'\f00d';
+}
+
+nav{
+    width:100%;
+    height:100px;
+    background-color: #fff;
+    border-bottom:0.5px solid rgba(147, 151, 151, 0.3);
+    }
+
+nav > * {
+    float: left;
+}
+
+
+
+/* 로고영역 */
+.logo_area{
+    width: 25%;
+    height: 100%;
+    text-align : center;
+    line-height: 100px;
+}
+
+.logo_area #logo_img{
+    width: 100px;
+}
+
+/* 메뉴영역 */
+.menu_area{
+    width:55%;
+    height: 100%;
+    list-style-type:none;
+    margin:0;
+}
+
+/* 메뉴 영역 카테고리 */
+.menu_area > li{
+    float: left;
+    width : 30%;
+    height: 100%;
+    
+}
+
+.menu_area > li > a{
+    
+    display:block;
+    width:100%;
+    height: 100%;
+    text-align:center;
+    text-decoration: none;
+    line-height:100px;
+    color:black;
+    font-weight: 600;
+    position:relative;
+    
+}
+.menu_area > li > a:hover{
+    color: #282828;
+    font-size:larger;
+}
+
+
+
+
+.menu_area > li > ul > li{
+    display: inline-block;
+    line-height: 40px;
+    padding : 0 20px;
+    position:relative;
+    left:40%;
+    
+}
+.menu_area > li > ul > li > a{
+    text-decoration: none;
+    color:black;
+}
+
+/* 상단 메뉴영역 밑줄귿기 효과 */
+
+
+
+
+
+
+
+/* plus_menu_area 영역 */
+#shop_category > ul {
+    display: none;
+}
+
+#shop_category:hover ul{
+    opacity: 1;
+    display : block;
+    background-color: rgba(147, 151, 151, 0.3);
+    position:absolute;
+    width:100%;
+    right:0;
+}
+#shop_category ul >li >a{
+    font-weight: 700;
+    padding-right:70px;
+}
+
+
+#shop_category ul >li >a:hover{
+    color:white;
+    font-size: larger;
+}
+
+
+
+/* 로그인 영역 */
+.login_area{
+    width : 20%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.login_area span{
+    display:flex;
+    width:30%;
+    height:100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_area span a{
+    text-decoration: none;
+    color: black;
+    font-weight : bold;
+    text-align:center;
+    box-sizing: border-box;
+}
+.login_area span a img{
+    text-align: center;
+}
+.login_area span a:hover{
+    font-size:larger;
+}
+.login_area span a img:hover{
+    transform:scale(1.2);
+}
+
+
+
+
+
+
+/* 사이드 메뉴 영역 */
+.side_menu {
+    width:300px;
+    height:100%;
+    position:relative;
+}
+.side_menu .sidebar{
+    position:fixed;
+    top:0;
+    left:-300px;
+    width:300px;
+    height:100%;
+    background:#fff;
+    z-index:30;
+    transition:left 0.4s ease;
+    box-shadow: 0 0 4px black;
+}
+.sidebar.show{
+    left:0px;
+}
+
+.sidebar .side1 > a {
+    padding-left:70px;
+    padding-top:40px;
+    padding-bottom:30px;
+    font-size : 26px;
+    text-decoration: none;
+    font-style: italic;
+    color:black;
+}
+
+
+.sidebar ul a{
+    display: block;
+    height:100%;
+    width:100%;
+    line-height:45px;
+    font-size:18px;
+    font-weight: 400;
+    padding-left: 70px;
+    box-sizing: border-box;
+    transition: .4s;
+    letter-spacing: 1px;
+}
+
+
+.sidebar ul li:hover a{
+    padding-left: 80px;
+}
+
+.sidebar .side1 ul>li{
+    height: 0;
+    line-height: 0;
+}
+.sidebar .side1 ul>li>a{
+    opacity: 0;
+    display: none;
+}
+.sidebar ul li:hover a{
+    display:block;
+    opacity: 1;
+    transition: 0.6s;
+}
+.sidebar ul li:hover ul li{
+    height:50px;
+    padding-left:20px;
+}
+
+.sidebar ul li ul li:hover a{
+    padding-left: 100px;
+}
+
+
+.side_menu .sidebar .side1 .popup >ul a{
+    font-size:14px;
+}
+
+.side_menu .sidebar .side1 .popup a i{
+    margin-left: 10px;
+}
+.side_menu .sidebar .side1 .popup a:hover i{
+    transform: rotate(-180deg);
+}
+
+
+.side_menu .sidebar ul li{
+    list-style-type: none;
+}
+.side_menu .sidebar ul li a{
+    text-decoration: none;
+    color:black;
+    
+}
+
+
+.side_menu .sidebar .side2{
+    padding-top:30px;
+}
+.side_menu .sidebar .side2 a{
+    font-size:14px;
+    font-weight: 400;
+}
+
+
+/* 미디어 쿼리 */
+@media screen and (max-width : 768px){
+
+    .logo_area{
+      position:relative;
+      right:50%;
+      left:40%;
+    }
+
+    .menu_area{
+        display:none;
+    }
+
+    .login_area{
+       display:none;
+    }
+
+}
