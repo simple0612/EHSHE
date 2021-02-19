@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +44,7 @@
 	text-align: center;
 	}
 
-li {
+.li_login{
 	display: inline-block;
 	float: none;
 	vertical-align: top;
@@ -70,10 +71,8 @@ li {
 
 </head>
 <body>
-		<div class="row">
-			<%-- header include--%>
-			<jsp:include page="../common/header.jsp" />
-		</div>
+		<%-- header include--%>
+		<jsp:include page="../common/header.jsp" />
 		
 		<div class="form-wrapper">
 			<div class="form-container">
@@ -120,15 +119,15 @@ li {
 			
 				<div class="info-member">
 					<ul class="list-member">
-						<li>
+						<li class="li_login" >
 							<a href="<%-- ${contextPath}/member/--%>" style="color: #212529;">아이디 찾기</a>									
 						</li>
-						<li>ㅣ</li>
-						<li>
+						<li class="li_login">ㅣ</li>
+						<li class="li_login">
 							<a href="<%-- ${contextPath}/member/--%>" style="color: #212529;">비밀번호 찾기</a>
 						</li>
-						<li>ㅣ</li>
-						<li>
+						<li class="li_login">ㅣ</li>
+						<li class="li_login">
 							<a href="<%-- ${contextPath}/member/--%>" style="color: #212529;">회원가입</a>
 						</li>
 					</ul>								
