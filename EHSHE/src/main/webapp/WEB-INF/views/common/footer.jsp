@@ -49,7 +49,7 @@
                         <figure class="member_photo" style="background-image: url(${contextPath}/resources/images/taewoo.jpg);"></figure>
                         <p class="team_name">김태우</p> &nbsp;&nbsp;
                         <p class="member_message">
-                            오늘 밤 너를 갖겠어..
+                            꿇어라, 이것이 너와나의 눈높이다.
                         </p>
                     </li>
                     <li class="team_member">
