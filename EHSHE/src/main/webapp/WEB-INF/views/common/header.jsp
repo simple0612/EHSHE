@@ -116,10 +116,25 @@
     </div>
 
     <script>
+    		/* 사이드바 토글  */
         $('.btn_area').click(function(){
             $(this).toggleClass("click");
             $('.sidebar').toggleClass("show");
         });
+        
+        
+        /* 사이드바 shop메뉴 슬라이드 다운 업 */
+        $('.popup').mouseenter(function(){
+
+            $(this).children('ul').stop().slideDown();
+
+        });
+        $('.popup').mouseleave(function(){
+
+            $(this).children('ul').stop().slideUp();
+
+        });
+        
     </script>
     
 </body>

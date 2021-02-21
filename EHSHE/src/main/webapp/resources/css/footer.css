@@ -159,7 +159,6 @@
         justify-content: center;
         align-items: center;
         height: 50px;
-        justify-content: stretch;
     }
     .footer_area .footer_top .footer_item:nth-child(3) > p{
         padding : 0 10px;
