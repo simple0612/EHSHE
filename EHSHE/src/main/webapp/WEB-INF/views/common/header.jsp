@@ -70,7 +70,7 @@
             </ul>
 
             <div class="login_area">
-                	<span><a href="${contextPath}/member/login">로그인</a></span>
+                	<span><a href="${contextPath}/member/loginView">로그인</a></span>
              <%-- <c:choose>
                 <c:when test="">
                 </c:when>
@@ -101,7 +101,7 @@
                 <li><a href="${contextPath}">커뮤니티</a></li>
             </ul>
             <ul class="side2">
-                	<li><a href="${contextPath}/member/login">로그인</a></li>
+                	<li><a href="${contextPath}/member/loginView">로그인</a></li>
             	<%-- <c:choose>
                 <c:when test="">
                 </c:when>
