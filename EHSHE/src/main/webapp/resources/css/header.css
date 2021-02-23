@@ -278,7 +278,7 @@ nav > * {
 
 
 /* 미디어 쿼리 */
-@media screen and (max-width : 768px){
+@media screen and (max-width : 870px){
 
     .logo_area{
       position:relative;

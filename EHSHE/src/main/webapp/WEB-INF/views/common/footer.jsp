@@ -16,7 +16,7 @@
         <div class="footer_top">
             <div class="footer_item">
                 <h3 class="logo">EHSHE</h3>
-                <img src="${contextPath}/resources/images/ehsheLogo.png" style="width:80px;">
+                <img src="${contextPath}/resources/images/ehsheLogo.png" style="width:80px; margin-top:30px">
             </div>
             <div class="footer_item">
                 <P class="team_introduce">기획팀</P>
