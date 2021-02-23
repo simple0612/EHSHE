@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
 <script src="https://kit.fontawesome.com/5a7a3b1a34.js" crossorigin="anonymous"></script>
 <style>
-body{
+.intro{
     height:100vh;
     background: url(resources/images/mainbackground3.jpg) no-repeat center center;
     background-size: cover;
@@ -18,13 +18,17 @@ body{
 nav{
     opacity: 0.7;
 }
+ @media(max-width:768px){
+    .intro{
+           height: 35vh;
+    }
+ }
 
 
 </style>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	
 	
 	<div class="main-section">
         <main class="intro">
@@ -34,13 +38,14 @@ nav{
             <div class="inner">
                 <div class="about-content">
                     <div class="description">
-                        <h4>따듯한 공간</h4>
+                        <h4>따뜻한 공간</h4>
                         <h4>우리만의 데이트</h4>
                         <h4>우리만의 아이템</h4>
                         <p>
                             Spending more time together<br> — a common result of lockdowns, furloughs and layoffs — <br>
                             has been
-                            a blessing for some couples who gain greater appreciation of one another.
+                            a blessing for some couples <br>
+                            who gain greater appreciation of one another.
                         </p>
                     </div>
                     <div class="photo_area">
@@ -49,6 +54,102 @@ nav{
                 </div>
             </div>
         </section>
+        <section class="date-introduce">
+            <div class="date-heading">
+                <h2>Looking for <b>unique,</b> <br>
+                    <b>romantic</b> date ideas
+                </h2>
+                <a href="#">Search for a place</a>
+            </div>
+        </section>
+        <section class="ranking">
+            <div class="inner">
+                <div class="ranking-content">
+                    <h2>THE BEST PLACE</h2>
+                    <div class="places">
+                        <div class="place">
+                            <div class="place-image">
+                                <img src="">
+                            </div>
+                            <div class="place-description">
+                                <span><b>좋아요/평점 - </b></span>
+                                <h3><b>장소이름 - </b></h3>
+                                <a href="#" class="view-place">View More</a>
+                            </div>
+                        </div>
+                        <div class="place">
+                            <div class="place-image">
+                                <img src="" alt="이미지">
+                            </div>
+                            <div class="place-description">
+                                <span><b>좋아요/평점 - </b></span>
+                                <h3><b>장소이름 - </b></h3>
+                                <a href="#" class="view-place">View More</a>
+                            </div>
+                        </div>
+                        <div class="place">
+                            <div class="place-image">
+                                <img src="" alt="이미지">
+                            </div>
+                            <div class="place-description">
+                                <span><b>좋아요/평점 </b></span>
+                                <h3><b>장소이름 - </b></h3>
+                                <a href="#" class="view-place">View More</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="item-introduce">
+            <div class="item-heading">
+                <h2>Check out our <b>couple items</b><br>
+                for the very best in <b>unique</b> or custom,<br>
+                <b>handmade pieces</b> from our shops.</h2>
+                <a href="#">Search for an item</a>
+            </div>
+        </section>
+        <section class="ranking">
+            <div class="inner">
+                <div class="ranking-content">
+                    <h2>THE BEST ITEM</h2>
+                    <div class="citems">
+                        <div class="citem">
+                            <div class="citem-image">
+                                <img src="">
+                            </div>
+                            <div class="citem-description">
+                                <span><b>가격</b></span>
+                                <h3><b>이름</b></h3>
+                                <a href="#" class="view-item">View More</a>
+                            </div>
+                        </div>
+                        <div class="citem">
+                            <div class="citem-image">
+                                <img src="">
+                            </div>
+                            <div class="citem-description">
+                                <span><b>가격</b></span>
+                                <h3><b>이름</b></h3>
+                                <a href="#" class="view-item">View More</a>
+                            </div>
+                        </div>
+                        <div class="citem">
+                            <div class="citem-image">
+                                <img src="">
+                            </div>
+                            <div class="citem-description">
+                                <span><b>가격</b></span>
+                                <h3><b>이름</b></h3>
+                                <a href="#" class="view-item">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
     </div>
 	
 	

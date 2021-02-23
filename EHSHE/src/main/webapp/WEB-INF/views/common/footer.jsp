@@ -12,65 +12,28 @@
 
 </head>
 <body>
-	<footer class="footer_area">
-        <div class="footer_top">
-            <div class="footer_item">
-                <h3 class="logo">EHSHE</h3>
-                <img src="${contextPath}/resources/images/ehsheLogo.png" style="width:80px; margin-top:30px">
-            </div>
-            <div class="footer_item">
-                <P class="team_introduce">기획팀</P>
-                <ul class="team-list list1">
-                    <li class="team_member">
-                        <figure class="member_photo" style="background-image: url(${contextPath}/resources/images/manhee.jpg);"></figure>
-                        <p class="team_name">김만희</p> &nbsp;&nbsp;
-                        <p class="member_message">
-                            오늘 밤 너를 갖겠어..
-                        </p>
-                    </li>
-                    <li class="team_member">
-                        <figure class="member_photo" style="background-image: url(${contextPath}/resources/images/heedo.jpg)"></figure>
-                        <p class="team_name">박희도</p> &nbsp;&nbsp;
-                        <p class="member_message">
-                            오늘 밤 너를 갖겠어..
-                        </p>
-                    </li>
-                    <li class="team_member">
-                        <figure class="member_photo" style="background-image: url(${contextPath}/resources/images/junho.jpg);"></figure>
-                        <p class="team_name">이준호</p> &nbsp;&nbsp;
-                        <p class="member_message">
-                            오늘 밤 너를 갖겠어..
-                        </p>
-                    </li>
+	<footer>
+        <div class="inner">
+            <div class="footer-content">
+                <ul class="introduce">
+                    <li>Introduce</li>
+                    <li><a href="#none">회사소개</a></li>
+                    <li><a href="#none">이용약관</a></li>
+                    <li><a href="#none">비지니스</a></li>
+                    <li><a href="#none">위치</a></li>
                 </ul>
-
-                <ul class="team-list list2">
-                    <li class="team_member">
-                        <figure class="member_photo" style="background-image: url(${contextPath}/resources/images/taewoo.jpg);"></figure>
-                        <p class="team_name">김태우</p> &nbsp;&nbsp;
-                        <p class="member_message">
-                            꿇어라, 이것이 너와나의 눈높이다.
-                        </p>
-                    </li>
-                    <li class="team_member">
-                        <figure class="member_photo" style="background-image: url(${contextPath}/resources/images/jikwon.jpg);"></figure>
-                        <p class="team_name">유지권</p> &nbsp;&nbsp;
-                        <p class="member_message">
-                           오늘 밤 너를 갖겠어..
-                        </p>
-                    </li>
+                <ul class="network">
+                    <li>Network</li>
+                    <li><a href="#none">제휴문의</a></li>
+                    <li><a href="#none">인재채용</a></li>
+                    <li><a href="#none">광고</a></li>
+                    <li><a href="#none">고객센터</a></li>
                 </ul>
-            </div>
-            <div class="footer_item">
-                <p class="team-leader"> 대표 이름 : 김 만 희</p>
-                <p class="team-phone"> 010 - 0000 - 0000</p>
-                <p class="team-address"> 서울 중구 남대문로 120 대일빌딩 2층, 3층</p>
-
-            </div>
-        </div>
-        <div class="footer_bottom">
-            <div class="footer_item2">
-                <p>Copyright &copy; KH Information Educational Institute A-Class</p>
+                <ul class="help">
+                    <li>please contact us.</li>
+                    <li>Drop me a line if I can do anything else for you.</li>
+                    <li>Copyright © 2021 CodeBean. All rights reserved.</li>
+                </ul>
             </div>
         </div>
     </footer>
