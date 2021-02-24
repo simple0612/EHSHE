@@ -6,9 +6,6 @@
 <head>
 <meta charset="UTF-8">
 
-<!-- jquery  -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
 <!-- bootStrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -30,12 +27,6 @@
 	margin: 50px 0 120px 0;
 }
 
-.form-container {
-	margin: auto;
-	height: 100%;
-  max-width: 350px;
-}
-
 .title {
   font-size: 2rem; 
 	font-weight:bold;
@@ -55,48 +46,58 @@
 	border-top: 1px solid #e6e6e6; 
 }
 
-.welcome-area {
-	font-size: 20px;
-	text-align: center;
-	color: #252525;
+.form-container {
+	margin: auto;
+	height: 100%;
+  max-width: 350px;
 }
 
-.img-area {
-	width: 350px;
-	height: 200px;
-	background: url(${contextPath}/resources/images/heart.png) 0 0 no-repeat;	
+.form-header {
+	margin-top: 15px;	
+  text-align:center;
+  font-size: 30px; 
+  color: #404040;
 }
+
+.text-pw, .text-find {
+	font-size: 20px;
+	font-weight: 600; 
+	color : #404040;
+} 
 
 .text-guide {
-	font-size: 14px;
-	font-weight: 600;
-	color: #959595;
+	font-size: 16px;
+ 	font-weight: 600;
+	color: #7c7c7c;
 	text-align: center;
 	
 }
 
-.toLoginBtn-area {
+.form-control {
+	height: 3rem !important;
+	border-radius: 1rem !important;
+}
+
+.findPwBtn-area {
 	text-align: center;
 }
 
-.btn-login {
+.findPwBtn {
 	border: none;
 	width: 100%;
 	height: 2.8rem;
 	max-width: 350px;
 	font-weight: 600;
-	font-size: 16px;
+	font-size: 15px;
 	color: #191919;
 	background-color: #F5DF4D;
 	border-radius: 1rem;
 }
 
-.btn:hover{
-	background-color: #f0d700;
+.findPwBtn:hover{
+	background-color: #f0d700 !important;
 }
-    
 </style>
-
 
 </head>
 <body>	
@@ -104,38 +105,46 @@
 		<div class="title">
 			<a href="${contextPath}">EHSHE</a>
 		</div>
-
-		<br>			
-		<div class="hr"></div>	    
-
-		<div class="form-container">		
-			<br>						
-			<div class=img-area></div>
-			
-			<br>
-			<div class="welcome-area">
-				<span class="member-name">애옹이<%-- ${loginMember}.memberId --%>님, </span>
-				<span class="welcome-text"> 환영합니다! </span>
-			</div>
-
-			<br>
-			<div class="text-guide"> EHSHE 가입이 완료되었습니다. <br>
-					  로그인하시면 다양한 서비스를 이용하실 수 있습니다.		
-		  </div>
-		</div> <%-- form-wrapper --%>		
-
+	
 		<br>
-    <div class="hr"></div>
-
-		<br>
-		<div class="toLoginBtn-area">
-			<button class="btn btn-lg btn-login" onclick="location.href='${contextPath}/member/loginView'">로그인</button>
+		<div class="hr"></div>
+		
+		<div class="form-header">
+			<span class="text-pw">비밀번호</span>
+			<span class="text-find" style="color : #909090; font-weight: normal;">찾기</span>
 		</div>
-	</div> <%-- form-wrapper --%>
+		
+		<br>
+		<div class="text-guide"> 아이디, 이메일로 <br>
+	  	비밀번호를 찾습니다.		
+	  </div>
+		
+		<br>
+		<%-- 비밀번호 찾기 form --%>
+		<form action="findPw" method="post">
+			<div class="form-container">
+				<div class="form-group">
+					<input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요." class="form-control" required autofocus> 
+				</div>
+	
+				<div class="form-group">
+					<input type="email" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요." class="form-control" required> 
+				</div>
+			</div> <%-- form-container --%>
+			<br>
+			<div class="hr"></div>
+			
+			<br>					
+			<div class="findPwBtn-area">
+				<button class="btn btn-lg findPwBtn" type="submit">조회하기</button>			
+			</div>
+		</form>
+				
+		<br>	
+	</div> <%-- form-wrapper %-->
 
 	<%-- footer include --%>
 	<jsp:include page="../common/footer.jsp" />		
-	
 </body>
 </html>
 

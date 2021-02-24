@@ -47,15 +47,45 @@ public class MemberController {
 	 return 0;
 	}
 	
-	// 회원가입 화면 Controller
+	// 회원 가입 화면 Controller
 	@RequestMapping("signUpView")
 	public String signUpView() {
 		return "member/signUpView";
 	}
 	
-	// 회원가입 Controller
+	// 회원 가입 Controller
 	@RequestMapping("signUp")
 	public String signUp() {
+		return null;
+	}
+
+	// 회원 가입 완료 화면 Controller
+	@RequestMapping("signUpCompleteView")
+	public String signUpCompleteView() {
+		return "member/signUpCompleteView";
+	}
+	
+	// 아이디 찾기 화면 Controller
+	@RequestMapping("findIdView")
+	public String findIdView() {
+		return "member/findIdView";
+	}
+	
+	// 아이디 찾기 Controller
+	@RequestMapping("findId")
+	public String findId() {
+		return null;
+	}
+	
+	// 비밀번호 찾기 화면 Controller
+	@RequestMapping("findPwView")
+	public String findPwView() {
+		return "member/findPwView";
+	}
+
+	// 비밀번호 찾기  Controller
+	@RequestMapping("findPw")
+	public String findPw() {
 		return null;
 	}
 	
