@@ -83,12 +83,12 @@ input[id="save"]:checked + label em {
 	margin-bottom: 30px;
 	}
 
-li {
+.list-user > li {
 	float: none;
 	display: inline-block;
 	}
 	
-li > a, li > a:link {
+.list-user a, .list-user > a:link {
 	text-decoration: none;
 	color: rgba(0,0,0,0.7);
 }

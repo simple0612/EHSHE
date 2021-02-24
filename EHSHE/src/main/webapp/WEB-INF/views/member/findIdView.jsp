@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 
+<!-- jquery  -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <!-- bootStrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -133,19 +136,29 @@
 				<div class="form-group">
 					<input type="email" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요." class="form-control" required> 
 				</div>
+			
+				<div class="form-group">
+					<input type="email" id="certify" name="certify" placeholder="인증번호를 입력해주세요." class="form-control" required> 
+				</div>
+			
+				<div class="col-md-6 offset-md-3">
+					<span id="checkEmail">&nbsp;</span>
+				</div>
 			</div> <%-- form-container --%>
-			<br>
 			<div class="hr"></div>
 			
 			<br>
 			<div class="findIdBtn-area">
-				<button class="btn btn-lg findIdBtn" type="submit">조회하기</button>			
+				<button class="btn btn-lg findIdBtn certifyCheck" type="submit">조회하기</button>			
 			</div>
 		</form>
 			
 		<br>		
-	</div> <%-- form-wrapper %-->
+	</div> <%-- form-wrapper --%>
 
+<%-- 유효성 검사 및 이메일 인증 js --%>
+<%-- 	<script src="${contextPath}/resources/js/findId.js?ver=212"></script> --%>
+	
 	<%-- footer include --%>
 	<jsp:include page="../common/footer.jsp" />		
 </body>

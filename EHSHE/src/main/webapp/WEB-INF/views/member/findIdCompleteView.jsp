@@ -49,43 +49,37 @@
 	border-top: 1px solid #e6e6e6; 
 }
 
-.form-container {
-	margin: auto;
-	height: 100%;
-  max-width: 350px;
-}
-
 .form-header {
-	margin-top: 15px;	
-  text-align:center;
+	margin: auto;
+	width: 100%;
+	max-width: 350px;
   font-size: 30px; 
   color: #404040;
 }
 
-.text-pw, .text-find {
+.textInfo {
 	font-size: 20px;
 	font-weight: 600; 
 	color : #404040;
 } 
 
-.text-guide {
+.info-user {
 	font-size: 16px;
  	font-weight: 600;
 	color: #7c7c7c;
-	text-align: center;
+}
 	
+.form-body {
+	margin: auto;
+	height: 100%;
+  max-width: 350px;
 }
 
-.form-control {
-	height: 3rem !important;
-	border-radius: 1rem !important;
-}
-
-.findPwBtn-area {
+.findIdViewBtn-area {
 	text-align: center;
 }
 
-.findPwBtn {
+.findIdViewBtn {
 	border: none;
 	width: 100%;
 	height: 2.8rem;
@@ -97,10 +91,12 @@
 	border-radius: 1rem;
 }
 
-.findPwBtn:hover{
+.findIdViewBtn:hover {
 	background-color: #f0d700 !important;
 }
+    
 </style>
+
 
 </head>
 <body>	
@@ -112,50 +108,33 @@
 		<br>
 		<div class="hr"></div>
 		
+		<br>	
 		<div class="form-header">
-			<span class="text-pw">비밀번호</span>
-			<span class="text-find" style="color : #909090; font-weight: normal;">찾기</span>
+			<div class="textInfo">입력한 정보와 일치하는 <br> EHSHE 계정을 확인해주세요. </div>
 		</div>
 		
 		<br>
-		<div class="text-guide"> 아이디, 이메일로 <br>
-	  	비밀번호를 찾습니다.		
-	  </div>
+		<div class="hr" style="margin-bottom: 11.5px;"></div>
 		
 		<br>
-		<%-- 비밀번호 찾기 form --%>
-		<form action="findPw" method="post">
-			<div class="form-container">
-				<div class="form-group">
-					<input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요." class="form-control" required autofocus> 
-				</div>
+		<div class="form-body">
+			<div class="info-user" style="color: #404040"> 아이디 : user00 <%-- ${member.memberId} --%></div>
+			<br>
+			<div class="info-user"> 이름    &nbsp;&nbsp;&nbsp;: 애옹이 <%-- ${member.memberName} --%></div>
+			<div class="info-user"> 이메일 : user00@naver.com <%-- ${member.memberEmail} --%></div>
+		</div>
+
+		<br>
+		<div class="hr" style="margin-top: 11.5px;"></div>		
+			
+		<br>
+		<div class="findIdViewBtn-area">
+			<button class="btn btn-lg findIdViewBtn" type="button" onclick="location.href='${contextPath}/member/loginView'">로그인</button>			
+		</div>
+			
+		<br>		
+	</div> <%-- form-wrapper --%>
 	
-				<div class="form-group">
-					<input type="email" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요." class="form-control" required> 
-				</div>
-				
-				<div class="form-group">
-					<input type="email" id="certify" name="certify" placeholder="인증번호를 입력해주세요." class="form-control" required> 
-				</div>
-			
-				<div class="col-md-6 offset-md-3">
-					<span id="checkEmail">&nbsp;</span>
-				</div>
-			</div> <%-- form-container --%>
-			<div class="hr"></div>
-			
-			<br>					
-			<div class="findPwBtn-area">
-				<button class="btn btn-lg findPwBtn certifyCheck" type="submit">조회하기</button>			
-			</div>
-		</form>
-				
-		<br>	
-	</div> <%-- form-wrapper %-->
-
-	<%-- 유효성 검사 및 이메일 인증 js --%>
-<%-- 	<script src="${contextPath}/resources/js/findPw.js"></script> --%>	
-
 	<%-- footer include --%>
 	<jsp:include page="../common/footer.jsp" />		
 </body>

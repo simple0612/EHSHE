@@ -30,8 +30,7 @@ public class MemberController {
 	
 	// 로그아웃 Controller
 	@RequestMapping("logout")
-	public String logout() {
-		
+	public String logout() {		
 		return null;
 	}
 	
@@ -76,6 +75,12 @@ public class MemberController {
 	public String findId() {
 		return null;
 	}
+
+	// 아이디 찾기 완료 화면 Controller
+	@RequestMapping("findIdCompleteView")
+	public String findIdCompleteView() {
+		return "member/findIdCompleteView";
+	}
 	
 	// 비밀번호 찾기 화면 Controller
 	@RequestMapping("findPwView")
@@ -88,6 +93,19 @@ public class MemberController {
 	public String findPw() {
 		return null;
 	}
+
+	// 비밀번호 변경 화면  Controller
+	@RequestMapping("changePwView")
+	public String changePwView() {
+		return "member/changePwView";
+	}
+
+	// 비밀번호 변경  Controller
+	@RequestMapping("changePw")
+	public String changePw() {
+		return null;
+	}
+
 	
 
 
