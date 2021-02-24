@@ -36,21 +36,30 @@
 	margin: 50px 0px 120px 0px;
 }	
 
-.form-container {
-	margin: auto;
-	height: 100%;
-	max-width: 400px;
-}
 	
-.ehshe-text {
+.title {
   font-size: 2rem; 
 	font-weight:bold;
   text-align:center;
 }
 
-.ehshe-text > a, .ehshe-text > a:link{
+.title > a, .title > a:link{
  	text-decoration: none;
 	color: #404040;
+}
+
+.hr {
+	margin: auto; 
+	width: 40%; 
+	min-width: 350px; 
+	text-align: center;
+	border-top: 1px solid #e6e6e6; 
+}
+
+.form-container {
+	margin: auto;
+	height: 100%;
+	max-width: 400px;
 }
 
 .form-control {
@@ -58,9 +67,6 @@
 	border-radius: 1rem !important;
 }
 
-#certifyBtn:hover, #postcodify_search_button:hover {
-	background-color: #dbdbdb !important;
-}
 
 label {
 	font-size: 0.9rem !important;
@@ -71,26 +77,37 @@ label > span {
 	color:red;
 }
 
-.btn {
-   height: 2.8rem !important;
-   border: 1px solid #dbdbdb;
-   border-radius: 1rem !important;
-   box-sizing: border-box;
+#certifyBtn, #postcodify_search_button {
+  height: 2.8rem !important;
+  border: 1px solid #dbdbdb;
+  border-radius: 1rem;
+}
+
+#certifyBtn:hover, #postcodify_search_button:hover {
+	background-color: #dbdbdb !important;
 }
 
 .gender-radio {
 	margin-top: 15px;
 }
 
-.signUpBtn {
-	font-size: 16px !important;
-	font-weight: 900 !important;
-	color: #191919 !important;
-	background-color: #F5DF4D;
-	border: none;
+.signUpBtn-area {
+	text-align: center;
 }
 
-.signUpBtn:hover{
+.signUpBtn {
+	border: none;
+	width: 100%;
+	height: 2.8rem;
+	max-width: 350px;
+	font-weight: 600;
+	font-size: 15px;
+	color: #191919;
+	background-color: #F5DF4D;
+	border-radius: 1rem;
+}
+
+.signUpBtn:hover {
 	background-color : #f0d700;
 }
 
@@ -98,23 +115,20 @@ label > span {
 </head>
 <body>
 	<div class="form-wrapper">		
-			<div class="ehshe-text">
-				<a href="${contextPath}">EHSHE</a>
-			</div>
+		<div class="title">
+			<a href="${contextPath}">EHSHE</a>
+		</div>
 
 		<br>
-			
-		   <div style="margin:auto; width: 48%; min-width:320px; border-top: 1px solid #e6e6e6; text-align:center;"></div>
+		<div class="hr"></div>
 			
 		<br>
 		<h5 style="text-align:center;">회원 정보 입력</h5>
 
 		<br>
-		
-		<div class="form-container">
-	
-			<form action="signUp" method="POST" class="needs-validation" name="signUpForm" onsubmit="return validate();">
-
+		<%-- 회원 가입 form --%>
+		<form action="signUp" method="POST" class="needs-validation" onsubmit="return validate();">
+			<div class="form-container">
 				<%-- 아이디 --%>
 				<div class="mb-2 form-row">
 					<div class="col-md-3">
@@ -123,7 +137,7 @@ label > span {
 					<div class="col-md-9">
 						<input type="text" class="form-control" name="memberId" id="memberId" placeholder="아이디를 입력해주세요." autocomplete="off" required>
 					</div>
-
+					<%-- 유효성 검사 --%>
 					<div class="col-md-6 offset-md-3">
 						<span id="checkId">&nbsp;</span>
 					</div> 
@@ -207,15 +221,12 @@ label > span {
 						<input type="email" class="form-control" id="memberEmail" name="memberEmail" placeholder="이메일 주소 입력" autocomplete="off" required>
 					</div>
 				<%-- 인증 버튼 --%>
-				<button class="btn" type="button" id="certifyBtn">&nbsp;인증&nbsp;</button>			
+				<button type="button" class="btn" id="certifyBtn">&nbsp;인증&nbsp;</button>			
 				</div>
 					
 				<div class="col-md-6 offset-md-3">
 					<span id="checkEmail">&nbsp;</span>
 				</div>
-
-
-				
 				
 				<%-- 이메일 인증 --%>
 				<div class="row mb-2 form-row">
@@ -233,8 +244,7 @@ label > span {
 						<label>성별 <span>*</span></label>
 					</div>
 					
-					<br>
-					
+					<br>	
 					<div class="form-check"> 
 						<input class="gender-radio" type="radio" name="gender" id="male" value ='M'>
 						<label for="male">
@@ -250,7 +260,6 @@ label > span {
 				</div>
 
 				<br>
-				
 				<%-- 주소 --%>
 				<div class="row mb-2 form-row">
 					<div class="col-md-3">
@@ -281,12 +290,16 @@ label > span {
 						<input type="text" class="form-control postcodify_details" name="address2" id="address2">
 					</div>
 				</div>
+				<br>
+			</div>
+			
+			<div class="hr"></div>
 
-				<hr class="mb-8">
-
-				<button class="btn btn-lg btn-block signUpBtn" type="submit">가입하기</button>
-			</form>
-		</div>
+			<br>
+			<div class="signUpBtn-area">
+				<button class="btn btn-lg signUpBtn" type="submit">가입하기</button>
+			</div>
+		</form>
 	</div>
 
 	<jsp:include page="../common/footer.jsp"></jsp:include>
@@ -426,7 +439,7 @@ label > span {
 			// 숫자 11 글자
 			var regExp = /^\d{1,11}$/;
 	
-			if (!regExp.test($memberPhone.val()) {
+			if (!regExp.test($memberPhone.val())) {
 				$("#checkPhone").text("전화번호가 유효하지 않습니다.").css("color", "red");
 				signUpCheck.memberPhone = false;
 			} else {
