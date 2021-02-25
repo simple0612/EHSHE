@@ -54,7 +54,7 @@
 
 
             <ul class="menu_area">
-                <li><a href="${contextPath}">데이트</a></li>
+                <li><a href="${contextPath}/place/placeList">데이트</a></li>
                 
                 <li id="shop_category"><a href="${contextPath}">SHOP</a>
                     
@@ -66,7 +66,7 @@
                     
                 </li>
                 
-                <li><a href="${contextPath}">커뮤니티</a></li>
+                <li><a href="${contextPath}/board/boardList">커뮤니티</a></li>
             </ul>
 
             <div class="login_area">
