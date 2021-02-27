@@ -70,16 +70,16 @@
             </ul>
 
             <div class="login_area">
+           			<c:choose>
+                	<c:when test="${empty sessionScope.loginMember }">
                 	<span><a href="${contextPath}/member/loginView">로그인</a></span>
-             <%-- <c:choose>
-                <c:when test="">
                 </c:when>
                 <c:otherwise>
-                  <span><a href="${contextPath}"></a></span> <!-- 아이디출력 -->
+                  <span><a href="${contextPath}">${loginMember.memberId}</a></span> <!-- 아이디출력 -->
                   <span><a href="${contextPath}">로그아웃</a></span>
                   <span><a href="${contextPath}"><img src="${contextPath}/resources/images/shoppingCart.png"></a></span>
                 </c:otherwise>
-              </c:choose> --%>
+              </c:choose>
             </div>
         </nav>
     </header>
@@ -101,16 +101,16 @@
                 <li><a href="${contextPath}">커뮤니티</a></li>
             </ul>
             <ul class="side2">
+            	<c:choose>
+                <c:when test="${empty sessionScope.loginMember }">
                 	<li><a href="${contextPath}/member/loginView">로그인</a></li>
-            	<%-- <c:choose>
-                <c:when test="">
                 </c:when>
                 <c:otherwise>
-	                <li><a href="${contextPath}"></a></li> <!-- 아이디출력 -->
+	                <li><a href="${contextPath}">${loginMember.memberId}</a></li> <!-- 아이디출력 -->
 	                <li><a href="${contextPath}">로그아웃</a></li>
 	                <li><a href="${contextPath}"><img src="${contextPath}/resources/images/shoppingCart.png"></a></li>
 								</c:otherwise>
-							</c:choose> --%>
+							</c:choose>
             </ul>
         </div>
     </div>
