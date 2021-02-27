@@ -26,14 +26,14 @@
 
 <body>
 	<jsp:include page="../common/header.jsp"/>
-	<br>
+	
 	<div class="container-fluid boardMain">
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<div class="row">
-					<div class="col-md-12 myPlace-header">
-						<h3>나만의 장소</h3>
+					<div class="col-md-12">
+						<h3 class="myPlace-header">나만의 장소</h3>
 					</div>
 				</div>
 				<div class="row myPlace">
