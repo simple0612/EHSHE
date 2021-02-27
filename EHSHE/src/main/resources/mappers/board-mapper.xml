@@ -27,16 +27,57 @@
 		<result property="parentBoardNo" column="BOARD_NO"/>
 	</resultMap>
 
+	<!-- 게시판 전체 게시글 수 조회 -->
 	<select id="getListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM V_BOARD
-		WHERE BOARD_STATUS = 'Y'
-		AND BOARD_CD = #{type}
+		WHERE BOARD_DELETE_FL = 'N'
+	</select>
+	
+	<!-- 게시글 목록 조회 -->
+	<select id="selectList" parameterType="_int" resultMap="board_rm">
+		SELECT BOARD_NO, BOARD_TITLE, MEMBER_ID, READ_COUNT,
+					 CATEGORY_NM, BOARD_CREATE_DT,
+		FROM V_BOARD
+		WHERE BOARD_DELETE_FL = 'N'
+		ORDER BY BOARD_NO DESC
 	</select>
 
+	<!-- 썸네일 이미지 목록 조회 -->
+	<select id="selectAttachmentList" parameterType="_int" resultMap="attachment_rm">
+		SELECT * FROM ATTACHMENT
+		WHERE BOARD_NO = #{boardNo}
+		ORDER BY BOARD_AT_LEVEL
+	</select>
 
+	<!-- 게시글 상세 조회 -->	
+	<select id="selectBoard" parameterType="Board" resultMap="board_rm">
+		SELECT 
+		BOARD_NO, BOARD_TITLE, BOARD_CONTENT, MEMBER_ID, MEMBER_NM, MEMBER_NO, BOARD_CREATE_DT,
+		BOARD_READ_COUNT, BOARD_DELETE_FL, CATEGORY_NM, LATITUDE, LONGITUDE
+		FROM V_BOARD
+		WHERE BOARD_DELETE_FL = 'N'
+		AND BOARD_NO = #{boardNo}
+	</select>
 
+	<!-- 게시글 조회수 증가 -->
+	<update id="increaseReadCount" parameterType="_int">
+		UPDATE EH_BOARD SET
+		BOARD_READ_COUNT = READ_COUNT + 1
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 
+	<select id="selectAttachmentList" parameterType="_int" resultMap="attachment_rm">
+		SELECT * FROM EH_BOARD_ATTACHMENT
+		WHERE BOARD_NO = #{boardNo}
+		ORDER BY FILE_LEVEL
+	</select>
+	
+	<!-- 다음 게시글 번호 조회 -->
+	<select id="selectNextNo" resultType="_int">
+		SELECT SEQ_BO_NO.NEXTVAL FROM DUAL;
+	</select>
 
+	
 
 
 
