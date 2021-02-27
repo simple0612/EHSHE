@@ -77,7 +77,7 @@
 	border-radius: 1rem !important;
 }
 
-div div {
+.area {
 	text-align: center;
 }
 </style>
@@ -95,7 +95,7 @@ div div {
 	<div class="col-md-3">
 
 
-
+		<br> <br> <br><br> <br>	<br> <br> <br><br> <br>
 
 		<div class="area">
 			<div>
@@ -132,14 +132,11 @@ div div {
 
 </body>
 
-<footer>
-	<div class="col-md-12">
+
 
 
 		<jsp:include page="../common/footer.jsp" />
-	</div>
 
-</footer>
 
 </html>
 

@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/default.css">
 
 
 <style>
-a:link {
+<
+style type ="text /css ">a:link {
 	color: black;
 	text-decoration: none;
 }
@@ -20,8 +20,8 @@ a:visited {
 }
 
 a:hover {
-	color: black;
-	text-decoration: none;
+	color: blue;
+	text-decoration: underline;
 }
 
 * {
@@ -30,7 +30,7 @@ a:hover {
 	box-sizing: border-box
 }
 
-.col-md-3 {
+.col-md-7 {
 	font-family: 'Note Sans KR', sans-serif;
 	left: 100px;
 	top: 100px;
@@ -45,7 +45,6 @@ a:hover {
 }
 
 .area {
-	text-align: center;
 	display: inline-block;
 }
 
@@ -55,8 +54,15 @@ h3 {
 }
 
 .titl {
+	
 	text-align: center;
-	left :200px;
+}
+
+
+.tit2 {
+	width: 1240px;
+	height 200px;
+	text-align: center;
 }
 </style>
 
@@ -72,47 +78,53 @@ h3 {
 		<jsp:include page="../common/header.jsp" />
 	</div>
 
-		<br> <br> <br><br> <br>	<br> <br> <br><br> <br>
-		<div class="titl">
-			<h1>마이페이지</h1>
-
-	
-		</div>
-	<div class="col-md-3">
-
-
-
-		<div>
-			<div class="area">
-				<a href="${contextPath}/page/checkpassward"> <img
-					src="${contextPath}/resources/images/mypageicon.png"
-					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>내정보</h1>
-			</div>
-
-			&nbsp; &nbsp; &nbsp; &nbsp;
-			<div class="area">
-				<a href="${contextPath}/page/paymentdetails"><img
-					src="${contextPath}/resources/images/pricelist.png"
-					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>결제내역</h1>
-			</div>
-
-		</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="titl">
+		<h1>내글</h1>
 		<br> <br>
 		<div>
+
+			<a href="${contextPath}/page/mypagemain"> <img
+				src="${contextPath}/resources/images/mytextlist.png"
+				style="width: 100px; height: 100px; margin-bottom: 5px">
+			</a>
+		</div>
+
+	</div>
+	<div class="col-md-7">
+
+
+
+		<div class="tit2">
 			<div class="area">
-				<a href="${contextPath}/page/mywrite"><img
-					src="${contextPath}/resources/images/mytextlist.png"
+
+				<a href="${contextPath}/page/bulletin"> <img
+					src="${contextPath}/resources/images/bulletin.png"
 					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>내글</h1>
+					<h1>게시글</h1>
 			</div>
-			&nbsp; &nbsp; &nbsp; &nbsp;
+
 			<div class="area">
-				<a href="${contextPath}/page/bookmark"><img
-					src="${contextPath}/resources/images/myfavorite.png"
+				<a href="${contextPath}/page/review"><img
+					src="${contextPath}/resources/images/review.png"
 					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>즐겨 찾기</h1>
+					<h1>후기</h1>
+			</div>
+
+			<div class="area">
+				<a href="${contextPath}/page/myQandA"><img
+					src="${contextPath}/resources/images/QandA.png"
+					style="width: 200px; height: 200px; margin-bottom: 5px">
+					<h1>Q&A</h1>
 			</div>
 		</div>
 		<br> <br> <br> <br> <br> <br> <br>
@@ -124,8 +136,7 @@ h3 {
 
 
 
-		<jsp:include page="../common/footer.jsp" />
-
+	<jsp:include page="../common/footer.jsp" />
 
 </body>
 </html>

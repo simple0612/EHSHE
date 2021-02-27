@@ -129,17 +129,13 @@ div div {
 	</div>
 </body>
 
+		<jsp:include page="../common/footer.jsp" />
 
 </body>
 
-<footer>
-	<div class="col-md-12">
 
 
-		<jsp:include page="../common/footer.jsp" />
-	</div>
 
-</footer>
 
 </html>
 

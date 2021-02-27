@@ -67,7 +67,7 @@
 		<div>
 
 			<a href="${contextPath}/page/mypagemain"> <img
-				src="${contextPath}/resources/images/pricelist.png"
+					src="${contextPath}/resources/images/QandA.png"
 				style="width: 100px; height: 100px; margin-bottom: 5px"></a>
 		</div>
 

@@ -59,15 +59,26 @@
 <body>
 	<jsp:include page="../common/header.jsp" />
 
-		<br> <br> <br><br> <br>	<br> <br> <br><br> <br>
-	<div class="titl">
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	
-		<h1>결제 내역</h1>
+		<div class="titl">
+
+
+		<h1>내 게시글</h1>
 		<br> <br>
 		<div>
 
 			<a href="${contextPath}/page/mypagemain"> <img
-				src="${contextPath}/resources/images/pricelist.png"
+				src="${contextPath}/resources/images/bulletin.png"
 				style="width: 100px; height: 100px; margin-bottom: 5px"></a>
 		</div>
 
@@ -88,17 +99,17 @@
 					<tr>
 
 						<th><input type="checkbox"></th>
-						<th>주문번호</th>
-						<th>주문일자</th>
-						<th>상품정보</th>
-						<th>주문금액,수량</th>
+						<th>게시글 번호</th>
+						<th>제목</th>
+						<th>내용</th>
+						<th>등록일</th>
 
 					</tr>
 				</thead>
 				<tbody>
 					<c:if test="${empty bList}">
 						<tr>
-							<td colspan="6">존재하는 게시글이 없습니다.</td>
+							<td colspan="5">존재하는 게시글이 없습니다.</td>
 						</tr>
 					</c:if>
 
@@ -110,19 +121,6 @@
 								<td>${board.boardNo}</td>
 								<td>${board.boardNo}</td>
 								<td>${board.categoryName}</td>
-								<td class="boardTitle">
-									<!----------------- 썸네일 부분 -----------------> <c:forEach
-										items="${thList}" var="th">
-										<c:if test="${th.parentBoardNo == board.boardNo}">
-											<img src="${contextPath}${th.filePath}/${th.fileName}">
-											<!-- /spring  /resources/uploadImages/ ~~ -->
-										</c:if>
-
-									</c:forEach> ${board.boardTitle}
-								</td>
-
-								<td>${board.memberId}</td>
-								<td>${board.readCount}</td>
 								<td>
 									<%-- 날짜 출력 모양 지정 --%> <fmt:formatDate var="createDate"
 										value="${board.boardCreateDate }" pattern="yyyy-MM-dd" /> <fmt:formatDate
@@ -150,7 +148,161 @@
 		<%-- 로그인이 되어있는 경우 --%>
 		<c:if test="${!empty loginMember }">
 			<a class="btn btn-success float-right"
-				href="../${pInfo.boardType}/insert">글쓰기</a>
+				href="../${pInfo.boardType}/insert">삭제하기</a>
+		</c:if>
+
+		<!--------------------------------- pagination  ---------------------------------->
+
+		<div class="my-4">
+			<ul class="pagination">
+
+				<%-- 주소 조합 작업 --%>
+				<c:url var="pageUrl" value="${pInfo.boardType}?" />
+
+				<!-- 화살표에 들어갈 주소를 변수로 생성 -->
+				<c:set var="firstPage" value="${pageUrl}cp=1" />
+				<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}" />
+
+				<%-- EL을 이용한 숫자 연산의 단점 : 연산이 자료형에 영향을 받지 않는다--%>
+				<%-- 
+					<fmt:parseNumber>   : 숫자 형태를 지정하여 변수 선언 
+					integerOnly="true"  : 정수로만 숫자 표현 (소수점 버림)
+				--%>
+
+				<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"
+					integerOnly="true" />
+				<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+				<c:set var="prevPage" value="${pageUrl}cp=${prev}" />
+
+
+				<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }"
+					integerOnly="true" />
+				<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }"
+					integerOnly="true" />
+				<c:set var="nextPage" value="${pageUrl}cp=${next}" />
+
+
+
+				<c:if test="${pInfo.currentPage > pInfo.pageSize}">
+					<li>
+						<!-- 첫 페이지로 이동(<<) --> <a class="page-link" href="${firstPage}">&lt;&lt;</a>
+					</li>
+
+					<li>
+						<!-- 이전 페이지로 이동 (<) --> <a class="page-link" href="${prevPage}">&lt;</a>
+					</li>
+				</c:if>
+
+
+
+				<!-- 페이지 목록 -->
+				<c:forEach var="page" begin="${pInfo.startPage}"
+					end="${pInfo.endPage}">
+					<c:choose>
+						<c:when test="${pInfo.currentPage == page }">
+							<li><a class="page-link">${page}</a></li>
+						</c:when>
+
+						<c:otherwise>
+							<li><a class="page-link" href="${pageUrl}cp=${page}">${page}</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+
+
+				<%-- 다음 페이지가 마지막 페이지 이하인 경우 --%>
+				<c:if test="${next <= pInfo.maxPage}">
+					<li>
+						<!-- 다음 페이지로 이동 (>) --> <a class="page-link" href="${nextPage}">&gt;</a>
+					</li>
+
+					<li>
+						<!-- 마지막 페이지로 이동(>>) --> <a class="page-link" href="${lastPage}">&gt;&gt;</a>
+					</li>
+				</c:if>
+			</ul>
+		</div>
+
+
+	</div>
+	<div class="titl">
+
+		<h1>내 댓글</h1>
+		<br> <br>
+		<div>
+
+			<a href="${contextPath}/page/mypagemain"> <img
+				src="${contextPath}/resources/images/asd123.png"
+				style="width: 100px; height: 100px; margin-bottom: 5px"></a>
+		</div>
+
+	</div>
+
+
+
+	<div class="container board-list">
+		<!-- 게시판 명 얻어오기 -->
+		<h1>${bList[0].boardName}</h1>
+		<c:choose>
+			<c:when test="${pInfo.boardType == 1}">내댓글 리스트</c:when>
+
+		</c:choose>
+		<div>
+			<table class="table table-hover table-striped" id="list-table">
+				<thead>
+					<tr>
+
+						<th><input type="checkbox"></th>
+						<th>댓글 번호</th>
+						<th>내용</th>
+						<th>등록일</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<c:if test="${empty bList}">
+						<tr>
+							<td colspan="4">존재하는 게시글이 없습니다.</td>
+						</tr>
+					</c:if>
+
+					<c:if test="${!empty bList}">
+						<c:forEach var="board" items="${bList}" varStatus="vs">
+
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>${board.boardNo}</td>
+								<td>${board.boardNo}</td>
+								<td>${board.categoryName}</td>
+								<td>
+									<%-- 날짜 출력 모양 지정 --%> <fmt:formatDate var="createDate"
+										value="${board.boardCreateDate }" pattern="yyyy-MM-dd" /> <fmt:formatDate
+										var="now" value="<%=new java.util.Date()%>"
+										pattern="yyyy-MM-dd" /> <c:choose>
+										<c:when test="${createDate != now}">
+											${createDate }
+										</c:when>
+										<c:otherwise>
+											<fmt:formatDate value="${board.boardCreateDate }"
+												pattern="HH:mm" />
+										</c:otherwise>
+									</c:choose>
+								</td>
+
+							</tr>
+						</c:forEach>
+					</c:if>
+				</tbody>
+			</table>
+		</div>
+
+		<hr>
+
+		<%-- 로그인이 되어있는 경우 --%>
+		<c:if test="${!empty loginMember }">
+			<a class="btn btn-success float-right"
+				href="../${pInfo.boardType}/insert">삭제하기</a>
 		</c:if>
 
 		<!--------------------------------- pagination  ---------------------------------->
