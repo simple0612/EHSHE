@@ -127,7 +127,7 @@ nav > * {
 #shop_category:hover ul{
     opacity: 1;
     display : block;
-    background-color: rgba(147, 151, 151, 0.3);
+    background-color: rgba(147, 151, 151, 0.2);
     position:absolute;
     width:100%;
     right:0;
