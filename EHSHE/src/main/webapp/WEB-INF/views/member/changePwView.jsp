@@ -125,7 +125,7 @@
 		</div>
 			
 		<br>
-		<%-- 비밀번호 찾기 form --%>
+		비밀번호 찾기 form
 		<form action="changePw" method="post">
 			<div class="form-container">
 				<div class="form-group">
@@ -140,7 +140,7 @@
 					<div class="pw-info"> * 비밀번호는 ~자의 영문 대소문자 조합하여 설정해 주세요.</div>
 					<div class="pw-info"> * 안전한 계정 사용을 위해 비밀번호는 주기적으로 변경해 주세요.</div>
 				</div>
-			</div> <%-- form-container --%>
+			</div> form-container
 			
 			<br>
 			<div class="hr"></div>
@@ -152,10 +152,9 @@
 		</form>
 				
 		<br>	
-	</div> <%-- form-wrapper %-->
+	</div> form-wrapper
 
-	<%-- footer include --%>
+	footer include
 	<jsp:include page="../common/footer.jsp" />		
 </body>
 </html>
-

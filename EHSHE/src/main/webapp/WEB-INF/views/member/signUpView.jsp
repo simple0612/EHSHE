@@ -179,20 +179,6 @@ label > span {
 					</div>
 				</div>
 
-				<%-- 닉네임 --%>
-				<div class="row mb-2 form-row">
-					<div class="col-md-3">
-						<label for="memberNickName">닉네임 <span>*</span></label>
-					</div>
-					<div class="col-md-9">
-						<input type="text" class="form-control" id="memberNickName" name="memberNickName" placeholder="닉네임을 입력해주세요." required>
-					</div>
-
-					<div class="col-md-6 offset-md-3">
-						<span id="checkNickName">&nbsp;</span>
-					</div>
-				</div>
-
 				<%-- 전화번호 --%>
 				<div class="row mb-2 form-row">
 					<div class="col-md-3">
@@ -269,7 +255,7 @@ label > span {
 
 				<div class="row mb-2 form-row">
 					<div class="col-md-3">
-						<label for="address1"></label>
+						<label for="addr1"></label>
 					</div>
 					<div class="col-md-9">
 						<input type="text" class="form-control postcodify_address" name="address1" id="address1">
@@ -278,7 +264,7 @@ label > span {
 
 				<div class="row mb-2 form-row">
 					<div class="col-md-3">
-						<label for="address2"></label>
+						<label for="addr2"></label>
 					</div>
 					<div class="col-md-9">
 						<input type="text" class="form-control postcodify_details" name="address2" id="address2">

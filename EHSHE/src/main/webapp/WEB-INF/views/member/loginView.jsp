@@ -161,12 +161,12 @@ input[id="save"]:checked + label em {
 								 value="<%-- ${cookie.saveId.value} --%>" required autofocus> 
 				</div>	
 				<div class="form-group">
-					<input type="password" id="memberPwd" name="memberPwd" placeholder="비밀번호를 입력해주세요." class="form-control" required> 
+					<input type="password" id="memberPw" name="memberPw" placeholder="비밀번호를 입력해주세요." class="form-control" required> 
 				</div>
 	
 				<br>			
 				<div class="checkbox">
-					<input type="checkbox" id="save" name="save"
+					<input type="checkbox" id="saveId" name="saveId"
 	
 					<c:if test="${!empty cookie.saveId.value}"> checked </c:if>
 	
