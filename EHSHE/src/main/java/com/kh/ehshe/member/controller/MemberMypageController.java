@@ -46,4 +46,34 @@ public class MemberMypageController {
 	public String paymentdetails() {
 		return "member/paymentdetails";
 	}
+	
+	@RequestMapping("bookmark")
+	public String bookmark() {
+		return "member/bookmark";
+	}
+
+
+	@RequestMapping("mywrite")
+	public String mywrite() {
+		return "member/mywrite";
+	}
+
+
+	
+	@RequestMapping("myQandA")
+	public String myQandA() {
+		return "member/myQandA";
+	}
+	
+	@RequestMapping("review")
+	public String review() {
+		return "member/review";
+	}
+	
+	@RequestMapping("bulletin")
+	public String bulletin() {
+		return "member/bulletin";
+	}
+	
+	
 }
