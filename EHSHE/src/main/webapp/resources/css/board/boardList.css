@@ -1,9 +1,13 @@
+header{
+    position:relative !important;
+    }
+
 .boardMain {
-    top: 150px;
+    margin-top: 50px;
 }
 
 .myPlace-header{
-	
+	text-align:center;
 }
 
 .myPlace{

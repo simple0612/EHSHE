@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+
+	<resultMap type="Board" id="board_rm">
+		<id property="boardNo" column="BOARD_NO"/>
+		
+		<result property="boardTitle" column="BOARD_TITLE"/>
+		<result property="boardContent" column="BOARD_CONTENT"/>
+		<result property="boardCreateDate" column="BOARD_CREATE_DT"/>
+		<result property="readCount" column="BOARD_READ_COUNT"/>
+		
+		<result property="boardDeleteFl" column="BOARD_DELETE_FL"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="categoryName" column="CATEGORY_NM"/>
+		<result property="lat" column="LATITUDE"/>
+		<result property="lon" column="LONGITUDE"/>
+	</resultMap>
+
+	<resultMap type="Attachment" id="attachment_rm">
+		<id property="fileNo" column="BOARD_AT_NO"/>
+		
+		<result property="filePath" column="BOARD_AT_PATH"/>
+		<result property="fileName" column="BOARD_AT_NM"/>
+		<result property="fileLevel" column="BOARD_AT_LEVEL"/>
+		<result property="parentBoardNo" column="BOARD_NO"/>
+	</resultMap>
+
+	<select id="getListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM V_BOARD
+		WHERE BOARD_STATUS = 'Y'
+		AND BOARD_CD = #{type}
+	</select>
+
+
+
+
+
+
+
+
+
+</mapper>

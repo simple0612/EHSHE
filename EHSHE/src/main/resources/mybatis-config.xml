@@ -8,10 +8,15 @@
 
 	<!-- 별칭 추가 -->
 	<typeAliases>
+		<typeAlias type="com.kh.ehshe.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.ehshe.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.ehshe.board.model.vo.Attachment" alias="Attachment"/>
 	</typeAliases>
 
 
 	<mappers>
+		<mapper resource="/mappers/member-mapper.xml"/>
+		<mapper resource="/mappers/board-mapper.xml"/>
 	</mappers>
 	
 	
