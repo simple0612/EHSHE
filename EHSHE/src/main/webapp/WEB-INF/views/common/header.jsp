@@ -76,8 +76,8 @@
                 </c:when>
                 <c:otherwise>
                   <span><a href="${contextPath}">${loginMember.memberId}</a></span> <!-- 아이디출력 -->
-                  <span><a href="${contextPath}">로그아웃</a></span>
-                  <span><a href="${contextPath}"><img src="${contextPath}/resources/images/shoppingCart.png"></a></span>
+                  <span><a href="${contextPath}/member/logout">로그아웃</a></span>
+                  <span><a href="${contextPath}/shop2/cart"><img src="${contextPath}/resources/images/shoppingCart.png"></a></span>
                 </c:otherwise>
               </c:choose>
             </div>
@@ -104,11 +104,11 @@
             	<c:choose>
                 <c:when test="${empty sessionScope.loginMember }">
                 	<li><a href="${contextPath}/member/loginView">로그인</a></li>
-                </c:when>
+                </c:when>            
                 <c:otherwise>
 	                <li><a href="${contextPath}">${loginMember.memberId}</a></li> <!-- 아이디출력 -->
-	                <li><a href="${contextPath}">로그아웃</a></li>
-	                <li><a href="${contextPath}"><img src="${contextPath}/resources/images/shoppingCart.png"></a></li>
+	                <li><a href="${contextPath}/member/logout">로그아웃</a></li>
+	                <li><a href="${contextPath}/shop2/cart"><img src="${contextPath}/resources/images/shoppingCart.png"></a></li>
 								</c:otherwise>
 							</c:choose>
             </ul>
