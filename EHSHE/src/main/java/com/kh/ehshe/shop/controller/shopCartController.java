@@ -14,6 +14,12 @@ public class shopCartController {
 	public String cart() {
 		return "shop/cart";
 	}
+	
+	@RequestMapping("payment")
+	public String payment() {
+		
+		return "shop/payment";
+	}
 
 	
 }

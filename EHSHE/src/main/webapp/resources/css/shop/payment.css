@@ -1,0 +1,313 @@
+.inner{
+    max-width : 1280px;
+    margin:auto;
+}
+
+.my-payment{
+	margin-bottom: 100px;
+}
+
+.payment-heading{
+    margin-top:50px;
+    background:url(../../images/payment.jpg) no-repeat center center;
+    background-size:cover;
+    width:100%;
+    height: 200px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    position:relative;
+}
+.payment-heading:before{
+    content:'';
+    background :linear-gradient(to left bottom, transparent,rgba(221, 13, 204, 0.76), rgba(230, 230, 45, 0.56));
+    opacity: 0.65;
+    width:100%;
+    height: 100%;
+    position:absolute;
+}
+
+.payment-heading .cart-title span{
+    font-size:35px;
+    line-height: 180px;
+    color:#fff;
+    font-weight:600;
+    letter-spacing: -1px;
+    position:relative;
+}
+
+
+
+
+
+
+
+.inner2{
+    max-width: 640px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    margin-top:50px;
+}
+label > span{
+    color:red;
+}
+
+.my-payment input{
+    outline:none;
+}
+
+
+
+.inner2 .ship-place{
+    flex:1;
+    background-color:#fff;
+    padding : 20px;
+    border-radius:10px;
+    box-shadow: 0px 0px 0px 4px rgb(147,149,151);
+    margin-bottom:20px;
+}
+
+
+.inner2 .ship-place h3{
+    margin-bottom: 30px;
+}
+
+.inner .order-info{
+    flex:1;
+    background-color:#fff;
+    margin-bottom:20px;
+    box-shadow: 0px 0px 0px 4px rgb(147,149,151);
+    padding : 20px;
+    border-radius:10px;
+
+}
+.inner .order-info h3{
+    margin-bottom:30px;
+}
+
+
+.inner .final-info{
+    flex:1;
+    background-color:#fff;
+    margin-bottom:20px;
+    box-shadow: 0px 0px 0px 4px rgb(147,149,151);
+    padding : 20px;
+    border-radius:10px;
+}
+
+.inner .final-info h3{
+    margin-bottom:30px;
+}
+
+
+
+
+.ship-info .ship-name{
+    display:flex;
+    margin-bottom: 30px;
+}
+
+.ship-info .ship-name > label{
+    flex:1;
+}
+.ship-info .ship-name .input-name{
+    flex:3;
+    
+}
+.ship-info .ship-name .input-name > input{
+    text-align: center;
+    border-radius: 1rem;
+    border : 1px solid rgb(147,149,151);
+    height : 2.5rem;
+    width:250px;
+}
+
+.ship-info .ship-addr{
+    display: flex;
+    margin-bottom : 20px;
+}
+
+.ship-info .ship-addr > label{
+    display:block;
+    flex: 1;
+}
+
+.ship-info .ship-addr .addr-search{
+    flex: 3;
+}
+.ship-info .ship-addr .addr-search input{
+    text-align: center;
+    border-radius: 1rem;
+    border : 1px solid rgb(147,149,151);
+    height : 2.5rem;
+    margin-bottom : 10px;
+}
+
+.ship-info .ship-addr .addr-search .addr-search1 input{
+    width:150px;
+}
+.ship-info .ship-addr .addr-search .addr-search2 input{
+    width: 350px;
+}
+.ship-info .ship-addr .addr-search .addr-search3 input{
+    width: 350px;
+}
+
+.ship-info .ship-addr .addr-search .addr_btn{
+    background-color: rgb(147,149,151);
+    color:white;
+    border-radius: 5px;
+    border : 1px solid rgb(147,149,151);
+}
+
+
+.ship-tel{
+    display:flex;
+}
+.ship-tel > label{
+    flex:1;
+    display: block;
+}
+.ship-tel .input-tel{
+    flex:3;
+}
+.ship-tel .input-tel > input{
+    width:350px;
+    text-align: center;
+    border-radius: 1rem;
+    border : 1px solid rgb(147,149,151);
+    height : 2.5rem;
+}
+
+
+
+
+.order-info > h3{
+    margin-bottom: 20px;
+}
+
+.order-info .item-info .item-area{
+    height:100px;
+    margin-bottom:16px;
+}
+
+.order-info .item-info .item-area .item{
+    display:flex;
+}
+
+.order-info .item-info .item-area .item .item-img{
+    flex:1 0 auto;
+    flex-shrink: 0;
+}
+.order-info .item-info .item-area .item .item-img img{
+    width:100px;
+    height: 100px;
+    background-color: #F5dF4D;
+}
+.order-info .item-info .item-area .item .item-content{
+    flex:3;
+}
+.order-info .item-info .item-area .item .item-content .item-name{
+    height: 50%;
+    padding-top:10px;
+}
+.order-info .item-info .item-area .item .item-content .item-name >span{
+    margin-left:10px;
+}
+.order-info .item-info .item-area .item .item-content .item-price{
+    height: 50%;
+}
+.order-info .item-info .item-area .item .item-content .item-price >span{
+    margin-left:10px;
+
+}
+
+.order-info .item-info .item-number h5{
+    text-align: center;
+    border-radius: 10px;
+    border : 1px solid rgb(147,149,151);
+}
+
+
+
+/* final info 최종결제정보 */
+
+.final-info .total-cal{
+    height:150px;
+}
+
+.final-info .total-cal .total-price{
+    display: flex;
+    align-items: center;
+    height:33%;
+}
+.final-info .total-cal .total-price .products-price{
+    flex:2;
+    margin-left:20px;
+}
+.final-info .total-cal .total-price .total-won{
+    flex:1;
+}
+
+
+.final-info .total-cal .ship-price{
+    display: flex;
+    align-items: center;
+    height: 33%;
+}
+.final-info .total-cal .ship-price .products-ship{
+    flex:2;
+    margin-left:20px;
+}
+.final-info .total-cal .ship-price .ship-won{
+    flex:1;
+}
+
+.final-info .total-cal .pay-button > button{
+    width: 100%;
+    height:50px;
+    background-color: rgb(245, 223, 77);
+    border-radius: 10px;
+    border : 1px solid rgb(147,149,151);
+    font-size:17px;
+    font-weight: 500;
+    color:white;
+}
+
+
+
+@media(max-width:768px){
+    .ship-info .ship-name{
+        flex-direction: column;
+    }
+    .ship-info .ship-name .input-name > input{
+        width:100%;
+    }
+
+    .ship-info .ship-addr{
+        flex-direction: column;
+    }
+    .ship-info .ship-addr .addr-search .addr-search2 input,
+    .ship-info .ship-addr .addr-search .addr-search3 input{
+        width:100%;
+
+    }
+    .inner2 .ship-place{
+        margin:10px;
+    }
+    
+    .ship-tel{
+        flex-direction: column;
+    }
+    .ship-tel .input-tel > input{
+        width:100%;
+    }
+
+    .order-info{
+        margin:10px;
+    }
+    .final-info{
+        margin:10px;
+    }
+}
