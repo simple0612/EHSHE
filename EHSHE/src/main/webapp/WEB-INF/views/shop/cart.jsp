@@ -19,11 +19,11 @@
 		
 		<jsp:include page="../common/header.jsp" />
 		
-    <section class="my-cart">
+ <section class="my-cart">
         <div class="inner">
             <div class="cart-heading">
                 <div class="cart-title">
-                    <span>장바구니</span>
+                    <span>장바구니/결제</span>
                 </div>
             </div>
             <div class="cart-info">
@@ -48,10 +48,10 @@
                             </div>
                             <div class="cart-price">
                                 <div class="item-price">
-                                    <span>21000</span>
+                                    <span class="iprice">21000</span>
                                 </div>
                                 <div class="item-number">
-                                    <span class="item-num">수량</span>
+                                    <span class="item-num">3</span>
                                 </div>
                                 <div class="item-delete">
                                     <span class="delete-btn">삭제</span>
@@ -72,10 +72,10 @@
                             </div>
                             <div class="cart-price">
                                 <div class="item-price">
-                                    <span>10000</span>
+                                    <span class="iprice">10000</span>
                                 </div>
                                 <div class="item-number">
-                                    <span class="item-num">수량</span>
+                                    <span class="item-num">2</span>
                                 </div>
                                 <div class="item-delete">
                                     <span>삭제</span>
@@ -96,18 +96,16 @@
                             </div>
                             <div class="cart-price">
                                 <div class="item-price">
-                                    <span>15000</span>
+                                    <span class="iprice">15000</span>
                                 </div>
                                 <div class="item-number">
-                                    <span class="item-num">수량</span>
+                                    <span class="item-num">1</span>
                                 </div>
                                 <div class="item-delete">
                                     <span>삭제</span>
                                 </div>
                             </div>
                         </div>
-                        
-
                     </div>
                 </div>
                 <div class="payment-info">
@@ -115,19 +113,19 @@
                         <form action="#" method="POST">
                             <div class="item-total-price price">
                                 <label for="tprice">총가격</label>
-                                <input type="number" id="tprice" value="2.02" readonly/>
+                                <input type="number" id="tprice" value="" readonly/>
                             </div>
                             <div class="ship-price price">
                                 <label for="sprice">배송비</label>
-                                <input type="number" id="sprice" value="2000" readonly/>
+                                <input type="number" id="sprice" value="" readonly/>
                             </div>
                             <div class="total-price price">
                                 <label for=tsprice>총가격 + 배송비</label>
-                                <input type="number" id="tsprice" value="4000"  readonly/>
+                                <input type="number" id="tsprice" value=""  readonly/>
                             </div>
                             <div class="pay-area">
                                 <button type="submit" class="do_payment">
-                                    주문하기
+                                    결제하기
                                 </button>
                             </div>
                         </form>
@@ -144,15 +142,13 @@
 				const selectReply = document.getElementsByName('ck');
 				selectReply.forEach((checkbox)=>{
 					checkbox.checked = selectAll.checked;
+                    
+                   
 				})
 			}
          /* 개별 삭제 버튼 */   
         $(".delete-btn").on("click", function(){
-
-            var item
-
-            $()
-
+            $.ajax
         }); 
 
 
@@ -160,24 +156,96 @@
         
         /* 전체 삭제 버튼 */
         $(".delete-all").on("click", function(){
-
             var list = [];
-
             $("input:checkbox[name='ck']:checked").each(function(index){
-
                 if($(this).val() != "on"){
                     list.push()
                 }
-
             });
         })
         
+      
+      
+      
+      
         // - 체크된 물건의 가격을 얻어오는 방법
+        var totalprice = 0;
+        $(".checkone").on("click", function(){
+            
+            var iprice = Number($(this).parent().next().next().next().children().children().eq(0).text());
+            var inumber = Number($(this).parent().next().next().next().children().children().eq(1).text());
+
+            if($(this).prop("checked")){
+                totalprice += (iprice * inumber); 
+                $("#tprice").val(totalprice);
+            }else{
+                totalprice -= (iprice * inumber);
+                $("#tprice").val(totalprice);
+                $(".checkall").prop("checked",false);
+            }
+
+
+            if(totalprice > 20000){
+                var sprice = 2000;
+                $("#sprice").val(sprice);
+            }else{
+                var sprice = 0;
+                $("#sprice").val(sprice);
+            }
+            $("#tsprice").val(totalprice + sprice);
+        });
+
+        
+        // 전체 체크된 물건의 가격을 얻어오는 방법.
+        var alltotalprice = 0;
+        
+        $(".checkall").on("click",function(){
+            totalprice = 0;
+        
+        //    console.log($(".iprice"))
+        for(let i=0; i<$(".iprice").length; i++){
+
+
+            var inumber = Number($(".item-num")[i].innerText);
+            
+            var itprice = Number($(".iprice")[i].innerText);
+            
+            
+            totalprice += (itprice * inumber);
+            
+         }
+
+         if($(this).prop("checked")){
+
+
+             $("#tprice").val(totalprice);
+
+
+             if(totalprice > 20000){
+
+                var sprice = 2000; 
+                $("#sprice").val(sprice);
+             
+                $("#tsprice").val(totalprice + sprice);
+             }
+         } else{
+
+            totalprice = 0;
+
+            $("#tprice").val(0);
+            $("#sprice").val(0);
+            $("#tsprice").val(0);
+         }
+        //console.log(totalprice);
+
+        });
 
 
 
+        
+        
         // - 얻어온 가격 총합을 화면에 출력하는 방법 
-
+        
 
 
         // - 삭제버튼 누르면 없애는 방법 등등
