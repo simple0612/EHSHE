@@ -59,17 +59,17 @@
                         <thead>
                           <tr>
                             <th scope="col">상품명</th>
-                            <th colspan="2">옷</th>
+                            <th colspan="2">${shop.itemNm}</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
                             <th scope="row">가격</th>
-                            <td colspan="2">2,000원</td>
+                            <td colspan="2">${shop.itemPrice}원</td>
                           </tr>
                           <tr>
                             <th scope="row">배송비</th>
-                            <td colspan="2">무료배송</td>
+                            <td colspan="2">${shop.transCharge}</td>
                           </tr>
                           <tr>
                             <th scope="row">사이즈</th>
@@ -102,7 +102,7 @@
                           </tr>
                           <tr>
                             <th scope="row">Total</th>
-                            <td colspan="2">2,000원</td>
+                            <td colspan="2">${shop.itemPrice}원</td>
                           </tr>
                           <tr>
                             <th scope="row">
