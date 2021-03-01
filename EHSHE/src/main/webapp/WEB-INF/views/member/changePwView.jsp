@@ -20,6 +20,9 @@
 <!-- fontawesome -->
 <script src="https://kit.fontawesome.com/5a7a3b1a34.js" crossorigin="anonymous"></script>
 
+		<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
+  	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <title>EHSHE</title>
 
 <style>
@@ -89,6 +92,10 @@
 	border-radius: 1rem !important;
 }
 
+.form-group {
+	margin-bottom: 0 !important;
+}
+
 .changePwBtn-area {
 	text-align: center;
 }
@@ -125,22 +132,30 @@
 		</div>
 			
 		<br>
-		비밀번호 찾기 form
-		<form action="changePw" method="post">
+		<%-- 비밀번호 찾기 form --%>
+		<form action="updatePw" method="post" onsubmit="return validate();">
 			<div class="form-container">
 				<div class="form-group">
-					<input type="password" id="pw1" name="pw1" placeholder="비밀번호를 입력해주세요." class="form-control" required autofocus> 
+					<input type="password" id="newPw1" name="newPw1" placeholder="비밀번호를 입력해주세요." class="form-control" required autofocus> 
+				</div>
+				
+				<div class="col-md-12 offset-md mb-2">
+					<span id="checkPw1">&nbsp;</span>
 				</div>
 	
 				<div class="form-group" id="input-margin">
-					<input type="password" id="pw2" name="pw2" placeholder="비밀번호를 재입력해주세요." class="form-control" required> 
+					<input type="password" id="newPw2" name="newPw2" placeholder="비밀번호를 재입력해주세요." class="form-control" required> 
+				</div>
+				
+				<div class="col-md-12 offset-md mb-2">
+					<span id="checkPw2">&nbsp;</span>
 				</div>
 				
 				<div class="form-body">
 					<div class="pw-info"> * 비밀번호는 ~자의 영문 대소문자 조합하여 설정해 주세요.</div>
 					<div class="pw-info"> * 안전한 계정 사용을 위해 비밀번호는 주기적으로 변경해 주세요.</div>
 				</div>
-			</div> form-container
+			</div> <%-- form-container --%>
 			
 			<br>
 			<div class="hr"></div>
@@ -152,9 +167,12 @@
 		</form>
 				
 		<br>	
-	</div> form-wrapper
-
-	footer include
+	</div> <%-- form-wrapper --%>
+	
+	<%-- 유효성 검사 및 이메일 인증 js --%>
+	<script src="${contextPath}/resources/js/changePw.js"></script>
+	
+	<%-- footer include --%>
 	<jsp:include page="../common/footer.jsp" />		
 </body>
 </html>

@@ -1,3 +1,45 @@
+// 입력 값들이 유효성 검사가 진행되어있는지 확인하기 위한 객체 생성
+var checkValidation = {
+    "memberNm": false,
+    "memberEmail": false
+//	"certify": false
+}
+
+// 실시간 유효성 검사 --------------------
+// 정규표현식
+var $memberNm = $("#memberNm");
+var $memberEmail = $("#memberEmail");
+
+// 이름 유효성 검사
+$memberNm.on("input", function() {
+	// 한글 두 글자 이상
+	var regExp = /^[가-힣]{2,}$/;
+
+	if (!regExp.test($(this).val())) {
+		$("#checkNm").text("정확한 이름을 입력해주세요.").css("color", "red");
+		checkValidation.memberNm = false;
+	} else {
+		$("#checkNm").text("").css("color", "green");
+		checkValidation.memberNm = true;
+	}
+}); // 이름 유효성 검사 
+
+// 이메일 유효성 검사
+$memberEmail.on("input",function() {
+	// 4글자 아무단어 @ 아무단어 . * 3
+	var regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
+
+	if (!regExp.test($(this).val())) {
+		$("#checkEmail").text("이메일 형식이 유효하지 않습니다.").css("color", "red");
+		checkValidation.memberEmail = false;
+	} else {
+		$("#checkEmail").text("").css("color", "green");
+		checkValidation.memberEmail = true;
+	}
+});
+
+// ----------------------------------------------------
+
 // 입력 값들이 유효성 겁사가 진행되어있는지 확인하기 위한 객체 생성
 /*var validateCheck = {
     "name": false,

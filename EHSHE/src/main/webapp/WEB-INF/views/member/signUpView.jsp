@@ -18,6 +18,9 @@
 <!-- fontawesome -->
 <script src="https://kit.fontawesome.com/5a7a3b1a34.js" crossorigin="anonymous"></script>
 
+<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <!-- Postcodify 오픈 소스 -->
 <!-- https://www.poesis.org/postcodify/-->
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
@@ -61,6 +64,23 @@
 	border-radius: 1rem !important;
 }
 
+/* 체크박스 css */
+input[name="gender"] {
+	display:none;
+}
+
+input[name="gender"] + label em { /* 인접요소 선택자 */
+    display : inline-block;
+    width:16px;
+    height:16px;
+    margin:0 5px 3px 0;
+    background: url(${contextPath}/resources/images/checkOut.png) 0 0 no-repeat;
+    vertical-align: middle;
+}
+
+input[name="gender"]:checked + label em {
+    background: url(${contextPath}/resources/images/check.png) 0 0 no-repeat;
+}
 
 label {
 	font-size: 0.9rem !important;
@@ -121,7 +141,7 @@ label > span {
 
 		<br>
 		<%-- 회원 가입 form --%>
-		<form action="signUp" method="POST" class="needs-validation" onsubmit="return validate();">
+		<form action="signUp" method="POST" name="signUp" class="needs-validation" onsubmit="return validate();">
 			<div class="form-container">
 				<%-- 아이디 --%>
 				<div class="mb-2 form-row">
@@ -132,7 +152,7 @@ label > span {
 						<input type="text" class="form-control" name="memberId" id="memberId" placeholder="아이디를 입력해주세요." autocomplete="off" required>
 					</div>
 					<%-- 유효성 검사 --%>
-					<div class="col-md-6 offset-md-3">
+					<div class="col-md-9 offset-md-3">
 						<span id="checkId">&nbsp;</span>
 					</div> 
 				</div>
@@ -143,10 +163,10 @@ label > span {
 						<label for="memberPw1">비밀번호  <span>*</span></label>
 					</div>
 					<div class="col-md-9">
-						<input type="password" class="form-control" id="memberPw1" name="memberPw1" placeholder="비밀번호를 입력해주세요." required>
+						<input type="password" class="form-control" id="memberPw1" name="memberPw" placeholder="비밀번호를 입력해주세요." required>
 					</div>
 
-					<div class="col-md-6 offset-md-3">
+					<div class="col-md-9 offset-md-3">
 						<span id="checkPw1">&nbsp;</span>
 					</div>
 				</div>
@@ -160,7 +180,7 @@ label > span {
 						<input type="password" class="form-control" id="memberPw2" placeholder="비밀번호 재입력" required>
 					</div>
 
-					<div class="col-md-6 offset-md-3">
+					<div class="col-md-9 offset-md-3">
 						<span id="checkPw2">&nbsp;</span>
 					</div>
 				</div>
@@ -168,14 +188,14 @@ label > span {
 				<%-- 이름 --%>
 				<div class="row mb-2 form-row">
 					<div class="col-md-3">
-						<label for="memberName">이름 <span>*</span></label>
+						<label for="memberNm">이름 <span>*</span></label>
 					</div>
 					<div class="col-md-9">
-						<input type="text" class="form-control" id="memberName" name="memberName" placeholder="이름을 입력해주세요." required>
+						<input type="text" class="form-control" id="memberNm" name="memberNm" placeholder="이름을 입력해주세요." required>
 					</div>
 
-					<div class="col-md-6 offset-md-3">
-						<span id="checkName">&nbsp;</span>
+					<div class="col-md-9 offset-md-3">
+						<span id="checkNm">&nbsp;</span>
 					</div>
 				</div>
 
@@ -187,7 +207,7 @@ label > span {
 					<div class="col-md-9">
 						<input type="text" class="form-control phone" id="memberPhone" name="memberPhone" placeholder=" - 없이 입력해주세요." maxlength="11" required>
 					</div>
-					<div class="col-md-6 offset-md-3">
+					<div class="col-md-9 offset-md-3">
 						<span id="checkPhone">&nbsp;</span>
 					</div>
 				</div>
@@ -204,7 +224,7 @@ label > span {
 				<button type="button" class="btn" id="certifyBtn">&nbsp;인증&nbsp;</button>			
 				</div>
 					
-				<div class="col-md-6 offset-md-3">
+				<div class="col-md-9 offset-md-3">
 					<span id="checkEmail">&nbsp;</span>
 				</div>
 				
@@ -226,15 +246,15 @@ label > span {
 					
 					<br>	
 					<div class="form-check"> 
-						<input class="gender-radio" type="radio" name="gender" id="male" value ='M'>
-						<label for="male">
-							남성 &nbsp;&nbsp;&nbsp;&nbsp;
+						<input class="gender-radio" type="radio" name="memberGender" id="female" value ='F' checked>
+						<label for="female">
+							<em></em> 여성 &nbsp;&nbsp;&nbsp;&nbsp;
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="gender-radio" type="radio" name="gender" id="female"  value='Y'>
-						<label for="female">
-							여성
+						<input class="gender-radio" type="radio" name="memberGender" id="male"  value='M'>
+						<label for="male">
+							<em></em> 남성
 						</label>
 					</div>
 				</div>
@@ -243,10 +263,10 @@ label > span {
 				<%-- 주소 --%>
 				<div class="row mb-2 form-row">
 					<div class="col-md-3">
-						<label for="postcodify_search_button">주소</label>
+						<label for="postcodify_search_button">주소 <span>*</span></label>
 					</div>
 					<div class="col-md-4">
-						<input type="text" name="post" class="form-control postcodify_postcode5">
+						<input type="text" name="post" id="post" class="form-control postcodify_postcode5" required>
 					</div>
 					<div class="col-md-3">
 						<button type="button" class="btn" id="postcodify_search_button">검색</button>
@@ -258,7 +278,7 @@ label > span {
 						<label for="addr1"></label>
 					</div>
 					<div class="col-md-9">
-						<input type="text" class="form-control postcodify_address" name="address1" id="address1">
+						<input type="text" class="form-control postcodify_address" name="addr1" id="addr1">
 					</div>
 				</div>
 
@@ -267,7 +287,7 @@ label > span {
 						<label for="addr2"></label>
 					</div>
 					<div class="col-md-9">
-						<input type="text" class="form-control postcodify_details" name="address2" id="address2">
+						<input type="text" class="form-control postcodify_details" name="addr2" id="addr2">
 					</div>
 				</div>
 				<br>
@@ -282,11 +302,11 @@ label > span {
 		</form>
 	</div>
 
-	<%-- 회원 가입 유효성 검사 및 이메일 인증 js --%>
-	<%-- <script src="${contextPath}/resources/js/memberValidation.js?ver=250"></script> --%>
-
 	<%-- footer --%>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
+
+	<%-- 회원 가입 유효성 검사 및 이메일 인증 js --%>
+	<script src="${contextPath}/resources/js/memberValidation.js"></script>
 
 	<script>
 	// postcodify popup
