@@ -88,12 +88,20 @@ a:hover {
 							<h6>아이디</h6>
 						</div>
 						<div class="col-md-6">
-							<input type="text" class="form-control" id="id" name="id">
+						<h5 id ="id">${loginMember.memberId}</h5>
 						</div>
 					</div>
 
 
-					<!-- 비밀번호 -->
+								<!-- 새 비밀번호 -->
+					<div class="row mb-3 form-row">
+						<div class="col-md-3">
+							<h6>현재 비밀번호</h6>
+						</div>
+						<div class="col-md-6">
+							<h5 id ="pass">${loginMember.memberPw}</h5>
+						</div>
+					</div>
 
 					<!-- 새 비밀번호 -->
 					<div class="row mb-3 form-row">
@@ -127,12 +135,14 @@ a:hover {
 							<h6>이름</h6>
 						</div>
 						<div class="col-md-6">
-							<input type="text" class="form-control" id="name" name="name">
+							<input type="text" class="form-control" id="name" name="name"
+							 value="${loginMember.memberNm}">
+						
 						</div>
 					</div>
 
 
-
+	
 
 					<!-- 이메일 -->
 					<div class="row mb-3 form-row">
@@ -141,48 +151,17 @@ a:hover {
 						</div>
 						<div class="col-md-6">
 							<input type="email" class="form-control" id="email"
-								name="memberEmail" value="${loginMember.memberEmail}">
+								name="memberEmail" value="#">
 						</div>
 					</div>
 
 
 					<c:set var="phone"
-						value="${fn:split(loginMember.memberPhone,'-') }" />
+						value="#" />
 					<c:set var="address"
-						value="${fn:split(loginMember.memberAddress,',') }" />
+						value="#" />
 
-					<!-- 전화번호 -->
-					<div class="row mb-3 form-row">
-						<div class="col-md-3">
-							<label for="phone1">휴대폰번호</label>
-						</div>
-
-						<!-- 전화번호1 -->
-						<div class="col-md-3">
-							<select class="custom-select" id="phone1" name="phone1">
-								<option <c:if test="${phone[0] == '010'}">selectd</c:if>>010</option>
-								<option <c:if test="${phone[0] == '011'}">selectd</c:if>>011</option>
-								<option <c:if test="${phone[0] == '016'}">selectd</c:if>>016</option>
-								<option <c:if test="${phone[0] == '017'}">selectd</c:if>>017</option>
-								<option <c:if test="${phone[0] == '019'}">selectd</c:if>>019</option>
-							</select>
-							<%-- select의 value를 JSTL로 처리하는 방법 --%>
-						</div>
-
-
-						<!-- 전화번호2 -->
-						<div class="col-md-3">
-							<%-- 위에 배열로 저장되어있는 인덱스를 가져옴--%>
-							<input type="number" class="form-control phone" id="phone2"
-								name="phone2" maxlength="4" value="${phone[1]}">
-						</div>
-
-						<!-- 전화번호3 -->
-						<div class="col-md-3">
-							<input type="number" class="form-control phone" id="phone3"
-								name="phone3" maxlength="4" value="${phone[2]}">
-						</div>
-					</div>
+			
 
 
 					<br>
@@ -197,7 +176,7 @@ a:hover {
 						</div>
 						<div class="col-md-3">
 							<input type="text" name="post" id="post"
-								class="form-control postcodify_postcode5" value="${address[0]}">
+								class="form-control postcodify_postcode5" value="#">
 						</div>
 						<div class="col-md-3">
 							<button type="button" class="btn btn-success"
@@ -211,7 +190,7 @@ a:hover {
 						</div>
 						<div class="col-md-9">
 							<input type="text" class="form-control postcodify_address"
-								name="address1" id="address1" value="${address[1]}">
+								name="address1" id="address1" value="#">
 						</div>
 					</div>
 
@@ -221,7 +200,7 @@ a:hover {
 						</div>
 						<div class="col-md-9">
 							<input type="text" class="form-control postcodify_details"
-								name="address2" id="address2" value="${address[2]}">
+								name="address2" id="address2" value="#">
 						</div>
 					</div>
 

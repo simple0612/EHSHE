@@ -9,11 +9,20 @@
 
 
 <style>
+a:link {
+	color: black;
+	text-decoration: none;
+}
 
- a:link { color: black; text-decoration: none;}
- a:visited { color: black; text-decoration: none;}
- a:hover { color: black; text-decoration: none;}
+a:visited {
+	color: black;
+	text-decoration: none;
+}
 
+a:hover {
+	color: black;
+	text-decoration: none;
+}
 
 * {
 	margin: 0;
@@ -95,7 +104,9 @@
 	<div class="col-md-3">
 
 
-		<br> <br> <br><br> <br>	<br> <br> <br><br> <br>
+		<br> <br> <br>
+		<br> <br> <br> <br> <br>
+		<br> <br>
 
 		<div class="area">
 			<div>
@@ -103,39 +114,42 @@
 				<a href="${contextPath}/page/mypagemain"> <img
 					src="${contextPath}/resources/images/mypageicon.png"
 					style="width: 100px; height: 100px; margin-bottom: 5px"></a>
-					
+
 			</div>
 			<br> <br>
-			<h3>
-				memberId 님의 회원정보를 안전하게 보호하기 위해 다시 한번 비밀번호를 입력해주세요.
-			</h3>
+			<h3>${loginMember.memberId} 님의 회원정보를 안전하게 보호하기 위해 다시 한번 비밀번호를
+				입력해주세요.</h3>
 
 
 			<div class="box">
 				<div class="container-4">
 					<input type="password" id="memberPwd" name="memberPwd"
 						class="form-control" placeholder="비밀번호를 입력해주세요" />
-					<button class="icon" >
-						<a href="${contextPath}/page/mypage"> <img
-							src="${contextPath}/resources/images/mypageicon.png"
-							style="width: 40px; height: 40px; margin-bottom: 5px">
-					</button>
+						
+						
+						
+						<button class="icon">
+							<a href="${contextPath}/page/mypage"> <img
+								src="${contextPath}/resources/images/mypageicon.png"
+								style="width: 40px; height: 40px; margin-bottom: 5px">
+						</button>
+
+			
+
+
 
 				</div>
 			</div>
-			<br> <br> 	<br> <br> 
+			<br> <br> <br> <br>
 
 		</div>
 	</div>
 </body>
 
-
-</body>
-
+<script></script>
 
 
-
-		<jsp:include page="../common/footer.jsp" />
+<jsp:include page="../common/footer.jsp" />
 
 
 </html>

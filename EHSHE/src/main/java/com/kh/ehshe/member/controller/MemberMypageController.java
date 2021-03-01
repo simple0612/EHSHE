@@ -26,7 +26,11 @@ public class MemberMypageController {
 	public String checkpassward() {
 		return "member/checkpassward";
 	}
-
+	
+	/**
+	 * 마이페이지로이동
+	 * @return
+	 */
 	@RequestMapping("mypage")
 	public String mypage() {
 		return "member/mypage";
