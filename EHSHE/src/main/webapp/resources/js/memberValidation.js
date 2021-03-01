@@ -1,33 +1,32 @@
-	// 유효성 검사 결과를 저장할 객체
-/*	var signUpCheck = {
-		"id" : false,
-		"pwd1" : false,
-		"pwd2" : false,
-		"name" : false,
-		"phone2" : false,
-		"email" : false
-	};
+// 유효성 검사 결과를 저장할 객체
+var signUpCheck = {
+	"memberId" : false,
+	"memberPw1" : false,
+	"memberPw2" : false,
+	"memberNm" : false,
+	"memberPhone" : false,
+	"memberEmail" : false
+};
 
-	// 실시간 유효성 검사 --------------------
-	// 정규표현식
-	var $memberId("#memberId");
-	var $memberPw1("#memberPw1");
-	var $memberPw2("#memberPw2");
-	var $memberName("#memberName");
-	var $memberNickName("#memberNickName");
-	var $memberPhone("#memberPhone");
-	var $memberEmail("#memberEmail");
+// 실시간 유효성 검사 --------------------
+// 정규표현식
+var $memberId = $("#memberId");
+var $memberPw1 = $("#memberPw1");
+var $memberPw2 = $("#memberPw2");
+var $memberNm = $("#memberNm");
+var $memberPhone = $("#memberPhone");
+var $memberEmail = $("#memberEmail");
 	
 	// 아이디 유효성 검사 
 	$memberId.on("input", function(){
-		//영어 대,소문자 + 숫자, 총 6~12글자
-		var regExp = /^[a-z][a-zA-z\d]{5,11}$/;
+		//영어 대,소문자 + 숫자, 총 5~12글자
+		var regExp = /^[a-z][a-zA-z\d]{4,11}$/;
 		
-		if (!regExp.test($memberId.val())) {
+		if(!regExp.test($memberId.val())) {
 			$("#checkId").text("아이디 형식이 유효하지 않습니다.").css("color", "red");
-			signUpCheck.id = false;
-		} else {
-			
+			signUpCheck.memberId = false;
+		
+		} else {	
 			// 아이디 중복검사 AJAX --------------------
 			$.ajax({
 				url : "idDupCheck",
@@ -38,16 +37,16 @@
 					
 					if(result == 0){ // 중복 x == 사용 가능한 아이디
 						$("#checkId").text("사용 가능한 아이디 입니다.").css("color", "green");
-						signUpCheck.id = true;
+						signUpCheck.memberId = true;
 					} else {
 						$("#checkId").text("이미 사용중인 아이디 입니다.").css("color", "red");
-						signUpCheck.id = false;							
+						signUpCheck.memberId = false;							
 					}					
 				},
 				error : function(){
 					console.log("ajax 통신 실패");
 				}
-			}); // AJAX 
+			}); // 아이디 중복 검사 (AJAX) 
 		}
 	}); // 아이디 유효성 검사
 	
@@ -62,7 +61,7 @@
 			$("#checkPw1").text("비밀번호 형식이 유효하지 않습니다.").css("color", "red");
 			signUpCheck.memberPw1 = false;
 		} else {
-			$("#checkPw2").text("유효한 비밀번호 형식입니다.").css("color", "green");
+			$("#checkPw1").text("유효한 비밀번호 형식입니다.").css("color", "green");
 			signUpCheck.memberPw1 = true;
 		}
 
@@ -84,34 +83,18 @@
 	
 	
 	// 이름 유효성 검사
-	$memberName.on("input", function() {
+	$memberNm.on("input", function() {
 		// 한글 두 글자 이상
 		var regExp = /^[가-힣]{2,}$/;
 
 		if (!regExp.test($(this).val())) {
-			$("#checkName").text("한글 두 글자 이상을 입력하세요.").css("color", "red");
-			signUpCheck.memberName = false;
+			$("#checkNm").text("한글 두 글자 이상을 입력하세요.").css("color", "red");
+			signUpCheck.memberNm = false;
 		} else {
-			$("#checkName").text("정상입력").css("color", "green");
-			signUpCheck.memberName = true;
+			$("#checkNm").text("정상입력").css("color", "green");
+			signUpCheck.memberNm = true;
 		}
 	}); // 이름 유효성 검사 
-	
-	
-	// 닉네임 유효성 검사
-	$memberNickName.on("input", function() {
-		// 한글 + 영어 대,소문자 + 아무숫자, 총 2~10글자
-		var regExp = /^[가-힣a-zA-Z\d]{2,10}$/;
-
-		if (!regExp.test($(this).val())) {
-			$("#checkNickName").text("적절하지 않은 닉네임 입니다.").css("color", "red");
-			signUpCheck.memberNickName = false;
-		} else {
-			$("#checkNickName").text("정상입력").css("color", "green");
-			signUpCheck.memberNickName = true;
-		}
-	}); // 닉네임 유효성 검사 
-	
 	
 	// 휴대번호 유효성 검사
 	$memberPhone.on("input", function() {
@@ -121,8 +104,8 @@
 			$(this).val($(this).val().slice(0, $(this).prop("maxLength")));
 		}
 
-		// 숫자 11 글자
-		var regExp = /^\d{1,11}$/;
+		// - 제외, 01 + (0,1,6,7,8,9) 이후 아무숫자 3~4, 아무숫자 4글자
+		var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 
 		if (!regExp.test($memberPhone.val())) {
 			$("#checkPhone").text("전화번호가 유효하지 않습니다.").css("color", "red");
@@ -139,7 +122,7 @@
 		// 4글자 아무단어 @ 아무단어 . * 3
 		var regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
 
-		if (!regExp.test($(this).val())) { // 이메일이 정규식을 만족하지 않을경우
+		if (!regExp.test($(this).val())) {
 			$("#checkEmail").text("이메일 형식이 유효하지 않습니다.").css("color", "red");
 			signUpCheck.memberEmail = false;
 		} else {
@@ -159,8 +142,7 @@
 				case "memberId" : str = "아이디"; break;
 				case "memberPw1": str = "비밀번호";	break;
 				case "memberPw2": str = "비밀번호 확인";break;
-				case "memberName": str = "이름";	break;
-				case "memberNickName": str = "닉네임";	break;
+				case "memberNm": str = "이름";	break;
 				case "memberPhone":str = "휴대번호";break;
 				case "memberEmail": str = "이메일"; break;
 				}
@@ -174,4 +156,13 @@
 				return false;
 			}
 		}
-	} */
+		
+			// 입력된 주소 조합하여 form태그에 hidden으로 추가 하기
+			// 왜? -> 커맨드 객체를 이용하여 파라미터를 한번에 받기 쉽게 하기 위하여
+			//		 -> 아니면 컨트롤러에서 노가다로 작성해야 함
+			$memberAddr = $("<input>", {type : "hidden", name : "memberAddr",
+					value : $("#post").val() + "," + $("#addr1").val() + "," + $("#addr2").val()
+			});
+
+			$("form[name='signUp']").append($memberAddr);
+	}

@@ -73,12 +73,15 @@
  	font-weight: 600;
 	color: #7c7c7c;
 	text-align: center;
-	
 }
 
 .form-control {
 	height: 3rem !important;
 	border-radius: 1rem !important;
+}
+
+.form-group {
+	margin-bottom: 0 !important;
 }
 
 .findPwBtn-area {
@@ -129,18 +132,24 @@
 				<div class="form-group">
 					<input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요." class="form-control" required autofocus> 
 				</div>
+				
+				<div class="col-md-12 offset-md mb-2">
+					<span id="checkId">&nbsp;</span>
+				</div>
 	
 				<div class="form-group">
 					<input type="email" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요." class="form-control" required> 
 				</div>
-				
-				<div class="form-group">
-					<input type="email" id="certify" name="certify" placeholder="인증번호를 입력해주세요." class="form-control" required> 
-				</div>
 			
-				<div class="col-md-6 offset-md-3">
+				<div class="col-md-12 offset-md mb-2">
 					<span id="checkEmail">&nbsp;</span>
 				</div>
+				
+				<div class="form-group">
+					<input type="email" id="certify" name="certify" placeholder="인증번호를 입력해주세요." class="form-control"> 
+				</div>
+				
+				<br>
 			</div> <%-- form-container --%>
 			<div class="hr"></div>
 			
@@ -154,7 +163,7 @@
 	</div> <%-- form-wrapper %-->
 
 	<%-- 유효성 검사 및 이메일 인증 js --%>
-<%-- 	<script src="${contextPath}/resources/js/findPw.js"></script> --%>	
+	<script src="${contextPath}/resources/js/findPw1.js"></script>	
 
 	<%-- footer include --%>
 	<jsp:include page="../common/footer.jsp" />		

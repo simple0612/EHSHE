@@ -158,7 +158,7 @@ input[id="save"]:checked + label em {
 			<form action="login" method="post">
 				<div class="form-group">
 					<input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요." class="form-control" 
-								 value="<%-- ${cookie.saveId.value} --%>" required autofocus> 
+								 value="${cookie.saveId.value}" required autofocus> 
 				</div>	
 				<div class="form-group">
 					<input type="password" id="memberPw" name="memberPw" placeholder="비밀번호를 입력해주세요." class="form-control" required> 
@@ -180,15 +180,15 @@ input[id="save"]:checked + label em {
 			<div class="info-user">
 				<ul class="list-user">
 					<li>
-						<a href="${contextPath}/member/findIdView">아이디 찾기</a>									
+						<a href="findIdView">아이디 찾기</a>									
 					</li>
 					<li>ㅣ</li>
 					<li>
-						<a href="${contextPath}/member/findPwView">비밀번호 찾기</a>
+						<a href="findPwView">비밀번호 찾기</a>
 					</li>
 					<li>ㅣ</li>
 					<li>
-						<a href="${contextPath}/member/tosView">회원가입</a>
+						<a href="tosView">회원가입</a>
 					</li>
 				</ul>								
 			</div>			

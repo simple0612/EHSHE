@@ -109,14 +109,15 @@
 		<div class="hr"></div>	    
 
 		<div class="form-container">		
-			<br>						
-			<div class=img-area></div>
 			
 			<br>
 			<div class="welcome-area">
-				<span class="member-name">애옹이<%-- ${loginMember}.memberId --%>님, </span>
+				<span class="member-name"> ${loginMember.memberId} 님, </span>
 				<span class="welcome-text"> 환영합니다! </span>
 			</div>
+
+			<br>						
+			<div class=img-area></div>
 
 			<br>
 			<div class="text-guide"> EHSHE 가입이 완료되었습니다. <br>

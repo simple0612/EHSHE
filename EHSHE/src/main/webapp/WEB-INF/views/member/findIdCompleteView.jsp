@@ -118,10 +118,10 @@
 		
 		<br>
 		<div class="form-body">
-			<div class="info-user" style="color: #404040"> 아이디 : user00 <%-- ${member.memberId} --%></div>
+			<div class="info-user" style="color: #404040"> 아이디 : ${memberInfo.memberId} </div>
 			<br>
-			<div class="info-user"> 이름    &nbsp;&nbsp;&nbsp;: 애옹이 <%-- ${member.memberName} --%></div>
-			<div class="info-user"> 이메일 : user00@naver.com <%-- ${member.memberEmail} --%></div>
+			<div class="info-user"> 이름    &nbsp;&nbsp;&nbsp;: ${memberInfo.memberNm} </div>
+			<div class="info-user"> 이메일 : ${memberInfo.memberEmail} </div>
 		</div>
 
 		<br>

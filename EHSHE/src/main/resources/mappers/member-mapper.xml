@@ -9,8 +9,9 @@
 		<result property="memberId" column="MEMBER_ID"/>
 		<result property="memberPw" column="MEMBER_PW"/>
 		<result property="memberNm" column="MEMBER_NM"/>
+		<result property="memberEmail" column="MEMBER_EMAIL"/>
 		<result property="memberPhone" column="MEMBER_PHONE"/>
-		<result property="memberEmail" column="MEMBER_GENDER"/>
+		<result property="memberGender" column="MEMBER_GENDER"/>
 		<result property="memberAddr" column="MEMBER_ADDR"/>
 		<result property="memberEnrollDate" column="MEMBER_ENROLL_DATE"/>
 		<result property="memberStatus" column="MEMBER_STATUS"/>
@@ -19,19 +20,74 @@
 	</resultMap>
 	
 	<!-- 로그인 -->
-	<select id="login" parameterType="Member" resultMap="member_rm" >
+	<select id="login" parameterType="Member" resultMap="member_rm">
 		 SELECT *
 		 FROM EH_MEMBER
 		 WHERE MEMBER_ID = #{memberId}
 		 AND MEMBER_STATUS = 'Y'
 	</select>
 
+	<!-- 아이디 중복 체크  -->
+	<select id="idDupCheck" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM EH_MEMBER
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_STATUS = 'Y'
+	</select>
 
+	<!-- 회원 가입 -->
+  <insert id="signUp" parameterType="Member">
+     INSERT INTO EH_MEMBER
+     VALUES(SEQ_MNO.NEXTVAL, #{memberId}, #{memberPw}, #{memberNm}, 
+     #{memberEmail}, #{memberPhone}, #{memberGender}, #{memberAddr},
+     DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+  </insert>
 
+	<!-- 아이디 찾기 (이름/이메일 일치 여부) -->
+	<select id="checkMemberId" parameterType="Member" resultType="_int">
+		SELECT COUNT(*) FROM EH_MEMBER
+		WHERE MEMBER_STATUS = 'Y'
+		AND MEMBER_NM = #{memberNm}
+		AND MEMBER_EMAIL = #{memberEmail}
+	</select>
 
+	<!-- 아이디 찾기 (조회) -->
+	<select id="findId" parameterType="member" resultMap="member_rm">
+		SELECT MEMBER_ID, MEMBER_NM, MEMBER_EMAIL FROM EH_MEMBER
+		WHERE MEMBER_STATUS = 'Y'
+		AND MEMBER_NM = #{memberNm}
+		AND MEMBER_EMAIL = #{memberEmail}		 
+	</select>
+	
+	<!-- 비밀번호 찾기 (아이디/이메일 일치 여부) -->
+	<select id="checkMemberPw" parameterType="Member" resultType="_int">
+		SELECT COUNT(*) FROM EH_MEMBER
+		WHERE MEMBER_STATUS = 'Y'
+		AND MEMBER_ID = #{memberId}
+		AND MEMBER_EMAIL = #{memberEmail}
+	</select>
 
+	<!-- 비밀번호 찾기 (조회) -->
+	<select id="findPw" parameterType="member" resultMap="member_rm">
+		SELECT MEMBER_ID, MEMBER_PW, MEMBER_EMAIL FROM EH_MEMBER
+		WHERE MEMBER_STATUS = 'Y'
+		AND MEMBER_ID = #{memberId}
+		AND MEMBER_EMAIL = #{memberEmail}		 
+	</select>
 
+	<!-- 비밀번호 조회 -->
+ <select id="selectPw" parameterType="string" resultType="string">
+    SELECT MEMBER_PW
+    FROM EH_MEMBER
+    WHERE MEMBER_ID = #{memberId}
+ </select>
 
+	<!-- 비밀번호 변경 -->
+	<update id="updatePw" parameterType="map">
+		UPDATE EH_MEMBER SET
+		MEMBER_PW = #{newPw} <!-- map에 저장된 데이터의 key값을 직접 작성 -->
+		WHERE MEMBER_STATUS = 'Y'
+		AND MEMBER_ID = #{memberId}
+	</update>
 
 
 
