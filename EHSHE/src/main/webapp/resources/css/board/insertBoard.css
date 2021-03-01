@@ -1,54 +1,80 @@
+header{
+    position:relative !important;
+}
+
+.boardMain {
+    margin-top: 50px;
+}
+
 .container-fluid {
-    margin-top: 110px;
+    margin-top: 15px;
 }
 
-.myPlace{
-    margin-top: 30px;
+.boardMain h4{
+    padding: 25px;
+    border-bottom: 1px solid rgb(160, 160, 160);
 }
 
-/* .col-md-3>div{
-    height: 100%;
-} */
 
-.card{
+.table1{
     width: 100%;
     height: 100%;
-    margin-right: 5px;
+}
+
+
+.table1 tr{
+    height: 50px;
+    font-size: 0.95rem;
+}
+
+.table1 td:first-child {
+    width: 15%;
+}
+
+
+.table1 td:last-child {
+    width: 30%;
+}
+
+.table1 input{
+    height: 32px;
+}
+
+.table1 input:not(.addr>td>input){
+    width: 80%;
+}
+
+.addr>td>input{
+    width: 100%;
+}
+
+
+.insert-place{
+    justify-content: center; 
+}
+
+.name>td{
+}
+
+.name>td:nth-of-type(2){
+}
+
+.addr>td{
+}
+
+.addr>td>button{
     margin-left: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    
 }
 
-.card-block>span{
-    font-size: 14px;
-}
-
-.card>img{
-    height: 85%;
-}
-
-
-.card-block>span:nth-of-type(2){
-    float: right;
-    margin-right: 4px;
-}
-.card-block>span:last-child{
-    font-size: 0.8rem;
-}
-
-.insert-btn>button{
-    float: right;
-}
-
-/* 페이지 네이션 */
-.pagination{
+.buttonArea>button{
     justify-content: center; 
-    margin-top: 2%;
 }
 
-.form-inline{
-    justify-content: center; 
-    margin-top: 2%;
-    margin-bottom: 5%;
+.buttonArea{
+    margin-top: 20px;
+    margin-bottom: 200px;
+}
+
+.introduceArea{
+	margin-top: 60px;
 }

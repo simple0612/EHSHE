@@ -13,17 +13,10 @@
 		<typeAlias type="com.kh.ehshe.board.model.vo.Attachment" alias="Attachment"/>
 	</typeAliases>
 
-
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml"/>
 		<mapper resource="/mappers/board-mapper.xml"/>
 	</mappers>
-	
-	
-	
-	
-	
-	
 	
 	
 </configuration>

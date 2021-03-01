@@ -1,6 +1,10 @@
 header{
     position:relative !important;
-    }
+}
+
+.ehsheYellow{
+    background-color: #F5dF4D !important;
+}
 
 .boardMain {
     margin-top: 50px;
@@ -37,7 +41,14 @@ header{
     float: right;
     margin-right: 4px;
 }
+
+.card-block>span:nth-of-type(3){
+    font-size: 0.8rem;
+}
+
+
 .card-block>span:last-child{
+    text-align: center;
     font-size: 0.8rem;
 }
 
@@ -46,7 +57,12 @@ header{
 }
 
 /* 페이지 네이션 */
+.pagination-area{
+    
+}
+
 .pagination{
+    width: 70%;
     justify-content: center;
     margin-top: 2%;
 }

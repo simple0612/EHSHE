@@ -19,13 +19,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.ehshe.board.model.service.BoardService;
+import com.kh.ehshe.board.model.service.BoardServiceImpl;
 import com.kh.ehshe.board.model.vo.Attachment;
 import com.kh.ehshe.board.model.vo.Board;
 import com.kh.ehshe.board.model.vo.PageInfo;
 import com.kh.ehshe.member.model.vo.Member;
 
 @Controller
-@SessionAttributes({ "loginMember" })
+@SessionAttributes({"loginMember"})
 @RequestMapping("/board/*")
 public class BoardController {
 
@@ -41,7 +42,7 @@ public class BoardController {
 	public String boardList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
 
 		PageInfo pInfo = service.getPageInfo(cp);
-
+		
 		// 게시글 목록 조회
 		List<Board> bList = service.selectList(pInfo);
 
@@ -52,7 +53,6 @@ public class BoardController {
 				model.addAttribute("thList", thumbnailList);
 			}
 		}
-
 		model.addAttribute("bList", bList);
 		model.addAttribute("pInfo", pInfo);
 
@@ -60,7 +60,7 @@ public class BoardController {
 	}
 
 	// 게시글 상세 조회 Controller
-	@RequestMapping("boardView/{boardNo}")
+	@RequestMapping("{boardNo}")
 	public String boardView(@PathVariable("boardNo") int boardNo, Model model,
 			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
 
@@ -81,7 +81,7 @@ public class BoardController {
 		} else {
 			// 이전 요청 주소가 없는 경우
 			if (referer == null) {
-				url = "redirect:../list/";
+				url = "redirect:../boardList/";
 			} else { // 이전 요청 주소가 있는 경우
 				url = "redirect:" + referer;
 			}
@@ -94,56 +94,11 @@ public class BoardController {
 	}
 
 	// 게시글 등록 화면 전환용 Controller
-	@RequestMapping("insert")
+	@RequestMapping("insertBoard")
 	public String insertView() {
-		return "board/boardInsert";
+		return "board/insertBoard";
 	}
 
-	/*
-	 * // 게시글 등록 Controller
-	 * 
-	 * @RequestMapping("insertAction") public String insertAction(@ModelAttribute
-	 * Board board,
-	 * 
-	 * @ModelAttribute("loginMember") Member loginMember,
-	 * 
-	 * @RequestParam(value="image", required = false) List<MultipartFile> image,
-	 * HttpServletRequest request, RedirectAttributes ra) {
-	 * 
-	 * // @RequestParam(value="images", required = false) List<MultipartFile> images
-	 * // --> <input type="file" name="images"> 태그를 모두 얻어와 images 라는 List에 매핑
-	 * 
-	 * Map<String, Object> map = new HashMap<String, Object>();
-	 * 
-	 * map.put("memberNo", loginMember.getMemberNo()); map.put("boardTitle",
-	 * board.getBoardTitle()); map.put("boardContent", board.getBoardContent());
-	 * map.put("categoryCode", board.getCategoryName());
-	 * 
-	 * // 파일 업로드 확인 for(int i = 0; i<image.size(); i++) {
-	 * System.out.println("images[" + i + "] : " +
-	 * image.get(i).getOriginalFilename()); }
-	 * 
-	 * String thumbnailSavePath =
-	 * request.getSession().getServletContext().getRealPath("resources/uploadImages"
-	 * ); String ContentsavePath =
-	 * request.getSession().getServletContext().getRealPath("resources/infoImages");
-	 * 
-	 * // 게시글 map, 이미지 image, 저장경로 savePath
-	 * 
-	 * // 게시글 삽입 Service 호출 int result = service.insertBoard(map, image, savePath);
-	 * 
-	 * 
-	 * String url = null; // 게시글 삽입 결과에 따른 View 연결 처리 if(result > 0 ) { swalIcon =
-	 * "success"; swalTitle = "게시글 등록 성공"; url = "redirect:" + result; // 상세조회 페이지
-	 * 
-	 * // 새로 작성한 게시글 상세 조회시 목록으로 버튼 경로 지정하기
-	 * request.getSession().setAttribute("returnListURL", "../list/" + type); }else
-	 * { swalIcon = "error"; swalTitle = "게시글 등록 실패"; url = "redirect:insert"; }
-	 * 
-	 * ra.addFlashAttribute("swalIcon", swalIcon); ra.addFlashAttribute("swalTitle",
-	 * swalTitle);
-	 * 
-	 * return url; }
-	 */
+	
 
 }

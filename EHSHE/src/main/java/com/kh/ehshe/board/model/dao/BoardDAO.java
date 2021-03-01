@@ -17,7 +17,7 @@ public class BoardDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	/**	시판 전체 게시글 수 조회 DAO
+	/**	게시판 전체 게시글 수 조회 DAO
 	 * 작성자 mang
 	 * @return listCount
 	 */
@@ -37,11 +37,11 @@ public class BoardDAO {
 		
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
 		
-		return sqlSession.selectList("boardMapper.selectList",rowBounds);
+		return sqlSession.selectList("boardMapper.selectList", null, rowBounds);
 	}
 
 
-	/** 썸네일 조회 DAO
+	/** 게시글 목록 썸네일 조회 DAO
 	 * 작성자 mang
 	 * @param bList
 	 * @return thumbnailList
