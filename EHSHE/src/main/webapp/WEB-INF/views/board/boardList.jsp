@@ -17,16 +17,12 @@
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/board/boardList.css">
 
-<style>
 
-</style>
-	
-	
 </head>
 
 <body>
-	<jsp:include page="../common/header.jsp"/>
-	
+	<jsp:include page="../common/header.jsp" />
+
 	<div class="container-fluid boardMain">
 		<div class="row">
 			<div class="col-md-2"></div>
@@ -37,124 +33,107 @@
 					</div>
 				</div>
 				<div class="row myPlace">
-					<div class="col-md-3">
-						<div class="row">
-							<div class="card">
-								<img class="card-img-top" alt="Bootstrap Thumbnail"
-									src="${contextPath}/resources/images/thumbnailBox.png" />
-								<div class="card-block">
-									<span class="card-title">포로리야</span> <span class="card-like">❤112</span><br>
-									<span class="card-text">노원구 - 파라미터</span>
+					<c:if test="${empty bList }">
+						<div class="col-md-3">
+							<div class="row">
+								<div class="card">
+									<img class="card-img-top" alt="Bootstrap Thumbnail"
+										src="${contextPath}/resources/images/thumbnailBox.png" />
+									<div class="card-block">
+										<span class="card-title">존재하는 게시글이 없습니다.</span>&nbsp;<span
+											class="card-like">&nbsp;</span><br> <span
+											class="card-text">&nbsp;</span><br> <span
+											class="card-writer">&nbsp;</span>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="row">
-							<div class="card">
-								<img class="card-img-top" alt="Bootstrap Thumbnail"
-									src="${contextPath}/resources/images/thumbnailBox.png" />
-								<div class="card-block">
-									<span class="card-title">포로리야</span> <span class="card-like">🧡32</span><br>
-									<span class="card-text">노원구 - 파라미터</span>
+					</c:if>
+
+					<c:if test="${!empty bList }">
+						<c:forEach var="board" items="${bList}" varStatus="vs">
+							<div class="col-md-3">
+								<div class="row">
+									<div class="card">
+										<div style="display: none;">${board.boardNo}</div>
+										<c:forEach var="th" items="${thList}">
+											<c:if test="${th.parentBoardNo == board.boardNo}">
+											<img class="card-img-top" alt="Bootstrap Thumbnail" src="${contextPath}/resources/images/thumbnailBox.png" />
+												<%-- <img src="${contextPath}${th.filePath}/${th.fileName}"> --%>
+											</c:if>
+										</c:forEach>
+
+										<div class="card-block">
+											<span class="card-title">제목</span>
+											<span class="card-like">❤112</span><br>
+											<span class="card-text">노원구 - 파라미터</span><br>
+											<span class="card-writer">작성자 : 고고</span>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="row">
-							<div class="card">
-								<img class="card-img-top" alt="Bootstrap Thumbnail"
-									src="${contextPath}/resources/images/thumbnailBox.png" />
-								<div class="card-block">
-									<span class="card-title">포로리야</span> <span class="card-like">💛21</span><br>
-									<span class="card-text">노원구 - 파라미터</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="row">
-							<div class="card">
-								<img class="card-img-top" alt="Bootstrap Thumbnail"
-									src="${contextPath}/resources/images/thumbnailBox.png" />
-								<div class="card-block">
-									<span class="card-title">포로리야</span> <span class="card-like">❤44</span><br>
-									<span class="card-text">노원구 - 파라미터</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3">
-						<div class="row">
-							<div class="card">
-								<img class="card-img-top" alt="Bootstrap Thumbnail"
-									src="${contextPath}/resources/images/thumbnailBox.png" />
-								<div class="card-block">
-									<span class="card-title">포로리야</span> <span class="card-like">❤</span><br>
-									<span class="card-text">노원구 - 파라미터</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="row">
-							<div class="card">
-								<img class="card-img-top" alt="Bootstrap Thumbnail"
-									src="${contextPath}/resources/images/thumbnailBox.png" />
-								<div class="card-block">
-									<span class="card-title">포로리야</span> <span class="card-like">❤</span><br>
-									<span class="card-text">노원구 - 파라미터</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="row">
-							<div class="card">
-								<img class="card-img-top" alt="Bootstrap Thumbnail"
-									src="${contextPath}/resources/images/thumbnailBox.png" />
-								<div class="card-block">
-									<span class="card-title">포로리야</span> <span class="card-like">❤</span><br>
-									<span class="card-text">노원구 - 파라미터</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="row">
-							<div class="card">
-								<img class="card-img-top" alt="Bootstrap Thumbnail"
-									src="${contextPath}/resources/images/thumbnailBox.png" />
-								<div class="card-block">
-									<span class="card-title">포로리야</span> <span class="card-like">❤</span><br>
-									<span class="card-text">노원구 - 파라미터</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+						</c:forEach>
+					</c:if>
+
+
 				<div class="row">
 					<div class="col-md-12 insert-btn">
-						<button type="button" class="btn btn-warning ">글쓰기</button>
+						<c:if test="${!empty loginMember }">
+							<a class="btn btn-warning float-right"
+								href="${contextPath}/board/insertBoard">글쓰기</a>
+						</c:if>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-2"></div>
 					<div class="col-md-8">
-						<nav>
+						<nav class="pagination-area">
 							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#">Previous</a>
-								</li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">4</a></li>
-								<li class="page-item"><a class="page-link" href="#">5</a></li>
-								<li class="page-item"><a class="page-link" href="#">Next</a>
-								</li>
+								<%-- 주소 조합 작업 --%>
+								<c:url var="pageUrl" value="?"/>
+
+								<!-- 화살표에 들어갈 주소를 변수로 생성 -->
+								<c:set var="firstPage" value="${pageUrl}cp=1" />
+								<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}" />
+
+								<fmt:parseNumber var="c1"
+									value="${(pInfo.currentPage - 1) / 10 }" integerOnly="true" />
+								<fmt:parseNumber var="prev" value="${ c1 * 10 }"
+									integerOnly="true" />
+								<c:set var="prevPage" value="${pageUrl}cp=${prev}" />
+
+								<fmt:parseNumber var="c2"
+									value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
+								<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }"
+									integerOnly="true" />
+								<c:set var="nextPage" value="${pageUrl}cp=${next}" />
+
+								<c:if test="${pInfo.currentPage > pInfo.pageSize}">
+									<li><a class="page-link" href="${firstPage}">&lt;&lt;</a></li>
+
+									<li><a class="page-link" href="${prevPage}">&lt;</a></li>
+								</c:if>
+
+								<!-- 페이지 목록 -->
+								<c:forEach var="page" begin="${pInfo.startPage}"
+									end="${pInfo.endPage}">
+									<c:choose>
+										<c:when test="${pInfo.currentPage == page }">
+											<li><a class="page-link">${page}</a></li>
+										</c:when>
+
+										<c:otherwise>
+											<li><a class="page-link" href="${pageUrl}cp=${page}">${page}</a>
+											</li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+
+								<c:if test="${next <= pInfo.maxPage}">
+									<li><a class="page-link" href="${nextPage }">&gt;</a></li>
+
+									<li><a class="page-link" href="${lastPage }">&gt;&gt;</a></li>
+								</c:if>
 							</ul>
 						</nav>
 					</div>
@@ -168,9 +147,10 @@
 								<option value="all">전체</option>
 								<option value="title">제목</option>
 								<option value="category">카테고리</option>
+								<option value="location">위치</option>
 							</select> <input id="search-input" class="form-control mr-sm-2"
 								type="text" />
-							<button class="btn btn-warning my-2 my-sm-0" type="submit">
+							<button class="btn ehsheYellow my-2 my-sm-0" type="button">
 								검색</button>
 						</form>
 					</div>
@@ -181,10 +161,23 @@
 		</div>
 	</div>
 
-	<jsp:include page="../common/footer.jsp"/>
+	<jsp:include page="../common/footer.jsp" />
+
+	<c:set var="returnListURL" 
+					value="${contextPath}/board/boardlist/${pageUrl}cp=${pInfo.currentPage}"
+					scope="session"/>
 
 	<script>
-		
+		// 게시글 상세보기 기능 (jquery를 통해 작업)
+		$(".card").on("click", function() {
+			var boardNo = $(this).children().eq(0).text();
+	
+			var boardViewURL = "${contextPath}/board/" + boardNo;
+			
+			// var boardViewURL = "../" + boardNo;
+
+			location.href = boardViewURL;
+		});
 	</script>
 
 
