@@ -75,7 +75,7 @@
                 	<span><a href="${contextPath}/member/loginView">로그인</a></span>
                 </c:when>
                 <c:otherwise>
-                  <span><a href="${contextPath}">${loginMember.memberId}</a></span> <!-- 아이디출력 -->
+                  <span><a href="${contextPath}/page/mypagemain">${loginMember.memberId}</a></span> <!-- 아이디출력 -->
                   <span><a href="${contextPath}/member/logout">로그아웃</a></span>
                   <span><a href="${contextPath}/shop2/cart"><img src="${contextPath}/resources/images/shoppingCart.png"></a></span>
                 </c:otherwise>
@@ -106,7 +106,7 @@
                 	<li><a href="${contextPath}/member/loginView">로그인</a></li>
                 </c:when>            
                 <c:otherwise>
-	                <li><a href="${contextPath}">${loginMember.memberId}</a></li> <!-- 아이디출력 -->
+	                <li><a href="${contextPath}/page/mypagemain">${loginMember.memberId}</a></li> <!-- 아이디출력 -->
 	                <li><a href="${contextPath}/member/logout">로그아웃</a></li>
 	                <li><a href="${contextPath}/shop2/cart"><img src="${contextPath}/resources/images/shoppingCart.png"></a></li>
 								</c:otherwise>

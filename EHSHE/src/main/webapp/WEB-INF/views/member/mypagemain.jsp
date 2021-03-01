@@ -30,6 +30,12 @@ a:hover {
 	box-sizing: border-box
 }
 
+.form-container {
+	margin: auto;
+	height: 100%;
+	max-width: 350px;
+}
+
 .col-md-3 {
 	font-family: 'Note Sans KR', sans-serif;
 	left: 100px;
@@ -56,7 +62,7 @@ h3 {
 
 .titl {
 	text-align: center;
-	left :200px;
+	left: 200px;
 }
 </style>
 
@@ -72,17 +78,28 @@ h3 {
 		<jsp:include page="../common/header.jsp" />
 	</div>
 
-		<br> <br> <br><br> <br>	<br> <br> <br><br> <br>
-		<div class="titl">
-			<h1>마이페이지</h1>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="form-container">
+	<div class="titl">
+		<h1>마이페이지</h1>
+
+
+	</div>
+	</div>
+	<div class="form-container">
+
+
 
 	
-		</div>
-	<div class="col-md-3">
-
-
-
-		<div>
 			<div class="area">
 				<a href="${contextPath}/page/checkpassward"> <img
 					src="${contextPath}/resources/images/mypageicon.png"
@@ -90,7 +107,6 @@ h3 {
 					<h1>내정보</h1>
 			</div>
 
-			&nbsp; &nbsp; &nbsp; &nbsp;
 			<div class="area">
 				<a href="${contextPath}/page/paymentdetails"><img
 					src="${contextPath}/resources/images/pricelist.png"
@@ -98,23 +114,22 @@ h3 {
 					<h1>결제내역</h1>
 			</div>
 
-		</div>
+		
 		<br> <br>
-		<div>
+		
 			<div class="area">
 				<a href="${contextPath}/page/mywrite"><img
 					src="${contextPath}/resources/images/mytextlist.png"
 					style="width: 200px; height: 200px; margin-bottom: 5px">
 					<h1>내글</h1>
 			</div>
-			&nbsp; &nbsp; &nbsp; &nbsp;
 			<div class="area">
 				<a href="${contextPath}/page/bookmark"><img
 					src="${contextPath}/resources/images/myfavorite.png"
 					style="width: 200px; height: 200px; margin-bottom: 5px">
 					<h1>즐겨 찾기</h1>
 			</div>
-		</div>
+		
 		<br> <br> <br> <br> <br> <br> <br>
 		<br>
 	</div>
@@ -124,7 +139,7 @@ h3 {
 
 
 
-		<jsp:include page="../common/footer.jsp" />
+	<jsp:include page="../common/footer.jsp" />
 
 
 </body>
