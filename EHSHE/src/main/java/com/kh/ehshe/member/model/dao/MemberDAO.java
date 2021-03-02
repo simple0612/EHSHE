@@ -82,9 +82,4 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.updatePw", map);
 	}
 
-
-
-
-
-
 }

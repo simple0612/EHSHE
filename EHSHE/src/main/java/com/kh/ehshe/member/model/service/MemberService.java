@@ -1,5 +1,6 @@
 package com.kh.ehshe.member.model.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.kh.ehshe.member.model.vo.Member;
@@ -53,7 +54,5 @@ public interface MemberService {
 	 * @return result
 	 */
 	public abstract int updatePw(Map<String, Object> map);
-
-
 
 }
