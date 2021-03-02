@@ -49,12 +49,12 @@
             <ul class="menu_area">
                 <li><a href="${contextPath}/place/placeList">데이트</a></li>
                 
-                <li id="shop_category"><a href="${contextPath}">SHOP</a>
+                <li id="shop_category"><a href="${contextPath}/shop/shopMain">SHOP</a>
                     
                     <ul class=plus_menu_area>
-                        <li><a href="${contextPath}">Clothes</a></li>
-                        <li><a href="${contextPath}">Accessory</a></li>
-                        <li><a href="${contextPath}">Etc</a></li>
+                        <li><a href="${contextPath}/shop/shopList/1">Clothes</a></li>
+                        <li><a href="${contextPath}/shop/shopList/2">Accessory</a></li>
+                        <li><a href="${contextPath}/shop/shopList/3">Etc</a></li>
                     </ul>
                     
                 </li>
@@ -84,11 +84,11 @@
 
                 <li><a href="${contextPath}">데이트</a></li>
 
-                <li class="popup"><a href="${contextPath}">SHOP<i class="fas fa-caret-down"></i></a>
+                <li class="popup"><a href="${contextPath}/shop/shopMain">SHOP<i class="fas fa-caret-down"></i></a>
                     <ul>
-                        <li><a href="${contextPath}">Clothes</a></li>
-                        <li><a href="${contextPath}">Accessory</a></li>
-                        <li><a href="${contextPath}">etc</a></li>
+                        <li><a href="${contextPath}/shop/shopList/1">Clothes</a></li>
+                        <li><a href="${contextPath}/shop/shopList/2">Accessory</a></li>
+                        <li><a href="${contextPath}/shop/shopList/3">etc</a></li>
                     </ul>
                 </li>
                 <li><a href="${contextPath}">커뮤니티</a></li>
