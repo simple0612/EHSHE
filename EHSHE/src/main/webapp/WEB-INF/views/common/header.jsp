@@ -93,6 +93,7 @@
                 </li>
                 <li><a href="${contextPath}">커뮤니티</a></li>
             </ul>
+            
             <ul class="side2">
             	<c:choose>
                 <c:when test="${empty sessionScope.loginMember }">
