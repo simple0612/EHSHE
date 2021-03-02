@@ -2,11 +2,16 @@ package com.kh.ehshe.member.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.ehshe.member.model.service.MemberService;
 import com.kh.ehshe.member.model.vo.Member;
 
+
 @Controller // 프레젠테이션 레이어, 웹 애플리케이션 전달된 요청 응답을 처리하는 클래스 + bean 등록
 @RequestMapping("/member/*")
 @SessionAttributes({"loginMember", "memberInfo", "memberInfo2"}) // Model에 추가된 데이터 중 key 값이 해당 어노테이션에 적혀있는 값과 일치하는 데이터를 session scope로 이동
@@ -36,6 +42,9 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+    @Autowired
+    private JavaMailSender mailSender;
+
 	// sweet alert 메세지 전달용 변수 선언
 	private String swalIcon;
 	private String swalTitle;
@@ -149,7 +158,7 @@ public class MemberController {
 		// signUpMember : 회원 가입 시 입력한 값들이 저장된 커맨드 객체
 		// 동일한 name 속성을 가진 input 태그 값은 커맨드 객체 사용 가능
 		
-		int result = service.signUp(signUpMember);
+		int result = service.signUp(signUpMember);		
 		
 		// 회원 가입 성공 여부에 따른 메세지 지정
 		if(result > 0) {
@@ -303,4 +312,59 @@ public class MemberController {
 	}
 
 
+    // 이메일 인증	
+	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
+	@ResponseBody
+    public String mailCheck(String email) throws Exception {
+        
+        // ajax로부터 넘어온 데이터 확인 
+    	//System.out.println("이메일 데이터 전송 확인");
+        //System.out.println("인증번호 : " + email);
+
+        // 인증번호(난수) 생성 
+        Random random = new Random();
+        int checkNum = random.nextInt(888888) + 111111;
+        System.out.println("인증번호 " + checkNum);
+
+        // 이메일 보내기
+        String setFrom = "EHSHE" + " <1017heedo@naver.com>";
+        String toMail = email;
+        String title = "EHSHE 가입 인증 이메일 입니다!";
+        String content = 
+        		"<img src =\'https://png.pngtree.com/thumb_back/fw800/background/20190221/ourmid/pngtree-hello-in-november-couple-illustrator-style-outside-the-window-image_41180.jpg\'>" +
+                "<br><br>" +
+				"안녕하세요. EHSHE에 방문해주셔서 감사합니다." +
+                "<br><br>" + 
+                "인증 번호는 " + "<span style = 'font-weight : bold'>" + checkNum + "</span>" + " 입니다." + 
+                "<br>" + 
+                "해당 인증번호를 인증번호 확인란에 입력해 주세요.";
+       
+         try {
+        	
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+	        // true는 멀티파트 메세지를 사용하겠다는 의미
+	        // 단순한 텍스트 메세지만 사용시엔 아래의 코드도 사용 가능 
+	        // MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
+	        
+	        // 빈에 아이디 설정한 것은 단순히 smtp 인증을 받기 위해 사용 따라서 보내는이(setFrom())반드시 필요
+	        // 보내는이와 메일주소를 수신하는이가 볼때 모두 표기 되게 원하신다면 아래의 코드를 사용하시면 됩니다.
+	        //mailHelper.setFrom("보내는이 이름 <보내는이 아이디@도메인주소>");
+	        helper.setFrom(setFrom);
+	        helper.setTo(toMail);
+	        helper.setSubject(title);
+	        helper.setText(content, true); // true는 html을 사용하겠다는 의미입니다.
+	        mailSender.send(message);
+	                
+	        //단순한 텍스트만 사용하신다면 다음의 코드를 사용하셔도 됩니다. mailHelper.setText(content);
+        } catch(Exception e) {
+        	e.printStackTrace();
+        } 
+        
+        String num = Integer.toString(checkNum);
+        
+        return num;
+    }
+
+ 
 }

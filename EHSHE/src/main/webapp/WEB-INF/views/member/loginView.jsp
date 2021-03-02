@@ -54,11 +54,11 @@
 }
 
 /* 체크박스 css */
-input[id="save"] {
+input[id="saveId"] {
 	display: none;
 }
 
-input[id="save"] + label em { /* 인접요소 선택자 */
+input[id="saveId"] + label em { /* 인접요소 선택자 */
     display : inline-block;
     width: 16px;
     height: 16px;
@@ -67,7 +67,7 @@ input[id="save"] + label em { /* 인접요소 선택자 */
     vertical-align: middle;
 }
 
-input[id="save"]:checked + label em {
+input[id="saveId"]:checked + label em {
     background: url(${contextPath}/resources/images/check.png) 0 0 no-repeat;
 }
 
@@ -171,7 +171,7 @@ input[id="save"]:checked + label em {
 					<c:if test="${!empty cookie.saveId.value}"> checked </c:if>
 	
 					>
-	   		 	<label for="save"><em></em>&nbsp; 아이디 저장</label>	
+	   		 	<label for="saveId"><em></em>&nbsp; 아이디 저장</label>	
 				</div>
 				<button class="btn btn-lg btn-block" type="submit">로그인</button>			
 			</form>
@@ -205,7 +205,7 @@ input[id="save"]:checked + label em {
 		<br>
 		<div class="img-area">
 			<span class="link-sns">
-				<a href="<%-- ${contextPath}/member/ --%>">
+				<a href="javascript:klogin();">
 				<img src ="${contextPath}/resources/images/kakao.png" style="width: 51px; height: 51px; margin-bottom: 5px">
 				<br> 카카오 로그인</a>
 			</span>
@@ -221,6 +221,60 @@ input[id="save"]:checked + label em {
 
 	<%-- footer include --%>
 	<jsp:include page="../common/footer.jsp" />			
+	
+	<%-- kakao login --%>
+  <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+	<script>
+	/* 카카오 로그인 */
+    window.Kakao.init('d3198cad73fdf76ad8b09239d1011d94');
+    function klogin() {
+        window.Kakao.Auth.login({
+            scope:'profile, account_email',
+            success: function(authObj) {
+                console.log(authObj);
+                window.Kakao.API.request({
+                    url: '/v2/user/me',
+                        success: res => {
+                        const kakao_account = res.kakao_account
+                        console.log(kakao_account);
+                        console.log(kakao_account.profile.nickname);
+                        console.log(kakao_account.email);
+                          
+                        $.ajax({
+                           url: "${contextPath}/login/kakaoLogin",
+                           data: ({
+                              memberEmail: kakao_account.email,
+                              memberNick: kakao_account.profile.nickname,
+                              /* memberPwd: Kakao.Auth.getAccessToken() */
+                           }),
+                           type: "post",
+                           success: function(result){
+                              if(result == 'already'){ // 이미 아이디가 있을 때
+                                 window.location.href = "${contextPath}/";
+                              }else{
+                                 window.location.href = "${contextPath}/login/addModeInfoView";
+                              }
+                              console.log("성공")
+                              console.log(Kakao.Auth.getAccessToken());
+                           },
+                           error: function(){
+                              console.log("tgt")
+                           }
+                        });
+                        
+                    }
+                });
+            },
+            fail: function() {
+                alert('11');
+            }
+        });   
+    }
+	</script>
+
 </body>
+
+
 </html>
 

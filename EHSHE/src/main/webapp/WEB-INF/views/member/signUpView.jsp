@@ -144,11 +144,11 @@ label > span {
 		<form action="signUp" method="POST" name="signUp" class="needs-validation" onsubmit="return validate();">
 			<div class="form-container">
 				<%-- 아이디 --%>
-				<div class="mb-2 form-row">
+				<div class="row mb-2 form-row">
 					<div class="col-md-3">
 						<label for="memberId">아이디 <span>*</span></label>
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-9 mb-2">
 						<input type="text" class="form-control" name="memberId" id="memberId" placeholder="아이디를 입력해주세요." autocomplete="off" required>
 					</div>
 					<%-- 유효성 검사 --%>
@@ -162,7 +162,7 @@ label > span {
 					<div class="col-md-3">
 						<label for="memberPw1">비밀번호  <span>*</span></label>
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-9 mb-2">
 						<input type="password" class="form-control" id="memberPw1" name="memberPw" placeholder="비밀번호를 입력해주세요." required>
 					</div>
 
@@ -176,7 +176,7 @@ label > span {
 					<div class="col-md-3">
 						<label for="memberPw2"></label>
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-9 mb-2">
 						<input type="password" class="form-control" id="memberPw2" placeholder="비밀번호 재입력" required>
 					</div>
 
@@ -190,7 +190,7 @@ label > span {
 					<div class="col-md-3">
 						<label for="memberNm">이름 <span>*</span></label>
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-9 mb-2">
 						<input type="text" class="form-control" id="memberNm" name="memberNm" placeholder="이름을 입력해주세요." required>
 					</div>
 
@@ -199,12 +199,12 @@ label > span {
 					</div>
 				</div>
 
-				<%-- 전화번호 --%>
+				<%-- 휴대번호 --%>
 				<div class="row mb-2 form-row">
 					<div class="col-md-3">
 						<label for="memberPhone">휴대번호 <span>*</span></label>
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-9 mb-2">
 						<input type="text" class="form-control phone" id="memberPhone" name="memberPhone" placeholder=" - 없이 입력해주세요." maxlength="11" required>
 					</div>
 					<div class="col-md-9 offset-md-3">
@@ -217,27 +217,29 @@ label > span {
 					<div class="col-md-3">
 						<label for="memberEmail">이메일 <span>*</span></label>
 					</div>
-					<div class="col-md-7">
+					<div class="col-md-7 mb-2">
 						<input type="email" class="form-control" id="memberEmail" name="memberEmail" placeholder="이메일 주소 입력" autocomplete="off" required>
 					</div>
-				<%-- 인증 버튼 --%>
-				<button type="button" class="btn" id="certifyBtn">&nbsp;인증&nbsp;</button>			
+					<%-- 인증 버튼 --%>
+					<button type="button" class="btn" id="certifyBtn">&nbsp;인증&nbsp;</button>			
+					<div class="col-md-9 offset-md-3">
+						<span id="checkEmail">&nbsp;</span>
+					</div>
 				</div>
 					
-				<div class="col-md-9 offset-md-3">
-					<span id="checkEmail">&nbsp;</span>
-				</div>
-				
 				<%-- 이메일 인증 --%>
 				<div class="row mb-2 form-row">
 					<div class="col-md-3">
 						<label for="certify">이메일 인증 <span>*</span></label>
 					</div>
-					<div class="col-md-7">
+					<div class="col-md-7 mb-2">
 						<input type="text" class="form-control" id="certify" name="certify" placeholder="인증번호를 입력해주세요." autocomplete="off" required>
 					</div>
+					<div class="col-md-9 offset-md-3">
+						<span id="checkEmailNumber">&nbsp;</span>
+					</div>
 				</div>	
-				
+						
 				<%-- 성별 --%>
 				<div class="row">
 					<div class="col-md-3">
@@ -315,5 +317,6 @@ label > span {
 	});
 	</script>
 
+ 
 </body>
 </html>

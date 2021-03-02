@@ -5,7 +5,8 @@ var signUpCheck = {
 	"memberPw2" : false,
 	"memberNm" : false,
 	"memberPhone" : false,
-	"memberEmail" : false
+	"memberEmail" : false,
+	"certificationCheck" : false
 };
 
 // 실시간 유효성 검사 --------------------
@@ -131,6 +132,41 @@ var $memberEmail = $("#memberEmail");
 		}
 	});
 	
+	// 이메일 인증 검사	
+	// 이메일 인증 번호 저장을 위한 변수
+	var code = "";
+	
+	// 인증번호 이메일 전송
+	$("#certifyBtn").on("click", function(){
+	    var email = $("#memberEmail").val(); // 입력한 이메일
+	    
+	    $.ajax({   
+	        url: "mailCheck?email=" + email,
+	        type: "GET",
+	        success: function(data) {
+	        	console.log(data)
+	        	$("#checkEmailNumber").text("인증번호가 발송되었습니다.").css("color", "green");
+	        	code = data;
+	        },
+  				error : function(){
+						console.log("ajax 통신 실패");
+					}
+	    });
+	});
+	
+	// 인증 번호 비교
+	$(function(){
+		$("#certify").on("input", function(){
+			if($(this).val() != code || $(this).val() == 0){
+			 $("#checkEmailNumber").text("인증번호가 불일치합니다.").css("color", "red");				
+			 signUpCheck.certificationCheck = false;
+			} else {
+			 $("#checkEmailNumber").text("인증번호가 일치합니다.").css("color", "green");
+			 signUpCheck.certificationCheck = true;
+			}
+		});
+	});
+	
 	
 	// 유효성 검사
 	function validate() {
@@ -147,6 +183,9 @@ var $memberEmail = $("#memberEmail");
 				case "memberEmail": str = "이메일"; break;
 				}
 	
+			if(key == certificationCheck) {
+				swal({icon:"warning", title: "이메일 인증이 완료되지 않았습니다."});
+			} 				
 				swal({icon:"warning", title:str + " 형식이 유효하지 않습니다."})
 				.then(function(){
 					var memberId = "#" + key;
@@ -157,12 +196,12 @@ var $memberEmail = $("#memberEmail");
 			}
 		}
 		
-			// 입력된 주소 조합하여 form태그에 hidden으로 추가 하기
-			// 왜? -> 커맨드 객체를 이용하여 파라미터를 한번에 받기 쉽게 하기 위하여
-			//		 -> 아니면 컨트롤러에서 노가다로 작성해야 함
-			$memberAddr = $("<input>", {type : "hidden", name : "memberAddr",
-					value : $("#post").val() + "," + $("#addr1").val() + "," + $("#addr2").val()
-			});
+		// 입력된 주소 조합하여 form태그에 hidden으로 추가 하기
+		// 왜? -> 커맨드 객체를 이용하여 파라미터를 한번에 받기 쉽게 하기 위하여
+		//		 -> 아니면 컨트롤러에서 노가다로 작성해야 함
+		$memberAddr = $("<input>", {type : "hidden", name : "memberAddr",
+				value : $("#post").val() + "," + $("#addr1").val() + "," + $("#addr2").val()
+		});
 
-			$("form[name='signUp']").append($memberAddr);
+		$("form[name='signUp']").append($memberAddr);
 	}
