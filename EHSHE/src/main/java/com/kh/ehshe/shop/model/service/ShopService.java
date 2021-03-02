@@ -26,6 +26,14 @@ public interface ShopService {
 
 	
 	
+	/** 썸네일 목록 조회 Service
+	 * @param sList
+	 * @return thList
+	 */
+	List<ShopAttachment> selectShopThumbnailList(List<Shop> sList);
+
+	
+	
 	/** shop 게시글 상세조회 Service
 	 * @param itemNo
 	 * @param type
@@ -34,6 +42,12 @@ public interface ShopService {
 	Shop selectShopBoard(int itemNo, int type);
 
 	
+	/** shop 포함된 이미지 목록 조회 Service
+	 * @param itemNo
+	 * @return ShopAttachmentList
+	 */
+	ShopAttachment selectShopAttachmentList(int itemNo);
+
 	
 	
 	/** Shop 게시글 삽입 Service 
@@ -48,9 +62,12 @@ public interface ShopService {
 	 * @param uploadFile
 	 * @param savePath
 	 * @param type 
-	 * @return at
+	 * @return ㅁ
 	 */
 	ShopAttachment insertShopImage(MultipartFile uploadFile, String savePath, int type);
+
+
+
 
 	
 	

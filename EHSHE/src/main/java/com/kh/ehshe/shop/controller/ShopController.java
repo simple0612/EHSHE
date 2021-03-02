@@ -49,33 +49,68 @@ public class ShopController {
 		ShopPageInfo pInfo = service.getPageInfo(type, cp);
 
 		List<Shop> sList = service.selectShopList(pInfo);
-
+		
+		if(sList != null && !sList.isEmpty()) {
+			
+			List<ShopAttachment> thumbnailList = service.selectShopThumbnailList(sList);
+			
+			if(thumbnailList != null) {
+				model.addAttribute("thList",thumbnailList);
+			}
+		}
+			
 		model.addAttribute("sList", sList);
 		model.addAttribute("pInfo", pInfo);
-
+		
 		return "shop/shopList";
 	}
 
 	// 상세조회
 	@RequestMapping("{type}/{itemNo}")
-	public String shopView(@PathVariable("type") int type, @PathVariable("itemNo") int itemNo, Model model,
-			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+	public String shopView(@PathVariable("type") int type
+			, @PathVariable("itemNo") int itemNo, 
+			Model model,
+			@RequestHeader(value = "referer", required = false) String referer, 
+			RedirectAttributes ra) {
 
 		Shop shop = service.selectShopBoard(itemNo, type);
 
-		model.addAttribute("shop", shop);
+		String url = null;
 
-		return "shop/shopView";
+		if(shop != null) {
+			
+		ShopAttachment ShopAttachmentList =service.selectShopAttachmentList(itemNo);
+			
+			if(ShopAttachmentList != null) {
+				model.addAttribute("ShopAttachmentList", ShopAttachmentList);
+				
+			}
+		
+			model.addAttribute("shop", shop);
+			url ="shop/shopView";
+		}else {
+			
+		   if(referer == null) {
+		   url = "redirect:../shopList/" + type;
+			
+		}else {
+			url = "redirect:" + referer;
+		}
+		ra.addFlashAttribute("swalIcon","error");
+		ra.addFlashAttribute("swalTitle","존재하지 않는 게시글입니다.");
+	}
+
+		return url;
 	}
 
 	// shop 게시글 등록 전환
-	@RequestMapping("shopInsert")
+	@RequestMapping("{type}/shopInsert")
 	public String shopInsert() {
 
 		return "shop/shopInsert";
 	}
 
-	@RequestMapping("shopInsertAction")
+	@RequestMapping("{type}/shopInsertAction")
 	public String shopInsertAction(@ModelAttribute Shop shop,
 			@RequestParam(value = "images", required = false) List<MultipartFile> images, HttpServletRequest request,
 			RedirectAttributes ra) {
@@ -105,14 +140,14 @@ public class ShopController {
 		if (result > 0) {
 			swalIcon = "success";
 			swalIcon = "게시글 등록 성공";
-			url = "redirect:" + result;
+			url = "redirect:"+result;
 
 			request.getSession().setAttribute("returnListURL", "../shopList/" + shop.getItemCategory());
 
 		} else {
 			swalIcon = "error";
 			swalTitle = "게시글 등록 실패";
-			url = "redirect:ShopInsert";
+			url = "redirect:shopInsert";
 		}
 		ra.addFlashAttribute("swalIcon", swalIcon);
 		ra.addFlashAttribute("swalTitle", swalTitle);
@@ -124,20 +159,21 @@ public class ShopController {
 	// summernote에 업로드된 이미지 저장 Controller
 	
 	@ResponseBody // 응답 시 값 자체를 돌려보냄
-	@RequestMapping("{type}/insertShopImage")
+	@RequestMapping("{type}/ShopInsertImage")
 	public String insertShopImage(HttpServletRequest request,
 							   @PathVariable("type") int type,
 							   @RequestParam("uploadFile") MultipartFile uploadFile) {
 		// 서버에 파일(이미지)를 저장할 폴더 경로 얻어오기
+	   System.out.println("realType"+type);
 		String savePath=null;
 		
 		if(type == 1) {
 			savePath
 			 = request.getSession().getServletContext().getRealPath("resources/clothesImages");
-		}else if( type== 2) {
+		}else if(type== 2) {
 			savePath
 			 = request.getSession().getServletContext().getRealPath("resources/accessoryImages");
-		}else {
+		}else{
 			savePath
 			 = request.getSession().getServletContext().getRealPath("resources/etcImages");
 		}

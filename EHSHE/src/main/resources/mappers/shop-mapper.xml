@@ -18,7 +18,7 @@
 	</resultMap>
 
 		<resultMap type="ShopAttachment" id="shopattachment_rm">
-			<id property="fileNo;" column="IMG_NO"/>
+			<id property="fileNo" column="IMG_NO"/>
 			<result property="filePath" column="IMG_PATH"/>
 			<result property="fileName" column="IMG_NAME"/>
 			<result property="fileLevel" column="IMGE_LEVEL"/>
@@ -43,16 +43,36 @@
 			AND ITEM_CATEGORY = #{type}
 			ORDER BY ITEM_NO DESC
 	</select>
+	
+	<!-- Shop 썸네일 목록 조회 -->
+	<select id="selectShopThumnailList" parameterType="list" resultMap="shopattachment_rm">
+			SELECT * FROM EH_ITEM_IMG
+			WHERE IMG_LEVEL = 0
+			AND ITEM_NO IN
+			<foreach collection="list" item="shop" open="(" close=")" separator="," >
+			 #{shop.itemNo}				
+			</foreach>	
+	
+	</select>
+	
 
   <!-- shop 게시글 상세 조회 -->
   <select id="selectShopBoard" parameterType="Shop" resultMap="shop_rm">
-     SELECT ITEM_NO,ITEM_NM,ITEM_PRICE,
+     SELECT ITEM_NO,ITEM_NM,ITEM_PRICE,ITEM_CONTENT,
 						TRANSPORT_CHARGE
 		 FROM V_ITEM
 		 WHERE ITEM_DELETE_FL = 'N' 
 		 AND ITEM_NO = #{itemNo}
 		 AND ITEM_CATEGORY =#{itemCategory}
   </select>
+
+
+	<!-- 게시글에  포함된 이미지 목록 조회  -->
+		<select id="selectShopAttachmentList" parameterType="_int" resultMap="shopattachment_rm">
+			SELECT * FROM EH_ITEM_IMG
+			WHERE ITEM_NO = #{itemNo}
+			AND IMG_LEVEL=0
+		</select>
 
 	<!-- shop 다음게시글 번호 조회 -->
 		<select id="selectShopNextNo" resultType="_int">
@@ -73,10 +93,10 @@
 			INSERT INTO EH_ITEM_IMG
 			SELECT SEQ_IT_IMGNO.NEXTVAL, A.* FROM (
 				<foreach collection="list" item="item"  separator=" UNION ALL ">
-					SELECT #{item.filePath} IMG_PATH,
-								 #{item.fileName} IMG_NAME,
+					SELECT #{item.fileName} IMG_NAME,
+								 #{item.filePath} IMG_PATH,
 								 #{item.fileLevel} IMG_LEVEL,
-								 #{item.parentBoardNo} ITEM_NO
+								 #{item.parentShopNo} ITEM_NO
 					FROM DUAL	
 				</foreach>
 			)A
