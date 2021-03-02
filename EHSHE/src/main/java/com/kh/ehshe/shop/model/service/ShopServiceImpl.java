@@ -42,7 +42,12 @@ public class ShopServiceImpl implements ShopService {
 		
 		return dao.selectShopList(pInfo);
 	}
-
+	
+	//  썸네일 목록 조회 Service 구현
+	@Override
+	public List<ShopAttachment> selectShopThumbnailList(List<Shop> sList) {
+		return dao.selecShopThumbnailList(sList);
+	}
 	
 	
 	// shop 게시글 상세조회 Service 구현
@@ -57,13 +62,19 @@ public class ShopServiceImpl implements ShopService {
 		
 		return shop;
 	}
+	
+	
+	// shop에 포함된 이미지 목록 조회 Service 구현
+	@Override
+	public ShopAttachment selectShopAttachmentList(int itemNo) {
+		return dao.selectShopAttachmentList(itemNo);
+	}
 
 	
 	// shop 게시글 삽입 Service 구현
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public int insertShop(Map<String, Object> map, List<MultipartFile> images, String savePath) {
-		
 		
 		int result = 0;
 		
@@ -87,7 +98,7 @@ public class ShopServiceImpl implements ShopService {
 					
 				}else if((int)map.get("shopCategory") ==2) {
 					filePath ="/resources/accessoryImages";
-				}else {
+				}else if((int)map.get("shopCategory") ==3) {
 					filePath ="/resources/etcImages";
 				}
 				
@@ -98,7 +109,7 @@ public class ShopServiceImpl implements ShopService {
 						 
 						 String fileName = rename(images.get(i).getOriginalFilename());
 						 
-						 ShopAttachment at = new ShopAttachment(filePath,fileName,i,shopNo);
+						 ShopAttachment at = new ShopAttachment(fileName,filePath,i,shopNo);
 						 
 						 uploadImages.add(at);
 					 }
@@ -122,7 +133,7 @@ public class ShopServiceImpl implements ShopService {
 					fileName = src.substring(src.lastIndexOf("/")+ 1); // 업로드된 파일명만 잘라서 별도로 저장.
 					
 					// Attachment 객체를 이용하여 DB에 파일 정보를 저장
-					ShopAttachment at = new ShopAttachment(filePath, fileName, 1, shopNo);
+					ShopAttachment at = new ShopAttachment(fileName, filePath, 1, shopNo);
 					uploadImages.add(at);
 				}
 			
@@ -131,26 +142,23 @@ public class ShopServiceImpl implements ShopService {
 				if(!uploadImages.isEmpty()) {
 				
 				result = dao.insertShopAttachmentList(uploadImages);
-
+				System.out.println("나야나"+uploadImages);
 				if(result == uploadImages.size()) {
 					
 					result = shopNo; 
 					
 					int size = 0;
 					
-					if((int)map.get("shopCategory")== 1) {
-						size = uploadImages.size();
-					}else if(!images.get(0).getOriginalFilename().equals("")){
+				    if(!images.get(0).getOriginalFilename().equals("")){
 						size = images.size();
 					}
 					
 					
-					for(int i =0; i<uploadImages.size(); i++) {
+					for(int i =0; i<size; i++) {
 						
 							try {
 								images.get(uploadImages.get(i).getFileLevel())
-								.transferTo(new File(savePath +"/"+uploadImages)  );
-								
+								.transferTo(new File(savePath +"/"+uploadImages.get(i).getFileName()));
 								
 								
 								
@@ -219,11 +227,24 @@ public class ShopServiceImpl implements ShopService {
 		at.setFilePath(filePath);
 		at.setFileName(fileName);
 		
+		try {
+		 uploadFile.transferTo(new File(savePath+ "/" +fileName));
+
+		}catch(Exception e) {
+				e.printStackTrace();
+			throw new InsertShopAttachmentFailException("summernote 파일 업로드 실패");
+			
+			
+		}
 		
 		
 		
 		return at;
 	}
+
+
+
+	
 	
 
 }

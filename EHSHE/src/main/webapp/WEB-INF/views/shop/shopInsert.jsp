@@ -68,7 +68,7 @@ position:relative !important;
     
     <div class="container" style="margin-top: 110px;">
       <h1>Shop Insert</h1>
-        <form action="shopInsertAction" method="post" enctype="multipart/form-data" role="form">
+        <form action="shopInsertAction" method="post" enctype="multipart/form-data" role="form" style="margin-bottom:200px;">
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4 a boardImg" style="height:400px;">
@@ -144,6 +144,7 @@ position:relative !important;
         </div>
        </form>
     </div>
+  <jsp:include page="../common/footer.jsp"/>		
 </body>
 
 <script>

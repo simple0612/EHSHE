@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,43 +19,56 @@
    /*    div{
             border: 1px solid black;
         }   */   
-        img{
-          width:100%;
-          height:100%;
-        }
-        .a{
-          height: 400px;
-        }
-        .b{
-          height: 100%;
-          width: 100%;
-          margin: 0px auto;
-        }
-        .c{
-          margin: 5px;
-    
-        }
-        .j{
-          width: 25px;
-          height: 25px;
-        }
-          header{
-        position:relative !important;
-        }
-        .main{
-        margin-top:50px;
-        }
+img{
+  width:100%;
+  height:100%;
+}
+.a{
+  height: 400px;
+}
+.b{
+  height: 100%;
+  width: 100%;
+  margin: 0px auto;
+}
+.c{
+  margin: 5px;
+
+}
+.j{
+  width: 25px;
+  height: 25px;
+}
+  header{
+position:relative !important;
+}
+.main{
+margin-top:50px;
+}
+.btnColor{
+background-color: #F5dF4D;
+color:black;
+}
+.btnColor2{
+  background-color: #939597;
+  color: white;
     </style>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>	
     <div class="container main">
         <div class="row">
+           <c:if test="${!empty ShopAttachmentList}"> 
             <div class="col-md-6">
                 <div class="mb-4 a">
-                    <img src="여행.jpg" class="rounded mx-auto d-block">
+                    <img src="${contextPath}${ShopAttachmentList.filePath}/${ShopAttachmentList.fileName}" class="rounded mx-auto d-block">
                 </div>
+                  <div class="float-left">
+			        				<button type="button" class="btn btnColor2">상품수정</button>
+			        		</div>
               </div>
+           </c:if>
+           
             <div class="col-md-6">
                 <div>
                     <table class="table table-borderless">
@@ -74,7 +90,7 @@
                           <tr>
                             <th scope="row">사이즈</th>
                             <td colspan="2">  
-                              <select name="select"> 
+                              <select name="select" class="form-control" style="width: 255px;"> 
                               <option selected>사이즈를 선택하세요.</option>
                               <option>S</option>
                               <option>M</option>
@@ -85,7 +101,8 @@
                           </tr>
                           <tr>
                             <th scope="row">색상</th>
-                            <td colspan="2">                              <select name="select"> 
+                            <td colspan="2">                             
+                             <select name="select" class="form-control" style="width: 255px;"> 
                               <option selected>색상을 선택하세요.</option>
                               <option>red</option>
                               <option>black</option>
@@ -123,54 +140,13 @@
                 </div>
             </div>
         </div>
+      
         <hr>
         <div class="row" style="margin-top: 30px;">
           <div class="col-md-12">
             <div class="mb-4 b">
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
-              이것은 옷입니다. 사이즈는 여러개 있고요. 
+           	<% pageContext.setAttribute("newLine","\n"); %>
+						${fn:replace(shop.itemContent,newLine,"<br>")}
              </div>
           </div>
           <div class="col-md-12">
@@ -184,14 +160,13 @@
          </ul>
          <div class="tab-content">
            <div class="tab-pane fade show active" id="review">
+							<button type="button" class="btn btnColor float-right" data-toggle="modal" data-target="#myModal">
+						 	     쇼핑후기등록
+						 	</button>
            <p style="word-break:break-all; margin-top: 20px;">
             asdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasd
            </p>
-   <!-- Button trigger modal -->
-   <button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#myModal">
-     쇼핑후기등록
-    </button>
-     
+
     <div class="modal" id="myModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
@@ -248,6 +223,8 @@
         <br>
         <br>
      </div>
+   <jsp:include page="../common/footer.jsp" />		
+     
 </body>
 <script>
   $(document).ready(function(){

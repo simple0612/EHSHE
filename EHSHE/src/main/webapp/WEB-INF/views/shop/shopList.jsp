@@ -51,15 +51,23 @@ border: 1px solid black;
         <div style="text-align: center;">
 						<c:choose>
 							<c:when test="${pInfo.shopType == 1}"><h1>Clothes</h1></c:when>
+							<c:when test="${pInfo.shopType == 2}"><h1>Accessory</h1></c:when>
+							<c:when test="${pInfo.shopType == 3}"><h1>Etc</h1></c:when>
 						</c:choose> 
         </div>
        
         <div class="row" style="margin-top: 50px;">
-            <c:if test="${!empty sList }">
+            <c:if test="${!empty sList}">
               <c:forEach var="shop" items="${sList}" varStatus="vs">
             <div class="col-md-3" onclick="location.href='../${pInfo.shopType}/${shop.itemNo}'">
                 <div class="mb-3 a">
-                    <img class="shopimg" src="여행.jpg" class="rounded mx-auto d-block">
+                
+                <c:forEach items="${thList}" var="th">
+                   <c:if test="${th.parentShopNo == shop.itemNo}">
+                    <img class="shopimg" src="${contextPath}${th.filePath}/${th.fileName}" class="rounded mx-auto d-block">
+                	</c:if>
+                </c:forEach>
+                
                 </div>
                 <div class="card mb-3">
                     <div class="card-body">
@@ -74,8 +82,8 @@ border: 1px solid black;
                 </div>
                 </c:forEach>
             </c:if>
-             
-              <div class="col-md-3">
+          </div>
+             <!--  <div class="col-md-3">
                 <div class="mb-3 a">
                     <img src="여행.jpg" class="rounded mx-auto d-block shopimg">
                 </div>
@@ -188,20 +196,64 @@ border: 1px solid black;
                     </div>
                   </div>
               </div>
-        </div>
-        		<a class="btn btn-info float-right btn-lg" href="${contextPath}/shop/shopInsert">등록</a>
+        </div> -->
+        
+        
+        <a class="btn btn-info float-right btn-lg" href="../${pInfo.shopType}/shopInsert">등록</a>
        
         <div aria-label="Page navigation example" style="margin-top:100px;">
+        
+      				<c:url var="pageUrl" value="${pInfo.shopType}?"/>
+
+							<!-- 화살표에 들어갈 주소를 변수로 생성 -->
+							<c:set var="firstPage" value="${pageUrl}cp=1"/>
+							<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}"/>
+				        
+				        
+			 				<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"  integerOnly="true" />
+							<fmt:parseNumber var="prev" value="${ c1 * 10 }"  integerOnly="true" />
+							<c:set var="prevPage" value="${pageUrl}cp=${prev}" />
+							
+							
+							<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
+							<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
+							<c:set var="nextPage" value="${pageUrl}cp=${next}" />
+							        
+        
             <ul class="pagination justify-content-center">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+              
+             <c:if test="${pInfo.currentPage > pInfo.pageSize}">
+              <li>
+                <a class="page-link" href="${firstPage}">&lt;&lt;</a>
               </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
+              <li>
+             		<a class="page-link" href="${prevPage}">&lt;</a>
               </li>
+            </c:if>
+            
+            <c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}" >
+            	<c:choose>
+            		<c:when test="${pInfo.currentPage == page}">
+            				<li>
+											<a class="page-link">${page}</a>
+										</li>
+            		</c:when>
+            <c:otherwise>
+							<li>	
+								<a class="page-link" href="${pageUrl}cp=${page}">${page}</a>
+							</li>
+						</c:otherwise>
+            	</c:choose>
+            </c:forEach>
+              
+         <c:if test="${next <= pInfo.maxPage}">
+							<li> <!-- 다음 페이지로 이동 (>) -->
+								<a class="page-link" href="${nextPage}">&gt;</a>
+							</li>
+								<li> <!-- 마지막 페이지로 이동(>>) -->
+									<a class="page-link" href="${lastPage}">&gt;&gt;</a>
+								</li>
+							</c:if>
             </ul>
         </div>
         
