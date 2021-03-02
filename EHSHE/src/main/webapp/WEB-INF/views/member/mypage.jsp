@@ -27,7 +27,7 @@
 
 <title>EHSHE</title>
 
-<style>
+<style> 
 a:link {
 	color: black;
 	text-decoration: none;

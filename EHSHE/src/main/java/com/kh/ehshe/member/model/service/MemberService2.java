@@ -19,7 +19,7 @@ public interface MemberService2 {
 	 * 
 	 * @param map
 	 * @return result
-	 */
+	 */ 
 	public abstract int updatePwd(Map<String, Object> map);
 
 	

@@ -21,7 +21,7 @@ public class MemberService2Impl implements MemberService2 {
 	private BCryptPasswordEncoder enc;
 
 	// 회원 정보 수정 Service 구현
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = Exception.class) 
 	@Override
 	public int updateAction(Member updateMember) {
 		return dao.updateAction(updateMember);

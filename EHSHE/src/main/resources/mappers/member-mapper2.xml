@@ -16,7 +16,7 @@
 		<result property="memberStatus" column="MEMBER_STATUS"/>
 		<result property="memberGrade" column="MEMBER_GRADE"/>
 		<result property="memberType" column="MEMBER_TYPE"/>
-	</resultMap>
+	</resultMap> 
 	
 	<!-- 회원 정보 수정 -->
 	<update id="updateAction" parameterType="Member">

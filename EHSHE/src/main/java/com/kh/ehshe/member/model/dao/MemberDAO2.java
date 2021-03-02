@@ -23,7 +23,7 @@ public class MemberDAO2 {
 	public int updateAction(Member updateMember) {
 		return sqlSession.update("memberMapper2.updateAction", updateMember);
 	}
-
+ 
 	/**
 	 * 비밀번호 조회 DAO
 	 * 
