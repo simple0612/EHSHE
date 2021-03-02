@@ -3,7 +3,7 @@
 <configuration>
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
-		<!-- DB로 전달되는 값 중 null이 있으면 에러가 아닌 NULL 자체로 인식 -->
+		<!-- DB로 전달 되는 값 중 null이 있으면 에러가 아닌 NULL 자체로 인식 -->
 	</settings>
 
 	
