@@ -21,7 +21,7 @@ public interface MemberService2 {
 	 * @return result
 	 */ 
 	public abstract int updatePwd(Map<String, Object> map);
-
+ 
 	
 	/**
 	 * 비밀번호 확인하기

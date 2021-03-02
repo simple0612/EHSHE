@@ -29,7 +29,7 @@ public class MemberService2Impl implements MemberService2 {
 
 	// 비밀번호 변경 Service 구현
 	@Transactional(rollbackFor = Exception.class)
-	@Override
+	@Override 
 	public int updatePwd(Map<String, Object> map) {
 		// 현재 비밀번호, 새 비밀번호, 회원 번호
 

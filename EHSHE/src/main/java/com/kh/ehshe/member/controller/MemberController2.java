@@ -56,7 +56,7 @@ public class MemberController2 {
 			@ModelAttribute(name = "loginMember", binding = false) Member loginMember, RedirectAttributes ra) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		map.put("memberPwd", memberPwd);
+		map.put("memberPwd", memberPwd); 
 
 		map.put("memberNo", loginMember.getMemberNo());
 
