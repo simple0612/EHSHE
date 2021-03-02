@@ -1,75 +1,84 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호 확인하기</title>
-<link rel="stylesheet" href="css/default.css">
 
+<!-- jquery  -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-<style>
+<!-- bootStrap -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+	crossorigin="anonymous"></script>
 
- a:link { color: black; text-decoration: none;}
- a:visited { color: black; text-decoration: none;}
- a:hover { color: black; text-decoration: none;}
+<!-- fontawesome -->
+<script src="https://kit.fontawesome.com/5a7a3b1a34.js"
+	crossorigin="anonymous"></script>
 
+<title>EHSHE</title>
 
+<style> 
 * {
 	margin: 0;
 	padding: 0;
-	box-sizing: border-box
+	box-sizing: border-box;
 }
 
-.col-md-3 {
-	font-family: 'Note Sans KR', sans-serif;
-	top: 100px;
-	position: absolute;
-	margin: 0 auto;
+.form-wrapper {
+	margin: 50px 0 220px 0;
 }
 
-.login-form h1 {
-	font-size: 30px;
-	color: #999;
+.form-container {
+	margin: auto;
+	height: 100%;
+	max-width: 350px;
+}
+
+.title {
+	font-size: 2rem;
+	font-weight: bold;
 	text-align: center;
 }
 
-.box {
-	margin: 100px auto;
-	width: 300px;
-	height: 50px;
+.title>a {
+	text-decoration: none;
+	color: #404040;
 }
 
-.container-4 input#search {
-	width: 300px;
-	height: 100px;
-	background: #white;
-	font-size: 8pt;
-	float: left;
-	color: #fff;
-	padding-left: 100px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+.hr {
+	margin: auto;
+	width: 40%;
+	min-width: 350px;
+	text-align: center;
+	border-top: 1px solid #e6e6e6;
 }
 
-.container-4 button.icon {
-	height: 50px;
-	width: 50px;
-	opacity: 0;
-	font-size: 10pt;
-	-webkit-transition: all .55s ease;
-	-moz-transition: all .55s ease;
-	-ms-transition: all .55s ease;
-	-o-transition: all .55s ease;
-	transition: all .55s ease;
+/* 체크박스 css */
+input[id="saveId"] {
+	display: none;
 }
 
-.container-4:hover button.icon, .container-4:active button.icon,
-	.container-4:focus button.icon {
-	outline: none;
-	opacity: 1;
-	margin-left: 250px;
+input[id="saveId"]+label em { /* 인접요소 선택자 */
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin: 0 5px 3px 0;
+	background: url(${contextPath}/resources/images/checkOut.png) 0 0
+		no-repeat;
+	vertical-align: middle;
+}
+
+input[id="saveId"]:checked+label em {
+	background: url(${contextPath}/resources/images/check.png) 0 0 no-repeat;
 }
 
 .form-control {
@@ -77,64 +86,150 @@
 	border-radius: 1rem !important;
 }
 
-div div {
+.info-user, .list-user {
+	float: none;
+	list-style: none;
 	text-align: center;
+	margin-bottom: 30px;
+}
+
+.list-user>li {
+	float: none;
+	display: inline-block;
+}
+
+.list-user a, .list-user>a:link {
+	text-decoration: none;
+	color: rgba(0, 0, 0, 0.7);
+}
+
+.btn {
+	border: none;
+	width: 100%;
+	height: 2.8rem;
+	margin-top: 0.7rem;
+	max-width: 350px;
+	font-weight: 600;
+	font-size: 15px;
+	color: #191919;
+	background-color: #F5DF4D;
+	border-radius: 1rem;
+}
+
+.btn:hover {
+	background-color: #f0d700 !important;
+}
+
+.title-sns {
+	margin-top: 15px;
+	text-align: center;
+	font-size: 30px;
+	color: #404040;
+}
+
+.text-sns, .text-login {
+	font-size: 20px;
+	font-weight: 600;
+	color: #404040;
+}
+
+.img-area {
+	text-align: center;
+}
+
+.link-sns {
+	display: inline-block;
+}
+
+.link-sns>a {
+	text-decoration: none;
+	color: rgba(0, 0, 0, 0.7);
+}
+
+.link-sns>a:hover {
+	color: #007bff;
 }
 </style>
 
 </head>
 <body>
 
+	<jsp:include page="../common/header.jsp" />
 
-
-
-	<div class="col-md-12">
-
-		<jsp:include page="../common/header.jsp" />
-	</div>
-	<div class="col-md-3">
-
-
-
-
-		<div class="area">
+	<div class="form-wrapper">
+		<br> <br> <br> <br> <br> <br> <br>
+		<br>
+		<div class="title">
 			<div>
 
 				<a href="${contextPath}/page/mypagemain"> <img
 					src="${contextPath}/resources/images/mypageicon.png"
-					style="width: 100px; height: 100px; margin-bottom: 5px"></a>
-					
+					style="width: 100px; height: 100px; margin-bottom: 5px"></a> <br>
+				<br>
+
+				<h3>${loginMember.memberId}님의회원탈퇴를 확인 위해 다시 한번 비밀번호를 입력해주세요.</h3>
+
 			</div>
 			<br> <br>
-			<h3>
-				maril06님 정말로 회원탈퇴 하시겠습니까? 회원탈퇴 하시려면 비밀번호를 입력해주세요.
-			</h3>
-
-
-			<div class="box">
-				<div class="container-4">
-					<input type="password" id="memberPwd" name="memberPwd"
-						class="form-control" placeholder="비밀번호를 입력해주세요" />
-					<button class="icon" >
-						<a href="${contextPath}/page/deletememberfinal"> <img
-							src="${contextPath}/resources/images/mypageicon.png"
-							style="width: 40px; height: 40px; margin-bottom: 5px">
-					</button>
-
-				</div>
-			</div>
-			<br> <br> 	<br> <br> 
-
 		</div>
+
+		<br>
+		<div class="hr"></div>
+
+		<div class="bg-white rounded shadow-sm container p-3">
+			<form method="POST" action="deleteMember"
+				onsubmit="return validate();" class="form-horizontal" role="form">
+
+
+				<!-- 비밀번호 -->
+				<div class="row mb-3 form-row">
+					<div class="col-md-3">
+						<h6>비밀번호</h6>
+					</div>
+					<div class="col-md-6">
+						<input type="password" class="form-control" id="currentPwd"
+							name="memberPwd">
+					</div>
+				</div>
+
+				<hr>
+
+
+				<hr class="mb-4">
+				<button class="btn btn-success btn-lg btn-block" id="btn"
+					type="submit">탈퇴</button>
+			</form>
+		</div>
+
+
 	</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	</form>
+
+
+	</div>
+	</div>
+	<%-- form-wrapper end --%>
+
+	<%-- footer include --%>
+	<jsp:include page="../common/footer.jsp" />
+
+<script>
+function validate(){
+	
+	if($("currentPwd").val().trim().length==0){
+		alert("비밀번호를 입력해 주세요");
+		$("#currentPwd").focus();
+		
+		return false;
+	}
+}
+</script>
 </body>
-
-		<jsp:include page="../common/footer.jsp" />
-
-</body>
-
-
-
 
 
 </html>

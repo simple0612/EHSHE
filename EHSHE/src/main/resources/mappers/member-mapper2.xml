@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberMapper2">
+
+		<resultMap type="Member" id="member_rm">
+		<id property="memberNo" column="MEMBER_NO"/>
+		
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="memberPw" column="MEMBER_PW"/>
+		<result property="memberNm" column="MEMBER_NM"/>
+		<result property="memberPhone" column="MEMBER_PHONE"/>
+		<result property="memberEmail" column="MEMBER_EMAIL"/>
+		<result property="memberAddr" column="MEMBER_ADDR"/>
+		<result property="memberEnrollDate" column="MEMBER_ENROLL_DATE"/>
+		<result property="memberStatus" column="MEMBER_STATUS"/>
+		<result property="memberGrade" column="MEMBER_GRADE"/>
+		<result property="memberType" column="MEMBER_TYPE"/>
+	</resultMap> 
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateAction" parameterType="Member">
+   	UPDATE EH_MEMBER SET 
+    	MEMBER_PHONE = #{memberPhone}, 
+			MEMBER_EMAIL = #{memberEmail},
+			MEMBER_ADDR = #{memberAddr}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+
+
+
+
+	<!-- 비밀번호 조회 -->
+  <select id="selectPwd" parameterType="_int" resultType="string">
+     SELECT MEMBER_PW
+     FROM EH_MEMBER
+     WHERE MEMBER_NO = #{memberNo}
+  </select>
+		
+	<!-- 비밀번호 변경 -->
+	<update id="updatePwd" parameterType="map">
+		UPDATE EH_MEMBER SET
+		MEMBER_PW = #{newPwd} <!-- map에 저장된 데이터의 key값을 직접 작성 -->
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+
+
+	<!-- 회원 탈퇴 -->
+	<update id="deleteMember" parameterType="map">
+		UPDATE EH_MEMBER SET
+		MEMBER_STATUS = 'N'
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+
+
+
+</mapper>
+
+
+
+
+
+

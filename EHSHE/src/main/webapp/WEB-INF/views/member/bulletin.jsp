@@ -14,7 +14,7 @@
 	justify-content: center;
 }
 
-#searchForm {
+#searchForm { 
 	position: relative;
 }
 

@@ -18,9 +18,10 @@
 
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml"/>
+		<mapper resource="/mappers/member-mapper2.xml"/>
 		<mapper resource="/mappers/board-mapper.xml"/>
 		<mapper resource="/mappers/shop-mapper.xml"/>
 	</mappers>
 	
-	
+	  
 </configuration>

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,14 +20,29 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
 	crossorigin="anonymous"></script>
-
+ 
 <!-- fontawesome -->
 <script src="https://kit.fontawesome.com/5a7a3b1a34.js"
 	crossorigin="anonymous"></script>
 
 <title>EHSHE</title>
 
-<style> 
+<style>
+a:link {
+	color: black; 
+	text-decoration: none;
+}
+
+a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover {
+	color: black;
+	text-decoration: none;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -41,6 +57,12 @@
 	margin: auto;
 	height: 100%;
 	max-width: 350px;
+}
+
+form-container-my {
+	margin: auto;
+	height: 100%;
+	max-width: 720px;
 }
 
 .title {
@@ -106,14 +128,18 @@ input[id="saveId"]:checked+label em {
 .btn {
 	border: none;
 	width: 100%;
-	height: 2.8rem;
-	margin-top: 0.7rem;
-	max-width: 350px;
+	margin-top: 0;
+	max-width: 250px;
 	font-weight: 600;
 	font-size: 15px;
 	color: #191919;
 	background-color: #F5DF4D;
 	border-radius: 1rem;
+}
+
+.btnCk {
+	margin: 20px;
+	float: left;
 }
 
 .btn:hover {
@@ -149,6 +175,17 @@ input[id="saveId"]:checked+label em {
 .link-sns>a:hover {
 	color: #007bff;
 }
+
+.area {
+	text-align: center;
+	display: inline-block;
+}
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
+	{
+	-webkit-appearance: none;
+	margin: 0;
+}
 </style>
 
 </head>
@@ -160,60 +197,99 @@ input[id="saveId"]:checked+label em {
 		<br> <br> <br> <br> <br> <br> <br>
 		<br>
 		<div class="title">
+			<h1>비밀번호 수정</h1>
+
+
+			<br> <br> <br>
+
 			<div>
 
 				<a href="${contextPath}/page/mypagemain"> <img
 					src="${contextPath}/resources/images/mypageicon.png"
-					style="width: 100px; height: 100px; margin-bottom: 5px"></a>
-
+					style="width: 100px; height: 100px; margin-bottom: 5px">
+				</a>
 			</div>
-			<br> <br>
 		</div>
 
 		<br>
 		<div class="hr"></div>
-		<form method="POST" action="checkPwd" onsubmit="return validate();"
-			class="form-horizontal" role="form">
-			<br>
-			<div class="form-container">
-				<h3>${loginMember.memberId}님의 회원정보를 안전하게 보호하기 위해 다시 한번 비밀번호를
-					입력해주세요.</h3>
 
 
-				<!--	<div class="box">
-					<div class="container-4">
-						<input type="password" id="memberPwd" name="memberPwd"
-							class="form-control" placeholder="비밀번호를 입력해주세요" />
 
-				 현재 비밀번호 -->
+
+		<br>
+		<div class="form-container-my">
+
+			<hr>
+			<div class="bg-white rounded shadow-sm container p-3">
+				<form method="POST" action="checkPwd" onsubmit="return validate();"
+					class="form-horizontal" role="form">
+
+					<!-- 현재 비밀번호 -->
 					<div class="row mb-3 form-row">
-						
+						<div class="col-md-3">
+							<h6>현재 비밀번호</h6>
+						</div>
 						<div class="col-md-6">
 							<input type="password" class="form-control" id="memberPwd"
 								name="memberPwd">
 						</div>
 					</div>
 
-
-						<button class="btn btn-success btn-lg btn-block" type="submit">확인하기</button>
-
-
-
-
+					<!-- 새 비밀번호 -->
+					<div class="row mb-3 form-row">
+						<div class="col-md-3">
+							<h6>새 비밀번호</h6>
+						</div>
+						<div class="col-md-6">
+							<input type="password" class="form-control" id="newPwd1"
+								name="newPwd1">
+						</div>
 					</div>
-				</div>
-				<br> <br> <br> <br>
-		</form>
 
+					<!-- 새 비밀번호 확인-->
+					<div class="row mb-3 form-row">
+						<div class="col-md-3">
+							<h6>새 비밀번호 확인</h6>
+						</div>
+						<div class="col-md-6">
+							<input type="password" class="form-control" id="newPwd2"
+								name="newPwd2">
+						</div>
+					</div>
 
-	</div>
-	</div>
-	<%-- form-wrapper end --%>
+					<hr class="mb-4">
+					<button class="btn btn-success btn-lg btn-block" type="submit">변경하기</button>
+				</form>
+			</div>
+		</div>
+		<%-- form-wrapper end --%>
 
-	<%-- footer include --%>
-	<jsp:include page="../common/footer.jsp" />
+		<%-- footer include --%>
+		<jsp:include page="../common/footer.jsp" />
 
+		<script>
+			// submit 동작
+			function validate() {
+				// 비밀번호  유효성 검사
+				//영어 대,소문자 + 숫자, 총 6~12글자
+				var regExp = /^[A-Za-z0-9]{6,12}$/;
+				if (!regExp.test($("#newPwd1").val())) {
+					alert("유효하지 않은 비밀번호 입니다.");
+					$("#newPwd1").focus();
 
+					return false;
+				}
+
+				if ($("#newPwd1").val() != $("#newPwd2").val()) {
+					alert("새 비밀번호가 일치하지 않습니다.");
+					$("#newPwd2").focus();
+
+					return false;
+				}
+
+			}
+		</script>
 </body>
 
 
