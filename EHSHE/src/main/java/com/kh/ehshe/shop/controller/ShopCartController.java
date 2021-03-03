@@ -103,6 +103,7 @@ public class ShopCartController {
 			@ModelAttribute("loginMember") Member loginMember,
 			@RequestParam("tprice") int tprice,
 			@RequestParam("sprice") int sprice,
+			@RequestParam("tsprice") int tsprice,
 			Model model) {
 		
 		//System.out.println(Arrays.toString(ck)); //21,22,23
@@ -132,7 +133,7 @@ public class ShopCartController {
 		}
 		
 		
-		
+		model.addAttribute("tsprice", tsprice);
 		model.addAttribute("tprice", tprice);
 		model.addAttribute("sprice", sprice);
 		model.addAttribute("bList", bList);
