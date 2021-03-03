@@ -141,7 +141,6 @@ public class MemberController {
 			loginMember = service.KaKaoLogin(member); 
 			System.out.println("아이디 있을 존재 : " + loginMember);
 				
-			//model.addAttribute("kakaoMember", kakaoMember);
 		} else {
 			System.out.println("등록된 회원 x");
 			
@@ -161,7 +160,14 @@ public class MemberController {
 			}
 		}
 		model.addAttribute("loginMember", loginMember);				
-
+/*
+		swalIcon = "success";
+		swalTitle = "로그인 성공";
+		swalText = "회원 가입 과정에서 문제가 발생하였습니다";		
+	
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+	*/	
 		return loginMember;			
 	}
 	
