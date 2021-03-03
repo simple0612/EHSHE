@@ -236,7 +236,7 @@ label > span {
 						<input type="text" class="form-control" id="certify" name="certify" placeholder="인증번호를 입력해주세요." autocomplete="off" required>
 					</div>
 					<div class="col-md-9 offset-md-3">
-						<span id="checkEmailNumber">&nbsp;</span>
+						<span id="certificationCheck">&nbsp;</span>
 					</div>
 				</div>	
 						

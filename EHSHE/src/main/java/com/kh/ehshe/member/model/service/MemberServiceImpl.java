@@ -104,6 +104,18 @@ public class MemberServiceImpl implements MemberService {
 
 		return result;
 	}
+
+	// 카카오 회원 등록 Service 구현
+	@Override
+	public int kakaoSignUp(Member member) {
+		return dao.kakaoSignUp(member);
+	}
+
+	// 카카오 로그인 Service 구현
+	@Override
+	public Member KaKaoLogin(Member member) {
+		return dao.kakaoLogin(member);
+	}
 	
 }
 	

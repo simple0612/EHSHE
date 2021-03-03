@@ -17,6 +17,7 @@ var $memberPw2 = $("#memberPw2");
 var $memberNm = $("#memberNm");
 var $memberPhone = $("#memberPhone");
 var $memberEmail = $("#memberEmail");
+var $certify = $("#certify");
 	
 	// 아이디 유효성 검사 
 	$memberId.on("input", function(){
@@ -145,7 +146,8 @@ var $memberEmail = $("#memberEmail");
 	        type: "GET",
 	        success: function(data) {
 	        	console.log(data)
-	        	$("#checkEmailNumber").text("인증번호가 발송되었습니다.").css("color", "green");
+	        	$("#certificationCheck").text("인증번호가 발송되었습니다.").css("color", "green");
+	        	signUpCheck.certificationCheck = false;
 	        	code = data;
 	        },
   				error : function(){
@@ -158,10 +160,10 @@ var $memberEmail = $("#memberEmail");
 	$(function(){
 		$("#certify").on("input", function(){
 			if($(this).val() != code || $(this).val() == 0){
-			 $("#checkEmailNumber").text("인증번호가 불일치합니다.").css("color", "red");				
+			 $("#certificationCheck").text("인증번호가 불일치합니다.").css("color", "red");				
 			 signUpCheck.certificationCheck = false;
 			} else {
-			 $("#checkEmailNumber").text("인증번호가 일치합니다.").css("color", "green");
+			 $("#certificationCheck").text("인증번호가 일치합니다.").css("color", "green");
 			 signUpCheck.certificationCheck = true;
 			}
 		});
@@ -181,20 +183,21 @@ var $memberEmail = $("#memberEmail");
 				case "memberNm": str = "이름";	break;
 				case "memberPhone":str = "휴대번호";break;
 				case "memberEmail": str = "이메일"; break;
+				case "certificationCheck": str = "이메일 인증"; break;
 				}
 	
-			if(key == certificationCheck) {
-				swal({icon:"warning", title: "이메일 인증이 완료되지 않았습니다."});
-			} 				
-				swal({icon:"warning", title:str + " 형식이 유효하지 않습니다."})
-				.then(function(){
-					var memberId = "#" + key;
-					$(memberId).focus();
-				});
-				
-				return false;
+				var member = "#" + key;
+				swal({icon:"warning", title:str + " 형식이 유효하지 않습니다."})			
+					.then(function(){
+						$(member).focus();
+					});
+					if(key == 'certificationCheck') {
+						swal({icon:"warning", title: "인증 번호를 확인해 주세요."});
+						$(certify).focus();
+					}
+					return false;								
+				}
 			}
-		}
 		
 		// 입력된 주소 조합하여 form태그에 hidden으로 추가 하기
 		// 왜? -> 커맨드 객체를 이용하여 파라미터를 한번에 받기 쉽게 하기 위하여

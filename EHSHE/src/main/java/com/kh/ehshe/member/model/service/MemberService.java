@@ -55,4 +55,16 @@ public interface MemberService {
 	 */
 	public abstract int updatePw(Map<String, Object> map);
 
+	/** 카카오 회원 등록 Service
+	 * @param kakaoInfo
+	 * @return result
+	 */
+	public abstract int kakaoSignUp(Member member);
+
+	/** 카카오 로그인 Service
+	 * @param memberId
+	 * @return
+	 */
+	public abstract Member KaKaoLogin(Member member);
+
 }

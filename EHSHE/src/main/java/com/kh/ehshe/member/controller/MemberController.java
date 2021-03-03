@@ -30,7 +30,7 @@ import com.kh.ehshe.member.model.vo.Member;
 
 @Controller // 프레젠테이션 레이어, 웹 애플리케이션 전달된 요청 응답을 처리하는 클래스 + bean 등록
 @RequestMapping("/member/*")
-@SessionAttributes({"loginMember", "memberInfo", "memberInfo2"}) // Model에 추가된 데이터 중 key 값이 해당 어노테이션에 적혀있는 값과 일치하는 데이터를 session scope로 이동
+@SessionAttributes({"loginMember", "kakaoMember", "memberInfo", "memberInfo2"}) // Model에 추가된 데이터 중 key 값이 해당 어노테이션에 적혀있는 값과 일치하는 데이터를 session scope로 이동
 public class MemberController {
 
 	// Spring에서는 객체의 생명주기를 Spring Container가 관리할 수 있도록 함
@@ -118,6 +118,73 @@ public class MemberController {
 		status.setComplete();
 		return "redirect:/";
 	}
+	
+	// 카카오 로그인 Controller
+	@ResponseBody
+	@RequestMapping(value = "/kakaoLogin", method = RequestMethod.POST)
+	public Member kakaoLogin(@RequestParam String memberId,
+							 @RequestParam String memberPw,
+   							 @RequestParam String memberNm,
+   							 RedirectAttributes ra ,Model model) {
+
+		// 아이디 중복 검사
+		int result = service.idDupCheck(memberId);
+		
+		Member member = new Member();
+		member.setMemberId(memberId);
+		member.setMemberNm(memberNm);
+		
+		Member kakaoMember = null;
+		
+		if(result > 0) {			
+			
+			kakaoMember = service.KaKaoLogin(member); 
+			System.out.println("아이디 있을 존재 : " + kakaoMember);
+				
+			//model.addAttribute("kakaoMember", kakaoMember);
+		} else {
+			System.out.println("등록된 회원 x");
+			
+			member = new Member();
+			member.setMemberId(memberId);
+			member.setMemberPw(memberPw);
+			member.setMemberNm(memberNm);			
+
+			int kakaoReg = service.kakaoSignUp(member); 
+			
+			System.out.println(kakaoReg);
+			System.out.println(member);
+
+			if(kakaoReg > 0) {
+				kakaoMember = service.KaKaoLogin(member); 
+				System.out.println("회원가입 후 : " + kakaoMember);				
+			}
+			model.addAttribute("kakaoMember", kakaoMember);				
+		}
+		return kakaoMember;			
+	}
+	
+	public int kakaoReg(@RequestParam String memberId,
+		 			    @RequestParam String memberPw,
+		                @RequestParam String memberNm) {
+		
+		// 아이디 중복 검사
+		int kakaoIdCheck = service.idDupCheck(memberId);
+		
+		Member kakaoReg = new Member();
+		kakaoReg.setMemberId(memberId);
+		kakaoReg.setMemberPw(memberPw);
+		kakaoReg.setMemberNm(memberNm);	
+		
+		int result = 0;
+		if(kakaoIdCheck < 0) {
+			result = service.kakaoSignUp(kakaoReg);
+		}
+		
+		return result;
+	}
+		
+//			service.kakaoMember(kakaoInfo);
 	
 	// 이용약관 화면 Controller
 	@RequestMapping("tosView")

@@ -51,7 +51,7 @@
 	</select>
 
 	<!-- 아이디 찾기 (조회) -->
-	<select id="findId" parameterType="member" resultMap="member_rm">
+	<select id="findId" parameterType="Member" resultMap="member_rm">
 		SELECT MEMBER_ID, MEMBER_NM, MEMBER_EMAIL FROM EH_MEMBER
 		WHERE MEMBER_STATUS = 'Y'
 		AND MEMBER_NM = #{memberNm}
@@ -67,7 +67,7 @@
 	</select>
 
 	<!-- 비밀번호 찾기 (조회) -->
-	<select id="findPw" parameterType="member" resultMap="member_rm">
+	<select id="findPw" parameterType="Member" resultMap="member_rm">
 		SELECT MEMBER_ID, MEMBER_PW, MEMBER_EMAIL FROM EH_MEMBER
 		WHERE MEMBER_STATUS = 'Y'
 		AND MEMBER_ID = #{memberId}
@@ -88,6 +88,14 @@
 		WHERE MEMBER_STATUS = 'Y'
 		AND MEMBER_ID = #{memberId}
 	</update>
+
+	<!-- 카카오 회원 등록 -->
+	<insert id="kakaoReg" parameterType="Member">
+		INSERT INTO EH_MEMBER
+    VALUES(SEQ_MNO.NEXTVAL, #{memberId}, #{memberPw}, #{memberNm},
+    #{memberEmail}, #{memberPhone}, #{memberGender}, #{memberAddr},
+    DEFAULT, DEFAULT, DEFAULT, 1)
+	</insert>
 
 
 
