@@ -6,7 +6,39 @@ header{
     margin-top: 50px;
 }
 
-.h-boardView{
-    text-align: center;
+.h-boardView{ text-align: center; }
+
+.h-boardView>h3{
+    font-weight: bolder;
+}
+
+.subInfo{
+    text-align: right;
     border-bottom: 1px solid rgb(204, 204, 204);
+    margin-bottom: 40px;
+}
+
+.ehsheYellow{
+    background-color: #F5dF4D !important;
+}
+
+.map_wrap{
+
+    margin-top: 50px;
+}
+
+.btnBox{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+    justify-content: right;
+}
+
+.btnBox a:last-of-type{
+    float: right;
+}
+
+.btnBox button{
+    float: right;
+    margin-left: 10px;
 }

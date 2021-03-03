@@ -11,6 +11,7 @@
 	<typeAliases>
 		<typeAlias type="com.kh.ehshe.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.ehshe.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.ehshe.board.model.vo.VBoard" alias="VBoard"/>
 		<typeAlias type="com.kh.ehshe.board.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.Shop" alias="Shop"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopAttachment" alias="ShopAttachment"/>

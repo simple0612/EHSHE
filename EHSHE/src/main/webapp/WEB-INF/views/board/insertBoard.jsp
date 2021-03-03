@@ -14,6 +14,12 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>나만의 장소 등록</title>
 <!-- summernote 사용 시 필요한 css 파일 추가 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
 <link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
 
 <style>
@@ -37,13 +43,13 @@
 	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
 	
 	<div class="container-fluid boardMain">
-		<form action="insertAction" enctype="multipart/form-data" method="post" role="form" onsubmit="return validate();">
+		<form action="insertAction" name="insertAction" enctype="multipart/form-data" method="post" role="form" onsubmit="return validate();">
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12">
-						<h4>장소 등록</h4>
+						<h4>나만의 장소 등록</h4>
 					</div>
 				</div>
 				<div class="row tableArea">
@@ -51,8 +57,11 @@
 						<table class="table1">
 							<tr class="name">
 								<td>장소명</td>
-								<td><input class="form-control" type="text" id="placeName" required></td>
-								
+								<td><input class="form-control" type="text" name="boardTitle" id="placeName" required></td>
+							</tr>
+							<tr>
+								<td>종류</td>
+								<td><input class="form-control" type="text" name="categoryName" id="categoryName" required></td>
 							</tr>
 							<tr class="thumbnail">
 								<td>이미지</td>
@@ -62,7 +71,7 @@
 									</div>
 
 									<div id="fileArea" style="margin-top: 4px;">
-										<input type="file" id="inputThumbnail" name="image" onchange="LoadImg(this, 0)" required> 
+										<input type="file" id="img0" name="image" onchange="LoadImg(this, 0)" required> 
 									</div>
 								</td>
 								<td></td>
@@ -70,7 +79,7 @@
 							<tr class="addr">
 								<td>주소</td>
 								<td>
-									<input type="text" name="" class="form-control postcodify_postcode5" required>
+									<input type="text" id="post" name="post" class="form-control postcodify_postcode5" required>
 								</td>
 								<td>
 									<button type="button" class="btn btn-secondary btn-sm" id="postcodify_search_button">검색</button>
@@ -91,8 +100,8 @@
 							<tr>
 								<td>위치</td>
 								<td colspan="2">
-									<input type="hidden" id="lat" name="lat">
-									<input type="hidden" id="lng" name="lng">
+									<input type="hidden" id="lat" name="latitude">
+									<input type="hidden" id="lng" name="longitude">
 									<div class="map_wrap">
 									<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 										<div class="Addr">
@@ -116,7 +125,7 @@
 				<div class="row">
 					<div class="col-md-12 buttonArea">
 						<button class="btn btn-secondary insert-place" type="submit">등록</button>
-						<a class="btn btn-secondary insert-place" href="${sessionScope.returnListURL}">취소</a>
+						<a class="btn btn-secondary insert-place" href="../board/boardList">취소</a>
 					</div>
 				</div>
 			</div>
@@ -129,6 +138,7 @@
 	
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f8adb912f319f193a5fe45f741e8466c&libraries=services"></script>
 <script>
+	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = {
 	        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
@@ -180,6 +190,9 @@
 	            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
 	            infowindow.setContent(content);
 	            infowindow.open(map, marker);
+	            
+	            $("#lat").val(mouseEvent.latLng.getLat());
+							$("#lng").val(mouseEvent.latLng.getLng());	
 	        }   
 	    });
 	});
@@ -229,7 +242,7 @@
 	// 이미지 영역을 클릭해도 파일선택을 할수 있도록 onclick 이벤트롤 작성
 	$(function(){
 			$("#titleImg").on("click", function(){ 
-				$("#inputThumbnail").click();
+				$("#img0").click();
 			});
 			
 		});
@@ -257,6 +270,18 @@
 				$("#summernote").focus();
 				return false;
 			}
+			
+			if ($("#lat").val().trim().length == 0) {
+				alert("좌표를 입력해 주세요.");
+				$("#lat").focus();
+				return false;
+			}
+			
+			$location = $("<input>", {type : "hidden", name : "location",
+				value : $("#post").val() + "," + $("#address1").val() + "," + $("#address2").val()
+			});
+			$("form[name='insertAction']").append($location);
+			
 		}
 		
 </script>

@@ -3,24 +3,38 @@ package com.kh.ehshe.board.model.vo;
 public class Attachment {
 
 	private int fileNo;
-	private String filePath;
+	private String thumbnailFilePath;
+	private String contentFilePath;
 	private String fileName;
 	private int fileLevel;
-	private int parentBoardNo;
+	private int boardNo;
 	
 	public Attachment() {
 	}
 
 	
-
-	public Attachment(String filePath, String fileName, int fileLevel, int parentBoardNo) {
+	
+	public Attachment(String thumbnailFilePath, String contentFilePath, String fileName, int fileLevel, int boardNo) {
 		super();
-		this.filePath = filePath;
+		this.thumbnailFilePath = thumbnailFilePath;
+		this.contentFilePath = contentFilePath;
 		this.fileName = fileName;
 		this.fileLevel = fileLevel;
-		this.parentBoardNo = parentBoardNo;
+		this.boardNo = boardNo;
 	}
 
+
+
+	public Attachment(int fileNo, String thumbnailFilePath, String contentFilePath, String fileName, int fileLevel,
+			int boardNo) {
+		super();
+		this.fileNo = fileNo;
+		this.thumbnailFilePath = thumbnailFilePath;
+		this.contentFilePath = contentFilePath;
+		this.fileName = fileName;
+		this.fileLevel = fileLevel;
+		this.boardNo = boardNo;
+	}
 
 	public int getFileNo() {
 		return fileNo;
@@ -30,12 +44,20 @@ public class Attachment {
 		this.fileNo = fileNo;
 	}
 
-	public String getFilePath() {
-		return filePath;
+	public String getThumbnailFilePath() {
+		return thumbnailFilePath;
 	}
 
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+	public void setThumbnailFilePath(String thumbnailFilePath) {
+		this.thumbnailFilePath = thumbnailFilePath;
+	}
+
+	public String getContentFilePath() {
+		return contentFilePath;
+	}
+
+	public void setContentFilePath(String contentFilePath) {
+		this.contentFilePath = contentFilePath;
 	}
 
 	public String getFileName() {
@@ -54,20 +76,20 @@ public class Attachment {
 		this.fileLevel = fileLevel;
 	}
 
-	public int getParentBoardNo() {
-		return parentBoardNo;
+	public int getBoardNo() {
+		return boardNo;
 	}
 
-	public void setParentBoardNo(int parentBoardNo) {
-		this.parentBoardNo = parentBoardNo;
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
 	}
 
 	@Override
 	public String toString() {
-		return "Attachment [fileNo=" + fileNo + ", filePath=" + filePath + ", fileName=" + fileName + ", fileLevel="
-				+ fileLevel + ", parentBoardNo=" + parentBoardNo + "]";
+		return "Attachment [fileNo=" + fileNo + ", thumbnailFilePath=" + thumbnailFilePath + ", contentFilePath="
+				+ contentFilePath + ", fileName=" + fileName + ", fileLevel=" + fileLevel + ", boardNo=" + boardNo
+				+ "]";
 	}
-	
 	
 	
 	

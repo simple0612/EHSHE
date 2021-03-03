@@ -58,11 +58,10 @@ header{
 
 /* 페이지 네이션 */
 .pagination-area{
-    
+    position: relative;
 }
 
 .pagination{
-    width: 70%;
     justify-content: center;
     margin-top: 2%;
 }
@@ -71,4 +70,8 @@ header{
     justify-content: center; 
     margin-top: 2%;
     margin-bottom: 5%;
+}
+
+.writeBtn{
+    float: right;
 }
