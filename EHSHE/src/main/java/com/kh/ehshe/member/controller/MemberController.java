@@ -134,12 +134,12 @@ public class MemberController {
 		member.setMemberId(memberId);
 		member.setMemberNm(memberNm);
 		
-		Member kakaoMember = null;
+		Member loginMember = null;
 		
 		if(result > 0) {			
 			
-			kakaoMember = service.KaKaoLogin(member); 
-			System.out.println("아이디 있을 존재 : " + kakaoMember);
+			loginMember = service.KaKaoLogin(member); 
+			System.out.println("아이디 있을 존재 : " + loginMember);
 				
 			//model.addAttribute("kakaoMember", kakaoMember);
 		} else {
@@ -156,35 +156,15 @@ public class MemberController {
 			System.out.println(member);
 
 			if(kakaoReg > 0) {
-				kakaoMember = service.KaKaoLogin(member); 
-				System.out.println("회원가입 후 : " + kakaoMember);				
+				loginMember = service.KaKaoLogin(member); 
+				System.out.println("회원가입 후 : " + loginMember);				
 			}
-			model.addAttribute("kakaoMember", kakaoMember);				
 		}
-		return kakaoMember;			
+		model.addAttribute("loginMember", loginMember);				
+
+		return loginMember;			
 	}
 	
-	public int kakaoReg(@RequestParam String memberId,
-		 			    @RequestParam String memberPw,
-		                @RequestParam String memberNm) {
-		
-		// 아이디 중복 검사
-		int kakaoIdCheck = service.idDupCheck(memberId);
-		
-		Member kakaoReg = new Member();
-		kakaoReg.setMemberId(memberId);
-		kakaoReg.setMemberPw(memberPw);
-		kakaoReg.setMemberNm(memberNm);	
-		
-		int result = 0;
-		if(kakaoIdCheck < 0) {
-			result = service.kakaoSignUp(kakaoReg);
-		}
-		
-		return result;
-	}
-		
-//			service.kakaoMember(kakaoInfo);
 	
 	// 이용약관 화면 Controller
 	@RequestMapping("tosView")

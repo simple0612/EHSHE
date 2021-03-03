@@ -257,7 +257,7 @@ input[id="saveId"]:checked + label em {
 	                             	window.location.href = "${contextPath}/";                            	  
                               });	
                               console.log("성공");                    
-                              //console.log(Kakao.Auth.getAccessToken());
+                              console.log(Kakao.Auth.getAccessToken());
                               console.log(kakaoMember);
                             /*  if(result == 'already'){ // 이미 아이디가 있을 때
                                  window.location.href = "${contextPath}/";
@@ -268,13 +268,12 @@ input[id="saveId"]:checked + label em {
                            error: function(){
                               console.log("ajax 통신 실패");
                            }
-                        });
-                        
+                        });  
                     }
                 });
             },
             fail: function() {
-                alert('11');
+                alert('err');
             }
         });   
     }
