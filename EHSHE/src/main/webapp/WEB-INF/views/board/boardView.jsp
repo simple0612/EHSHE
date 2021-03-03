@@ -99,7 +99,8 @@
 					<div class="col-md-1"></div>
 					<div class="col-md-10">
 						<div class="content-area">
-						${board.boardContent}
+						<% pageContext.setAttribute("newLine", "\n"); %>
+						${fn:replace(board.boardContent, newLine, "<br>")}
 						</div>
 						<div class="map_wrap">
 							<div id="map"
@@ -137,7 +138,13 @@
 						</div>
 					</div>
 				</div>
-
+				
+				<div class="row">
+					<div class="col-md-12 replyArea">
+				<jsp:include page="reply.jsp"/>
+					</div>
+				</div>
+				
 			</div>
 			<div class="col-md-2"></div>
 		</div>
@@ -171,8 +178,8 @@
 	
 	// 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
 	var iwContent = 
-		'<div><img class="markerImg" src="${contextPath}/resources/images/thumbnailBox.png"/></div><div style="padding:5px;">${board.boardTitle}</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-
+		'<div><img class="markerImg" src="${contextPath}${thumbnailFilePath}/${fileName}"/></div><div style="padding:5px;text-align:center;">${board.boardTitle}</div>'; 
+		
 	// 인포윈도우를 생성합니다
 	var infowindow = new kakao.maps.InfoWindow({
 	    content : iwContent

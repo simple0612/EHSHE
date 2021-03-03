@@ -24,7 +24,7 @@ header{
     margin-right: 5px;
     margin-left: 5px;
     margin-top: 10px;
-    margin-bottom: 10px; b  
+    margin-bottom: 10px;
     
 }
 
@@ -32,8 +32,8 @@ header{
     font-size: 14px;
 }
 
-.card>img{
-    height: 85%;
+.card-img-top{
+	height: 160px;
 }
 
 

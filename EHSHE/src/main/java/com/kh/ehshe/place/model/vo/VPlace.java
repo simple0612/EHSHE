@@ -2,7 +2,7 @@ package com.kh.ehshe.place.model.vo;
 
 import java.sql.Date;
 
-public class Place {
+public class VPlace {
 
 	private int placeNo;
 	private String placeTitle;
@@ -24,11 +24,11 @@ public class Place {
 	private String enroll;
 	private String enrollContents;
 	
-	public Place() {
+	public VPlace() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Place(int placeNo, String placeTitle, String placeContent, Date placeCtreateDate, Date placeModifyDate,
+	public VPlace(int placeNo, String placeTitle, String placeContent, Date placeCtreateDate, Date placeModifyDate,
 			String location, String categoryName, String phone, int readCount, String placeDeleteFl, String latitude,
 			String longitude, int adminNo, String priceRange, String businessHours, String parking, String holiday,
 			String enroll, String enrollContents) {

@@ -30,11 +30,6 @@
 		<result property="boardNo" column="BOARD_NO"/>
 	</resultMap>
 	
-	
-	
-	
-	
-	
 
 	<!-- 게시판 전체 게시글 수 조회 -->
 	<select id="getListCount" resultType="_int">
@@ -153,5 +148,68 @@
 		BOARD_DELETE_FL = 'Y'
 		WHERE BOARD_NO = #{boardNo}
 	</update>
+	
+	<!-- 검색 조건에 맞는 게시글 수 조회 -->
+	<!-- <select id="getSearchListCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM V_BOARD
+		WHERE BOARD_DELETE_FL = 'N'
+		<if test="sv != null">
+			<bind name="val" value="'%' || sv || '%'"/>
+			AND
+			<c:choose>
+				<when test="sk == all">
+					(BOARD_TITLE LIKE #{val} OR
+					BOARD_CONTENT LIKE #{val} OR
+					CATEGORY_NM LIKE #{val} OR  
+					BOARD_LOCATION LIKE #{val})
+				</when>
+				
+				<when test="sk == title">
+					BOARD_CONTENT LIKE #{val}
+				</when>
+				
+				<when test="sk == category">
+					CATEGORY_NM LIKE #{val}
+				</when>
+				
+				<when test="sk == location">
+					BOARD_LOCATION LIKE #{val}
+				</when>
+			</c:choose>
+		</if>
+	</select>
+	
+	
+	검색 조건이 포함된 게시글 조회
+	<select id="selectSearchList" parameterType="map" resultMap="vBoard_rm">
+		SELECT * FROM V_BOARD
+		WHERE BOARD_DELETE_FL = 'N'
+		<if test="sv != null">
+			<bind name="val" value="'%' || sv || '%'"/>
+			AND
+			<c:choose>
+				<when test="sk == all">
+					(BOARD_TITLE LIKE #{val} OR
+					BOARD_CONTENT LIKE #{val} OR
+					CATEGORY_NM LIKE #{val} OR
+					BOARD_LOCATION LIKE #{val})
+				</when>
+				
+				<when test="sk == title">
+					BOARD_CONTENT LIKE #{val}
+				</when>
+				
+				<when test="sk == category">
+					CATEGORY_NM LIKE #{val}
+				</when>
+				
+				<when test="sk == location">
+					BOARD_LOCATION LIKE #{val}
+				</when>
+			</c:choose>
+		</if>
+		
+		ORDER BY BOARD_NO DESC
+	</select> -->
 	
 </mapper>

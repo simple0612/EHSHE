@@ -11,9 +11,17 @@ public class Attachment {
 	
 	public Attachment() {
 	}
+	
 
+	public Attachment(String thumbnailFilePath, String fileName, int fileLevel, int boardNo) {
+		super();
+		this.thumbnailFilePath = thumbnailFilePath;
+		this.fileName = fileName;
+		this.fileLevel = fileLevel;
+		this.boardNo = boardNo;
+	}
 	
-	
+
 	public Attachment(String thumbnailFilePath, String contentFilePath, String fileName, int fileLevel, int boardNo) {
 		super();
 		this.thumbnailFilePath = thumbnailFilePath;
@@ -22,7 +30,6 @@ public class Attachment {
 		this.fileLevel = fileLevel;
 		this.boardNo = boardNo;
 	}
-
 
 
 	public Attachment(int fileNo, String thumbnailFilePath, String contentFilePath, String fileName, int fileLevel,
