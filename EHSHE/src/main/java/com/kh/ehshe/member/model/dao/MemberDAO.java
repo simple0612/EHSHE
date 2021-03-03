@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.ehshe.member.model.vo.Member;
 
+/**
+ * @author HUI DO PARK
+ *
+ */
 @Repository
 public class MemberDAO {
 
@@ -80,6 +84,24 @@ public class MemberDAO {
 	 */
 	public int updatePw(Map<String, Object> map) {
 		return sqlSession.update("memberMapper.updatePw", map);
+	}
+
+
+	/** 카카오 회원 등록 DAO
+	 * @param kakaoInfo
+	 * @return result
+	 */
+	public int kakaoSignUp(Member member) {
+		return sqlSession.insert("memberMapper.kakaoReg", member);
+	}
+
+
+	/** 카카오 로그인 DAO
+	 * @param memberId
+	 * @return member
+	 */
+	public Member kakaoLogin(Member member) {
+		return sqlSession.selectOne("memberMapper.login", member);
 	}
 
 }

@@ -18,6 +18,9 @@
 <!-- fontawesome -->
 <script src="https://kit.fontawesome.com/5a7a3b1a34.js" crossorigin="anonymous"></script>
 
+	<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
+ 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <title>EHSHE</title>
 
 <style>
@@ -26,7 +29,7 @@
 
 .form-wrapper {
 	margin: 50px 0 120px 0;
-} 
+}
 
 .form-container {
 	margin: auto;
@@ -242,24 +245,28 @@ input[id="saveId"]:checked + label em {
                         console.log(kakao_account.email);
                           
                         $.ajax({
-                           url: "${contextPath}/login/kakaoLogin",
-                           data: ({
-                              memberEmail: kakao_account.email,
-                              memberNick: kakao_account.profile.nickname,
-                              /* memberPwd: Kakao.Auth.getAccessToken() */
-                           }),
+                           url: "kakaoLogin",
+                           data: {
+                              "memberId": kakao_account.email,
+                              "memberNm": kakao_account.profile.nickname,
+                              "memberPw": Kakao.Auth.getAccessToken()
+                           },
                            type: "post",
-                           success: function(result){
-                              if(result == 'already'){ // 이미 아이디가 있을 때
+                           success: function(kakaoMember){
+                              swal({icon:"success", title:"로그인 성공!"}).then(function(){
+	                             	window.location.href = "${contextPath}/";                            	  
+                              });	
+                              console.log("성공");                    
+                              //console.log(Kakao.Auth.getAccessToken());
+                              console.log(kakaoMember);
+                            /*  if(result == 'already'){ // 이미 아이디가 있을 때
                                  window.location.href = "${contextPath}/";
                               }else{
-                                 window.location.href = "${contextPath}/login/addModeInfoView";
-                              }
-                              console.log("성공")
-                              console.log(Kakao.Auth.getAccessToken());
+                                 //window.location.href = "${contextPath}/member/loginView";
+                              }*/
                            },
                            error: function(){
-                              console.log("tgt")
+                              console.log("ajax 통신 실패");
                            }
                         });
                         

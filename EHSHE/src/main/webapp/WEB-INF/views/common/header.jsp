@@ -64,14 +64,30 @@
 
             <div class="login_area">
            			<c:choose>
-                	<c:when test="${empty sessionScope.loginMember }">
+<%--                 	<c:when test="${empty sessionScope.loginMember }">
                 	<span><a href="${contextPath}/member/loginView">로그인</a></span>
                 </c:when>
+                <c:otherwise>
+                  <span><a href="${contextPath}/page/mypagemain">${loginMember.memberNm}</a></span> <!-- 아이디출력 -->
+                  <span><a href="${contextPath}/member/logout">로그아웃</a></span>
+                  <span><a href="${contextPath}/shop2/cart"><img src="${contextPath}/resources/images/shoppingCart.png"></a></span>
+                </c:otherwise> --%>
+                
+                <c:when test="${empty sessionScope.loginMember && empty sessionScope.kakaoMember}">                
+                	<span><a href="${contextPath}/member/loginView">로그인</a></span>
+                </c:when>            
+                
+                <c:when test="${!empty sessionScope.kakaoMember}">
+                  <span><a href="${contextPath}/page/mypagemain">${kakaoMember.memberNm}</a></span> <!-- 아이디출력 -->
+                  <span><a href="${contextPath}/member/logout">로그아웃</a></span>
+                  <span><a href="${contextPath}/shop2/cart"><img src="${contextPath}/resources/images/shoppingCart.png"></a></span>
+                </c:when>            
+                
                 <c:otherwise>
                   <span><a href="${contextPath}/page/mypagemain">${loginMember.memberId}</a></span> <!-- 아이디출력 -->
                   <span><a href="${contextPath}/member/logout">로그아웃</a></span>
                   <span><a href="${contextPath}/shop2/cart"><img src="${contextPath}/resources/images/shoppingCart.png"></a></span>
-                </c:otherwise>
+								</c:otherwise>
               </c:choose>
             </div>
         </nav>
@@ -96,17 +112,24 @@
             
             
             <ul class="side2">
-            	<c:choose>
-                <c:when test="${empty sessionScope.loginMember }">
-                	<li><a href="${contextPath}/member/loginView">로그인</a></li>
-                </c:when>            
-                <c:otherwise>
-	                <li><a href="${contextPath}/page/mypagemain">${loginMember.memberId}</a></li> <!-- 아이디출력 -->
-	                <li><a href="${contextPath}/member/logout">로그아웃</a></li>
-	                <li><a href="${contextPath}/shop2/cart"><img src="${contextPath}/resources/images/shoppingCart.png"></a></li>
-								</c:otherwise>
-							</c:choose>
-            </ul>
+            	<c:choose>								
+     		       <c:when test="${empty sessionScope.loginMember && empty sessionScope.kakaoMember}">                
+               	<li><a href="${contextPath}/member/loginView">로그인</a></li>
+               </c:when>            
+                
+               <c:when test="${!empty sessionScope.kakaoMember}">
+               	<li><a href="${contextPath}/page/mypagemain">${kakaoMember.memberNm}</a></li> <!-- 아이디출력 -->
+                <li><a href="${contextPath}/member/logout">로그아웃</a></li>
+                <li><a href="${contextPath}/shop2/cart"><img src="${contextPath}/resources/images/shoppingCart.png"></a></li>
+               </c:when>            
+                
+               <c:otherwise>
+                <li><a href="${contextPath}/page/mypagemain">${loginMember.memberId}</a></li> <!-- 아이디출력 -->
+                <li><a href="${contextPath}/member/logout">로그아웃</a></li>
+                <li><a href="${contextPath}/shop2/cart"><img src="${contextPath}/resources/images/shoppingCart.png"></a></li>
+							</c:otherwise>
+						</c:choose>
+           </ul>
         </div>
     </div>
 
