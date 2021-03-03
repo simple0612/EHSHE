@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cartMapper">
+
+
+	<resultMap type="ShopCart" id="shopCart_rm">
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="optionSpecifyNo" column="OPTION_SPECIFY_NO" />
+		<result property="buyingQuantity" column="BUYING_QUANTITY" />
+		<result property="itemNo" column="ITEM_NO" />
+		<result property="itemPrice" column="ITEM_PRICE" />
+		<result property="itemNm" column="ITEM_NM" />
+		<result property="imgName" column="IMG_NAME" />
+		<result property="imgPath" column="IMG_PATH" />
+		<result property="imgLevel" column="IMG_LEVEL" />
+		<result property="itemOptionContent" column="ITEM_OPTION_CONTENT" />
+		<result property="optionSpecifyContent" column="OPTION_SPECIFY_CONTENT" />
+	</resultMap>
+
+
+	<!--장바구니 조회   -->
+	<select id="selectCartList" parameterType="_int" resultMap="shopCart_rm">
+		SELECT MEMBER_NO, OPTION_SPECIFY_NO, BUYING_QUANTITY,
+		ITEM_NO, ITEM_PRICE, ITEM_NM,
+		IMG_NAME, IMG_PATH, IMG_LEVEL, ITEM_OPTION_CONTENT, OPTION_SPECIFY_CONTENT
+		FROM EH_CART
+		JOIN EH_ITEM_OPTIONDETAIL USING(OPTION_SPECIFY_NO)
+		JOIN EH_ITEM USING(ITEM_NO)
+		JOIN EH_ITEM_IMG USING(ITEM_NO)
+		JOIN EH_ITEM_OPTION USING(ITEM_NO)
+		WHERE ITEM_DELETE_FL = 'N'
+		AND IMG_LEVEL = 0
+		AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	
+	
+	<!-- 장바구니 선택삭제 -->
+	<delete id="deleteCartItem" parameterType="map">
+		DELETE FROM EH_CART 
+		WHERE MEMBER_NO = #{memberNo}
+		AND OPTION_SPECIFY_NO = #{optionSpecifyNo}
+	</delete>
+	
+	<!-- 장바구니 전체 삭제 -->
+	<delete id="deleteAllCartItem" parameterType="hashmap">
+		DELETE FROM EH_CART 
+		WHERE MEMBER_NO = #{memberNo}
+		AND OPTION_SPECIFY_NO IN
+		<foreach collection="optionSpecifyNoList" item="optionNo" 
+		open="(" close=")" separator=",">
+			 #{optionNo}
+		</foreach> 
+	</delete>
+
+
+	<!-- 주문 결제 페이지 조회  -->
+	<select id="ordersheet" parameterType="map" resultMap="shopCart_rm">
+				SELECT MEMBER_NO, OPTION_SPECIFY_NO, BUYING_QUANTITY, ITEM_NO, ITEM_PRICE, ITEM_NM,
+       	IMG_NAME, IMG_PATH, IMG_LEVEL, ITEM_OPTION_CONTENT, OPTION_SPECIFY_CONTENT
+				FROM EH_CART
+				JOIN EH_ITEM_OPTIONDETAIL USING(OPTION_SPECIFY_NO)
+				JOIN EH_ITEM USING(ITEM_NO)
+				JOIN EH_ITEM_IMG USING(ITEM_NO)
+				JOIN EH_ITEM_OPTION USING(ITEM_NO)
+				WHERE ITEM_DELETE_FL = 'N'
+				AND MEMBER_NO = #{memberNo}
+				AND IMG_LEVEL = 0
+				AND OPTION_SPECIFY_NO IN
+				<foreach collection="optionNoList" item="optionNo" open="(" close=")" separator=",">
+								#{optionNo}
+				</foreach>
+	</select>
+
+
+
+
+
+
+
+</mapper>
