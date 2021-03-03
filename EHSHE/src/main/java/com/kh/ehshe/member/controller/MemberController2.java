@@ -65,7 +65,7 @@ public class MemberController2 {
 		String returnURL = null;
 
 		if (result > 0) {
-			returnURL = "mypage";
+			returnURL = "memberopstion";
 
 		} else {
 			swalIcon = "error";
@@ -79,6 +79,14 @@ public class MemberController2 {
 		return "redirect:" + returnURL;
 	}
 
+	
+	@RequestMapping("memberopstion")
+	public String memberopstion() {
+		return "member/memberopstion";
+	}
+
+	
+	
 	/**
 	 * 마이페이지로이동
 	 * 
