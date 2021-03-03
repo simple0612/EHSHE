@@ -82,7 +82,7 @@ header {
 								<label for="sprice">배송비</label> <input type="number" name="sprice" id="sprice" value="" readonly />
 							</div>
 							<div class="total-price price">
-								<label for=tsprice>총가격 + 배송비</label> <input type="number" id="tsprice" value="" readonly />
+								<label for=tsprice>총가격 + 배송비</label> <input type="number" name="tsprice" id="tsprice" value="" readonly />
 							</div>
 							<div class="pay-area">
 								<button type="submit" class="do_payment">주문하기</button>
@@ -188,21 +188,25 @@ header {
                 totalprice += (iprice * inumber);
                 $("#tprice").val(totalprice);
             } else {
+            		
                 totalprice -= (iprice * inumber);
                 $("#tprice").val(totalprice);
                 $(".checkall").prop("checked", false);
+            		
             }
 
 
+
             if (totalprice > 20000) {
-                var sprice = 2000;
+                var sprice = 0;
                 $("#sprice").val(sprice);
             } else {
-                var sprice = 0;
+                var sprice = 3000;
                 $("#sprice").val(sprice);
             }
             $("#tsprice").val(totalprice + sprice);
         });
+ 
 
 
         // 전체 체크된 물건의 가격을 얻어오는 방법.
@@ -230,10 +234,16 @@ header {
                 $("#tprice").val(totalprice);
 
 
-                if (totalprice > 20000) {
+                if (totalprice < 20000) {
 
-                    var sprice = 2000;
+                    var sprice = 3000;
                     $("#sprice").val(sprice);
+
+                    $("#tsprice").val(totalprice + sprice);
+                }else{
+                		
+                		var sprice = 0;
+                		$("#sprice").val(sprice);
 
                     $("#tsprice").val(totalprice + sprice);
                 }
