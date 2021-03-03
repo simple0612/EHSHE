@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.ehshe.shop.model.vo.Shop;
 import com.kh.ehshe.shop.model.vo.ShopAttachment;
+import com.kh.ehshe.shop.model.vo.ShopOption;
 import com.kh.ehshe.shop.model.vo.ShopPageInfo;
 
 public interface ShopService {
@@ -47,6 +48,12 @@ public interface ShopService {
 	 * @return ShopAttachmentList
 	 */
 	ShopAttachment selectShopAttachmentList(int itemNo);
+	
+	/** shop 옵션 목록 조회 Service
+	 * @param itemNo
+	 * @return ShopOptionList
+	 */
+	List<ShopOption> selectShopOptionList(int itemNo);
 
 	
 	
@@ -54,9 +61,11 @@ public interface ShopService {
 	 * @param map
 	 * @param images
 	 * @param savePath
+	 * @param colormenu 
+	 * @param sizemenu 
 	 * @return result
 	 */
-	int insertShop(Map<String, Object> map, List<MultipartFile> images, String savePath);
+	int insertShop(Map<String, Object> map, List<MultipartFile> images, String savePath, List<String> sizemenu, List<String> colormenu);
 
 	/** 섬머노트 업로드 이미지 저장 Service
 	 * @param uploadFile
@@ -65,6 +74,28 @@ public interface ShopService {
 	 * @return ㅁ
 	 */
 	ShopAttachment insertShopImage(MultipartFile uploadFile, String savePath, int type);
+
+	/* shop 게시글 수정 Service
+	 * @param updateShopBoard
+	 * @param images
+	 * @param savePath
+	 * @return result
+	 */
+	int updateShopBoard(Shop updateShopBoard, MultipartFile images, String savePath);
+
+	/** 메인 페이지 최근올라온 상품 Service
+	 * @return sList
+	 */
+	List<Shop> selectShopMainList();
+
+	/** 메인 페이지 최근순 썸네일 조회하기
+	 * @param sList
+	 * @return mThList
+	 */
+	List<ShopAttachment> selectMainAttachmentlList(List<Shop> sList);
+	
+	
+	
 
 
 

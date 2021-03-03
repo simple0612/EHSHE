@@ -15,7 +15,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> 
     <style>
-/*        div{
+   /*      div{
             border: 1px solid black;
         }    */
     /*     #wrapper{
@@ -49,6 +49,10 @@
         }  
        header{
         position:relative !important;
+        }
+        .mainImg{
+        	height:100%;
+        	width:100%;
         }
         
     </style>
@@ -109,54 +113,36 @@
         </div>
     </div>
     <div class="container" style="margin-top: 50px;">
+            
         <p><strong>최근 올라온 상품</strong></p>
         <div class="row">
-            <div class="col-md-4">
+          <c:forEach var="shop" items="${sList}" varStatus="vs">
+            <div class="col-md-4 ppp">
                 <div class="mb-4 a">
-                    <img src="여행.jpg" class="rounded mx-auto d-block shopmainImg">                </div>
+                  <c:forEach items="${thMList}" var="th">
+                   	<c:if test="${th.parentShopNo == shop.itemNo}">
+                   		 <img src="${contextPath}${th.filePath}/${th.fileName}" class="rounded mx-auto d-block shopmainImg">                
+                		</c:if>
+                 </c:forEach>
+                 </div>
                 <div class="card mb-4">
                     <div class="card-body">
                         <div>
-                            <div><strong>커플옷</strong></div>
-                            <div>가격: 30,000원</div>
-                            <div>배송비: 무료</div>
+                            <div><strong>${shop.itemNm}</strong></div>
+                            <div>가격: ${shop.itemPrice}원</div>
+                            <div>배송비: ${shop.transCharge}</div>
+                            <div><img src="${contextPath}/resources/shopCommonImg/별모양.png" class="mainImg" style="width: 20px; height: 20px;"> 4.15</div>
                         </div>
                     </div>
                   </div>
               </div>
-         
-              <div class="col-md-4">
-                <div class="mb-4 a">
-                    <img src="여행.jpg" class="rounded mx-auto d-block shopmainImg">
-                </div>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div>
-                            <div><strong>커플옷</strong></div>
-                            <div>가격: 30,000원</div>
-                            <div>배송비: 무료</div>
-                        </div>
-                    </div>
-                  </div>
-              </div>
-         
-              <div class="col-md-4">
-                <div class="mb-4 a">
-                    <img src="여행.jpg" class="rounded mx-auto d-block shopmainImg">
-                </div>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div>
-                            <div><strong>커플옷</strong></div>
-                            <div>가격: 30,000원</div>
-                            <div>배송비: 무료</div>
-                        </div>
-                    </div>
-                  </div>
-              </div>
-        </div>
+           </c:forEach>
+             
+          </div>
 
-        <p><strong>인기상품</strong></p>
+
+
+        <p><strong>인기상품(Hot!!)</strong></p>
         <div class="row">
             <div class="col-md-4">
                 <div class="mb-4 a">
@@ -268,7 +254,7 @@
                   </div>
               </div>
         </div>
-
+   
         <div class="row">
             <div class="col-md-3">
                 <div class="mb-3 a">
@@ -329,6 +315,67 @@
                     </div>
                   </div>
               </div>
+              
+              
+              
+              
+             <div class="col-md-3">
+                <div class="mb-3 a">
+                    <img src="여행.jpg" class="rounded mx-auto d-block shopmainImg">
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div>
+                            <div><strong>커플옷</strong></div>
+                            <div>가격: 30,000원</div>
+                            <div>배송비: 무료</div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+           <div class="col-md-3">
+                <div class="mb-3 a">
+                    <img src="여행.jpg" class="rounded mx-auto d-block shopmainImg">
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div>
+                            <div><strong>커플옷</strong></div>
+                            <div>가격: 30,000원</div>
+                            <div>배송비: 무료</div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+               <div class="col-md-3">
+                <div class="mb-3 a">
+                    <img src="여행.jpg" class="rounded mx-auto d-block shopmainImg">
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div>
+                            <div><strong>커플옷</strong></div>
+                            <div>가격: 30,000원</div>
+                            <div>배송비: 무료</div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+            <div class="col-md-3">
+                <div class="mb-3 a">
+                    <img src="여행.jpg" class="rounded mx-auto d-block shopmainImg">
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div>
+                            <div><strong>커플옷</strong></div>
+                            <div>가격: 30,000원</div>
+                            <div>배송비: 무료</div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+      
         </div>
     </div>
     </div>
@@ -336,5 +383,8 @@
  <br>
  <br>
 <jsp:include page="../common/footer.jsp" />		
+<script>
+	
+</script>
 </body>
 </html>

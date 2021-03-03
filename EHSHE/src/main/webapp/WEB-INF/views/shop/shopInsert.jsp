@@ -83,12 +83,12 @@ position:relative !important;
 
                     <div class="form-group mb-7">
                       <label for="productname">상품명</label>
-                      <input class="form-control" id=" productname" type="text" name="itemNm">
+                      <input class="form-control" id=" productname" type="text" name="itemNm" required>
                     </div>
                    
                     <div class="form-group">
                     <label for="productCategory">카테고리</label>
-                    <select class="form-control" id="productCategory" name="itemCategory">
+                    <select class="form-control" id="productCategory" name="itemCategory" required>
                         <option selected>카테고리를선택하시오.</option>
                         <option value="1">Cloths</option>
                         <option value="2">Accessory</option>
@@ -98,11 +98,11 @@ position:relative !important;
                   </div>
                     <div class="form-group">
                           <label for="inputprice">가격</label>
-                          <input class="form-control" id="inputprice" type="number" name="itemPrice">
+                          <input class="form-control" id="inputprice" type="number" name="itemPrice" required>
                     </div>
                     <div class="form-group">
                       <label for=" deliverycharge">배송비</label>
-                      <input class="form-control" id=" deliverycharge" type="number" name="transCharge">
+                      <input class="form-control" id=" deliverycharge" type="number" name="transCharge" required>
                     </div>
 
     
@@ -121,7 +121,7 @@ position:relative !important;
               <div class="col-md-6">
                 <div class=""  id="wrapper4">
                   <label for="inputcolor">color</label>
-                  <input class="" id="inputcolor" name="sizemenu" style="width: 200px;">
+                  <input class="" id="inputcolor" name="colormenu" style="width: 200px;">
                   <button type="button" class="btn btnColor" id="add2">추가</button>
                </div>
               </div>
@@ -134,7 +134,7 @@ position:relative !important;
           <div class="col-md-12">
               <h1>Product Content</h1>
               <div>
-               <textarea id="summernote"name="itemContent"></textarea>
+               <textarea id="summernote"name="itemContent" required></textarea>
               </div>
             </div>
         </div>
@@ -148,13 +148,13 @@ position:relative !important;
 </body>
 
 <script>
-  
+
       // 추가 버튼 클릭 시
   document.getElementById("add").onclick = function(){
 
         // 1) div 태그 생성
        // var div =document.getElementById("wrapper3");
-         var div = document.createElement("div");
+        var div = document.createElement("div");
         div.setAttribute("style","margin-top:5px;");
         div.setAttribute("class","form-inline");
 
@@ -162,7 +162,9 @@ position:relative !important;
 
         var input = document.createElement("input");
         input.setAttribute("type","text"); 
-        input.setAttribute("class",""); 
+        input.setAttribute("class","");
+        input.setAttribute("name","sizemenu"); 
+
 
         div.appendChild(input); 
        
@@ -203,6 +205,7 @@ position:relative !important;
         var input = document.createElement("input");
         input.setAttribute("type","text"); 
         input.setAttribute("class",""); 
+        input.setAttribute("name","colormenu"); 
         div.appendChild(input); 
 
 
@@ -217,6 +220,7 @@ position:relative !important;
 
         document.getElementById("wrapper4").appendChild(div);
 
+        
         };
 
 
