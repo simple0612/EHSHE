@@ -200,7 +200,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 			<h1>내정보 수정</h1>
 
 
-			<br> <br> <br>
+			<br> 
 
 			<div>
 
@@ -329,16 +329,14 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 							</div>
 						</div>
 						<div>
-							<button class="btn btnCk btn-delete" type="button"
-								onclick="location.href='deletemember' ">삭제</button>
+						
 
 
 							<button class="btn btnCk btn-delete"
-								type="submit">수정</button>
+								type="submit">수정 하기</button>
 
 
-							<button class="btn btnCk btn-delete" type="button"
-								onclick="location.href='changePwd' ">비밀번호 수정하러가기</button>
+						
 
 
 						</div>

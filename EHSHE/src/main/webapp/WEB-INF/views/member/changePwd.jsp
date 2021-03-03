@@ -200,7 +200,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 			<h1>비밀번호 수정</h1>
 
 
-			<br> <br> <br>
+			<br> 
 
 			<div>
 
