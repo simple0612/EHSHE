@@ -21,6 +21,7 @@
 		<typeAlias type="com.kh.ehshe.shop.model.vo.Shop" alias="Shop"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopCart" alias="ShopCart"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopAttachment" alias="ShopAttachment"/>
+		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopOption" alias="ShopOption"/>
 	</typeAliases>
 
 	<mappers>
