@@ -99,7 +99,7 @@
 							<ul class="pagination">
 								<%-- 주소 조합 작업 --%>
 								<c:url var="pageUrl" value="?"/>
-
+	
 								<!-- 화살표에 들어갈 주소를 변수로 생성 -->
 								<c:set var="firstPage" value="${pageUrl}cp=1" />
 								<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}" />
@@ -150,13 +150,13 @@
 				<div class="row">
 					<div class="col-md-2"></div>
 					<div class="col-md-8">
-						<form class="form-inline selectBox">
+						<form action="../search" class="form-inline selectBox" name="sk">
 							<select class="form-control mr-sm-2 search-bottom" type="text">
 								<option value="all">전체</option>
 								<option value="title">제목</option>
 								<option value="category">카테고리</option>
 								<option value="location">위치</option>
-							</select> <input id="search-input" class="form-control mr-sm-2"
+							</select> <input id="search-input" class="form-control mr-sm-2" name="sv"
 								type="text" />
 							<button class="btn ehsheYellow my-2 my-sm-0" type="button">
 								검색</button>
@@ -186,6 +186,20 @@
 
 			location.href = boardViewURL;
 		});
+		
+		
+	$(function(){
+		
+		// 검색 조건 sk
+		$("select[name=sk] > option").each(function(index,item){
+			if( $(item).val() == "${sk}"){
+				$(item).prop("selected", true);
+			}
+		});
+		
+		// 검색 값 sv
+		$("input[name=sv]").val("${sv}");
+	});
 	</script>
 
 

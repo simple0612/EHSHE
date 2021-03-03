@@ -47,8 +47,11 @@ function sendFile(file, editor){
             // 자바스크립트를 이용한 context를 얻어오는 방법
             var contextPath = location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 
+            console.log(contextPath);
+            
             // 저장된 이미지를 summernote 에디터에 반영(삽입)
-            $(editor).summernote('editor.insertImage',contextPath + at.filePath + "/" + at.fileName);
+            //$(editor).summernote('editor.insertImage',contextPath + at.contentFilePath + "/" + at.fileName);
+            $(editor).summernote('editor.insertImage', "localhost:8080/spring/resources/infoImages/210302102015_58806.png");
                                             // localhost:8080/spring /resources/infoImages        2020~~.jsp
         }
     });

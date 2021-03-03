@@ -31,7 +31,6 @@ public interface BoardService {
 	 */
 	public abstract List<Attachment> selectThumbnailList(List<VBoard> bList);
 	
-	
 	/** 게시글 상세 조회 Service
 	 * @param boardNo
 	 * @param type 
@@ -50,8 +49,22 @@ public interface BoardService {
 
 	public abstract Attachment insertImage(MultipartFile uploadFile, String savePath);
 
-	public abstract int updateBoard(Board updateBoard, List<MultipartFile> image, String savePath);
+	public abstract int updateBoard(Board updateBoard, List<MultipartFile> image, String savePath, String cSavePath);
 
 	public abstract int deleteBoard(int boardNo);
+
+	/** 검색 조건이 포함된 페이징 처리 객체 생성 Service
+	 * @param cp
+	 * @param map
+	 * @return listCount
+	 */
+	public abstract PageInfo getPageInfo(int cp, Map<String, Object> map);
+
+	/** 검색 조건이 포함된 게시글 목록 조회 Service
+	 * @param pInfo
+	 * @param map
+	 * @return bList
+	 */
+	public abstract List<VBoard> selectSearchList(PageInfo pInfo, Map<String, Object> map);
 	
 }

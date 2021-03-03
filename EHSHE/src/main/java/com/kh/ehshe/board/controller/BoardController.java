@@ -69,13 +69,24 @@ public class BoardController {
 
 		VBoard board = service.selectBoard(boardNo);
 
+		String thumbnailFilePath = null;
+		String fileName = null;
+		
 		String url = null;
 
 		if (board != null) {
 			List<Attachment> attachmentList = service.selectAttachmentList(boardNo);
 
 			if (attachmentList != null && !attachmentList.isEmpty()) {
-				model.addAttribute("attachmentList", attachmentList);
+				
+				
+				for(Attachment at : attachmentList) {
+					thumbnailFilePath = at.getThumbnailFilePath();
+					fileName = at.getFileName();
+				}
+				
+				model.addAttribute("thumbnailFilePath", thumbnailFilePath);
+				model.addAttribute("fileName", fileName);
 			}
 
 			model.addAttribute("board", board);
@@ -117,12 +128,12 @@ public class BoardController {
 		map.put("location", board.getLocation());
 		map.put("latitude", board.getLatitude());
 		map.put("longitude", board.getLongitude());
-
+		
 		// 썸네일 이미지 저장경로
 		String thumbnailSavePath = request.getSession().getServletContext().getRealPath("resources/uploadImages");
 		// content 이미지 저장 경로
 		String contentsavePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
-
+		
 		int result = service.insertBoard(map, image, thumbnailSavePath, contentsavePath);
 		
 		String url = null;
@@ -146,17 +157,16 @@ public class BoardController {
 		return url;
 	}
 
-	// ------------------------------------- summernote
-	// ------------------------------------------\
+	// ------------------------------------- summernot ------------------------------------------
 	// summernote에 업로드된 이미지 저장 Controller
 	@ResponseBody
 	@RequestMapping("insertImage")
 	public String insertImage(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
 
 		// 서버에 파일(이미지)을 저장할 폴더 경로 얻어오기
-		String savePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
+		String cSavePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
 
-		Attachment at = service.insertImage(uploadFile, savePath);
+		Attachment at = service.insertImage(uploadFile, cSavePath);
 
 		return new Gson().toJson(at);
 	}
@@ -196,10 +206,11 @@ public class BoardController {
 		updateBoard.setBoardNo(boardNo);
 		
 		// 파일 저장 경로 얻어오기
-		String savePath = request.getSession().getServletContext().getRealPath("resources/uploadImages");
+		String tSavePath = request.getSession().getServletContext().getRealPath("resources/uploadImages");
+		String cSavePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
 		
 		// 파일 수정 Service 호출
-		int result = service.updateBoard(updateBoard, image, savePath);
+		int result = service.updateBoard(updateBoard, image, tSavePath, cSavePath);
 		
 		String url = null;
 		
@@ -242,6 +253,38 @@ public class BoardController {
 		ra.addFlashAttribute("swalTitle", swalTitle);
 		
 		return url;
+	}
+	
+	// 게시글 검색 Controller
+	@RequestMapping("search")
+	public String searchBoard(@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
+								@RequestParam("sk") String sk,
+								@RequestParam("sv") String sv,
+								Model model) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("sk", sk);
+		map.put("sv", sv);
+		
+		PageInfo pInfo = service.getPageInfo(cp, map);
+		
+		// 게시글 목록 조회
+		List<VBoard> bList = service.selectSearchList(pInfo, map);
+		
+		// 썸네일 목록 조회
+		if(!bList.isEmpty()) {
+			List<Attachment> thList = service.selectThumbnailList(bList);
+			model.addAttribute("thList", thList);
+		}
+		sk = (String) map.get("sk");
+		sv = (String) map.get("sv");
+		
+		model.addAttribute("bList", bList);
+		model.addAttribute("pInfo", pInfo);
+		model.addAttribute("sk", sk);
+		model.addAttribute("sv", sv);
+		
+		return "board/boardList";
 	}
 	
 }

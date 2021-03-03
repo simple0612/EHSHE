@@ -10,7 +10,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>EHSHE 데이트</title>
-<link rel="stylesheet" href="${contextPath}/resources/css/place/placeReview.css">
 <script src="https://kit.fontawesome.com/5a7a3b1a34.js" crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -22,6 +21,7 @@
     integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
     crossorigin="anonymous"></script>
 
+<link rel="stylesheet" href="${contextPath}/resources/css/place/placeReview.css">
 
 	<style>
 		
@@ -29,13 +29,10 @@
 </head>
 
 <body>
-	<jsp:include page="../common/header.jsp" />
 	
 	<div class="container-fluid">
         <div class="row">
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-8 reviewArea">
+            <div class="col-md-12">
                 <div class="row reviewHeader">
                     <div class="col-md-2">
                         <h4>리뷰</h4>
@@ -44,13 +41,13 @@
                         <h6>전체(232) | 최고(120) | 보통(20) | 별로(12)</h6>
                     </div>
                 </div>
-                <div class="row review">
+                <div class="row placeReview">
                     <div class="col-md-2">
                     </div>
                     <div class="col-md-10">
                         <p>2021-02-18</p>
                         <p>
-                            Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, posuere nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
+                            Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. <mark>Curabitur in metus urna.</mark> In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, posuere nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
                         </p>
                         <img src="썸네일.png" alt="">
                         <img src="썸네일.png" alt="">
@@ -58,41 +55,9 @@
                         <img src="썸네일.png" alt="">
                     </div>
                 </div>
-                <div class="row review">
-                    <div class="col-md-2">
-                    </div>
-                    <div class="col-md-10">
-                        <p>2021-02-18</p>
-                        <p>
-                            Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, posuere nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
-                        </p>
-                        <img src="썸네일.png" alt="">
-                        <img src="썸네일.png" alt="">
-                        <img src="썸네일.png" alt="">
-                        <img src="썸네일.png" alt="">
-                    </div>
-                </div>
-                <div class="row review">
-                    <div class="col-md-2">
-                    </div>
-                    <div class="col-md-10">
-                        <p>2021-02-18</p>
-                        <p>
-                            Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, posuere nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
-                        </p>
-                        <img src="썸네일.png" alt="">
-                        <img src="썸네일.png" alt="">
-                        <img src="썸네일.png" alt="">
-                        <img src="썸네일.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2">
             </div>
         </div>
     </div>
-	
-	<jsp:include page="../common/footer.jsp" />
 	
 	<script>
 	

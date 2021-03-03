@@ -1,3 +1,15 @@
+header{
+    position:relative !important;
+}
+
+.ehsheYellow{
+    background-color: #F5dF4D !important;
+}
+
+.boardMain {
+    margin-top: 50px;
+}
+
 body {
 	border-bottom: 1px solid gray;
 }
@@ -29,3 +41,50 @@ body {
 .view-body td:first-child {
 	width: 120px;
 }
+
+.menuTable td{
+	height:30px;
+	
+}
+.markerImg {
+	width: 148px;
+	height: 85px;
+}
+
+ .map_wrap {overflow:hidden;height:330px}
+
+/* .map_wrap {
+	position: relative;
+	width: 100%;
+	height: 300px;
+} */
+
+.title {
+	font-weight: bold;
+	display: block;
+}
+
+.hAddr {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	border-radius: 2px;
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	z-index: 1;
+	padding: 5px;
+}
+
+#centerAddr {
+	display: block;
+	margin-top: 2px;
+	font-weight: normal;
+}
+
+.bAddr {
+	padding: 5px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+

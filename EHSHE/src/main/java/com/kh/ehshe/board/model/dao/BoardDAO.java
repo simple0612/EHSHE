@@ -164,4 +164,24 @@ public class BoardDAO {
 	}
 
 
+	/** 검색조건에 맞는 게시글 수 조회 DAO
+	 * 작성자 mang
+	 * @param map
+	 * @return listCount
+	 */
+	public int getSearchListCount(Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.getSearchListCount", map);
+	}
+
+
+	public List<VBoard> selectSearchList(PageInfo pInfo, Map<String, Object> map) {
+		
+		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		
+		return sqlSession.selectList("boardMapper.selectSearchList", map, rowBounds);
+	}
+
+
 }
