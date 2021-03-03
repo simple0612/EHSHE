@@ -75,7 +75,7 @@ border: 1px solid black;
                             <div><strong>${shop.itemNm}</strong></div>
                             <div>가격: ${shop.itemPrice}</div>
                             <div>배송비: ${shop.transCharge}</div>
-                             <img class="shopimg" src="별모양.png" style="width: 20px; height: 20px;">  4.15
+                             <img class="shopimg" src="${contextPath}/resources/shopCommonImg/별모양.png" style="width: 20px; height: 20px;">  4.15
                         </div>
                     </div>
                   </div>

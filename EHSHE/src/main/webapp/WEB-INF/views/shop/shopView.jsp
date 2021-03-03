@@ -58,16 +58,19 @@ color:black;
 <jsp:include page="../common/header.jsp"/>	
     <div class="container main">
         <div class="row">
-           <c:if test="${!empty ShopAttachmentList}"> 
             <div class="col-md-6">
                 <div class="mb-4 a">
-                    <img src="${contextPath}${ShopAttachmentList.filePath}/${ShopAttachmentList.fileName}" class="rounded mx-auto d-block">
+           					<c:if test="${!empty ShopAttachmentList}"> 
+                   	 <img src="${contextPath}${ShopAttachmentList.filePath}/${ShopAttachmentList.fileName}" class="rounded mx-auto d-block">
+          				 	</c:if>
                 </div>
-                  <div class="float-left">
-			        				<button type="button" class="btn btnColor2">상품수정</button>
+                  <div class="float-right" style="margin-top:10px;">
+                  	<c:url var="updateUrl" value="${shop.itemNo}/update"/>
+			        				<button type="button" class="btn btnColor2" onclick="location.href='${updateUrl}'">상품수정</button>
+			        				<button type="button" class="btn btnColor2">상품삭제</button>
+			        				<button type="button" class="btn btnColor">후기등록</button>
 			        		</div>
               </div>
-           </c:if>
            
             <div class="col-md-6">
                 <div>
@@ -88,18 +91,22 @@ color:black;
                             <td colspan="2">${shop.transCharge}</td>
                           </tr>
                           <tr>
-                            <th scope="row">사이즈</th>
+                            <th scope="row">옵션선택</th>
                             <td colspan="2">  
                               <select name="select" class="form-control" style="width: 255px;"> 
-                              <option selected>사이즈를 선택하세요.</option>
-                              <option>S</option>
-                              <option>M</option>
-                              <option>L</option>
-                              <option>XL</option>
+                             
+                              <option selected>옵션을 선택하세요.</option>
+            									
+            									<c:if test="${!empty ShopOptionList}">
+							                 <c:forEach var="shopOption" items="${ShopOptionList}">
+							                      <option>${shopOption.optionSpecifyContent}</option>
+							               	 </c:forEach>
+                           		 </c:if>
+                              
                               </select>
-                        </td>
+                        		</td>
                           </tr>
-                          <tr>
+<!--                           <tr>
                             <th scope="row">색상</th>
                             <td colspan="2">                             
                              <select name="select" class="form-control" style="width: 255px;"> 
@@ -110,7 +117,7 @@ color:black;
                               <option>green</option>
                               </select>
                             </td>
-                          </tr>
+                          </tr> -->
                           <tr>
                             <th scope="row">개수</th>
                             <td colspan="2">
@@ -124,7 +131,7 @@ color:black;
                           <tr>
                             <th scope="row">
                               <div class="j">
-                                <img src="별모양.png">
+                                <img src="${contextPath}/resources/shopCommonImg/별모양.png">
                               </div>
                             </th>
                             <td colspan="2">4.15</td>

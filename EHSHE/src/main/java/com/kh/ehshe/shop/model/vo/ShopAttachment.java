@@ -18,6 +18,16 @@ public class ShopAttachment {
 		this.fileLevel = fileLevel;
 		this.parentShopNo = parentShopNo;
 	}
+	
+
+	public ShopAttachment(int fileNo, String fileName, String filePath, int fileLevel, int parentShopNo) {
+		super();
+		this.fileNo = fileNo;
+		this.fileName = fileName;
+		this.filePath = filePath;
+		this.fileLevel = fileLevel;
+		this.parentShopNo = parentShopNo;
+	}
 
 	public int getFileNo() {
 		return fileNo;
@@ -64,6 +74,8 @@ public class ShopAttachment {
 		return "ShopAttachment [fileNo=" + fileNo + ", fileName=" + fileName + ", filePath=" + filePath + ", fileLevel="
 				+ fileLevel + ", parentShopNo=" + parentShopNo + "]";
 	}
+
+
 
 	
 	

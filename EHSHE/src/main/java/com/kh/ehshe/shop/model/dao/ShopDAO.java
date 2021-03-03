@@ -10,10 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.ehshe.shop.model.vo.Shop;
 import com.kh.ehshe.shop.model.vo.ShopAttachment;
+import com.kh.ehshe.shop.model.vo.ShopOption;
 import com.kh.ehshe.shop.model.vo.ShopPageInfo;
 
 @Repository
-public class shopDAO {
+public class ShopDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
@@ -59,6 +60,14 @@ public class shopDAO {
 		return sqlSession.selectOne("shopMapper.selectShopAttachmentList",itemNo);
 	}
 	
+	/** shop에 포함된 옵션 목록 조회 DAO
+	 * @param itemNo
+	 * @return
+	 */
+	public List<ShopOption> selectShopOptionList(int itemNo) {
+		return sqlSession.selectList("shopMapper.selectShopOptionList",itemNo);
+	}
+	
 	
 	/** shop 다음 게시글 번호 얻어오기 DAO
 	 * @return shopNo
@@ -83,6 +92,72 @@ public class shopDAO {
 	public int insertShopAttachmentList(List<ShopAttachment> uploadImages) {
 		return sqlSession.insert("shopMapper.insertShopAttachmentList",uploadImages);
 	}
+
+	/** Shop 옵션 번호 추가
+	 * @param shopNo
+	 * @return result
+	 */
+	public int insertOption(int shopNo) {
+		return sqlSession.insert("shopMapper.insertOption",shopNo);
+	}
+
+	/** Shop 옵션 다음 번호 알아오기
+	 * @param shopNo 
+	 * @return result
+	 */
+	public int selectOptionNextNO(int shopNo) {
+		return sqlSession.selectOne("shopMapper.selectOptionNo",shopNo);
+	}
+
+	/** Shop 옵션 상세내용 추가
+	 * @param shopOption
+	 * @return insertOptionDetail
+	 */
+	public int insertOptionDeatail(List<ShopOption> shopOption) {
+		return sqlSession.insert("shopMapper.insertOptionDetail",shopOption);
+	}
+
+	/** Shop 게시글 수정 DAO
+	 * @param updateShopBoard
+	 * @return result
+	 */
+	public int updateShopBoard(Shop updateShopBoard) {
+		return sqlSession.update("shopMapper.updateShopBoard",updateShopBoard);
+	}
+
+	/** 파일 정보 수정 DAO
+	 * @param uploadImage
+	 * @return result
+	 */
+	public int updateShopAttachment(ShopAttachment at) {
+		return sqlSession.update("shopMapper.updateShopAttachment",at);
+	}
+
+	/** 섬머노트 이미지 정보 조회
+	 * @param itemNo
+	 * @return oldFiles
+	 */
+	public List<ShopAttachment> selectShopSummernoteImg(int itemNo) {
+		return sqlSession.selectList("shopMapper.selectShopSummernoteImg",itemNo);
+	}
+
+	/** 섬머노트 파일 정보 일관 삭제 DAO
+	 * @param deleteFileNoList
+	 * @return result
+	 */
+	public int deleteShopAttachmentList(List<Integer> deleteFileNoList) {
+		return sqlSession.delete("shopMapper.deleteShopAttachmentList",deleteFileNoList);
+	}
+
+	public List<Shop> selectShopMainList() {
+		return sqlSession.selectList("shopMapper.selectShopMainList");
+	}
+
+	public List<ShopAttachment> selectMainAttachmentlList(List<Shop> sList) {
+		return sqlSession.selectList("shopMapper.selectShopMainThList",sList);
+	}
+
+
 
 	
 

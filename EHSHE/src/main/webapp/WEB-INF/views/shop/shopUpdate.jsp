@@ -6,151 +6,283 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>html문서 제목</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>html문서 제목</title>
 
-<!-- 부트스트랩 사용을 위한 라이브러리 추가 -->
-<!-- jquery가 항상 먼저여야된다! -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-<style>
-/*    div{
-         border: 1px solid black;
-     }   */   
-img{
-  width:100%;
-  height:100%;
-}
-.a{
-  height: 400px;
-}
-.b{
-  height: 100%;
-  width: 100%;
+  <!-- 부트스트랩을 사용을 위한 css 추가 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    
+    <!-- 부트스트랩 사용을 위한 라이브러리 추가 -->
+    <!-- jquery가 항상 먼저여야된다! -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+ <!--    <!-- include libraries(jQuery, bootstrap) -->
+<!--   <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>  -->
+
+ 
+ <style>
+  /*    div{
+            border: 1px solid black;
+        }   */ 
+  .a{
   margin: 0px auto;
+  }
+  img{
+      width: 100%;
+      height: 100%;
+  }
+  .b{
+      height: 200px;
+      width: 200px;
+      margin: 0px auto;
+  }
+  .q{
+      width: 1280px;
 }
-.c{
-  margin: 5px;
-
+.btnColor{
+  background-color: #F5dF4D;
+  color:white;
 }
-.j{
-  width: 25px;
-  height: 25px;
+.btnColor2{
+  background-color: #939597;
+  color: white;
 }
-  header{
+header{
 position:relative !important;
 }
-.main{
-margin-top:50px;
-}
-    </style>
+
+ 
+</style>
+<link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
+
 </head>
 <body>
-<jsp:include page="../common/header.jsp"/>	
-    <div class="container main">
+   <jsp:include page="../common/header.jsp"/>
+   
+	<!-- summernote 사용 시 필요한 js 파일 추가 -->
+	<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
+	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
+	<script src="${contextPath}/resources/summernote/js/shopSummernote.js"></script>
+	
+    
+    <div class="container" style="margin-top: 110px;">
+      <h1>Shop Update</h1>
+        <form action="shopUpdateAction" method="post" enctype="multipart/form-data" role="form" style="margin-bottom:200px;">
         <div class="row">
-           
-           <c:if test="${!empty ShopAttachmentList}"> 
-            <div class="col-md-6">
-                <div class="mb-4 a">
-                    <img src="${contextPath}${ShopAttachmentList.filePath}/${ShopAttachmentList.fileName}" class="rounded mx-auto d-block">
-                </div>
-              </div>
-           </c:if>
-           
-            <div class="col-md-6">
-                <div>
-                    <table class="table table-borderless">
-                        <thead>
-                          <tr>
-                            <th scope="col">상품명</th>
-                            <th colspan="2">${shop.itemNm}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">가격</th>
-                            <td colspan="2">${shop.itemPrice}원</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">배송비</th>
-                            <td colspan="2">${shop.transCharge}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">사이즈</th>
-                            <td colspan="2">  
-                              <select name="select"> 
-                              <option selected>사이즈를 선택하세요.</option>
-                              <option>S</option>
-                              <option>M</option>
-                              <option>L</option>
-                              <option>XL</option>
-                              </select>
-                        </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">색상</th>
-                            <td colspan="2">                             
-                             <select name="select"> 
-                              <option selected>색상을 선택하세요.</option>
-                              <option>red</option>
-                              <option>black</option>
-                              <option>white</option>
-                              <option>green</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">개수</th>
-                            <td colspan="2">
-                              <input type="number" min="0" max="100"  value="1" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Total</th>
-                            <td colspan="2">${shop.itemPrice}원</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">
-                              <div class="j">
-                                <img src="별모양.png">
-                              </div>
-                            </th>
-                            <td colspan="2">4.15</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div class="float-left col-10">
-                        <div>
-                         <button class="btn btn-warning btn-lg btn-block">결제하기</button>
-                         <button class="btn btn-secondary btn-lg btn-block">장바구니</button>
-                      </div>
+            		<div class="col-md-6">
+               	<c:if test="${!empty shopAttachmnet}"> 
+	                <div class="mb-4 a boardImg" style="height:400px;">
+	 										<img src="${contextPath}${shopAttachmnet.filePath}/${shopAttachmnet.fileName}" class="rounded mx-auto d-block">               
+	                </div>
+                </c:if>
+            		</div>
+                
+                <div id="fileArea" style="display:none;">
+				          	<input type="file" id="img0" name="images" onchange="LoadImg(this,0)"> 
+                </div> 
+               
+                  <div class="col-md-6"> 
+
+                    <div class="form-group mb-7">
+                      <label for="productname">상품명</label>
+                      <input class="form-control" id=" productname" type="text" name="itemNm" required value="${shop.itemNm}">
                     </div>
+                   
+                    <div class="form-group">
+                    <label for="productCategory">카테고리</label>
+                    <select class="form-control" id="productCategory" name="itemCategory" required>
+                        <option selected>카테고리를선택하시오.</option>
+                        <option value="1">Cloths</option>
+                        <option value="2">Accessory</option>
+                        <option value="3">Etc</option>
+                    </select>
+                   
+                  </div>
+                    <div class="form-group">
+                          <label for="inputprice">가격</label>
+                          <input class="form-control" id="inputprice" type="number" name="itemPrice" required value="${shop.itemPrice}">
+                    </div>
+                    <div class="form-group">
+                      <label for=" deliverycharge">배송비</label>
+                      <input class="form-control" id=" deliverycharge" type="number" name="transCharge" required value="${shop.transCharge}">
+                    </div>
+
+    
+                   </div> 
                 </div>
+          
+          <div class="row">            
+              <div class="col-md-6">
+                <div class=""  id="wrapper3">
+                  <label for="inputsize">size</label>
+                  <input class="" id="inputsize" name="sizemenu" style="width: 200px;">
+                  <button type="button" class="btn btnColor" id="add">추가</button>
+               </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class=""  id="wrapper4">
+                  <label for="inputcolor">color</label>
+                  <input class="" id="inputcolor" name="colormenu" style="width: 200px;">
+                  <button type="button" class="btn btnColor" id="add2">추가</button>
+               </div>
+              </div>
+            
+            </div>
+
+            <br>
+        <br>
+        <div class="row">
+          <div class="col-md-12">
+              <h1>Product Content Update</h1>
+              <div>
+               <textarea id="summernote"name="itemContent" required>${shop.itemContent}</textarea>
+              </div>
             </div>
         </div>
-        <hr>
-        <div class="row" style="margin-top: 30px;">
-          <div class="col-md-12">
-            <div class="mb-4 b">
-           	<% pageContext.setAttribute("newLine","\n"); %>
-						${fn:replace(shop.itemContent,newLine,"<br>")}
-             </div>
-          </div>
+        <div class="float-right">
+            <button class="btn btnColor btn" type="submit">수정</button>
+            <button class="btn btnColor2 btn">취소</button>
         </div>
-        <br>
-        <br>
-     </div>
-   <jsp:include page="../common/footer.jsp" />		
-     
+       </form>
+    </div>
+  <jsp:include page="../common/footer.jsp"/>		
 </body>
+
 <script>
-  $(document).ready(function(){
-    $("#myBtn").click(function(){
-        $("#myModal").modal();
-    });
-});
+
+      // 추가 버튼 클릭 시
+  document.getElementById("add").onclick = function(){
+
+        // 1) div 태그 생성
+       // var div =document.getElementById("wrapper3");
+        var div = document.createElement("div");
+        div.setAttribute("style","margin-top:5px;");
+        div.setAttribute("class","form-inline");
+
+
+
+        var input = document.createElement("input");
+        input.setAttribute("type","text"); 
+        input.setAttribute("class","");
+        input.setAttribute("name","sizemenu"); 
+
+
+        div.appendChild(input); 
+       
+       
+        var button = document.createElement("button"); 
+        button.setAttribute("type","button");
+        button.setAttribute("class","btn btnColor2 float-right"); 
+        button.setAttribute("onclick","deleteRow(this);"); 
+        button.setAttribute("style","margin-left: 5px;");
+        button.innerHTML="삭제"; 
+        
+        div.appendChild(button);
+
+       document.getElementById("wrapper3").appendChild(div);
+      
+      };
+
+        // 삭제
+        function deleteRow(el){
+            // el에는 클릭된 버튼(this)이 담겨있음.
+
+            // 클릭된 버튼의 부모 요소(부모 노드)를 선택해서 제거 == 한줄제거
+            el.parentNode.remove();
+        }
+
+
+        document.getElementById("add2").onclick = function(){
+
+        // 1) div 태그 생성
+   //     var div =document.getElementById("wrapper4");
+        var div = document.createElement("div");
+        div.setAttribute("style","margin-top:10px;");
+        div.setAttribute("class","form-inline");
+        div.setAttribute("style"," white-space: nowrap;");
+
+
+
+        var input = document.createElement("input");
+        input.setAttribute("type","text"); 
+        input.setAttribute("class",""); 
+        input.setAttribute("name","colormenu"); 
+        div.appendChild(input); 
+
+
+        var button = document.createElement("button"); 
+        button.setAttribute("type","button");
+        button.setAttribute("class","btn btnColor2 float-right"); 
+        button.setAttribute("onclick","deleteRow(this);"); 
+        button.setAttribute("style","margin-left: 5px;");
+        button.innerHTML="삭제"; 
+
+        div.appendChild(button);
+
+        document.getElementById("wrapper4").appendChild(div);
+
+        
+        };
+
+
+
+	// 이미지 영역을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
+    $(function(){
+		//	$("#fileArea").hide(); // #fileArea 요소를 숨김.		
+			
+			$(".boardImg").on("click", function(){ // 이미지 영역이 클릭 되었을 때
+				
+				// 클릭한 이미지 영역 인덱스 얻어오기
+				var index = $(".boardImg").index(this);
+						// -> 클릭된 요소가 .boardImg 중 몇번째 인덱스인지 반환
+						
+				//console.log(index);
+				
+				// 클릭된 영역 인덱스에 맞는 input file 태그 클릭
+				$("#img" + index).click();
+			});
+			
+		});
+		 
+		
+		
+	  // 각각의 영역에 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
+	  function LoadImg(value, num) {
+		  // value.files : 파일이 업로드되어 있으면 true
+		  // value.files[0] : 여러 파일 중 첫번째 파일이 업로드 되어 있으면 true
+		  
+			if(value.files && value.files[0]){ // 해당 요소에 업로드된 파일이 있을 경우
+				
+				var reader = new FileReader();
+       	// 자바스크립트 FileReader
+      	// 웹 애플리케이션이 비동기적으로 데이터를 읽기 위하여 
+      	// 읽을 파일을 가리키는 File 혹은 Blob객체를 이용해 
+      	// 파일의 내용을 읽고 사용자의 컴퓨터에 저장하는 것을 가능하게 해주는 객체
+      	
+      	reader.readAsDataURL(value.files[0]);
+        // FileReader.readAsDataURL()
+      	// 지정된의 내용을 읽기 시작합니다. 
+      	// Blob완료되면 result속성 data:에 파일 데이터를 나타내는 URL이 포함 됩니다.	
+      	
+      	reader.onload = function(e){
+        	// FileReader.onload
+					// load 이벤트의 핸들러. 
+					// 이 이벤트는 읽기 동작이 성공적으로 완료 되었을 때마다 발생합니다.	
+      		
+					// 읽어들인 내용(이미지 파일)을 화면에 출력
+					
+					$(".boardImg").eq(num).children("img").attr("src", e.target.result);
+					// e.target.result : 파일 읽기 동작을 성공한 요소가 읽어들인 파일 내용
+					
+      	}
+			}
+		}
+
 </script>
+</html>
 </html>

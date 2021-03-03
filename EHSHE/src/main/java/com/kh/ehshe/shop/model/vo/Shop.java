@@ -13,10 +13,9 @@ public class Shop {
 	private Timestamp itemCreateDt;
 	private int itemCategory;
 	private String itemCategoryNm;
+	
 
-
-	public Shop() {
-	}
+	public Shop() {}
 
 
 	public int getItemNo() {
@@ -107,14 +106,7 @@ public class Shop {
 	public void setItemCategoryNm(String itemCategoryNm) {
 		this.itemCategoryNm = itemCategoryNm;
 	}
-
-
-	@Override
-	public String toString() {
-		return "Shop [itemNo=" + itemNo + ", itemContent=" + itemContent + ", itemNm=" + itemNm + ", itemPrice="
-				+ itemPrice + ", transCharge=" + transCharge + ", itemDeleteFl=" + itemDeleteFl + ", itemCreateDt="
-				+ itemCreateDt + ", itemCategory=" + itemCategory + ", itemCategoryNm=" + itemCategoryNm + "]";
-	}
-
 	
+    
+		
 }
