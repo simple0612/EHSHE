@@ -18,8 +18,11 @@
 <!-- fontawesome -->
 <script src="https://kit.fontawesome.com/5a7a3b1a34.js" crossorigin="anonymous"></script>
 
-	<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
- 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!-- kakao jdk -->
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <title>EHSHE</title>
 
@@ -91,26 +94,29 @@ input[id="saveId"]:checked + label em {
 	display: inline-block;
 	}
 	
-.list-user a, .list-user > a:link {
+.list-user a {
 	text-decoration: none;
 	color: rgba(0,0,0,0.7);
 }
 
+.list-user a:hover {
+	color: #007bff;
+}
+
 .btn {
-	border: none;
-	width: 100%;
 	height: 2.8rem;
 	margin-top: 0.7rem;
-	max-width: 350px;
 	font-weight: 600;
 	font-size: 15px;
 	color: #191919;
-	background-color: #F5DF4D;
+	background-color: #f6f6f6;
 	border-radius: 1rem;
+/* 	background-color: #F5DF4D; */
 }
 
-.btn:hover{
-	background-color: #f0d700 !important;
+.btn:hover {
+	background-color: #dbdbdb !important;
+/* 	background-color: #f0d700 !important; */
 }
 
 .title-sns {
@@ -160,11 +166,11 @@ input[id="saveId"]:checked + label em {
 		<%-- 로그인 form --%>
 			<form action="login" method="post">
 				<div class="form-group">
-					<input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요." class="form-control" 
+					<input type="text" id="memberId" name="memberId"  class="form-control" placeholder="아이디를 입력해주세요."
 								 value="${cookie.saveId.value}" required autofocus> 
 				</div>	
 				<div class="form-group">
-					<input type="password" id="memberPw" name="memberPw" placeholder="비밀번호를 입력해주세요." class="form-control" required> 
+					<input type="password" id="memberPw" name="memberPw" class="form-control" placeholder="비밀번호를 입력해주세요." required> 
 				</div>
 	
 				<br>			
@@ -222,66 +228,37 @@ input[id="saveId"]:checked + label em {
 		</div>		
 	</div> <%-- form-wrapper end --%>
 
+	<%-- kakao Login JS --%>
+	<script src="${contextPath}/resources/js/kakaoLogin.js"></script>
+
 	<%-- footer include --%>
 	<jsp:include page="../common/footer.jsp" />			
-	
-	<%-- kakao login --%>
-  <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 	<script>
-	/* 카카오 로그인 */
-    window.Kakao.init('d3198cad73fdf76ad8b09239d1011d94');
-    function klogin() {
-        window.Kakao.Auth.login({
-            scope:'profile, account_email',
-            success: function(authObj) {
-                console.log(authObj);
-                window.Kakao.API.request({
-                    url: '/v2/user/me',
-                        success: res => {
-                        const kakao_account = res.kakao_account
-                        console.log(kakao_account);
-                        console.log(kakao_account.profile.nickname);
-                        console.log(kakao_account.email);
-                          
-                        $.ajax({
-                           url: "kakaoLogin",
-                           data: {
-                              "memberId": kakao_account.email,
-                              "memberNm": kakao_account.profile.nickname,
-                              "memberPw": Kakao.Auth.getAccessToken()
-                           },
-                           type: "post",
-                           success: function(kakaoMember){
-                              swal({icon:"success", title:"로그인 성공!"}).then(function(){
-	                             	window.location.href = "${contextPath}/";                            	  
-                              });	
-                              console.log("성공");                    
-                              //console.log(Kakao.Auth.getAccessToken());
-                              console.log(kakaoMember);
-                            /*  if(result == 'already'){ // 이미 아이디가 있을 때
-                                 window.location.href = "${contextPath}/";
-                              }else{
-                                 //window.location.href = "${contextPath}/member/loginView";
-                              }*/
-                           },
-                           error: function(){
-                              console.log("ajax 통신 실패");
-                           }
-                        });
-                        
-                    }
-                });
-            },
-            fail: function() {
-                alert('11');
-            }
-        });   
-    }
+	// 로그인 버튼 색 제어
+	// 부트스트랩 사용 시, css 변경할 경우 !important가 필요
+	// -> .css() 메서드는 !important 안되므로  .atrr() 사용
+	
+		$("#memberId").on("change", function(){
+			$(".btn").attr("style", "background-color: #F5DF4D !important;")
+			.mouseover(function(){
+				$(this).attr("style", "background-color: #f0d700 !important;");	
+			})		
+			.mouseout(function(){
+				$(this).attr("style", "background-color: #F5DF4D !important;");	
+			});	 
+		});
+		
+/* 			$(".btn").attr("style", "background-color: #f6f6f6  !important;")
+			.mouseover(function(){
+				$(this).attr("style", "background-color: #dbdbdb !important;");	
+			})		
+			.mouseout(function(){
+				$(this).attr("style", "background-color: #f6f6f6 !important;");	
+			});		 */						
+		//}); // 로그인 버튼 제어 함수 end
 	</script>
 
 </body>
-
-
 </html>
 
