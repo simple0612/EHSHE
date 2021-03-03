@@ -14,6 +14,7 @@
 		<typeAlias type="com.kh.ehshe.board.model.vo.VBoard" alias="VBoard"/>
 		<typeAlias type="com.kh.ehshe.board.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.Shop" alias="Shop"/>
+		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopCart" alias="ShopCart"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopAttachment" alias="ShopAttachment"/>
 	</typeAliases>
 
@@ -22,6 +23,7 @@
 		<mapper resource="/mappers/member-mapper2.xml"/>
 		<mapper resource="/mappers/board-mapper.xml"/>
 		<mapper resource="/mappers/shop-mapper.xml"/>
+		<mapper resource="/mappers/cart-mapper.xml"/>
 	</mappers>
 	
 	  
