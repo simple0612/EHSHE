@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.ehshe.board.model.vo.Attachment;
 import com.kh.ehshe.board.model.vo.Board;
 import com.kh.ehshe.board.model.vo.PageInfo;
+import com.kh.ehshe.board.model.vo.VBoard;
 
 public interface BoardService {
 
@@ -22,13 +23,13 @@ public interface BoardService {
 	 * @param pInfo
 	 * @return bList
 	 */
-	public abstract List<Board> selectList(PageInfo pInfo);
+	public abstract List<VBoard> selectList(PageInfo pInfo);
 
 	/** 썸네일 목록 조회 Service
 	 * @param bList
 	 * @return thList
 	 */
-	public abstract List<Attachment> selectThumbnailList(List<Board> bList);
+	public abstract List<Attachment> selectThumbnailList(List<VBoard> bList);
 	
 	
 	/** 게시글 상세 조회 Service
@@ -36,12 +37,21 @@ public interface BoardService {
 	 * @param type 
 	 * @return board
 	 */
-	public abstract Board selectBoard(int boardNo);
+	public abstract VBoard selectBoard(int boardNo);
 
 	/** 게시글 상세 조회 썸네일 Service 
 	 * @param boardNo
 	 * @return fList
 	 */
 	public abstract List<Attachment> selectAttachmentList(int boardNo);
+
+	public abstract int insertBoard(Map<String, Object> map, List<MultipartFile> image, String thumbnailSavePath,
+			String contentsavePath);
+
+	public abstract Attachment insertImage(MultipartFile uploadFile, String savePath);
+
+	public abstract int updateBoard(Board updateBoard, List<MultipartFile> image, String savePath);
+
+	public abstract int deleteBoard(int boardNo);
 	
 }

@@ -14,6 +14,12 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>나만의 장소</title>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/board/boardList.css">
 
@@ -57,37 +63,39 @@
 									<div class="card">
 										<div style="display: none;">${board.boardNo}</div>
 										<c:forEach var="th" items="${thList}">
-											<c:if test="${th.parentBoardNo == board.boardNo}">
-											<img class="card-img-top" alt="Bootstrap Thumbnail" src="${contextPath}/resources/images/thumbnailBox.png" />
-												<%-- <img src="${contextPath}${th.filePath}/${th.fileName}"> --%>
+											<c:if test="${th.boardNo == board.boardNo}">
+											<img class="card-img-top" alt="Bootstrap Thumbnail" src="${contextPath}${th.thumbnailFilePath}/${th.fileName}" />
 											</c:if>
 										</c:forEach>
 
 										<div class="card-block">
-											<span class="card-title">제목</span>
-											<span class="card-like">❤112</span><br>
-											<span class="card-text">노원구 - 파라미터</span><br>
-											<span class="card-writer">작성자 : 고고</span>
+											<span class="card-title">${board.boardTitle}</span>
+											<span class="card-like">❤ ${board.readCount}</span><br>
+												<c:set var = "loca" value = "${fn:split(board.location,',')[1]}" />
+											<span class="card-text">${fn:split(loca,' ')[0]} - ${fn:split(loca,' ')[1]}</span><br>
+											<c:set var = "length" value ="${fn:length(board.memberId)}"/>
+											<span class="card-writer">${fn:substring(board.memberId,0,2)}****</span>
 										</div>
 									</div>
 								</div>
 							</div>
 						</c:forEach>
 					</c:if>
-
+				</div>
 
 				<div class="row">
 					<div class="col-md-12 insert-btn">
 						<c:if test="${!empty loginMember }">
-							<a class="btn btn-warning float-right"
+							<a class="btn ehsheYellow float-right writeBtn" 
 								href="${contextPath}/board/insertBoard">글쓰기</a>
 						</c:if>
 					</div>
 				</div>
+				
 				<div class="row">
 					<div class="col-md-2"></div>
 					<div class="col-md-8">
-						<nav class="pagination-area">
+						<div class="pagination-area">
 							<ul class="pagination">
 								<%-- 주소 조합 작업 --%>
 								<c:url var="pageUrl" value="?"/>
@@ -135,7 +143,7 @@
 									<li><a class="page-link" href="${lastPage }">&gt;&gt;</a></li>
 								</c:if>
 							</ul>
-						</nav>
+						</div>
 					</div>
 					<div class="col-md-2"></div>
 				</div>
