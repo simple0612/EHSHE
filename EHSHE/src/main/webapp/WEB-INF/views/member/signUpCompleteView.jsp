@@ -35,7 +35,7 @@
 	height: 100%;
   max-width: 350px;
 }
-
+ 
 .title {
   font-size: 2rem; 
 	font-weight:bold;

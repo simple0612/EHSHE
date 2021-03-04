@@ -33,7 +33,7 @@
 *{margin : 0; padding : 0; box-sizing : border-box;}
 
 .form-wrapper {
-	margin: 50px 0 120px 0;
+	margin: 50px 0 120px 0; 
 }
 
 .title {

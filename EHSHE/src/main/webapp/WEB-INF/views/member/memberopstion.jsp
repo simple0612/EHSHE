@@ -32,7 +32,7 @@ a:link {
 	text-decoration: none;
 }
 
-a:visited {
+a:visited { 
 	color: black;
 	text-decoration: none;
 }
@@ -52,11 +52,7 @@ a:hover {
 	margin: 50px 0 220px 0;
 }
 
-.form-container {
-	margin: auto;
-	height: 100%;
-	max-width: 350px;
-}
+
 
 .title {
 	font-size: 2rem;
@@ -165,9 +161,13 @@ input[id="saveId"]:checked+label em {
 	color: #007bff;
 }
 
+
 .area {
-	text-align: center;
+	
 	display: inline-block;
+}
+.form-container {
+	text-align: center;
 }
 </style>
 
@@ -205,23 +205,23 @@ input[id="saveId"]:checked+label em {
 						<h1>mypage수정</h1>
 				</div>
 
+
+
+				<br> <br>
+
 				<div class="area">
 					<a href="${contextPath}/page/changePwd"><img
 						src="${contextPath}/resources/images/pricelist.png"
 						style="width: 200px; height: 200px; margin-bottom: 5px">
 						<h1>비밀번호 수정</h1>
 				</div>
-
-
-				<br> <br>
-
 				<div class="area">
 					<a href="${contextPath}/page/deletemember"><img
 						src="${contextPath}/resources/images/mytextlist.png"
 						style="width: 200px; height: 200px; margin-bottom: 5px">
 						<h1>계정 삭제</h1>
 				</div>
-
+			
 			</div>
 			<%-- form-wrapper end --%>
 

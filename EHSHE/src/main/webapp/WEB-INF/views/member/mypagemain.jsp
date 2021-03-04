@@ -29,7 +29,7 @@
 <style>
 a:link { 
 	color: black;
-	text-decoration: none;
+	text-decoration: none; 
 }
 
 a:visited {
@@ -52,11 +52,7 @@ a:hover {
 	margin: 50px 0 220px 0;
 }
 
-.form-container {
-	margin: auto;
-	height: 100%;
-	max-width: 350px;
-}
+
 
 .title {
 	font-size: 2rem;
@@ -166,10 +162,12 @@ input[id="saveId"]:checked+label em {
 }
 
 .area {
-	text-align: center;
+	
 	display: inline-block;
 }
-
+.form-container {
+	text-align: center;
+}
 </style>
 
 </head>

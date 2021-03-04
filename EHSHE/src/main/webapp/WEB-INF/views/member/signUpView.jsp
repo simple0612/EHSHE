@@ -33,7 +33,7 @@
 	margin: 50px 0px 120px 0px;
 }	
 
-	
+	 
 .title {
   font-size: 2rem; 
 	font-weight:bold;

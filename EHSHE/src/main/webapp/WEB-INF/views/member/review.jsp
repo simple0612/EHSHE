@@ -36,7 +36,7 @@
 	vertical-align: middle;
 	/* vertical-align : inline, inline-block 요소에만 적용 가능(td는 inline-block)*/
 }
-
+ 
 .list-wrapper {
 	min-height: 540px;
 }

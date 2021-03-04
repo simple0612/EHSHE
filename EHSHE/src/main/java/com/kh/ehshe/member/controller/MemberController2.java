@@ -1,6 +1,7 @@
 package com.kh.ehshe.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.ehshe.board.model.vo.Attachment;
+import com.kh.ehshe.board.model.vo.PageInfo;
+import com.kh.ehshe.board.model.vo.VBoard;
 import com.kh.ehshe.member.model.service.MemberService;
 import com.kh.ehshe.member.model.service.MemberService2;
 import com.kh.ehshe.member.model.vo.Member;
@@ -32,7 +36,7 @@ public class MemberController2 {
 	private String swalText;
 
 	/**
-	 * 마이페이지로 이동하기 
+	 * 마이페이지로 이동하기  
 	 * 
 	 * @return
 	 */
@@ -63,8 +67,9 @@ public class MemberController2 {
 		int result = service.checkPwd(map);
 
 		String returnURL = null;
-
+System.out.println(result);
 		if (result > 0) {
+
 			returnURL = "memberopstion";
 
 		} else {
@@ -250,9 +255,23 @@ public class MemberController2 {
 		return "member/review";
 	}
 
+
+	
+	
 	@RequestMapping("bulletin")
-	public String bulletin() {
+	public String bulletin(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+
+		PageInfo pInfo = service.getPageInfo(cp);
+
+		// 게시글 목록 조회
+		List<VBoard> bList = service.selectList(pInfo);
+
+		
+		model.addAttribute("bList", bList);
+		model.addAttribute("pInfo", pInfo);
+
 		return "member/bulletin";
 	}
+
 
 }
