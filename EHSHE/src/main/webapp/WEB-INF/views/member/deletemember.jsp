@@ -26,7 +26,7 @@
 
 <title>EHSHE</title>
 
-<style> 
+<style>
 * {
 	margin: 0;
 	padding: 0;
@@ -114,6 +114,8 @@ input[id="saveId"]:checked+label em {
 	color: #191919;
 	background-color: #F5DF4D;
 	border-radius: 1rem;
+	margin: 0 auto;
+	text-align: center;
 }
 
 .btn:hover {
@@ -167,7 +169,7 @@ input[id="saveId"]:checked+label em {
 					style="width: 100px; height: 100px; margin-bottom: 5px"></a> <br>
 				<br>
 
-				<h3>${loginMember.memberId}님의회원탈퇴를 확인 위해 다시 한번 비밀번호를 입력해주세요.</h3>
+				<h3>${loginMember.memberId}님의회원탈퇴를확인 위해 다시 한번 비밀번호를 입력해주세요.</h3>
 
 			</div>
 			<br> <br>
@@ -218,17 +220,17 @@ input[id="saveId"]:checked+label em {
 	<%-- footer include --%>
 	<jsp:include page="../common/footer.jsp" />
 
-<script>
-function validate(){
-	
-	if($("currentPwd").val().trim().length==0){
-		alert("비밀번호를 입력해 주세요");
-		$("#currentPwd").focus();
-		
-		return false;
-	}
-}
-</script>
+	<script>
+		function validate() {
+
+			if ($("currentPwd").val().trim().length == 0) {
+				alert("비밀번호를 입력해 주세요");
+				$("#currentPwd").focus();
+
+				return false;
+			}
+		}
+	</script>
 </body>
 
 

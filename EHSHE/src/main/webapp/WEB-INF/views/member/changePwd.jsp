@@ -135,6 +135,8 @@ input[id="saveId"]:checked+label em {
 	color: #191919;
 	background-color: #F5DF4D;
 	border-radius: 1rem;
+	margin:0 auto;
+	text-align: center;
 }
 
 .btnCk {

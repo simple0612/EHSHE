@@ -1,5 +1,6 @@
 package com.kh.ehshe.member.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.ehshe.board.model.vo.Attachment;
+import com.kh.ehshe.board.model.vo.PageInfo;
+import com.kh.ehshe.board.model.vo.VBoard;
 import com.kh.ehshe.member.model.dao.MemberDAO2;
 import com.kh.ehshe.member.model.vo.Member;
 
@@ -111,4 +115,36 @@ public class MemberService2Impl implements MemberService2 {
 		return result;
 	}
 
+	
+	// 게시판 전체 게시글수 조회 Service 구현
+		@Override
+		public PageInfo getPageInfo(int cp) {
+
+			int listCount = dao.getListCount();
+
+			return new PageInfo(cp, listCount);
+		}
+
+		// 게시글 목록 조회 service 구현
+		@Override
+		public List<VBoard> selectList(PageInfo pInfo) {
+			return dao.selectList(pInfo);
+		}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
