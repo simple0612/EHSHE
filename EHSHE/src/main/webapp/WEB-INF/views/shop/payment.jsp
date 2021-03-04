@@ -104,18 +104,18 @@ header {
 						<div class="total-cal">
 							<div class="total-price">
 								<div class="products-price">
-									<span>상품금액</span>
+									<span>상품금액 / 배송비</span>
 								</div>
 								<div class="total-won">
-									<span>${tprice}</span>
+									<span>${tprice} / ${sprice}</span>
 								</div>
 							</div>
 							<div class="ship-price">
 								<div class="products-ship">
-									<span>배송비</span>
+									<span>총 결제금액</span>
 								</div>
 								<div class="ship-won">
-									<span>${sprice}</span>
+									<span>${tsprice}</span>
 								</div>
 							</div>
 							<div class="pay-button">
@@ -138,7 +138,10 @@ header {
 		$(function() {
 			$("#postcodify_search_button").postcodifyPopUp();
 		});
-
+		
+		var str = $(".item-name").text(); 
+		console.log(str);
+		
 		/* 아임포트 결제 */
 		$("#btn-payment").on("click", function() {
 			var IMP = window.IMP;
@@ -147,20 +150,21 @@ header {
 				pg : 'inicis', // version 1.1.0부터 지원.
 				pay_method : 'card',
 				merchant_uid : 'merchant_' + new Date().getTime(),
-				name : '주문명:결제테스트',
-				amount : 100,
-				buyer_email : 'iamport@siot.do',
-				buyer_name : '구매자이름',
-				buyer_tel : '010-1234-5678',
-				buyer_addr : '서울특별시 강남구 삼성동',
+				name : 'str', //결제창에 나오는 이름.
+				amount : '${tsprice}',    // 결제 가격.
+				buyer_email : '${loginMember.memberEmail}', //결제완료후 나오는 이메일 번호
+				buyer_name : '${loginMember.memberNm}',   // 결제완료후 나오는 구매자 이름.
+				buyer_tel : '${loginMember.memberPhone}',
+				buyer_addr : '${loginMember.memberAddr}',
 				buyer_postcode : '123-456',
 				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 			}, function(rsp) {
-				if (rsp.success) {
+				if (rsp.success) { //결제 완료시 나오는 메세지창.
 					var msg = '결제가 완료되었습니다.';
-					msg += '고유ID : ' + rsp.imp_uid;
-					msg += '상점 거래ID : ' + rsp.merchant_uid;
-					msg += '결제 금액 : ' + rsp.paid_amount;
+					msg += '구매자 : ' + rsp.buyer_name;
+					msg += '상품 : ' + rsp.name;
+					msg += '결제금액 : ' + rsp.amount;
+					msg += '결제 승인 시각 : ' + rsp.paid_at;
 					msg += '카드 승인번호 : ' + rsp.apply_num;
 
 					$.ajax({})
@@ -171,7 +175,6 @@ header {
 				alert(msg);
 			});
 		});
-		
 		
 		
 		
@@ -187,7 +190,7 @@ header {
 			
 			//console.log($("span.item-number")[i].innerText)
 		}
-		console.log(total)
+		//console.log(total)
 		
 		$("#thisisyoungjoo").text(total)
 		

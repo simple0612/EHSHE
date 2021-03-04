@@ -1,7 +1,11 @@
 package com.kh.ehshe.place.model.service;
 
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.kh.ehshe.board.model.vo.Attachment;
 import com.kh.ehshe.place.model.vo.PAttachment;
 import com.kh.ehshe.place.model.vo.PlacePageInfo;
 import com.kh.ehshe.place.model.vo.VPlace;
@@ -38,5 +42,29 @@ public interface PlaceService {
 	 * @return Thumbnail
 	 */
 	List<PAttachment> selectAttachmentList(int placeNo);
+
+	/** 게시글 삽입 Service
+	 * @param map
+	 * @param image
+	 * @param thumbnailSavePath
+	 * @param contentsavePath
+	 * @return result
+	 */
+	int insertPlace(Map<String, Object> map, List<MultipartFile> image, String thumbnailSavePath,
+			String contentsavePath);
+
+	/** 파일 이미지 삽입 Service
+	 * @param uploadFile
+	 * @param cSavePath
+	 * @return result
+	 */
+	PAttachment insertImage(MultipartFile uploadFile, String cSavePath);
+
+	/** 게시글 삭제 Service
+	 * @param placeNo
+	 * @return result 
+	 */
+	int deletePlace(int placeNo);
+
 
 }

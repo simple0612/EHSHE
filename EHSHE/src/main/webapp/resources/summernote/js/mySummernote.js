@@ -50,8 +50,8 @@ function sendFile(file, editor){
             console.log(contextPath);
             
             // 저장된 이미지를 summernote 에디터에 반영(삽입)
-            //$(editor).summernote('editor.insertImage',contextPath + at.contentFilePath + "/" + at.fileName);
-            $(editor).summernote('editor.insertImage', "localhost:8080/spring/resources/infoImages/210302102015_58806.png");
+            $(editor).summernote('editor.insertImage',contextPath + at.contentFilePath + "/" + at.fileName);
+            //$(editor).summernote('editor.insertImage', "localhost:8080/spring/resources/infoImages/210302102015_58806.png");
                                             // localhost:8080/spring /resources/infoImages        2020~~.jsp
         }
     });
