@@ -139,8 +139,42 @@ header {
 			$("#postcodify_search_button").postcodifyPopUp();
 		});
 		
-		var str = $(".item-name").text(); 
-		console.log(str);
+		
+		/*var itemList =[];
+		console.log($(".item-name").text());
+		
+		$(".item-name").each(function(index, item){
+			itemList.push(item);
+		});
+		*/
+		console.log($(".item-name").length)
+		console.log($(".item-name").eq(0).text().trim())
+		
+		var orderItemName = $(".item-name").eq(0).text().trim();
+		if($(".item-name").length > 1){
+			orderItemName += ' 외 ' + ($(".item-name").length -1) + "개"
+		}
+		
+		//console.log(orderItemName);
+		
+		var orderRecipient = $("#name").val()
+		//console.log(orderRecipient);
+		var address0 = $(".address0").val()
+		//console.log(address0);
+		var address1 = $(".address1").val()
+		//console.log(address1);
+		var address2 = $(".address2").val()
+		//console.log(address2);
+		
+		var address = address0 + address1 + address2
+		console.log(address)
+		
+		
+		var phone = $(".phone").val()
+		console.log(phone);
+		
+		
+		
 		
 		/* 아임포트 결제 */
 		$("#btn-payment").on("click", function() {
@@ -150,24 +184,48 @@ header {
 				pg : 'inicis', // version 1.1.0부터 지원.
 				pay_method : 'card',
 				merchant_uid : 'merchant_' + new Date().getTime(),
-				name : 'str', //결제창에 나오는 이름.
-				amount : '${tsprice}',    // 결제 가격.
+				name : orderItemName, //결제창에 나오는 이름.
+				//amount : '${tsprice}',    // 결제 가격.
+				amount : '100',    // 결제 가격.
 				buyer_email : '${loginMember.memberEmail}', //결제완료후 나오는 이메일 번호
-				buyer_name : '${loginMember.memberNm}',   // 결제완료후 나오는 구매자 이름.
-				buyer_tel : '${loginMember.memberPhone}',
-				buyer_addr : '${loginMember.memberAddr}',
-				buyer_postcode : '123-456',
+				buyer_name : orderRecipient,   // 결제완료후 나오는 구매자 이름.
+				buyer_tel : phone,
+				buyer_addr : address,
 				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 			}, function(rsp) {
 				if (rsp.success) { //결제 완료시 나오는 메세지창.
 					var msg = '결제가 완료되었습니다.';
-					msg += '구매자 : ' + rsp.buyer_name;
+					msg += '수취인 : ' + rsp.buyer_name;
 					msg += '상품 : ' + rsp.name;
-					msg += '결제금액 : ' + rsp.amount;
+					msg += '결제금액 : ' + rsp.paid_amount;
 					msg += '결제 승인 시각 : ' + rsp.paid_at;
 					msg += '카드 승인번호 : ' + rsp.apply_num;
-
-					$.ajax({})
+                         
+					console.log(rsp);
+					
+					$.ajax({
+				          url: "${contextPath}/shop2/ordersheet/insertPayment",
+				          method: "POST",
+				          data: {
+				              imp_uid: rsp.imp_uid,
+				              merchant_uid: rsp.merchant_uid,
+				              "orderPrice" : rsp.paid_amount, //결제금액
+				              "orderRecipient" : rsp.buyer_name, // 수령자 이름
+				              "orderTel" : rsp.buyer_tel, // 수취인 전화번호
+				              "orderAddr" : rsp.buyer_addr, // 수취인 주소
+				              "orderDate" : rsp.paid_at // 결제승인시각
+				              
+				          },
+				          success : function(result){
+				        	  
+				          },
+				          error : function(){
+				        	  
+				          }
+				          
+				      });
+				             
+					
 				} else {
 					var msg = '결제에 실패하였습니다.';
 					msg += '에러내용 : ' + rsp.error_msg;

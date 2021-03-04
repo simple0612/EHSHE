@@ -128,7 +128,7 @@ header {
 	        			$.ajax({
         					url : "${contextPath}/shop2/cart/deleteCartItem",
 	        				data : {
-	        								"optionSpecifyNo" : optionSpecifyNo},
+	        							"optionSpecifyNo" : optionSpecifyNo},
 	        				type : "POST",
 	        				success : function(result){
 	        					if(result > 0){
@@ -179,35 +179,37 @@ header {
 
         // - 체크된 물건의 가격을 얻어오는 방법
         var totalprice = 0;
+        var sprice = 0;
         $(".checkone").on("click", function () {
 
             var iprice = Number($(this).parent().next().next().next().children().children().eq(0).text());
             var inumber = Number($(this).parent().next().next().next().children().children().eq(1).text());
-
+	
             if ($(this).prop("checked")) {
+           	
                 totalprice += (iprice * inumber);
                 $("#tprice").val(totalprice);
             } else {
             		
-                totalprice -= (iprice * inumber);
-                $("#tprice").val(totalprice);
-                $(".checkall").prop("checked", false);
-            		
+            	totalprice -= (iprice * inumber)
+                $("#tprice").val(totalprice);            		
             }
 
-
-
-            if (totalprice > 20000) {
-                var sprice = 0;
-                $("#sprice").val(sprice);
-            } else {
-                var sprice = 3000;
-                $("#sprice").val(sprice);
+            if (totalprice < 20000 && totalprice > 0) {
+				sprice = 3000
+				$("#sprice").val(3000)
             }
-            $("#tsprice").val(totalprice + sprice);
+            else {
+            	sprice = 0
+				$("#sprice").val(0)
+            }
+
+            	$("#tsprice").val(totalprice + sprice);
         });
  
 
+        
+        
 
         // 전체 체크된 물건의 가격을 얻어오는 방법.
         var alltotalprice = 0;
@@ -252,8 +254,8 @@ header {
                 totalprice = 0;
 
                 $("#tprice").val(0);
-                $("#sprice").val(0);
                 $("#tsprice").val(0);
+                $("#sprice").val(0);
             }
             //console.log(totalprice);
 
