@@ -88,16 +88,9 @@
 	<insert id="insertPlace" parameterType="map">
 		INSERT INTO EH_PLACE VALUES
 		(#{placeNo}, #{placeTitle}, #{placeContent}, 
-		DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{categoryName},
-		#{latitude}, #{longitude}, #{location})
-		
-		
-		
-		
-		
-		
-		
-		
+		DEFAULT, DEFAULT, #{location}, #{categoryName}, #{phone}, DEFAULT, DEFAULT,
+		#{latitude}, #{longitude}, #{memberNo}, #{priceRange}, #{businessHours}, #{parking}, #{holiday},
+		#{enroll}, #{enrollContents})
 	</insert>
 
 	<!-- 파일 정보 삽입(List 이용) -->
@@ -105,7 +98,7 @@
 	  INSERT INTO EH_PLACE_ATTACHMENT
 	  SELECT SEQ_PL_ANO.NEXTVAL, A.* FROM (
      <foreach collection="list" item="item" separator="UNION ALL ">
-       SELECT #{item.thumbnailFilePath} PLACE_AT_PATH,
+       SELECT #{item.filepath} PLACE_AT_PATH,
               #{item.fileName} PLACE_AT_NM,
               #{item.fileLevel} PLACE_AT_LEVEL,
               #{item.placeNo} PLACE_NO
