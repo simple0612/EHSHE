@@ -16,9 +16,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <style>
-   div{
-            border: 1px solid black;
-        }   
+/* div{
+border: 1px solid black;
+}    */
 img{
   width:100%;
   height:100%;
@@ -56,6 +56,10 @@ color:black;
 .productClass{
 display:inline-block;
 }
+.line{
+	 line-height:50px; 
+	/* margin-top:20px; */
+}
     </style>
 </head>
 <body>
@@ -79,23 +83,23 @@ display:inline-block;
            		 <div class="col-md-6">
                     <div class="col-md-12">
                      
-                     <div>
-                       <div class="productClass">상품명</div>
+                     <div class="line">
+                       <div class="productClass"><strong>상품명</strong> : </div>
                        <div class="productClass">${shop.itemNm}</div>
                      </div>
                        
-                      <div>
-                       <div class="productClass">가격</div>
+                      <div class="line">
+                       <div class="productClass"><strong>가격</strong> : </div>
                        <div class="productClass">${shop.itemPrice}원</div>
                       </div>
                       
-                      <div>
-                       <div class="productClass">배송비</div>
+                      <div class="line">
+                       <div class="productClass"><strong>배송비</strong> : </div>
                        <div class="productClass">${shop.transCharge}</div>
                       </div>
                        
-                       <div>
-                           <div class="productClass">옵션선택</div>
+                       <div class="line">
+                           <div class="productClass"><strong>옵션선택</strong> : </div>
                               <select name="select" class="form-control productClass" style="width: 255px;"> 
                               <option selected>옵션을 선택하세요.</option>
 								<c:if test="${!empty ShopOptionList}">
@@ -106,34 +110,33 @@ display:inline-block;
                              </select>
                     	</div>
                             
-                           <div>
-                            <div class="productClass">개수</div>
+                           <div class="line">
+                            <div class="productClass"><strong>개수</strong> : </div>
                             <input type="number" min="0" max="100"  value="1" />
                           </div>
                           
-                          <div>
-                            <div class="productClass">Total</div>
+                          <div class="line">
+                            <div class="productClass"><strong>Total</strong> : </div>
                             <div class="productClass">${shop.itemPrice}원</div>
                     	 </div>
                     	 
-                    	 <div class="productClass">
+                    	 <div class="line">
                               <div class="j productClass">
                                 <img src="${contextPath}/resources/shopCommonImg/별모양.png">
                               </div>
-                            <div class="productClass">4.15</div>
+                            <div class="productClass"> 4.15</div>
                         </div>
                      
+                      
+                    </div>
                       <div class="float-left col-10">
                          <button class="btn btn-warning btn-lg btn-block">결제하기</button>
                          <button class="btn btn-secondary btn-lg btn-block">장바구니</button>
                       </div>
-                      
-                    </div>
                </div>
+               
+             </div>
                    
-      
-      
-      
         <hr>
         <div class="row" style="margin-top: 30px;">
           <div class="col-md-12">
@@ -153,9 +156,9 @@ display:inline-block;
          </ul>
          <div class="tab-content">
            <div class="tab-pane fade show active" id="review">
-							<button type="button" class="btn btnColor float-right" data-toggle="modal" data-target="#myModal">
-						 	     쇼핑후기등록
-						 	</button>
+		<button type="button" class="btn btnColor float-right" data-toggle="modal" data-target="#myModal">
+	 	     쇼핑후기등록
+	 	</button>
            <p style="word-break:break-all; margin-top: 20px;">
             asdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasd
            </p>
