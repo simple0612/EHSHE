@@ -49,7 +49,7 @@
 
 .tos-header {
 	margin: auto;
-	max-width: 350px;
+	max-width: 385px;
 	font-size: 18px;
 	font-weight: normal;
 	color : #909090; 
@@ -58,7 +58,7 @@
 .form-container {
 	height: 100%;
 	margin: auto;
-  max-width: 350px;
+  max-width: 385px;
 }
 
 
@@ -88,6 +88,10 @@ label{
 .text-tos {
 	font-size: 15px;
 	float: left;
+}
+
+.text-tos:hover, .text-tos-all:hover {
+	cursor:pointer;
 }
 
 .view-all > a {
@@ -138,7 +142,7 @@ label{
 			
 			<br><br>
 			<input type="checkbox" id="checkAll">
-			<label for="checkAll" style="font-weight: bold;"><em></em>&nbsp; 모든 약관을 숙지하고 전체 동의 합니다.</label>
+			<label for="checkAll" class="text-tos-all" style="font-weight: bold;"><em></em>&nbsp; 모든 약관을 숙지하고 전체 동의 합니다.</label>
 		</div>
 		
 	  <br>		    
@@ -155,7 +159,7 @@ label{
 		   	</div>
 			
 		  	<br><br>		   
-			  <textarea readonly rows="5" cols="46" class="textarea-tos">
+			  <textarea readonly rows="6" cols="52" class="textarea-tos">
  제 1조 (샘플)
 			    		   	
   Lorem ipsum dolor sit amet, consectetur
@@ -178,7 +182,7 @@ label{
 		    </div>
 		
 		    <br><br>		     
-		    <textarea readonly rows="5" cols="46" class="textarea-tos">
+		    <textarea readonly rows="6" cols="52" class="textarea-tos">
   제 1조 (샘플)
 			    		   	
   Lorem ipsum dolor sit amet, consectetur
@@ -201,7 +205,7 @@ label{
 		    </div>
 	    
 	  	  <br><br>     
-		    <textarea readonly rows="5" cols="46" class="textarea-tos">
+		    <textarea readonly rows="6" cols="52" class="textarea-tos">
   제 1조 (샘플)
 			    		   	
   Lorem ipsum dolor sit amet, consectetur

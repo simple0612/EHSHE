@@ -382,7 +382,7 @@ public class MemberController {
         // 이메일 보내기
         String setFrom = "EHSHE" + " <1017heedo@naver.com>";
         String toMail = email;
-        String title = "EHSHE 가입 인증 이메일 입니다!";
+        String title = "EHSHE 인증 메일 입니다!";
         String content = 
         		"<img src =\'https://png.pngtree.com/thumb_back/fw800/background/20190221/ourmid/pngtree-hello-in-november-couple-illustrator-style-outside-the-window-image_41180.jpg\'>" +
                 "<br><br>" +
@@ -390,7 +390,7 @@ public class MemberController {
                 "<br><br>" + 
                 "인증 번호는 " + "<span style = 'font-weight : bold'>" + checkNum + "</span>" + " 입니다." + 
                 "<br>" + 
-                "해당 인증번호를 인증번호 확인란에 입력해 주세요.";
+                "해당 번호를 인증번호 확인란에 입력해 주세요.";
        
          try {
         	

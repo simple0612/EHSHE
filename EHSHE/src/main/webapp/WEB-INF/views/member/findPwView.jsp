@@ -24,6 +24,12 @@
 
 <style>
 
+@media(max-width:320px){	
+	#memberEmail{
+	width: 247.5px;
+	}
+}
+
 *{margin : 0; padding : 0; box-sizing : border-box;}
  
 .form-wrapper {
@@ -78,10 +84,15 @@
 .form-control {
 	height: 3rem !important;
 	border-radius: 1rem !important;
+	display: inline-block !important;
 }
 
 .form-group {
 	margin-bottom: 0 !important;
+}
+
+#memberEmail {
+	max-width: 278.5px;
 }
 
 .findPwBtn-area {
@@ -103,6 +114,17 @@
 .findPwBtn:hover{
 	background-color: #f0d700 !important;
 }
+
+#certifyBtn{
+  height: 2.8rem !important;
+  border: 1px solid #dbdbdb;
+  border-radius: 1rem;
+}
+
+#certifyBtn:hover{
+	background-color: #dbdbdb !important;
+}
+
 </style>
 
 </head>
@@ -136,15 +158,18 @@
 				<div class="col-md-12 offset-md mb-2">
 					<span id="checkId">&nbsp;</span>
 				</div>
-	
-				<div class="form-group">
-					<input type="email" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요." class="form-control" required> 
-				</div>
-			
-				<div class="col-md-12 offset-md mb-2">
-					<span id="checkEmail">&nbsp;</span>
-				</div>
 				
+				<div class="form-group">
+					<span>
+					<input type="email" class="form-control" id="memberEmail" name="memberEmail" placeholder="이메일 주소 입력" autocomplete="off" required>
+					</span>
+					<%-- 인증 버튼 --%>
+					<span><button type="button" class="btn" id="certifyBtn">&nbsp;인증&nbsp;</button></span>
+					<div class="col-md-9 offset-md-3">
+						<span id="checkEmail">&nbsp;</span>
+					</div>
+				</div>
+						
 				<div class="form-group">
 					<input type="email" id="certify" name="certify" placeholder="인증번호를 입력해주세요." class="form-control"> 
 				</div>
