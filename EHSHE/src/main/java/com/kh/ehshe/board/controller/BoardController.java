@@ -258,8 +258,8 @@ public class BoardController {
 	// 게시글 검색 Controller
 	@RequestMapping("search")
 	public String searchBoard(@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
-								@RequestParam("sk") String sk,
-								@RequestParam("sv") String sv,
+								@RequestParam(value="sk", required=false) String sk,
+								@RequestParam(value="sv", required=false) String sv,
 								Model model) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();

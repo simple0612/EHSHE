@@ -394,9 +394,9 @@ function addChildReplyArea(el, parentReplyNo){
 									.attr("placeholder", writer + "님께 답글 작성하기");
 	
 	var btnArea = $("<div>").addClass("btnArea"); // 등록, 취소 버튼을 감쌀 div
-	var insertBtn = $("<button>").addClass("btn btn-sm btn-success ml-1").text("등록")
+	var insertBtn = $("<button>").addClass("btn btn-sm ehsheYellow ml-1").text("등록")
 									.attr("onclick", "addChildReply(this, " + parentReplyNo + ")" );
-	var cancelBtn = $("<button>").addClass("btn btn-sm btn-secondary ml-1 reply-cancel").text("취소")
+	var cancelBtn = $("<button>").addClass("btn btn-sm ehsheYellow ml-1 reply-cancel").text("취소")
 									.attr("onclick", "cancelChildReply()");
 	
 	btnArea.append(insertBtn).append(cancelBtn); // 버튼 영역에 등록, 취소 버튼  추가

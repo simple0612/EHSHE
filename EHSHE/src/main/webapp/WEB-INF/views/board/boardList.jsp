@@ -98,7 +98,25 @@
 						<div class="pagination-area">
 							<ul class="pagination">
 								<%-- 주소 조합 작업 --%>
-								<c:url var="pageUrl" value="?"/>
+								<c:choose>
+									<%-- 검색이 된 경우  --%>
+									<c:when test="${!empty sv }">
+										<c:if test="${!empty sv }">
+											<c:set var="searchStr" value="sk=${sk }&sv=${sv }"/>
+										</c:if>
+										<c:url var="pageUrl" value="search/?"/>
+										<c:set var="returnListURL" 
+												value="${contextPath}/board/search/${pageUrl}cp=${pInfo.currentPage}"
+												scope="session"/>
+									</c:when>
+									
+									<c:otherwise>
+										<c:url var="pageUrl" value="?"/>
+											<c:set var="returnListURL" 
+												value="${contextPath}/board/boardlist/${pageUrl}cp=${pInfo.currentPage}"
+												scope="session"/>
+									</c:otherwise>
+								</c:choose>
 	
 								<!-- 화살표에 들어갈 주소를 변수로 생성 -->
 								<c:set var="firstPage" value="${pageUrl}cp=1" />
@@ -150,15 +168,15 @@
 				<div class="row">
 					<div class="col-md-2"></div>
 					<div class="col-md-8">
-						<form action="../search" class="form-inline selectBox" name="sk">
-							<select class="form-control mr-sm-2 search-bottom" type="text">
+						<form action="search" class="form-inline selectBox">
+							<select class="form-control mr-sm-2 search-bottom"  name="sk" type="text">
 								<option value="all">전체</option>
 								<option value="title">제목</option>
 								<option value="category">카테고리</option>
 								<option value="location">위치</option>
 							</select> <input id="search-input" class="form-control mr-sm-2" name="sv"
 								type="text" />
-							<button class="btn ehsheYellow my-2 my-sm-0" type="button">
+							<button class="btn ehsheYellow my-2 my-sm-0">
 								검색</button>
 						</form>
 					</div>
@@ -170,10 +188,7 @@
 	</div>
 
 	<jsp:include page="../common/footer.jsp" />
-
-	<c:set var="returnListURL" 
-					value="${contextPath}/board/boardlist/${pageUrl}cp=${pInfo.currentPage}"
-					scope="session"/>
+	
 
 	<script>
 		// 게시글 상세보기 기능 (jquery를 통해 작업)
