@@ -128,7 +128,7 @@ display:inline-block;
                          <button class="btn btn-secondary btn-lg btn-block">장바구니</button>
                       </div>
                       
-                      </div>
+                    </div>
                </div>
                    
       
