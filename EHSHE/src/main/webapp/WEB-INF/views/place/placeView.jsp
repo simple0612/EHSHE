@@ -176,10 +176,7 @@
 			<div class="col-md-2"></div>
 		</div>
 
-	<script>
-		var lat11 = ${place.latitude};
-		var lng11 = ${place.longitude};
-	</script>
+		
 
 	<jsp:include page="../common/footer.jsp" />
 
@@ -222,11 +219,13 @@
 		    } 
 		});     */
 		
+		var lat = ${place.latitude};
+		var lng = ${place.longitude};
 		
 		var mapWrapper = document.getElementById('mapWrapper'); //지도를 감싸고 있는 DIV태그
 
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		    mapCenter = new kakao.maps.LatLng(33.450422139819736 , 126.5709139924533), // 지도의 가운데 좌표
+		    mapCenter = new kakao.maps.LatLng(lat , lng), // 지도의 가운데 좌표
 		    mapOption = {
 		        center: mapCenter, // 지도의 중심좌표
 		        level: 3 // 지도의 확대 레벨
