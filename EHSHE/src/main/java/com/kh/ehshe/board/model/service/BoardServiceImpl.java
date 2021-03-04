@@ -108,7 +108,7 @@ public class BoardServiceImpl implements BoardService {
 
 				List<Attachment> uploadImages = new ArrayList<Attachment>();
 
-				String thumbnailFilePath = "/resources/uploadImages";
+				String filePath = "/resources/infoImages";
 
 				// for문을 이용하여 파일정보가 담긴 image를 반복 접근
 				// -> 업로드된 파일이 있을 경우에만 uploadImages 리스트에 추가
@@ -120,7 +120,7 @@ public class BoardServiceImpl implements BoardService {
 						// 원본 파일명 변경
 						String fileName = rename(image.get(i).getOriginalFilename());
 						// Attachment 객체 생성
-						Attachment at = new Attachment(thumbnailFilePath, fileName, i, boardNo);
+						Attachment at = new Attachment(filePath, fileName, i, boardNo);
 
 						uploadImages.add(at); // 리스트에 추가
 					}
@@ -148,7 +148,7 @@ public class BoardServiceImpl implements BoardService {
 					fileName = src.substring(src.lastIndexOf("/") + 1); // 업로드된 파일명만 잘라서 별도로 저장.
 
 					// Attachment 객체를 이용하여 DB에 파일 정보를 저장
-					Attachment at = new Attachment(thumbnailFilePath, contentFilePath, fileName, 1, boardNo);
+					Attachment at = new Attachment(filePath, contentFilePath, fileName, 1, boardNo);
 					uploadImages.add(at);
 				}
 				// -------------------------------------------------------
@@ -169,7 +169,8 @@ public class BoardServiceImpl implements BoardService {
 						// -> MultipartFile 객체에 저장된 파일을
 						// 지정된 경로에 실제 파일의 형태로 변환하여 저장하는 메소드
 
-						int tSize = uploadImages.size();
+//						int tSize = uploadImages.size();
+						int tSize = image.size();
 //
 //						if (image.get(0).getOriginalFilename().equals("")) {
 //							int cSize = image.size();
@@ -182,8 +183,10 @@ public class BoardServiceImpl implements BoardService {
 							// uploadImages를 만들 때 각 요소의 파일 레벨은 images의 index를 이용하여 부여함.
 
 							try {
+								if(uploadImages.get(i).getFileLevel() != 0) break;
+								
 								image.get(uploadImages.get(i).getFileLevel())
-										.transferTo(new File(thumbnailSavePath + "/" + uploadImages.get(i).getFileName()));
+										.transferTo(new File(contentsavePath + "/" + uploadImages.get(i).getFileName()));
 							} catch (Exception e) {
 								e.printStackTrace();
 

@@ -87,9 +87,15 @@ public class PlaceController {
 		return url;
 	}
 	
+	// 게시글 등록 화면 전환용 Controller
+	@RequestMapping("insertPlace")
+	public String insertView() {
+		return "admin/insertPlace";
+	}
 	
-	
-	
+	public String insertAction() {
+		return null;
+	}
 	
 	
 	
