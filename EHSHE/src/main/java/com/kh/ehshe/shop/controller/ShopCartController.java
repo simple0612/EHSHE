@@ -17,11 +17,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.ehshe.member.model.vo.Member;
 import com.kh.ehshe.shop.model.service.ShopCartService;
+import com.kh.ehshe.shop.model.vo.Order;
 import com.kh.ehshe.shop.model.vo.ShopCart;
 
 @Controller
 @RequestMapping("/shop2/*")
-@SessionAttributes({ "loginMember" }) // Model에 추가된 데이터 중 key 값이 해당 어노테이션에 적혀있는 값과 일치하는 데이터를 session scope로 이동
+@SessionAttributes({ "loginMember"}) // Model에 추가된 데이터 중 key 값이 해당 어노테이션에 적혀있는 값과 일치하는 데이터를 session scope로 이동
 public class ShopCartController {
 	
 	@Autowired
@@ -128,18 +129,39 @@ public class ShopCartController {
 		
 		List<ShopCart> bList = service.ordersheet(map);
 		
-		for(ShopCart s : bList) {
-			System.out.println(s);
-		}
+		/*
+		 * for(ShopCart s : bList) { System.out.println(s); }
+		 */
 		
 		
 		model.addAttribute("tsprice", tsprice);
 		model.addAttribute("tprice", tprice);
 		model.addAttribute("sprice", sprice);
 		model.addAttribute("bList", bList);
+		model.addAttribute("optionNoList", optionNoList);
+		
+		//System.out.println(optionNoList);
+		
 		
 		
 		return "shop/payment";
+	}
+	
+
+	@ResponseBody
+	@RequestMapping("ordersheet/insertPayment")
+	public int insertPayment(@RequestParam("orderPrice") int orderPrice,
+							@RequestParam("orderRecipient") int orderRecipient,
+							@RequestParam("orderTel") int orderTel,
+							@RequestParam("orderAddr") int orderAddr,
+							@RequestParam("orderDate") int orderDate) {
+		
+		System.out.println(orderPrice);
+		
+		
+		
+		
+		return 1;
 	}
 
 	
