@@ -14,8 +14,8 @@ public class VPlace {
 	private String phone;
 	private int readCount;
 	private String placeDeleteFl;
-	private String latitude;
-	private String longitude;
+	private double latitude;
+	private double longitude;
 	private int adminNo;
 	private String priceRange;
 	private String businessHours;
@@ -29,8 +29,8 @@ public class VPlace {
 	}
 
 	public VPlace(int placeNo, String placeTitle, String placeContent, Date placeCtreateDate, Date placeModifyDate,
-			String location, String categoryName, String phone, int readCount, String placeDeleteFl, String latitude,
-			String longitude, int adminNo, String priceRange, String businessHours, String parking, String holiday,
+			String location, String categoryName, String phone, int readCount, String placeDeleteFl, double latitude,
+			double longitude, int adminNo, String priceRange, String businessHours, String parking, String holiday,
 			String enroll, String enrollContents) {
 		super();
 		this.placeNo = placeNo;
@@ -134,19 +134,19 @@ public class VPlace {
 		this.placeDeleteFl = placeDeleteFl;
 	}
 
-	public String getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
-	public String getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
@@ -208,7 +208,7 @@ public class VPlace {
 
 	@Override
 	public String toString() {
-		return "Place [placeNo=" + placeNo + ", placeTitle=" + placeTitle + ", placeContent=" + placeContent
+		return "VPlace [placeNo=" + placeNo + ", placeTitle=" + placeTitle + ", placeContent=" + placeContent
 				+ ", placeCtreateDate=" + placeCtreateDate + ", placeModifyDate=" + placeModifyDate + ", location="
 				+ location + ", categoryName=" + categoryName + ", phone=" + phone + ", readCount=" + readCount
 				+ ", placeDeleteFl=" + placeDeleteFl + ", latitude=" + latitude + ", longitude=" + longitude
@@ -216,6 +216,7 @@ public class VPlace {
 				+ ", parking=" + parking + ", holiday=" + holiday + ", enroll=" + enroll + ", enrollContents="
 				+ enrollContents + "]";
 	}
+
 
 	
 	
