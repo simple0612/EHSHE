@@ -51,6 +51,10 @@ public interface BoardService {
 
 	public abstract int updateBoard(Board updateBoard, List<MultipartFile> image, String savePath, String cSavePath);
 
+	/** 게시글 삭제 Service
+	 * @param boardNo
+	 * @return
+	 */
 	public abstract int deleteBoard(int boardNo);
 
 	/** 검색 조건이 포함된 페이징 처리 객체 생성 Service

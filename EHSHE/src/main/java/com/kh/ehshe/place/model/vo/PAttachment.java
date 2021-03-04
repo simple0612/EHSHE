@@ -11,6 +11,18 @@ public class PAttachment {
 	public PAttachment() {
 	}
 
+	
+	
+	public PAttachment(String filePath, String fileName, int fileLevel, int boardNo) {
+		super();
+		this.filePath = filePath;
+		this.fileName = fileName;
+		this.fileLevel = fileLevel;
+		this.boardNo = boardNo;
+	}
+
+
+
 	public PAttachment(int fileNo, String filePath, String fileName, int fileLevel, int boardNo) {
 		super();
 		this.fileNo = fileNo;

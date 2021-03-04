@@ -1,6 +1,7 @@
 package com.kh.ehshe.place.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -74,9 +75,60 @@ public class PlaceDAO {
 	public PAttachment selectAttachment(int placeNo) {
 		return sqlSession.selectOne("placeMapper.selectAttachment", placeNo);
 	}
-
+	
+	/** 게시글 이미지 목록 조회 DAO
+	 * 작성자 mang
+	 * @param boardNo
+	 * @return attachmentList
+	 */
 	public List<PAttachment> selectAttachmentList(int placeNo) {
 		return sqlSession.selectList("placeMapper.selectAttachmentList", placeNo);
+	}
+	
+	/** 게시글 다음 번호 조회 DAO
+	 * 작성자 mang
+	 * @return result
+	 */
+	public int selectNextNo() {
+		return sqlSession.selectOne("placeMapper.selectNextNo");
+	}
+
+	/** 게시글 삽입 DAO
+	 * 작성자 mang
+	 * @param map
+	 * @return result
+	 */
+	public int insertPlace(Map<String, Object> map) {
+		return sqlSession.insert("placeMapper.insertPlace", map);
+	}
+
+	/** 파일 정보 삽입 DAO
+	 * 작성자 mang
+	 * @param uploadImages
+	 * @return result
+	 */
+	public int insertAttachmentList(List<PAttachment> uploadImages) {
+		return sqlSession.insert("placeMapper.insertAttachmentList", uploadImages);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public int deletePlace(int placeNo) {
+		return sqlSession.update("placeMapper.deletePlace", placeNo);
 	}
 
 	
