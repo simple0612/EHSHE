@@ -17,7 +17,7 @@
 		<result property="memberGrade" column="MEMBER_GRADE" />
 		<result property="memberType" column="MEMBER_TYPE" />
 	</resultMap>
-
+ 
 	<resultMap type="VBoard" id="vBoard_rm">
 
 		<id property="boardNo" column="BOARD_NO" />

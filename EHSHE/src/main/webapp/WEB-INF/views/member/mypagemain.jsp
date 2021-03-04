@@ -29,7 +29,7 @@
 <style>
 a:link { 
 	color: black;
-	text-decoration: none;
+	text-decoration: none; 
 }
 
 a:visited {

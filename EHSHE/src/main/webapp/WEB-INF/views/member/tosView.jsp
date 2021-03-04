@@ -37,7 +37,7 @@
 .title > a {
  	text-decoration: none;
 	color: #404040;
-}
+} 
 
 .hr {
 	margin: auto; 

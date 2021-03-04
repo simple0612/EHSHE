@@ -19,7 +19,7 @@
 	height: 150px;
 	object-fit: cover;
 }
-
+ 
 #searchForm {
 	position: relative;
 }

@@ -13,7 +13,7 @@ public interface MemberService2 {
 	/**
 	 * 개인정보수정
 	 * 
-	 * @param updateMember
+	 * @param updateMember 
 	 * @return
 	 */
 	public abstract int updateAction(Member updateMember);

@@ -23,7 +23,7 @@ public class MemberService2Impl implements MemberService2 {
 	// 암호화를 위한 객체를 의존성 주입(DI)
 	@Autowired
 	private BCryptPasswordEncoder enc;
-
+ 
 	// 회원 정보 수정 Service 구현
 	@Transactional(rollbackFor = Exception.class) 
 	@Override

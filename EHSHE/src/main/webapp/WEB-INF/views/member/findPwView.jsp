@@ -35,7 +35,7 @@
 .form-wrapper {
 	margin: 50px 0 120px 0;
 }
-
+ 
 .title {
   font-size: 2rem; 
 	font-weight:bold;

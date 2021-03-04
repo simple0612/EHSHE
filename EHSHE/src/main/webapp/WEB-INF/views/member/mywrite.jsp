@@ -36,7 +36,7 @@ a:visited {
 	color: black;
 	text-decoration: none;
 }
-
+ 
 a:hover {
 	color: black;
 	text-decoration: none;

@@ -32,7 +32,7 @@
 
 .title {
   font-size: 2rem; 
-	font-weight:bold;
+	font-weight:bold; 
   text-align:center;
 }
 

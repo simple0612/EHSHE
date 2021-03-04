@@ -36,7 +36,7 @@ public class MemberController2 {
 	private String swalText;
 
 	/**
-	 * 마이페이지로 이동하기 
+	 * 마이페이지로 이동하기  
 	 * 
 	 * @return
 	 */

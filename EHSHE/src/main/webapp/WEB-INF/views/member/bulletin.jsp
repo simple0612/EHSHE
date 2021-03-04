@@ -24,7 +24,7 @@
 	href="${contextPath}/resources/css/board/boardList.css">
 
 
-</head>
+</head> 
 
 <body>
 	<jsp:include page="../common/header.jsp" />
