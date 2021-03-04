@@ -3,6 +3,7 @@ package com.kh.ehshe.shop.model.service;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -20,6 +21,7 @@ import com.kh.ehshe.shop.model.vo.Shop;
 import com.kh.ehshe.shop.model.vo.ShopAttachment;
 import com.kh.ehshe.shop.model.vo.ShopOption;
 import com.kh.ehshe.shop.model.vo.ShopPageInfo;
+import com.kh.ehshe.shop.model.vo.ShopScore;
 
 @Service
 public class ShopServiceImpl implements ShopService {
@@ -61,6 +63,8 @@ public class ShopServiceImpl implements ShopService {
 		temp.setItemCategory(type);
 		
 		Shop shop =dao.selectShopBoard(temp);
+		
+			
 		
 		return shop;
 	}
@@ -488,6 +492,12 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public List<ShopAttachment> selectMainAttachmentlList(List<Shop> sList) {
 		return dao.selectMainAttachmentlList(sList);
+	}
+
+	// 리스트 화면 별점 조회하기
+	@Override
+	public List<ShopScore> selectStarRation(List<Shop> sList) {
+		return dao.selectStarRatingList(sList);
 	}
 
 

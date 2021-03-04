@@ -12,6 +12,7 @@ import com.kh.ehshe.shop.model.vo.Shop;
 import com.kh.ehshe.shop.model.vo.ShopAttachment;
 import com.kh.ehshe.shop.model.vo.ShopOption;
 import com.kh.ehshe.shop.model.vo.ShopPageInfo;
+import com.kh.ehshe.shop.model.vo.ShopScore;
 
 @Repository
 public class ShopDAO {
@@ -155,6 +156,10 @@ public class ShopDAO {
 
 	public List<ShopAttachment> selectMainAttachmentlList(List<Shop> sList) {
 		return sqlSession.selectList("shopMapper.selectShopMainThList",sList);
+	}
+
+	public List<ShopScore> selectStarRatingList(List<Shop> sList) {
+		return sqlSession.selectList("shopMapper.selectShopScore" ,sList);
 	}
 
 

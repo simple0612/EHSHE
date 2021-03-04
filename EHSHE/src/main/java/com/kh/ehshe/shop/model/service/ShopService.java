@@ -9,6 +9,7 @@ import com.kh.ehshe.shop.model.vo.Shop;
 import com.kh.ehshe.shop.model.vo.ShopAttachment;
 import com.kh.ehshe.shop.model.vo.ShopOption;
 import com.kh.ehshe.shop.model.vo.ShopPageInfo;
+import com.kh.ehshe.shop.model.vo.ShopScore;
 
 public interface ShopService {
 
@@ -93,8 +94,12 @@ public interface ShopService {
 	 * @return mThList
 	 */
 	List<ShopAttachment> selectMainAttachmentlList(List<Shop> sList);
-	
-	
+
+	/** 리스트 화면  별점 조회하기
+	 * @param sList
+	 * @return starRating
+	 */
+	List<ShopScore> selectStarRation(List<Shop> sList);
 	
 
 

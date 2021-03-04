@@ -25,6 +25,7 @@ import com.kh.ehshe.shop.model.vo.Shop;
 import com.kh.ehshe.shop.model.vo.ShopAttachment;
 import com.kh.ehshe.shop.model.vo.ShopOption;
 import com.kh.ehshe.shop.model.vo.ShopPageInfo;
+import com.kh.ehshe.shop.model.vo.ShopScore;
 
 @Controller // 프레젠테이션 레이어, 웹 애플리케이션 전달된 요청 응답을 처리하는 클래스 + bean 등록
 @RequestMapping("/shop/*")
@@ -66,7 +67,16 @@ public class ShopController {
 		
 		if(sList != null && !sList.isEmpty()) {
 			
+			List<ShopScore> starRating = service.selectStarRation(sList);
+			System.out.println("ssss"+starRating);
+			
+			if(starRating != null) {
+				model.addAttribute("starRating",starRating);
+			}
+			
+			
 			List<ShopAttachment> thumbnailList = service.selectShopThumbnailList(sList);
+			
 			
 			if(thumbnailList != null) {
 				model.addAttribute("thList",thumbnailList);
@@ -221,8 +231,10 @@ public class ShopController {
 		
 		if(shop != null) {
 			
-			ShopAttachment shopAttachment = service.selectShopAttachmentList(itemNo);
+			List<ShopOption> option = service.selectShopOptionList(itemNo);
+			model.addAttribute("option", option);
 			
+			ShopAttachment shopAttachment = service.selectShopAttachmentList(itemNo);
 			model.addAttribute("shopAttachmnet",shopAttachment);
 			
 		}

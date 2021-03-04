@@ -31,7 +31,7 @@
   .a{
   margin: 0px auto;
   }
-  img{
+  .ShopUpdateImg{
       width: 100%;
       height: 100%;
   }
@@ -76,7 +76,7 @@ position:relative !important;
             		<div class="col-md-6">
                	<c:if test="${!empty shopAttachmnet}"> 
 	                <div class="mb-4 a boardImg" style="height:400px;">
-	 										<img src="${contextPath}${shopAttachmnet.filePath}/${shopAttachmnet.fileName}" class="rounded mx-auto d-block">               
+	 					<img src="${contextPath}${shopAttachmnet.filePath}/${shopAttachmnet.fileName}" class="rounded mx-auto d-block ShopUpdateImg">               
 	                </div>
                 </c:if>
             		</div>
@@ -116,22 +116,48 @@ position:relative !important;
                 </div>
           
           <div class="row">            
-              <div class="col-md-6">
+              <!-- <div class="col-md-6">
                 <div class=""  id="wrapper3">
                   <label for="inputsize">size</label>
                   <input class="" id="inputsize" name="sizemenu" style="width: 200px;">
                   <button type="button" class="btn btnColor" id="add">추가</button>
                </div>
               </div>
-
+				
+             
               <div class="col-md-6">
                 <div class=""  id="wrapper4">
                   <label for="inputcolor">color</label>
                   <input class="" id="inputcolor" name="colormenu" style="width: 200px;">
                   <button type="button" class="btn btnColor" id="add2">추가</button>
                </div>
-              </div>
+              </div> -->
+              
+            <c:forEach items="${option}" var="opt">
+           	 	<c:set var="start" value='${fn:indexOf(opt.optionSpecifyContent, "(" ) }'/>
+           	 	<c:set var="end" value='${fn:indexOf(opt.optionSpecifyContent, ")" ) }'/>
+           	 
+            	<c:set var="size" value="${fn:substring(opt.optionSpecifyContent, 0, start )}"/> 
+            	<c:set var="color" value="${fn:substring(opt.optionSpecifyContent, start+1, end)}"/> 
             
+            
+           		<div class="col-md-6">
+	                <div class=""  id="wrapper3">
+	                  <label for="inputsize">size</label>
+	                  <input class="" id="inputsize" name="sizemenu" style="width: 200px;" value="${size}">
+	                  <button type="button" class="btn btnColor" id="add">추가</button>
+            		</div>
+              	</div>
+             
+              	<div class="col-md-6">
+                	<div class=""  id="wrapper4">
+	                  <label for="inputcolor">color</label>
+	                  <input class="" id="inputcolor" name="colormenu" style="width: 200px;" value="${color}">
+	                  <button type="button" class="btn btnColor" id="add2">추가</button>
+	               	</div>
+	              </div>
+            
+            </c:forEach>
             </div>
 
             <br>

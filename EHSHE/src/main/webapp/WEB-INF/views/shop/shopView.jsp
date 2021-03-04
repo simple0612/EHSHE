@@ -16,9 +16,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <style>
-   /*    div{
+   div{
             border: 1px solid black;
-        }   */   
+        }   
 img{
   width:100%;
   height:100%;
@@ -52,6 +52,10 @@ color:black;
 .btnColor2{
   background-color: #939597;
   color: white;
+ }
+.productClass{
+display:inline-block;
+}
     </style>
 </head>
 <body>
@@ -66,87 +70,69 @@ color:black;
                 </div>
                   <div class="float-right" style="margin-top:10px;">
                   	<c:url var="updateUrl" value="${shop.itemNo}/update"/>
-			        				<button type="button" class="btn btnColor2" onclick="location.href='${updateUrl}'">상품수정</button>
-			        				<button type="button" class="btn btnColor2">상품삭제</button>
-			        				<button type="button" class="btn btnColor">후기등록</button>
-			        		</div>
-              </div>
+	      				<button type="button" class="btn btnColor2" onclick="location.href='${updateUrl}'">상품수정</button>
+	      				<button type="button" class="btn btnColor2">상품삭제</button>
+	      				<button type="button" class="btn btnColor">후기등록</button>
+			        </div>
+                 </div>
            
-            <div class="col-md-6">
-                <div>
-                    <table class="table table-borderless">
-                        <thead>
-                          <tr>
-                            <th scope="col">상품명</th>
-                            <th colspan="2">${shop.itemNm}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">가격</th>
-                            <td colspan="2">${shop.itemPrice}원</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">배송비</th>
-                            <td colspan="2">${shop.transCharge}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">옵션선택</th>
-                            <td colspan="2">  
-                              <select name="select" class="form-control" style="width: 255px;"> 
-                             
+           		 <div class="col-md-6">
+                    <div class="col-md-12">
+                     
+                     <div>
+                       <div class="productClass">상품명</div>
+                       <div class="productClass">${shop.itemNm}</div>
+                     </div>
+                       
+                      <div>
+                       <div class="productClass">가격</div>
+                       <div class="productClass">${shop.itemPrice}원</div>
+                      </div>
+                      
+                      <div>
+                       <div class="productClass">배송비</div>
+                       <div class="productClass">${shop.transCharge}</div>
+                      </div>
+                       
+                       <div>
+                           <div class="productClass">옵션선택</div>
+                              <select name="select" class="form-control productClass" style="width: 255px;"> 
                               <option selected>옵션을 선택하세요.</option>
-            									
-            									<c:if test="${!empty ShopOptionList}">
-							                 <c:forEach var="shopOption" items="${ShopOptionList}">
-							                      <option>${shopOption.optionSpecifyContent}</option>
-							               	 </c:forEach>
-                           		 </c:if>
-                              
-                              </select>
-                        		</td>
-                          </tr>
-<!--                           <tr>
-                            <th scope="row">색상</th>
-                            <td colspan="2">                             
-                             <select name="select" class="form-control" style="width: 255px;"> 
-                              <option selected>색상을 선택하세요.</option>
-                              <option>red</option>
-                              <option>black</option>
-                              <option>white</option>
-                              <option>green</option>
-                              </select>
-                            </td>
-                          </tr> -->
-                          <tr>
-                            <th scope="row">개수</th>
-                            <td colspan="2">
-                              <input type="number" min="0" max="100"  value="1" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Total</th>
-                            <td colspan="2">${shop.itemPrice}원</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">
-                              <div class="j">
+								<c:if test="${!empty ShopOptionList}">
+				                 <c:forEach var="shopOption" items="${ShopOptionList}">
+			                       <option>${shopOption.optionSpecifyContent}</option>
+				               	 </c:forEach>
+                               </c:if>
+                             </select>
+                    	</div>
+                            
+                           <div>
+                            <div class="productClass">개수</div>
+                            <input type="number" min="0" max="100"  value="1" />
+                          </div>
+                          
+                          <div>
+                            <div class="productClass">Total</div>
+                            <div class="productClass">${shop.itemPrice}원</div>
+                    	 </div>
+                    	 
+                    	 <div class="productClass">
+                              <div class="j productClass">
                                 <img src="${contextPath}/resources/shopCommonImg/별모양.png">
                               </div>
-                            </th>
-                            <td colspan="2">4.15</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                            <div class="productClass">4.15</div>
+                        </div>
+                     
                       <div class="float-left col-10">
-                        <div>
                          <button class="btn btn-warning btn-lg btn-block">결제하기</button>
                          <button class="btn btn-secondary btn-lg btn-block">장바구니</button>
                       </div>
+                      
                     </div>
-                </div>
-            </div>
-        </div>
+               </div>
+                   
+      
+      
       
         <hr>
         <div class="row" style="margin-top: 30px;">
