@@ -169,7 +169,6 @@ var $certify = $("#certify");
 		});
 	});
 	
-	
 	// 유효성 검사
 	function validate() {
 	
@@ -195,9 +194,10 @@ var $certify = $("#certify");
 						swal({icon:"warning", title: "인증 번호를 확인해 주세요."});
 						$(certify).focus();
 					}
-					return false;								
-				}
-			}
+				return false;								
+			}				
+		}
+
 		
 		// 입력된 주소 조합하여 form태그에 hidden으로 추가 하기
 		// 왜? -> 커맨드 객체를 이용하여 파라미터를 한번에 받기 쉽게 하기 위하여

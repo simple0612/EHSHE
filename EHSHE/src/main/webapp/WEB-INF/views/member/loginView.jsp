@@ -40,13 +40,13 @@
   max-width: 350px;
 }
 
-.title {
+.loginTitle {
   font-size: 2rem; 
 	font-weight: bold;
   text-align: center;
 }
 
-.title > a {
+.loginTitle > a {
  	text-decoration: none;
 	color: #404040;
 }
@@ -103,7 +103,7 @@ input[id="saveId"]:checked + label em {
 	color: #007bff;
 }
 
-.btn {
+.loginBtn {
 	height: 2.8rem;
 	margin-top: 0.7rem;
 	font-weight: 600;
@@ -111,12 +111,10 @@ input[id="saveId"]:checked + label em {
 	color: #191919;
 	background-color: #f6f6f6;
 	border-radius: 1rem;
-/* 	background-color: #F5DF4D; */
 }
 
-.btn:hover {
+.loginBtn:hover {
 	background-color: #dbdbdb !important;
-/* 	background-color: #f0d700 !important; */
 }
 
 .title-sns {
@@ -153,8 +151,15 @@ input[id="saveId"]:checked + label em {
 
 </head>
 <body>	
+	<c:if test="${!empty swalTitle}">
+		<script>
+			swal({title  : "${swalTitle}",
+				    text  : "${swalText}"});
+		</script>
+	</c:if>
+	
 	<div class="form-wrapper">
-		<div class="title">
+		<div class="loginTitle">
 			<a href="${contextPath}">EHSHE</a>
 		</div>	
 		
@@ -182,7 +187,7 @@ input[id="saveId"]:checked + label em {
 					>
 	   		 	<label for="saveId"><em></em>&nbsp; 아이디 저장</label>	
 				</div>
-				<button class="btn btn-lg btn-block" type="submit">로그인</button>			
+				<button class="btn btn-lg btn-block loginBtn" type="submit">로그인</button>			
 			</form>
 			
 			<br>		
@@ -239,12 +244,11 @@ input[id="saveId"]:checked + label em {
 	// 부트스트랩 사용 시, css 변경할 경우 !important가 필요
 	// -> .css() 메서드는 !important 안되므로  .atrr() 사용
 		
-	$("#memberId").on("change", function(){
-		$("#memberPw").on("change", function(){
-			
+	$("#memberId").on("input", function(){
+		$("#memberPw").on("input", function(){			
 			if($("#memberId").val().trim().length != 0 && 
 					$("#memberPw").val().trim().length != 0){
-				$(".btn").attr("style", "background-color: #F5DF4D !important;")
+				$(".loginBtn").attr("style", "background-color: #F5DF4D !important;")
 				.mouseover(function(){
 					$(this).attr("style", "background-color: #f0d700 !important;");	
 				})		
@@ -253,7 +257,7 @@ input[id="saveId"]:checked + label em {
 				}) ;
 				
 			}else{
-				$(".btn").attr("style", "background-color: #f6f6f6 !important;")
+				$(".loginBtn").attr("style", "background-color: #f6f6f6 !important;")
 				.mouseover(function(){
 					$(this).attr("style", "background-color: #f0d700 !important;");	
 				})		
@@ -261,16 +265,14 @@ input[id="saveId"]:checked + label em {
 					$(this).attr("style", "background-color: #F5DF4D !important;");	
 				});	 
 			}
-		});
-		
-		
+		});	
 	});
 
-	$("#memberPw").on("change", function(){
-		$("#memberId").on("change", function(){
+	$("#memberPw").on("input", function(){
+		$("#memberId").on("input", function(){
 			if($("#memberId").val().trim().length != 0 && 
 					$("#memberPw").val().trim().length != 0){
-				$(".btn").attr("style", "background-color: #F5DF4D !important;")
+				$(".loginBtn").attr("style", "background-color: #F5DF4D !important;")
 				.mouseover(function(){
 					$(this).attr("style", "background-color: #f0d700 !important;");	
 				})		
@@ -279,7 +281,7 @@ input[id="saveId"]:checked + label em {
 				}) ;
 				
 			}else{
-				$(".btn").attr("style", "background-color: #f6f6f6 !important;")
+				$(".loginBtn").attr("style", "background-color: #f6f6f6 !important;")
 				.mouseover(function(){
 					$(this).attr("style", "background-color: #f0d700 !important;");	
 				})		
@@ -288,32 +290,7 @@ input[id="saveId"]:checked + label em {
 				});	 
 			}
 		});
-	});
-
-/* 	 	$("#memberId").text("", function(){
-			$("#memberPw").on("change", function(){
-				$(".btn").attr("style", "background-color: #f6f6f6 !important;")
-				.mouseover(function(){
-					$(this).attr("style", "background-color: #f0d700 !important;");	
-				})		
-				.mouseout(function(){
-					$(this).attr("style", "background-color: #F5DF4D !important;");	
-				});	 
-			});
-		});
-
-		$("#memberPw").text("", function(){
-			$("#memberId").on("change", function(){
-				$(".btn").attr("style", "background-color: #f6f6f6 !important;")
-				.mouseover(function(){
-					$(this).attr("style", "background-color: #f0d700 !important;");	
-				})		
-				.mouseout(function(){
-					$(this).attr("style", "background-color: #F5DF4D !important;");	
-				});	 
-			});
-		}); */
-	
+	});	
 	</script>
 </body>
 </html>

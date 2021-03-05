@@ -60,7 +60,7 @@ public class MemberController {
 	@RequestMapping("login")
 	public String login(Member member,
 						@RequestParam(value="saveId", required=false) String saveId,
-						HttpServletResponse response, RedirectAttributes ra, Model model) {
+						HttpServletResponse response, Model model) {
 		
 		// 비즈니스 로직 수행 후 결과 반환 받기
 		Member loginMember = service.login(member);
@@ -75,8 +75,6 @@ public class MemberController {
 		if(loginMember != null) {
 			// 로그인 정보 세션에 등록
 			model.addAttribute("loginMember", loginMember);
-			
-			ra.addFlashAttribute("swalTitle", "로그인 성공");
 			
 			// 쿠키 생성
 			Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
@@ -99,9 +97,8 @@ public class MemberController {
 			url = "/"; 
 			
 		} else {
-			ra.addFlashAttribute("swalIcon", "error");
-			ra.addFlashAttribute("swalTitle", "로그인 실패");
-			ra.addFlashAttribute("swalText", "아이디 또는 비밀번호가 일치하지 않습니다");
+			swalTitle = "EHSEH";
+			swalText = "아이디와 비밀번호를 다시 확인해주세요.";
 			
 			// 실패 시 로그인 화면으로 재요청 
 			url = "loginView";
@@ -125,7 +122,7 @@ public class MemberController {
 	public Member kakaoLogin(@RequestParam String memberId,
 							 @RequestParam String memberPw,
    							 @RequestParam String memberNm,
-   							 RedirectAttributes ra ,Model model) {
+   							 Model model) {
 
 		// 아이디 중복 검사
 		int result = service.idDupCheck(memberId);
@@ -136,13 +133,12 @@ public class MemberController {
 		
 		Member loginMember = null;
 		
-		if(result > 0) {			
-			
+		if(result > 0) {						
 			loginMember = service.KaKaoLogin(member); 
-			System.out.println("아이디 있을 존재 : " + loginMember);
+			//System.out.println("이미 등록 되어 있는 경우 : " + loginMember);
 				
 		} else {
-			System.out.println("등록된 회원 x");
+			//System.out.println("등록 x");
 			
 			member = new Member();
 			member.setMemberId(memberId);
@@ -151,23 +147,16 @@ public class MemberController {
 
 			int kakaoReg = service.kakaoSignUp(member); 
 			
-			System.out.println(kakaoReg);
-			System.out.println(member);
+			//System.out.println(kakaoReg);
+			//System.out.println(member);
 
 			if(kakaoReg > 0) {
 				loginMember = service.KaKaoLogin(member); 
-				System.out.println("회원가입 후 : " + loginMember);				
+				//System.out.println("회원 등록 후 : " + loginMember);				
 			}
 		}
 		model.addAttribute("loginMember", loginMember);				
-/*
-		swalIcon = "success";
-		swalTitle = "로그인 성공";
-		swalText = "회원 가입 과정에서 문제가 발생하였습니다";		
-	
-		ra.addFlashAttribute("swalIcon", swalIcon);
-		ra.addFlashAttribute("swalTitle", swalTitle);
-	*/	
+		
 		return loginMember;			
 	}
 	
@@ -380,13 +369,13 @@ public class MemberController {
         System.out.println("인증번호 " + checkNum);
 
         // 이메일 보내기
-        String setFrom = "EHSHE" + " <1017heedo@naver.com>";
+        String setFrom = "EHSHE" + " <ehshetest01@gmail.com>";
         String toMail = email;
         String title = "EHSHE 인증 메일 입니다!";
         String content = 
-        		"<img src =\'https://png.pngtree.com/thumb_back/fw800/background/20190221/ourmid/pngtree-hello-in-november-couple-illustrator-style-outside-the-window-image_41180.jpg\'>" +
+        		"<img src =\'https://i.postimg.cc/R0QvY3dW/forEmail.jpg\'>" +
                 "<br><br>" +
-				"안녕하세요. EHSHE에 방문해주셔서 감사합니다." +
+				"안녕하세요." + "<span style = 'font-weight : bold'>" + " EHSHE " + "</span>" + "에 방문해주셔서 감사합니다." +
                 "<br><br>" + 
                 "인증 번호는 " + "<span style = 'font-weight : bold'>" + checkNum + "</span>" + " 입니다." + 
                 "<br>" + 
