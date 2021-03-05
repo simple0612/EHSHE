@@ -117,12 +117,12 @@ label > span {
 	font-weight: 600;
 	font-size: 15px;
 	color: #191919;
-	background-color: #F5DF4D;
+	background-color: #f6f6f6;
 	border-radius: 1rem;
 }
 
 .signUpBtn:hover {
-	background-color : #f0d700;
+	background-color : #dbdbdb;
 }
 
 </style>
@@ -317,6 +317,78 @@ label > span {
 	});
 	</script>
 
- 
+	<script>
+	
+	var $memberId = $("#memberId");
+	var $memberPw1 = $("#memberPw1");
+	var $memberPw2 = $("#memberPw2");
+	var $memberNm = $("#memberNm");
+	var $memberPhone = $("#memberPhone");
+	var $memberEmail = $("#memberEmail");
+	var $certify = $("#certify");
+	var $post = $("#post");
+	
+
+ 		$(".form-control").on("input", function(){
+			if(signUpCheck == true){
+				$(".signUpBtn").attr("style", "background-color: #F5DF4D !important;")
+				.mouseover(function(){
+					$(this).attr("style", "background-color: #f0d700 !important;");	
+				})		
+				.mouseout(function(){
+					$(this).attr("style", "background-color: #F5DF4D !important;");	
+				})	
+			}
+		});
+		 
+ 			/*
+ 			$("#memberId").on("input", function(){
+				$("#memberPw").on("input", function(){			
+					if($("#memberId").val().trim().length != 0 && 
+							$("#memberPw").val().trim().length != 0){
+						$(".loginBtn").attr("style", "background-color: #F5DF4D !important;")
+						.mouseover(function(){
+							$(this).attr("style", "background-color: #f0d700 !important;");	
+						})		
+						.mouseout(function(){
+							$(this).attr("style", "background-color: #F5DF4D !important;");	
+						}) ;
+						
+					}else{
+						$(".loginBtn").attr("style", "background-color: #f6f6f6 !important;")
+						.mouseover(function(){
+							$(this).attr("style", "background-color: #f0d700 !important;");	
+						})		
+						.mouseout(function(){
+							$(this).attr("style", "background-color: #F5DF4D !important;");	
+						});	 
+					}
+				});	
+			});
+
+			$("#memberPw").on("input", function(){
+				$("#memberId").on("input", function(){
+					if($("#memberId").val().trim().length != 0 && 
+							$("#memberPw").val().trim().length != 0){
+						$(".loginBtn").attr("style", "background-color: #F5DF4D !important;")
+						.mouseover(function(){
+							$(this).attr("style", "background-color: #f0d700 !important;");	
+						})		
+						.mouseout(function(){
+							$(this).attr("style", "background-color: #F5DF4D !important;");	
+						}) ;
+						
+					}else{
+						$(".loginBtn").attr("style", "background-color: #f6f6f6 !important;")
+						.mouseover(function(){
+							$(this).attr("style", "background-color: #f0d700 !important;");	
+						})		
+						.mouseout(function(){
+							$(this).attr("style", "background-color: #F5DF4D !important;");	
+						});	 
+					}
+				});
+			});	 */
+			</script>
 </body>
 </html>
