@@ -42,6 +42,15 @@ public interface ShopCartService {
 	 * @return list
 	 */
 	public abstract List<ShopCart> ordersheet(Map<String, Object> map);
+
+
+
+
+	/** 결제내역 삽입
+	 * @param map
+	 * @return result
+	 */
+	public abstract int insertPayment(Map<String, Object> map);
 	
 	
 

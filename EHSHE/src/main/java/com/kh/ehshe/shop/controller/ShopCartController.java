@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.ehshe.member.model.vo.Member;
 import com.kh.ehshe.shop.model.service.ShopCartService;
@@ -27,6 +28,11 @@ public class ShopCartController {
 	
 	@Autowired
 	private ShopCartService service;
+	
+	
+	private String swalIcon;
+	private String swalTitle;
+	private String swalText;
 	
 	
 	@RequestMapping("cart")
@@ -98,14 +104,15 @@ public class ShopCartController {
 	}
 	
 	
-	
+	// 주문하기
 	@RequestMapping("ordersheet")
 	public String ordersheet(String[] ck,
 			@ModelAttribute("loginMember") Member loginMember,
 			@RequestParam("tprice") int tprice,
 			@RequestParam("sprice") int sprice,
 			@RequestParam("tsprice") int tsprice,
-			Model model) {
+			Model model,
+			RedirectAttributes ra) {
 		
 		//System.out.println(Arrays.toString(ck)); //21,22,23
 		//System.out.println(tprice);
@@ -134,14 +141,24 @@ public class ShopCartController {
 		 */
 		
 		
-		model.addAttribute("tsprice", tsprice);
-		model.addAttribute("tprice", tprice);
-		model.addAttribute("sprice", sprice);
+		model.addAttribute("tsprice", tsprice); //
+		model.addAttribute("tprice", tprice); // 
+		model.addAttribute("sprice", sprice); // 
 		model.addAttribute("bList", bList);
 		model.addAttribute("optionNoList", optionNoList);
 		
 		//System.out.println(optionNoList);
 		
+		if(bList == null) {
+			swalIcon = "info";
+			swalTitle = "결제할 상품이 없습니다.";
+			swalText = "결제할 상품을 추가해주세요.";
+			
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		ra.addFlashAttribute("swalText", swalText);
 		
 		
 		return "shop/payment";
@@ -150,18 +167,45 @@ public class ShopCartController {
 
 	@ResponseBody
 	@RequestMapping("ordersheet/insertPayment")
-	public int insertPayment(@RequestParam("orderPrice") int orderPrice,
-							@RequestParam("orderRecipient") int orderRecipient,
-							@RequestParam("orderTel") int orderTel,
-							@RequestParam("orderAddr") int orderAddr,
-							@RequestParam("orderDate") int orderDate) {
+	public int insertPayment(@ModelAttribute("loginMember") Member loginMember,
+							@RequestParam("orderPrice") int orderPrice,
+							@RequestParam("orderRecipient") String orderRecipient,
+							@RequestParam("orderTel") String orderTel,
+							@RequestParam("orderAddr") String orderAddr,
+							@RequestParam("OptionSpecifyNo") String OptionSpecifyNo,
+							@RequestParam("orderItemName") String orderItemName
+							) {
 		
-		System.out.println(orderPrice);
+		int memberNo =loginMember.getMemberNo();
+		
+//		System.out.println(orderPrice); // 100
+//		System.out.println(orderRecipient); // 유저이
+//		System.out.println(orderTel); // 01022222222
+//		System.out.println(orderAddr); // 17132 경기도 용인시 처인구 ~
+//		System.out.println(OptionSpecifyNo); // 21, 22
+//		System.out.println(orderItemName); // 커플반지 , 티셔츠 , 잠옷 = > (커블반지 외 2개).
+		
+		String[] str = OptionSpecifyNo.split(",");
+		ArrayList<String> optionSNL = new ArrayList<String>();
+		
+		for(int i=0; i<str.length; i++) {
+			optionSNL.add(str[i]);
+		}
+//		System.out.println(optionSNL); // [21, 22]
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("optionSNL", optionSNL); //OptionSpecifyNo
+		map.put("orderPrice", orderPrice);
+		map.put("orderRecipient", orderRecipient);
+		map.put("orderTel", orderTel);
+		map.put("orderAddr", orderAddr);
+		map.put("orderContent", orderItemName);
+		
+		int result = service.insertPayment(map);
 		
 		
-		
-		
-		return 1;
+		return result;
 	}
 
 	

@@ -5,7 +5,7 @@
 
 
 	<resultMap type="ShopCart" id="shopCart_rm">
-		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="memberNo" column="MEMBER_NO" />
 		<result property="optionSpecifyNo" column="OPTION_SPECIFY_NO" />
 		<result property="buyingQuantity" column="BUYING_QUANTITY" />
 		<result property="itemNo" column="ITEM_NO" />
@@ -14,15 +14,81 @@
 		<result property="imgName" column="IMG_NAME" />
 		<result property="imgPath" column="IMG_PATH" />
 		<result property="imgLevel" column="IMG_LEVEL" />
-		<result property="itemOptionContent" column="ITEM_OPTION_CONTENT" />
-		<result property="optionSpecifyContent" column="OPTION_SPECIFY_CONTENT" />
+		<result property="itemOptionContent"
+			column="ITEM_OPTION_CONTENT" />
+		<result property="optionSpecifyContent"
+			column="OPTION_SPECIFY_CONTENT" />
+	</resultMap>
+
+	<resultMap type="Order" id="order_rm">
+		<id property="orderNo" column="ORDER_NO" />
+		<result property="orderConfirm" column="ONDER_CONFIRM" />
+		<result property="orderPrice" column="ORDER_PRICE" />
+		<result property="orderContent" column="ORDER_CONTENT" />
+		<result property="orderDate" column="ORDER_DATE" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="orderAddr" column="ORDER_ADDR" />
+		<result property="orderTel" column="ORDER_TEL" />
+		<result property="orderRecipient" column="ORDER_RECIPIENT" />
+	</resultMap>
+
+	<resultMap type="OrderDetails" id="orderDetails_rm">
+		<id property="orderSpecifyNo" column="ORDER_SPECIFY_NO" />
+		<result property="orderNo" column="ORDER_NO" />
+		<result property="optionSpecifyNo" column="OPTION_SPECIFY_NO" />
 	</resultMap>
 
 
-	<!--장바구니 조회   -->
-	<select id="selectCartList" parameterType="_int" resultMap="shopCart_rm">
+	<!--장바구니 조회 -->
+	<select id="selectCartList" parameterType="_int"
+		resultMap="shopCart_rm">
 		SELECT MEMBER_NO, OPTION_SPECIFY_NO, BUYING_QUANTITY,
 		ITEM_NO, ITEM_PRICE, ITEM_NM,
+		IMG_NAME, IMG_PATH, IMG_LEVEL,
+		ITEM_OPTION_CONTENT, OPTION_SPECIFY_CONTENT
+		FROM EH_CART
+		JOIN
+		EH_ITEM_OPTIONDETAIL USING(OPTION_SPECIFY_NO)
+		JOIN EH_ITEM
+		USING(ITEM_NO)
+		JOIN EH_ITEM_IMG USING(ITEM_NO)
+		JOIN EH_ITEM_OPTION
+		USING(ITEM_NO)
+		WHERE ITEM_DELETE_FL = 'N'
+		AND IMG_LEVEL = 0
+		AND MEMBER_NO
+		= #{memberNo}
+	</select>
+
+
+
+	<!-- 장바구니 선택삭제 -->
+	<delete id="deleteCartItem" parameterType="map">
+		DELETE FROM EH_CART
+		WHERE MEMBER_NO = #{memberNo}
+		AND OPTION_SPECIFY_NO =
+		#{optionSpecifyNo}
+	</delete>
+
+
+
+	<!-- 장바구니 전체 삭제 -->
+	<delete id="deleteAllCartItem" parameterType="hashmap">
+		DELETE FROM EH_CART
+		WHERE MEMBER_NO = #{memberNo}
+		AND OPTION_SPECIFY_NO IN
+		<foreach collection="optionSpecifyNoList" item="optionNo"
+			open="(" close=")" separator=",">
+			#{optionNo}
+		</foreach>
+	</delete>
+
+
+	<!-- 주문 결제 페이지 조회 -->
+	<select id="ordersheet" parameterType="map"
+		resultMap="shopCart_rm">
+		SELECT MEMBER_NO, OPTION_SPECIFY_NO, BUYING_QUANTITY, ITEM_NO,
+		ITEM_PRICE, ITEM_NM,
 		IMG_NAME, IMG_PATH, IMG_LEVEL, ITEM_OPTION_CONTENT, OPTION_SPECIFY_CONTENT
 		FROM EH_CART
 		JOIN EH_ITEM_OPTIONDETAIL USING(OPTION_SPECIFY_NO)
@@ -30,53 +96,52 @@
 		JOIN EH_ITEM_IMG USING(ITEM_NO)
 		JOIN EH_ITEM_OPTION USING(ITEM_NO)
 		WHERE ITEM_DELETE_FL = 'N'
-		AND IMG_LEVEL = 0
 		AND MEMBER_NO = #{memberNo}
+		AND IMG_LEVEL = 0
+		AND OPTION_SPECIFY_NO IN     
+		<foreach collection="optionNoList" item="optionNo" open="("
+			close=")" separator=",">
+			#{optionNo}
+		</foreach>
 	</select>
+
+
+
+
+	<!-- 결재 내역 삽입. -->
+	<insert id="insertPayment" parameterType="map">
+		INSERT INTO EH_ORDER VALUES (SEQ_IT_ORDERNO.NEXTVAL, 'Y', #{orderPrice}, #{orderContent}, DEFAULT,
+		#{memberNo}, #{orderAddr}, #{orderTel}, #{orderRecipient}) 
+	</insert>
+
+
+
+
+	<!-- 결재 내역 상세 삽입 -->
+	<insert id="insertOrderSpecify" parameterType="map">
+		INSERT INTO EH_ORDER_SPECIFY
+		SELECT SEQ_IT_ORDER_SPNO.NEXTVAL,  SEQ_IT_ORDERNO.CURRVAL, A.* FROM (
+												
+		<foreach collection="optionSNL" item="item" separator="UNION ALL ">
+			SELECT #{item} OPTION_SPECIFY_NO
+						FROM DUAL
+		</foreach>
+		)A
+	</insert>
 	
 	
-	
-	<!-- 장바구니 선택삭제 -->
-	<delete id="deleteCartItem" parameterType="map">
-		DELETE FROM EH_CART 
-		WHERE MEMBER_NO = #{memberNo}
-		AND OPTION_SPECIFY_NO = #{optionSpecifyNo}
-	</delete>
-	
-	<!-- 장바구니 전체 삭제 -->
-	<delete id="deleteAllCartItem" parameterType="hashmap">
-		DELETE FROM EH_CART 
+	<!-- 결제한 상품 장바구니에서 삭제 -->
+	<delete id="deletOrderItemFromCart" parameterType="map">
+		DELETE FROM EH_CART
 		WHERE MEMBER_NO = #{memberNo}
 		AND OPTION_SPECIFY_NO IN
-		<foreach collection="optionSpecifyNoList" item="optionNo" 
-		open="(" close=")" separator=",">
-			 #{optionNo}
-		</foreach> 
+		<foreach collection="optionSNL" item="optionNo" open="("
+			close=")" separator=",">
+			#{optionNo}
+		</foreach>
+	
 	</delete>
-
-
-	<!-- 주문 결제 페이지 조회  -->
-	<select id="ordersheet" parameterType="map" resultMap="shopCart_rm">
-				SELECT MEMBER_NO, OPTION_SPECIFY_NO, BUYING_QUANTITY, ITEM_NO, ITEM_PRICE, ITEM_NM,
-       	IMG_NAME, IMG_PATH, IMG_LEVEL, ITEM_OPTION_CONTENT, OPTION_SPECIFY_CONTENT
-				FROM EH_CART
-				JOIN EH_ITEM_OPTIONDETAIL USING(OPTION_SPECIFY_NO)
-				JOIN EH_ITEM USING(ITEM_NO)
-				JOIN EH_ITEM_IMG USING(ITEM_NO)
-				JOIN EH_ITEM_OPTION USING(ITEM_NO)
-				WHERE ITEM_DELETE_FL = 'N'
-				AND MEMBER_NO = #{memberNo}
-				AND IMG_LEVEL = 0
-				AND OPTION_SPECIFY_NO IN
-				<foreach collection="optionNoList" item="optionNo" open="(" close=")" separator=",">
-								#{optionNo}
-				</foreach>
-	</select>
-
-
-
-
-
-
+	
+	
 
 </mapper>

@@ -67,4 +67,43 @@ public class ShopCartDAO {
 		
 		return sqlSession.selectList("cartMapper.ordersheet", map);
 	}
+
+
+
+
+
+	/** 주문 결제 내역 삽입.
+	 * @param map
+	 * @return result
+	 */
+	public int insertPayment(Map<String, Object> map) {
+		
+		return sqlSession.insert("cartMapper.insertPayment", map);
+	}
+
+
+
+
+
+	/** 주문 결제 내역 상세 삽입.
+	 * @param map
+	 * @return result
+	 */
+	public int insertOrderSpecify(Map<String, Object> map) {
+		
+		return sqlSession.insert("cartMapper.insertOrderSpecify", map);
+	}
+
+
+
+
+
+	/** 결제한 상품  카트에서 삭제.
+	 * @param map
+	 * @return result;
+	 */
+	public int deletOrderItemFromCart(Map<String, Object> map) {
+		
+		return sqlSession.delete("cartMapper.deletOrderItemFromCart", map);
+	}
 }
