@@ -51,7 +51,7 @@ header {
 								<label for="postcodify_search_button">수령 주소 <span class="requiredInput">*</span></label>
 								<div class="addr-search">
 									<div class="addr-search1">
-										<input type="text" name="post" class="address0 postcodify_postcode5" value="${address[0]}">
+										<input type="text" name="post" class="address0 postcodify_postcode5" id="address0" value="${address[0]}">
 										<button type="button" class="addr_btn" id="postcodify_search_button">검색</button>
 									</div>
 									<div class="addr-search2">
@@ -161,36 +161,60 @@ header {
 			
 			list.push($(".specify-number")[i].innerText);
 		}
-			console.log(list)
+			//console.log(list)
 		
 		 var OptionSpecifyNo = list.join();
 		
-			console.log(OptionSpecifyNo)
+			//console.log(OptionSpecifyNo)
 		
 	
 			
-		$("#name").on("change",function(){
 			
-			var orderRecipient = $("#name").val()
-		console.log(orderRecipient);
+		// 	
 			
+			
+			 
+		var orderRecipient; //전역
+		
+		
+		$("#name").blur(function(){
+			orderRecipient = $(this).val();
+			console.log(orderRecipient); // undefined.
+		})
+		
+		/* $("#name").on("input",function(){
+			orderRecipient = $("#name").val();
+		}); */
+			
+
+		
+		 var address;
+		$("#adress0, #address1, #address2").blur(function(){
+			var address0 = $(".address0").val()
+			//console.log(address0);
+			var address1 = $(".address1").val()
+			//console.log(address1);
+			var address2 = $(".address2").val()
+			//console.log(address2);
+			
+			address = address0 + address1 + address2
+			console.log(address)
+		});	
+		
+		
+		
+		
+		
+		var phone;
+			$("#tel").blur(function(){
+			phone = $("#tel").val()
+			console.log(phone);
 		});
+		
+		
 			
-		var address0 = $(".address0").val()
-		//console.log(address0);
-		var address1 = $(".address1").val()
-		//console.log(address1);
-		var address2 = $(".address2").val()
-		//console.log(address2);
-		
-		var address = address0 + address1 + address2
-		console.log(address)
-		
-		
-		var phone = $(".phone").val()
-		console.log(phone);
-		
-		
+			
+			
 		
 		
 		/* 아임포트 결제 */
