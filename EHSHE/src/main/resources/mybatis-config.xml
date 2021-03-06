@@ -25,6 +25,7 @@
 		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopScore" alias="ShopScore"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.Order" alias="Order"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.OrderDetails" alias="OrderDetails"/>
+		<typeAlias type="com.kh.ehshe.home.model.vo.Item" alias="Item"/>
 	</typeAliases>
 
 	<mappers>
@@ -35,6 +36,8 @@
 		<mapper resource="/mappers/place-mapper.xml"/>
 		<mapper resource="/mappers/shop-mapper.xml"/>
 		<mapper resource="/mappers/cart-mapper.xml"/>
+		<mapper resource="/mappers/main-mapper.xml"/>
+		
 	</mappers>
 	
 	  

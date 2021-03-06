@@ -6,7 +6,7 @@ public class Order {
 	private int orderNo; //주문번호 
 	private String orderConfirm; //주문 확인
 	private int orderPrice; //주문 가격 //
-	private int orderContent; // 주문내용
+	private String orderContent; // 주문내용
 	private Date orderDate; // 주문일 //
 	private int memberNo; // 주문한 회원번호
 	private String orderAddr; // 주문주소//
@@ -41,11 +41,11 @@ public class Order {
 		this.orderPrice = orderPrice;
 	}
 
-	public int getOrderContent() {
+	public String getOrderContent() {
 		return orderContent;
 	}
 
-	public void setOrderContent(int orderContent) {
+	public void setOrderContent(String orderContent) {
 		this.orderContent = orderContent;
 	}
 
