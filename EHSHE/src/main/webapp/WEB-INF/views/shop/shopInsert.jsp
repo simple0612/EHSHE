@@ -51,6 +51,10 @@
 header{
 position:relative !important;
 }
+.options{
+border:none;
+outline:none;
+}
 
  
 </style>
@@ -109,25 +113,44 @@ position:relative !important;
                    </div> 
                 </div>
           
-          <div class="row">            
-              <div class="col-md-6">
-                <div class=""  id="wrapper3">
-                  <label for="inputsize">size</label>
-                  <input class="" id="inputsize" name="sizemenu" style="width: 200px;">
-                  <button type="button" class="btn btnColor" id="add">추가</button>
-               </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class=""  id="wrapper4">
-                  <label for="inputcolor">color</label>
-                  <input class="" id="inputcolor" name="colormenu" style="width: 200px;">
-                  <button type="button" class="btn btnColor" id="add2">추가</button>
-               </div>
-              </div>
+            <div class="row">            
+                <div class="col-md-12" >
+                    <label for="size" class="">사이즈</label>
+                     <input type="text" class="form-control" id="size" placeholder="예시 : X,M,L ( ,로 구분)">
+                </div>
+                <div class="col-md-12" >
+                    <label for="color" class="">색상</label>
+                    <input type="text" class="form-control" id="color" placeholder="예시 : RED,BLUE,GRAY ( ,로 구분)">
+                </div>
+            </div>
             
+            <div class="row" style="margin-top: 20px;">
+               <div class="col-md-12" >
+             		 <input type="button"class="btn btnColor2" id="optionBtn" value="옵션목록으로적용▼">
+              </div>
             </div>
 
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-12" >
+                    <button type="button" class="btn btnColor2" id="selectDelete">선택삭제</button>
+                <table class="table table-bordered" id="allTable" style="margin-top: 5px;">
+                    <thead>
+                      <tr>
+                        <th scope="col"><input type="checkbox" id="optionCheckAll"></th>
+                        <th scope="col">사이즈</th>
+                        <th scope="col">색상</th>
+                        <th scope="col" >삭제</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbodyWrapper">
+                      <tr>
+                       <td colspan="4" style="text-align: center;">존재하는 데이터가 없습니다.</td>
+                     </tr>
+                    </tbody>
+                  </table>
+                  </div>
+            </div>
+            
             <br>
         <br>
         <div class="row">
@@ -149,10 +172,127 @@ position:relative !important;
 
 <script>
 
-      // 추가 버튼 클릭 시
+
+
+
+$(document).ready(function() {
+   
+
+  $("#optionBtn").on("click",function(){
+
+    var size =$("#size").val(); // 사이즈값 가져오기
+    var color =$("#color").val(); // 색상 값 가져오기
+
+    var sizeSplit = [];  // size 배열에 담기
+    var colorSplit = [];  // color 배열에 담기
+
+    var temp =""; // 동적테이블 담을 변수
+    
+    if(!size && !color){
+
+        alert("size 혹은 color를 입력해주세요.");
+
+    }else{
+
+
+    // 사이즈,컬러 구분자로 쪼개기
+    sizeSplit = size.split(',');
+    colorSplit = color.split(',');
+ 
+    // 사이즈,컬러 각각의 맞게 분배
+    for (var i=0; i<sizeSplit.length; i++) {
+
+        for(var j=0; j<colorSplit.length; j++){
+            
+        $("#tbodyWrapper").empty();
+
+        temp +='<tr>';
+        temp +="<th scope='row'>"+ "<input type='checkbox' name='optionCheckBox'style='text-align:center;'></th>";
+        temp +='<td>'+'<input type="text" name="sizeMenu" class="options" readonly value="'+ sizeSplit[i] +'"></td>';
+        temp +='<td>'+'<input type="text" name="colorMenu" class="options" readonly value="'+ colorSplit[j] +'"></td>';
+        temp +='<td>' +'<div id="deleteBtn" style="margin-left:10px;"><i class="fas fa-times"></i></div>'+ '</td>';
+        temp +='</tr>';
+
+        $("#tbodyWrapper").append(temp);
+
+        }
+        
+    }
+}
+    
+});
+
+
+// 단일 tr 삭제
+$(document).on("click", "#deleteBtn", function(){
+    $(this).parent().parent().remove();
+ 
+});
+
+// 체크박스된 tr만 삭제
+$("#selectDelete").on("click",function(){
+
+    var checkbox =$("input[name=optionCheckBox]:checked");
+    console.log(checkbox);
+
+        checkbox.each(function(i){
+    
+        var tr= checkbox.parent().parent();
+        
+        tr.remove();
+        
+
+     });
+
+     if($("td:empty")){
+         $("#optionCheckAll").prop("checked",false);
+       }  
+    });
+    
+
+
+    // 체크박스 전체해제 전체클릭
+    $("#optionCheckAll").click(function(){
+   
+    if($("#optionCheckAll").prop("checked")){
+      
+        $("input[name=optionCheckBox]").prop("checked",true);
+    }else{
+        $("input[name=optionCheckBox]").prop("checked",false);
+    }
+
+    });
+
+//체크박스 하나 해제시 전체체크박스 해제
+$(document).on("click", "input[name=optionCheckBox]", function(){
+
+var checkbox =$("input[name=optionCheckBox]:checked");
+
+if($("input[name=optionCheckBox]").length==checkbox.length){ 
+  
+    $("#optionCheckAll").prop("checked",true); 
+}else{ 
+   $('#optionCheckAll').prop("checked",false); 
+} 
+
+});
+
+
+
+
+});
+
+
+
+
+/*       // 추가 버튼 클릭 시
   document.getElementById("add").onclick = function(){
 
-        // 1) div 태그 생성
+      
+    	  
+    	  
+    	  
+    	  // 1) div 태그 생성
        // var div =document.getElementById("wrapper3");
         var div = document.createElement("div");
         div.setAttribute("style","margin-top:5px;");
@@ -221,10 +361,9 @@ position:relative !important;
         document.getElementById("wrapper4").appendChild(div);
 
         
-        };
+        }; */
 
-
-
+        
 	// 이미지 영역을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
     $(function(){
 		//	$("#fileArea").hide(); // #fileArea 요소를 숨김.		
@@ -278,5 +417,4 @@ position:relative !important;
 		}
 
 </script>
-</html>
 </html>
