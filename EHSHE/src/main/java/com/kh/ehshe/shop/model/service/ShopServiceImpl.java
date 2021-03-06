@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -73,6 +74,8 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public List<ShopOption> selectShopOptionList(int itemNo) {
 		return dao.selectShopOptionList(itemNo);
+	
+		
 	}
 	
 	// shop에 포함된 이미지 목록 조회 Service 구현
@@ -86,7 +89,7 @@ public class ShopServiceImpl implements ShopService {
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public int insertShop(Map<String, Object> map, List<MultipartFile> images, String savePath,
-							List<String> sizemenu, List<String> colormenu) {
+							List<String> sizeMenu, List<String> colorMenu) {
 		
 		int result = 0;
 	
@@ -106,6 +109,9 @@ public class ShopServiceImpl implements ShopService {
 				
 				if(optionInsert > 0) {
 					
+					try {
+						
+					
 					shopOptionNo = dao.selectOptionNextNO(shopNo); // 옵션번호 조회하기
 					
 					List<ShopOption> shopOption = new ArrayList<ShopOption>(); 
@@ -113,29 +119,70 @@ public class ShopServiceImpl implements ShopService {
 					String optionDetail =null;
 					String optionColor =null;
 					String optionSize = null;
+				
 					
-					for (int i = 0; i < sizemenu.size(); i++) {
-
-						 optionSize = sizemenu.get(i);
-						
-						 for (int j = 0; j < colormenu.size(); j++) {
-
-							 optionColor = colormenu.get(j);
-							 optionDetail = optionSize +"("+optionColor+")";
-							
-							 ShopOption opd = new ShopOption(shopOptionNo,optionDetail);
-							 
-							 shopOption.add(opd);
-							}
-
+					if(sizeMenu.isEmpty()) {
+					
+				    for (int i = 0; i < colorMenu.size(); i++) {
+				    	   
+				    	    optionColor=colorMenu.get(i);
+				    		
+				    	    ShopOption opd = new ShopOption(shopOptionNo,optionColor);
+				    		shopOption.add(opd);
+				    		
 					}
 					
-					int insertOptionDetail = dao.insertOptionDeatail(shopOption);
+				    int insertOptionDetail = dao.insertOptionDeatail(shopOption);
+				    
+					}else if(colorMenu.isEmpty()) {
+						
+						
+						   for (int i = 0; i < sizeMenu.size(); i++) {
+					    	   
+							    optionSize=sizeMenu.get(i);
+					    		
+					    	    ShopOption opd = new ShopOption(shopOptionNo,optionSize);
+					    		shopOption.add(opd);
+						   }
+						 
+						   int insertOptionDetail = dao.insertOptionDeatail(shopOption);
+
 					
-					System.out.println("옵션디테일삽입 성공 : "+insertOptionDetail);
-				}
+					
+					}else if(!sizeMenu.isEmpty() && !colorMenu.isEmpty()){
+						
+					    for (int i = 0; i < sizeMenu.size(); i++) {
+							
+						    	optionSize = sizeMenu.get(i);
+						    	optionColor = colorMenu.get(i);
+							    	
+							    optionDetail = optionSize +"("+optionColor+")";
+							    ShopOption opd = new ShopOption(shopOptionNo,optionDetail);
+							    shopOption.add(opd);
+								
+								
+							}
+							
+						int insertOptionDetail = dao.insertOptionDeatail(shopOption);
+						System.out.println("옵션디테일삽입 성공 : "+insertOptionDetail);
+					
+					
+					}else{
+						
+						ShopOption opd = new ShopOption(shopOptionNo,"옵션없음");
+						System.out.println("ddddddd2222"+opd);
+						shopOption.add(opd);
+						int insertOptionDetail = dao.insertOptionDeatail(shopOption);
+					}
+					
+					
+					}catch(Exception e){
+						
+						throw new InsertShopAttachmentFailException("옵션정보추가 실패");
+						
+					}
 				
-				
+			}
 				
 				List<ShopAttachment> uploadImages = new ArrayList<ShopAttachment>(); 
 
@@ -292,13 +339,21 @@ public class ShopServiceImpl implements ShopService {
 	// shop 게시글 수정 Service 구현
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int updateShopBoard(Shop updateShopBoard, MultipartFile images, String savePath) {
+	public int updateShopBoard(Shop updateShopBoard, MultipartFile images, String savePath, List<String> sizeMenu,
+								List<String> colorMenu
+								) {
 	
 		updateShopBoard.setItemNm(replaceParameter(updateShopBoard.getItemNm()));
 		
 		int result = dao.updateShopBoard(updateShopBoard);
 
+		
 		if(result > 0) {
+			
+			List<ShopOption> optionList = dao.selectShopOptionList(updateShopBoard.getItemNo());
+			
+		    System.out.println("optionList" + optionList);
+			
 			
 			String filePath = null;
 			
