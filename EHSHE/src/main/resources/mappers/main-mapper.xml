@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mainMapper">
+
+	<resultMap type="Item" id="Item_rm">
+		<id property="itemNo" column="ITEM_NO"/>
+		<result property="itemNm" column="ITEM_NM"/>
+		<result property="itemPrice" column="ITEM_PRICE"/>
+		<result property="imgName" column="IMG_NAME"/>
+		<result property="imgPath" column="IMG_PATH"/>
+		<result property="imgLevel" column="IMG_LEVEL"/>
+		<result property="itemRating" column="ITEM_RATING"/>
+	</resultMap>
+	
+	
+	<select id="selectItemList" resultMap="Item_rm">
+	
+	</select>
+
+	
+	
+	
+
+</mapper>

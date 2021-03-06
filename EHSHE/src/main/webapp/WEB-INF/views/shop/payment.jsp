@@ -167,9 +167,15 @@ header {
 		
 			console.log(OptionSpecifyNo)
 		
-		
-		var orderRecipient = $("#name").val()
-		//console.log(orderRecipient);
+	
+			
+		$("#name").on("change",function(){
+			
+			var orderRecipient = $("#name").val()
+		console.log(orderRecipient);
+			
+		});
+			
 		var address0 = $(".address0").val()
 		//console.log(address0);
 		var address1 = $(".address1").val()
@@ -178,11 +184,11 @@ header {
 		//console.log(address2);
 		
 		var address = address0 + address1 + address2
-		//console.log(address)
+		console.log(address)
 		
 		
 		var phone = $(".phone").val()
-		//console.log(phone);
+		console.log(phone);
 		
 		
 		
