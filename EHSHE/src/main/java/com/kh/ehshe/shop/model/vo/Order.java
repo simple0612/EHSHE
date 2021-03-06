@@ -6,7 +6,7 @@ public class Order {
 	private int orderNo; //주문번호 
 	private String orderConfirm; //주문 확인
 	private int orderPrice; //주문 가격 //
-	private int orderQuantity; // 주문량 
+	private int orderContent; // 주문내용
 	private Date orderDate; // 주문일 //
 	private int memberNo; // 주문한 회원번호
 	private String orderAddr; // 주문주소//
@@ -41,12 +41,12 @@ public class Order {
 		this.orderPrice = orderPrice;
 	}
 
-	public int getOrderQuantity() {
-		return orderQuantity;
+	public int getOrderContent() {
+		return orderContent;
 	}
 
-	public void setOrderQuantity(int orderQuantity) {
-		this.orderQuantity = orderQuantity;
+	public void setOrderContent(int orderContent) {
+		this.orderContent = orderContent;
 	}
 
 	public Date getOrderDate() {
@@ -92,7 +92,8 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order [orderNo=" + orderNo + ", orderConfirm=" + orderConfirm + ", orderPrice=" + orderPrice
-				+ ", orderQuantity=" + orderQuantity + ", orderDate=" + orderDate + ", memberNo=" + memberNo
+				+ ", orderContent=" + orderContent + ", orderDate=" + orderDate + ", memberNo=" + memberNo
 				+ ", orderAddr=" + orderAddr + ", orderTel=" + orderTel + ", orderRecipient=" + orderRecipient + "]";
 	}
+	
 }

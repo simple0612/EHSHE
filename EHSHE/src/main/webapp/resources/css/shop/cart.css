@@ -130,6 +130,7 @@
 }
 .cart-items .cart-item .cart-img >img{
     height:100%;
+    width:100%;
 }
 
 .cart-items .cart-item .cart-item-name{

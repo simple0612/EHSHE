@@ -83,10 +83,10 @@ header {
 											</div>
 											<div class="item-content">
 												<div class="item-name">
-													${shopCart.itemNm} <span class="item-option">${shopCart.optionSpecifyContent}</span>
+													${shopCart.itemNm} <span class="item-option">${shopCart.optionSpecifyContent}</span><span class="specify-number">${shopCart.optionSpecifyNo}</span>
 												</div>
 												<div class="item-price">
-													${shopCart.itemPrice} <span class="item-number">${shopCart.buyingQuantity}</span>
+													${shopCart.itemPrice} <span class="item-number">${shopCart.buyingQuantity}</span><b>개</b>
 												</div>
 											</div>
 										</div>
@@ -147,15 +147,26 @@ header {
 			itemList.push(item);
 		});
 		*/
-		console.log($(".item-name").length)
-		console.log($(".item-name").eq(0).text().trim())
+		//console.log($(".item-name").length)
+		//console.log($(".item-name").eq(0).text().trim())
 		
 		var orderItemName = $(".item-name").eq(0).text().trim();
 		if($(".item-name").length > 1){
 			orderItemName += ' 외 ' + ($(".item-name").length -1) + "개"
 		}
-		
 		//console.log(orderItemName);
+
+	 	var list = [];
+		for(var i= 0; i< $(".specify-number").length; i++){
+			
+			list.push($(".specify-number")[i].innerText);
+		}
+			console.log(list)
+		
+		 var OptionSpecifyNo = list.join();
+		
+			console.log(OptionSpecifyNo)
+		
 		
 		var orderRecipient = $("#name").val()
 		//console.log(orderRecipient);
@@ -167,11 +178,11 @@ header {
 		//console.log(address2);
 		
 		var address = address0 + address1 + address2
-		console.log(address)
+		//console.log(address)
 		
 		
 		var phone = $(".phone").val()
-		console.log(phone);
+		//console.log(phone);
 		
 		
 		
@@ -191,6 +202,7 @@ header {
 				buyer_name : orderRecipient,   // 결제완료후 나오는 구매자 이름.
 				buyer_tel : phone,
 				buyer_addr : address,
+				custom_data : OptionSpecifyNo,
 				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 			}, function(rsp) {
 				if (rsp.success) { //결제 완료시 나오는 메세지창.
@@ -209,21 +221,28 @@ header {
 				          data: {
 				              imp_uid: rsp.imp_uid,
 				              merchant_uid: rsp.merchant_uid,
+				              "orderItemName" : rsp.name,
 				              "orderPrice" : rsp.paid_amount, //결제금액
 				              "orderRecipient" : rsp.buyer_name, // 수령자 이름
 				              "orderTel" : rsp.buyer_tel, // 수취인 전화번호
 				              "orderAddr" : rsp.buyer_addr, // 수취인 주소
-				              "orderDate" : rsp.paid_at // 결제승인시각
-				              
-				          },
+				              "OptionSpecifyNo" : rsp.custom_data //옵션 상세번호
+				          },//결제성공 +삽입성공+장바구니에서 삭제 성공 시 .
 				          success : function(result){
+				        	  	
+				        	  if(result>0){
+                      swal({icon:"success", title:"결제성공", text:"결재내역으로 이동합니다."}).then(function(){
+		       						location.href = "${contextPath}/page/paymentdetails";
+		                                 
+		               });
+                  }
+				        	  	
+			          },
+			          error : function(){
 				        	  
-				          },
-				          error : function(){
-				        	  
-				          }
+		          }
 				          
-				      });
+		      });
 				             
 					
 				} else {

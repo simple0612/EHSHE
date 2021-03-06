@@ -23,6 +23,8 @@
 		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopAttachment" alias="ShopAttachment"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopOption" alias="ShopOption"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopScore" alias="ShopScore"/>
+		<typeAlias type="com.kh.ehshe.shop.model.vo.Order" alias="Order"/>
+		<typeAlias type="com.kh.ehshe.shop.model.vo.OrderDetails" alias="OrderDetails"/>
 	</typeAliases>
 
 	<mappers>
