@@ -82,7 +82,7 @@ public interface ShopService {
 	 * @param savePath
 	 * @return result
 	 */
-	int updateShopBoard(Shop updateShopBoard, MultipartFile images, String savePath);
+	int updateShopBoard(Shop updateShopBoard, MultipartFile images, String savePath, List<String> sizeMenu, List<String> colorMenu);
 
 	/** 메인 페이지 최근올라온 상품 Service
 	 * @return sList

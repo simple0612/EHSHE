@@ -142,10 +142,12 @@ public class ShopController {
 	public String shopInsertAction(@ModelAttribute Shop shop,
 			@PathVariable("type") int type,
 			@RequestParam(value = "images", required = false) List<MultipartFile> images, HttpServletRequest request,
-			@RequestParam(value = "sizemenu", required = false) List<String> sizemenu,
-			@RequestParam(value = "colormenu", required = false) List<String> colormenu,
+			@RequestParam(value = "sizeMenu", required = false) List<String> sizeMenu,
+			@RequestParam(value = "colorMenu", required = false) List<String> colorMenu,
 			RedirectAttributes ra) {
 		
+		System.out.println("SIZEMENU" + sizeMenu);
+		System.out.println("SIZEMENU" + colorMenu);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -165,7 +167,7 @@ public class ShopController {
 			savePath = request.getSession().getServletContext().getRealPath("resources/etcImages");
 		}
 
-		int result = service.insertShop(map, images, savePath,sizemenu,colormenu);
+		int result = service.insertShop(map, images, savePath,sizeMenu,colorMenu);
 
 		
 		String url = null;
@@ -232,6 +234,8 @@ public class ShopController {
 		if(shop != null) {
 			
 			List<ShopOption> option = service.selectShopOptionList(itemNo);
+			
+			System.out.println("option" + option);
 			model.addAttribute("option", option);
 			
 			ShopAttachment shopAttachment = service.selectShopAttachmentList(itemNo);
@@ -251,14 +255,18 @@ public class ShopController {
 	// Shop게시글 수정 Controller
      @RequestMapping("{type}/{itemNo}/shopUpdateAction")	 
      public String ShopUpdateAction(@PathVariable("itemNo") int itemNo,
-    		 					@PathVariable("type") int type,
-    		 					@ModelAttribute Shop updateShopBoard,
-    		 					 Model model,RedirectAttributes ra,
-    		 					HttpServletRequest request,
-    		 					@RequestParam(value="images" ,required=false) MultipartFile images){
+    		 						@PathVariable("type") int type,
+    		 						@ModelAttribute Shop updateShopBoard,
+    		 						Model model,RedirectAttributes ra,
+    		 						HttpServletRequest request,
+    		 						@RequestParam(value="images" ,required=false) MultipartFile images,
+    		 						@RequestParam(value="sizeMenu" ,required=false) List<String> sizeMenu, 
+    		 						@RequestParam(value="colorMenu" ,required=false)List<String> colorMenu
+    		 						){
     	 
-    updateShopBoard.setItemNo(itemNo);
+    	 System.out.println("3333"+sizeMenu + "--"+colorMenu);
     
+   updateShopBoard.setItemNo(itemNo);
     
     
     String savePath = null;	 
@@ -273,7 +281,7 @@ public class ShopController {
     	
 	
     
-	int result = service.updateShopBoard(updateShopBoard,images,savePath);
+	int result = service.updateShopBoard(updateShopBoard,images,savePath,sizeMenu,colorMenu);
 	
 	String url =null;
 	

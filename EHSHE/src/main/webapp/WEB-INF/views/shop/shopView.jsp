@@ -16,10 +16,10 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <style>
-/* div{
+/*  div{
 border: 1px solid black;
-}    */
-img{
+}    */  
+.star{
   width:100%;
   height:100%;
 }
@@ -39,7 +39,7 @@ img{
   width: 25px;
   height: 25px;
 }
-  header{
+header{
 position:relative !important;
 }
 .main{
@@ -57,7 +57,7 @@ color:black;
 display:inline-block;
 }
 .line{
-	 line-height:50px; 
+line-height:55px; 
 	/* margin-top:20px; */
 }
     </style>
@@ -69,24 +69,75 @@ display:inline-block;
             <div class="col-md-6">
                 <div class="mb-4 a">
            					<c:if test="${!empty ShopAttachmentList}"> 
-                   	 <img src="${contextPath}${ShopAttachmentList.filePath}/${ShopAttachmentList.fileName}" class="rounded mx-auto d-block">
+                   	 <img src="${contextPath}${ShopAttachmentList.filePath}/${ShopAttachmentList.fileName}" class="rounded mx-auto d-block star">
           				 	</c:if>
                 </div>
-                  <div class="float-right" style="margin-top:10px;">
+                  <div class="text-center" style="margin-top:10px;">
                   	<c:url var="updateUrl" value="${shop.itemNo}/update"/>
 	      				<button type="button" class="btn btnColor2" onclick="location.href='${updateUrl}'">상품수정</button>
 	      				<button type="button" class="btn btnColor2">상품삭제</button>
-	      				<button type="button" class="btn btnColor">후기등록</button>
+	      			<button type="button" class="btn btnColor" data-toggle="modal" data-target="#myModal">
+	 	   					  쇼핑후기등록
+	 						</button>
 			        </div>
                  </div>
            
            		 <div class="col-md-6">
                     <div class="col-md-12">
-                     
+                    <table class="line">
+                    	<tr>
+                    		<td class="" style="width:100px;"><strong>상품명</strong>: </td>
+                    		<td class="">${shop.itemNm}</td>
+                    	</tr>
+                    	<tr>
+		                   	<td><strong>가격</strong> :</td>
+		                   	<td>${shop.itemPrice}원</td>
+                    	</tr>
+                			<tr>
+                				<td><strong>배송비</strong> : </td>
+                				<td>${shop.transCharge}원</td>
+                			</tr>
+                			
+                			<tr>
+                				<td><strong>옵션선택</strong> : </td>
+                				<td> 
+                		      <select name="select" class="form-control form-control-sm" style="width: 100%;"> 
+                           <option selected>옵션을 선택하세요.</option>
+													<c:if test="${!empty ShopOptionList}">
+					                 <c:forEach var="shopOption" items="${ShopOptionList}">
+			                       <option>${shopOption.optionSpecifyContent}</option>
+					               	 </c:forEach>
+	                        </c:if>
+                          </select>
+                        </td>
+                			</tr>
+                		
+                			<tr>
+                				<td><strong>개수</strong> : </td>
+              					<td><input type="number" class="form-control form-control-sm" min="0" max="100" value="1" style="width: 100%;"/>
+											  </td>
+                			</tr>
+                			<tr>
+                				<td><strong>Total</strong> : </td>
+                				<td>${shop.itemPrice}원</td>
+                			</tr>
+                			<tr>
+               					<td>
+                           <img src="${contextPath}/resources/shopCommonImg/별모양.png" class="star" style="width:25px; height:25px;">
+                       </td>
+                				<td> 4.15</td>
+                			</tr>
+                			<tr>
+                			<td></td>
+                			</tr>
+                    </table>
+                    </div>
+                <%--     <div class="col-md-12">
                      <div class="line">
                        <div class="productClass"><strong>상품명</strong> : </div>
                        <div class="productClass">${shop.itemNm}</div>
                      </div>
+                     
                        
                       <div class="line">
                        <div class="productClass"><strong>가격</strong> : </div>
@@ -102,17 +153,17 @@ display:inline-block;
                            <div class="productClass"><strong>옵션선택</strong> : </div>
                               <select name="select" class="form-control productClass" style="width: 255px;"> 
                               <option selected>옵션을 선택하세요.</option>
-								<c:if test="${!empty ShopOptionList}">
-				                 <c:forEach var="shopOption" items="${ShopOptionList}">
-			                       <option>${shopOption.optionSpecifyContent}</option>
-				               	 </c:forEach>
-                               </c:if>
+																<c:if test="${!empty ShopOptionList}">
+								                 <c:forEach var="shopOption" items="${ShopOptionList}">
+						                       <option>${shopOption.optionSpecifyContent}</option>
+								               	 </c:forEach>
+				                        </c:if>
                              </select>
-                    	</div>
+                    		</div>
                             
                            <div class="line">
                             <div class="productClass"><strong>개수</strong> : </div>
-                            <input type="number" min="0" max="100"  value="1" />
+                            <input type="number" class="form-control productClass " min="0" max="100" value="1" style="width: 255px;"/>
                           </div>
                           
                           <div class="line">
@@ -124,12 +175,11 @@ display:inline-block;
                               <div class="j productClass">
                                 <img src="${contextPath}/resources/shopCommonImg/별모양.png">
                               </div>
-                            <div class="productClass"> 4.15</div>
+                           		<div class="productClass"> 4.15</div>
                         </div>
-                     
+                    </div>  --%>
                       
-                    </div>
-                      <div class="float-left col-10">
+                      <div class="float-left col-10"style="margin-top:20px;" >
                          <button class="btn btn-warning btn-lg btn-block">결제하기</button>
                          <button class="btn btn-secondary btn-lg btn-block">장바구니</button>
                       </div>
@@ -145,7 +195,8 @@ display:inline-block;
 						${fn:replace(shop.itemContent,newLine,"<br>")}
              </div>
           </div>
-          <div class="col-md-12">
+          
+    <div class="col-md-12">
          <ul class="nav nav-tabs">
            <li class="nav-item">
              <a class="nav-link active"data-toggle="tab" href="#review">상품후기</a>
@@ -156,9 +207,6 @@ display:inline-block;
          </ul>
          <div class="tab-content">
            <div class="tab-pane fade show active" id="review">
-		<button type="button" class="btn btnColor float-right" data-toggle="modal" data-target="#myModal">
-	 	     쇼핑후기등록
-	 	</button>
            <p style="word-break:break-all; margin-top: 20px;">
             asdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasd
            </p>
@@ -173,16 +221,8 @@ display:inline-block;
             </button>
           </div>
           <div class="modal-body">
-            <p style="word-break:break-all;">Modal body text goes here.
-              Modal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes here
-              Modal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes here
-              Modal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes here
-              Modal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes here
-              Modal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes here
-              Modal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes here
-              Modal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes here
-              Modal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes here
-              Modal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes hereModal body text goes here
+            <p style="word-break:break-all;">
+            
             </p>
           </div>
           <div class="modal-footer">

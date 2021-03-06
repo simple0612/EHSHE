@@ -130,6 +130,8 @@
 	 </insert>
 
 	
+
+	
 		<!-- 파일 정보 삽입(List 이용)-->
 		<insert id="insertShopAttachmentList" parameterType="list">
 			INSERT INTO EH_ITEM_IMG
@@ -211,7 +213,7 @@
   	<!-- ShopList 별점 조회  -->
 	<select id="selectShopScore" parameterType="list" resultMap="shopscore_rm">
 		SELECT
-		AVG(IT_REV_RATING) SCORE, ITEM_NO
+		AVG(ITEM_RATING) SCORE, ITEM_NO
 		FROM EH_ITEM_REVIEW
 		JOIN EH_ITEM USING(ITEM_NO)
 		JOIN EH_ITEM_CATEGORY USING(ITEM_CATEGORY)
@@ -221,8 +223,6 @@
 	    </foreach>	
 		GROUP BY ITEM_NO
 	</select>
-	
-	
 	
 	
 	
