@@ -1,13 +1,13 @@
 // 입력 값들이 유효성 검사가 진행되어있는지 확인하기 위한 객체 생성
-var findIdCheck = {
-    "memberNm": false,
+var findPwCheck = {
+    "memberId": false,
     "memberEmail": false,
 		"certificationCheck" : false
 }
 
 // 실시간 유효성 검사 --------------------
 // 정규표현식
-var $memberNm = $("#memberNm");
+var $memberId = $("#memberId");
 var $memberEmail = $("#memberEmail");
 
 
@@ -18,10 +18,10 @@ $memberEmail.on("input",function() {
 
 	if (!regExp.test($(this).val())) {
 		$("#checkEmail").text("이메일 형식이 올바르지 않습니다.").css("color", "red").css("visibility","visible");
-		findIdCheck.memberEmail = false;
+		findPwCheck.memberEmail = false;
 	} else {
 		$("#checkEmail").css("visibility", "hidden");
-		findIdCheck.memberEmail = true;
+		findPwCheck.memberEmail = true;
 	}
 });
 
@@ -39,7 +39,7 @@ $memberEmail.on("input",function() {
 	        success: function(data) {
 	        	console.log(data)
 	        	$("#certificationCheck").text("인증번호가 발송되었습니다.").css("color", "green");
-	        	findIdCheck.certificationCheck = false;
+	        	findPwCheck.certificationCheck = false;
 	        	code = data;
 	        },
   				error : function(){
@@ -53,10 +53,10 @@ $memberEmail.on("input",function() {
 		$("#certify").on("input", function(){
 			if($(this).val() != code || $(this).val() == 0){
 			 $("#certificationCheck").text("인증번호가 불일치합니다.").css("color", "red");				
-			 findIdCheck.certificationCheck = false;
+			 findPwCheck.certificationCheck = false;
 			} else {
 			 $("#certificationCheck").text("인증번호가 일치합니다.").css("color", "green");
-			 findIdCheck.certificationCheck = true;
+			 findPwCheck.certificationCheck = true;
 			}
 		});
 	});
@@ -65,11 +65,11 @@ $memberEmail.on("input",function() {
 	// 유효성 검사
 	function validate() {
 	
-		for ( var key in findIdCheck) {
-			if (!findIdCheck[key]) {
+		for ( var key in findPwCheck) {
+			if (!findPwCheck[key]) {
 				var str;
 				switch (key) {
-				case "memberNm" : str = "아이디"; break;
+				case "memberId" : str = "아이디"; break;
 				case "memberEmail": str = "이메일"; break;
 				case "certificationCheck": str = "이메일 인증"; break;
 				}

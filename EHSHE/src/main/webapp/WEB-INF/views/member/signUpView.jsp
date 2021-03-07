@@ -166,9 +166,6 @@ label > span {
 						<input type="password" class="form-control" id="memberPw1" name="memberPw" placeholder="비밀번호를 입력해주세요." required>
 					</div>
 
-					<div class="col-md-9 offset-md-3">
-						<span id="checkPw1">&nbsp;</span>
-					</div>
 				</div>
 
 				<%-- 비밀번호 확인 --%>
@@ -181,7 +178,7 @@ label > span {
 					</div>
 
 					<div class="col-md-9 offset-md-3">
-						<span id="checkPw2">&nbsp;</span>
+						<span id="checkPw">&nbsp;</span>
 					</div>
 				</div>
 
@@ -262,37 +259,6 @@ label > span {
 				</div>
 
 				<br>
-				<%-- 주소 --%>
-				<div class="row mb-2 form-row">
-					<div class="col-md-3">
-						<label for="postcodify_search_button">주소 <span>*</span></label>
-					</div>
-					<div class="col-md-4">
-						<input type="text" name="post" id="post" class="form-control postcodify_postcode5" required>
-					</div>
-					<div class="col-md-3">
-						<button type="button" class="btn" id="postcodify_search_button">검색</button>
-					</div>
-				</div>
-
-				<div class="row mb-2 form-row">
-					<div class="col-md-3">
-						<label for="addr1"></label>
-					</div>
-					<div class="col-md-9">
-						<input type="text" class="form-control postcodify_address" name="addr1" id="addr1">
-					</div>
-				</div>
-
-				<div class="row mb-2 form-row">
-					<div class="col-md-3">
-						<label for="addr2"></label>
-					</div>
-					<div class="col-md-9">
-						<input type="text" class="form-control postcodify_details" name="addr2" id="addr2">
-					</div>
-				</div>
-				<br>
 			</div>
 			
 			<div class="hr"></div>
@@ -317,78 +283,5 @@ label > span {
 	});
 	</script>
 
-	<script>
-	
-	var $memberId = $("#memberId");
-	var $memberPw1 = $("#memberPw1");
-	var $memberPw2 = $("#memberPw2");
-	var $memberNm = $("#memberNm");
-	var $memberPhone = $("#memberPhone");
-	var $memberEmail = $("#memberEmail");
-	var $certify = $("#certify");
-	var $post = $("#post");
-	
-
- 		$(".form-control").on("input", function(){
-			if(signUpCheck == true){
-				$(".signUpBtn").attr("style", "background-color: #F5DF4D !important;")
-				.mouseover(function(){
-					$(this).attr("style", "background-color: #f0d700 !important;");	
-				})		
-				.mouseout(function(){
-					$(this).attr("style", "background-color: #F5DF4D !important;");	
-				})	
-			}
-		});
-		 
- 			/*
- 			$("#memberId").on("input", function(){
-				$("#memberPw").on("input", function(){			
-					if($("#memberId").val().trim().length != 0 && 
-							$("#memberPw").val().trim().length != 0){
-						$(".loginBtn").attr("style", "background-color: #F5DF4D !important;")
-						.mouseover(function(){
-							$(this).attr("style", "background-color: #f0d700 !important;");	
-						})		
-						.mouseout(function(){
-							$(this).attr("style", "background-color: #F5DF4D !important;");	
-						}) ;
-						
-					}else{
-						$(".loginBtn").attr("style", "background-color: #f6f6f6 !important;")
-						.mouseover(function(){
-							$(this).attr("style", "background-color: #f0d700 !important;");	
-						})		
-						.mouseout(function(){
-							$(this).attr("style", "background-color: #F5DF4D !important;");	
-						});	 
-					}
-				});	
-			});
-
-			$("#memberPw").on("input", function(){
-				$("#memberId").on("input", function(){
-					if($("#memberId").val().trim().length != 0 && 
-							$("#memberPw").val().trim().length != 0){
-						$(".loginBtn").attr("style", "background-color: #F5DF4D !important;")
-						.mouseover(function(){
-							$(this).attr("style", "background-color: #f0d700 !important;");	
-						})		
-						.mouseout(function(){
-							$(this).attr("style", "background-color: #F5DF4D !important;");	
-						}) ;
-						
-					}else{
-						$(".loginBtn").attr("style", "background-color: #f6f6f6 !important;")
-						.mouseover(function(){
-							$(this).attr("style", "background-color: #f0d700 !important;");	
-						})		
-						.mouseout(function(){
-							$(this).attr("style", "background-color: #F5DF4D !important;");	
-						});	 
-					}
-				});
-			});	 */
-			</script>
 </body>
 </html>

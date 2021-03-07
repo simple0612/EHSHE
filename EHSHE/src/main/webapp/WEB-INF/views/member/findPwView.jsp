@@ -88,7 +88,7 @@
 }
 
 .form-group {
-	margin-bottom: 0 !important;
+	margin-bottom: 5px !important;
 }
 
 #memberEmail {
@@ -107,12 +107,12 @@
 	font-weight: 600;
 	font-size: 15px;
 	color: #191919;
-	background-color: #F5DF4D;
+	background-color: #f6f6f6;
 	border-radius: 1rem;
 }
 
 .findPwBtn:hover{
-	background-color: #f0d700 !important;
+	background-color: #dbdbdb !important;
 }
 
 #certifyBtn{
@@ -155,26 +155,29 @@
 					<input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요." class="form-control" required autofocus> 
 				</div>
 				
-				<div class="col-md-12 offset-md mb-2">
-					<span id="checkId">&nbsp;</span>
-				</div>
-				
+				<br>
 				<div class="form-group">
 					<span>
 					<input type="email" class="form-control" id="memberEmail" name="memberEmail" placeholder="이메일 주소 입력" autocomplete="off" required>
 					</span>
 					<%-- 인증 버튼 --%>
 					<span><button type="button" class="btn" id="certifyBtn">&nbsp;인증&nbsp;</button></span>
-					<div class="col-md-9 offset-md-3">
+					
+					<br>
+				</div>
+					<div class="form-group">
 						<span id="checkEmail">&nbsp;</span>
 					</div>
-				</div>
-						
+				
+				<%-- 이메일 인증 --%>		
 				<div class="form-group">
 					<input type="email" id="certify" name="certify" placeholder="인증번호를 입력해주세요." class="form-control"> 
 				</div>
 				
-				<br>
+				<div class="form-group">
+					<span id="certificationCheck">&nbsp;</span>
+				</div>
+				
 			</div> <%-- form-container --%>
 			<div class="hr"></div>
 			
@@ -188,7 +191,7 @@
 	</div> <%-- form-wrapper %-->
 
 	<%-- 유효성 검사 및 이메일 인증 js --%>
-	<script src="${contextPath}/resources/js/findPw1.js"></script>	
+	<script src="${contextPath}/resources/js/findPw.js"></script>	
 
 	<%-- footer include --%>
 	<jsp:include page="../common/footer.jsp" />		
