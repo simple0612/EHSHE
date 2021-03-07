@@ -13,34 +13,21 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>EHSHE 데이트</title>
-<script src="https://kit.fontawesome.com/5a7a3b1a34.js"
-	crossorigin="anonymous"></script>
 
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
 	crossorigin="anonymous"></script>
 
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/place/placeView.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/place/placeView.css">
 
-
-<style>
-
-</style>
 </head>
 
 <body>
 	<jsp:include page="../common/header.jsp" />
 
-	<div class="container-fluid boardMain">
+	<div class="container-fluid placeMain">
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
@@ -54,7 +41,7 @@
 					<div class="carousel-inner">
 						<div class="carousel-item active">
 							<img class="d-block w-100" alt="Carousel Bootstrap First"
-								src="https://www.layoutit.com/img/sports-q-c-1600-500-1.jpg" />
+								src="${contextPath}/resources/images/placeMain1.png" />
 							<div class="carousel-caption">
 								<h4>First Thumbnail label</h4>
 								<p></p>
@@ -87,8 +74,25 @@
 				<div class="row">
 					<div class="col-md-8">
 						<div class="view-header">
-							<span>${place.placeTitle}</span> <span>별점 4.7</span> <span>🔰
-								즐겨찾기</span> <br>
+							<span>${place.placeTitle}</span> <span>별점 4.7</span>
+								
+							<c:if test="${(loginMember != null) && (place.adminNo != loginMember.memberNo)}">
+			      		 	<c:choose>
+			            <c:when test="${scrapFl == 0 }">
+			               <img src="${contextPath}/resources/images/scrap1.png" class="scrap">
+			               <br>
+			     					<span id="scrapFl">즐겨찾기</span>
+			            </c:when>
+			         
+			            <c:otherwise>
+			              <img src="${contextPath}/resources/images/scrap2.png" class="scrap">
+			              <br>
+			     					<span id="scrapFl">즐겨찾기 취소</span>
+			            </c:otherwise>
+			         </c:choose>
+							</c:if>
+							 
+							 <br>
 							<c:set var="loca" value="${fn:split(place.location,',')[1]}" />
 							
 							<span>${fn:split(loca,' ')[0]} - ${place.categoryName}</span> <br>
@@ -151,7 +155,7 @@
 				<c:set var="lo" value="${place.longitude}"/>
 				
 				<div class="row">
-					<div class="col-md-12 replyArea">
+					<div class="col-md-12">
 							<div class="map_wrap">
 						    <div id="mapWrapper" style="width:50%;height:300px;float:left">
 						        <div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
@@ -160,14 +164,23 @@
 						        <div id="roadview" style="width:100%;height:100%"></div> <!-- 로드뷰를 표시할 div 입니다 -->
 						    </div>
 						</div>
+					
+					
+				<div class="row">
+					<div class="col-md-12 placeContentArea">	
+						${place.placeContent }
 					</div>
 				</div>
-					
-
+				
+				<div class="row">
+					<div class="col-md-12 btnBox">	
+						<a class="btn ehsheYellow"
+								href="${sessionScope.returnListURL}">목록으로</a>				
+					</div>
+				</div>
 
 				<div class="row">
 					<div class="col-md-12 replyArea">
-					
 						<jsp:include page="placeReview.jsp"/>
 					</div>
 				</div>
@@ -182,43 +195,6 @@
 
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f8adb912f319f193a5fe45f741e8466c&libraries=services"></script>
 	<script>
-		/* var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	    mapOption = {
-	        center: new kakao.maps.LatLng(${place.latitude}, ${place.longitude}), // 지도의 중심좌표
-	        level: 3 // 지도의 확대 레벨
-	    };  
-
-		// 지도를 생성합니다    
-		var map = new kakao.maps.Map(mapContainer, mapOption); 
-		
-		// 주소-좌표 변환 객체를 생성합니다
-		var geocoder = new kakao.maps.services.Geocoder();
-		
-		// 주소로 좌표를 검색합니다
-		geocoder.addressSearch('${loca}', function(result, status) {
-		
-		    // 정상적으로 검색이 완료됐으면 
-		     if (status === kakao.maps.services.Status.OK) {
-		
-		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-		
-		        // 결과값으로 받은 위치를 마커로 표시합니다
-		        var marker = new kakao.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
-		
-		        // 인포윈도우로 장소에 대한 설명을 표시합니다
-		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">${place.placeTitle}</div>'
-		        });
-		        infowindow.open(map, marker);
-		
-		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-		        map.setCenter(coords);
-		    } 
-		});     */
-		
 		var lat = ${place.latitude};
 		var lng = ${place.longitude};
 		
@@ -305,10 +281,42 @@
 					location.href = "deleteAction/" + ${place.placeNo};
 				}
 	});
-	
-	
 </script>
 
+
+<script>
+	//스크랩 기능
+  var scrapFl = ${scrapFl};
+  var placeNo = ${place.placeNo};
+  
+  $(".scrap").click(function() {
+     var url;
+     
+     if(scrapFl == 0){
+     	url = "insertScrap";
+     }else{
+     	url = "deleteScrap";
+     }
+     	
+     $.ajax({
+        url : url,
+        data : {"placeNo" : placeNo},
+        success : function(result){
+           if(scrapFl == 0){
+        	   scrapFl = 1;
+              $(".scrap").attr("src", "${contextPath}/resources/images/scrap2.png");
+              $("#scrapFl").text("즐겨찾기 취소");
+           }else{
+        	   scrapFl = 0;
+              $(".scrap").attr("src", "${contextPath}/resources/images/scrap1.png");
+              $("#scrapFl").text("즐겨찾기");
+           }
+        },error : function(){
+           console.log("즐겨찾기 실패");
+        }
+     });
+  });
+</script>
 
 </body>
 </html>

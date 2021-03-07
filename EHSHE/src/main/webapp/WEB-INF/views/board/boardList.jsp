@@ -40,20 +40,7 @@
 				</div>
 				<div class="row myPlace">
 					<c:if test="${empty bList }">
-						<div class="col-md-3">
-							<div class="row">
-								<div class="card">
-									<img class="card-img-top" alt="Bootstrap Thumbnail"
-										src="${contextPath}/resources/images/thumbnailBox.png" />
-									<div class="card-block">
-										<span class="card-title">존재하는 게시글이 없습니다.</span>&nbsp;<span
-											class="card-like">&nbsp;</span><br> <span
-											class="card-text">&nbsp;</span><br> <span
-											class="card-writer">&nbsp;</span>
-									</div>
-								</div>
-							</div>
-						</div>
+						<h5>존재하는 게시글이 없습니다.</h5>
 					</c:if>
 
 					<c:if test="${!empty bList }">
@@ -70,7 +57,7 @@
 
 										<div class="card-block">
 											<span class="card-title">${board.boardTitle}</span>
-											<span class="card-like">❤ ${board.readCount}</span><br>
+											<span class="card-like">❤ ${board.likeCount}</span><br>
 												<c:set var = "loca" value = "${fn:split(board.location,',')[1]}" />
 											<span class="card-text">${fn:split(loca,' ')[0]} - ${fn:split(loca,' ')[1]}</span><br>
 											<c:set var = "length" value ="${fn:length(board.memberId)}"/>
@@ -92,24 +79,30 @@
 					</div>
 				</div>
 				
+				<%-- ----------------------------페이지 네이션 --------------------------------- --%>
 				<div class="row">
-					<div class="col-md-2"></div>
-					<div class="col-md-8">
+					<div class="col-md-12">
+					
 						<div class="pagination-area">
 							<ul class="pagination">
 								<%-- 주소 조합 작업 --%>
+								
 								<c:choose>
 									<%-- 검색이 된 경우  --%>
 									<c:when test="${!empty sv }">
+									
+									<%-- 검색이 된 내용이 있다면  --%>
 										<c:if test="${!empty sv }">
 											<c:set var="searchStr" value="sk=${sk }&sv=${sv }"/>
 										</c:if>
-										<c:url var="pageUrl" value="search/?"/>
+										
+										<c:url var="pageUrl" value="search?${searchStr }&"/>
 										<c:set var="returnListURL" 
 												value="${contextPath}/board/search/${pageUrl}cp=${pInfo.currentPage}"
 												scope="session"/>
 									</c:when>
 									
+									<%-- 검색이 되지 않은 경우  --%>
 									<c:otherwise>
 										<c:url var="pageUrl" value="?"/>
 											<c:set var="returnListURL" 
@@ -163,11 +156,10 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-2"></div>
+					
 				</div>
 				<div class="row">
-					<div class="col-md-2"></div>
-					<div class="col-md-8">
+					<div class="col-md-12">
 						<form action="search" class="form-inline selectBox">
 							<select class="form-control mr-sm-2 search-bottom"  name="sk" type="text">
 								<option value="all">전체</option>
@@ -180,8 +172,8 @@
 								검색</button>
 						</form>
 					</div>
-					<div class="col-md-2"></div>
 				</div>
+				
 			</div>
 			<div class="col-md-2"></div>
 		</div>
@@ -203,6 +195,7 @@
 		});
 		
 		
+	// 검색 파라미터 유지하기
 	$(function(){
 		
 		// 검색 조건 sk

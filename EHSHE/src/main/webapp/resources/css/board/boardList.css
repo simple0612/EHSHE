@@ -70,7 +70,20 @@ header{
     justify-content: center; 
     margin-top: 2%;
     margin-bottom: 5%;
+    
 }
+.selectBox input{
+border-radius: 1rem;
+}
+
+.selectBox select{
+border-radius: 1rem;
+}
+
+.selectBox button{
+border-radius: 1rem;
+}
+
 
 .writeBtn{
     float: right;

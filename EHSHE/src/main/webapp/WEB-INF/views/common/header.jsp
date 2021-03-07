@@ -47,7 +47,7 @@
 
 
             <ul class="menu_area">
-                <li><a href="${contextPath}/place/placeList">데이트</a></li>
+                <li><a href="${contextPath}/place/placeMain">데이트</a></li>
                 
                 <li id="shop_category"><a href="${contextPath}/shop/shopMain">SHOP</a>
                     
@@ -83,7 +83,7 @@
             <ul class="side1">
                 <a href="${contextPath}">EHSHE</a>
 
-                <li><a href="${contextPath}">데이트</a></li>
+                <li><a href="${contextPath}/place/placeMain">데이트</a></li>
 
                 <li class="popup"><a href="${contextPath}/shop/shopMain">SHOP<i class="fas fa-caret-down"></i></a>
                     <ul>
@@ -92,7 +92,7 @@
                         <li><a href="${contextPath}/shop/shopList/3">etc</a></li>
                     </ul>
                 </li>
-                <li><a href="${contextPath}">커뮤니티</a></li>
+                <li><a href="${contextPath}/board/boardList">커뮤니티</a></li>
             </ul>
             
             

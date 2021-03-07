@@ -20,16 +20,6 @@ public class Attachment {
 		this.fileLevel = fileLevel;
 		this.boardNo = boardNo;
 	}
-	
-
-	public Attachment(String thumbnailFilePath, String contentFilePath, String fileName, int fileLevel, int boardNo) {
-		super();
-		this.thumbnailFilePath = thumbnailFilePath;
-		this.contentFilePath = contentFilePath;
-		this.fileName = fileName;
-		this.fileLevel = fileLevel;
-		this.boardNo = boardNo;
-	}
 
 
 	public Attachment(int fileNo, String thumbnailFilePath, String contentFilePath, String fileName, int fileLevel,

@@ -18,6 +18,7 @@ public class VBoard {
 	private String latitude;
 	private String longitude;
 	private String location;
+	private int likeCount;
 	
 	public VBoard() {
 		// TODO Auto-generated constructor stub
@@ -25,7 +26,7 @@ public class VBoard {
 
 	public VBoard(int boardNo, String boardTitle, String boardContent, String memberId, String memberNm, int memberNo,
 			Date boardCreateDate, int readCount, String boardDeleteFl, String categoryName, String latitude,
-			String longitude, String location) {
+			String longitude, String location, int likeCount) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
@@ -40,6 +41,7 @@ public class VBoard {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.location = location;
+		this.likeCount = likeCount;
 	}
 
 	public int getBoardNo() {
@@ -118,7 +120,7 @@ public class VBoard {
 		return categoryName;
 	}
 
-	public void setCategoryNm(String categoryName) {
+	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
 
@@ -146,14 +148,22 @@ public class VBoard {
 		this.location = location;
 	}
 
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}  
+
 	@Override
 	public String toString() {
 		return "VBoard [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", memberId=" + memberId + ", memberNm=" + memberNm + ", memberNo=" + memberNo + ", boardCreateDate="
 				+ boardCreateDate + ", readCount=" + readCount + ", boardDeleteFl=" + boardDeleteFl + ", categoryName="
-				+ categoryName + ", latitude=" + latitude + ", longitude=" + longitude + ", location=" + location + "]";
+				+ categoryName + ", latitude=" + latitude + ", longitude=" + longitude + ", location=" + location
+				+ ", likeCount=" + likeCount + "]";
 	}
-	
 	
 	
 }

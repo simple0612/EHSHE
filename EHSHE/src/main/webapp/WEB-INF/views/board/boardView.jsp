@@ -86,14 +86,37 @@
 					</div>
 				</div>
 
+				
+
+
 				<div class="row">
 					<div class="col-md-12 subInfo">
+						
+						<c:if test="${(loginMember != null) && (board.memberNo != loginMember.memberNo)}">
+			       	<c:choose>
+			            <c:when test="${likeFl == 0 }">
+			               <img src="${contextPath}/resources/images/heart1.png" class="like">
+			               <br>
+			     					<span id="likeFl">좋아요</span>
+			            </c:when>
+			         
+			            <c:otherwise>
+			              <img src="${contextPath}/resources/images/heart2.png" class="like">
+			              <br>
+			     					<span id="likeFl">좋아요 취소</span>
+			            </c:otherwise>
+			         </c:choose>
+			         
+						</c:if>
+					
 						<p>작성자 : ${fn:substring(board.memberId,0,2)}****</p>
 						<fmt:formatDate var="createDate" value="${board.boardCreateDate }"
 							pattern="yyyy-MM-dd" />
 						<span>작성일 : ${createDate}</span>
+						
 					</div>
 				</div>
+
 
 				<div class="row">
 					<div class="col-md-1"></div>
@@ -123,8 +146,8 @@
 									scope="session" />
 							</c:if>
 							<a class="btn ehsheYellow"
-								<%-- href="${sessionScope.returnListURL}">목록으로</a>--%>							
-							href="../board/boardList">목록으로</a>
+								href="${sessionScope.returnListURL}">목록으로</a>					
+							<!-- href="../board/boardList">목록으로</a> -->
 
 							<c:url var="updateUrl" value="${board.boardNo}/update" />
 
@@ -148,7 +171,7 @@
 			</div>
 			<div class="col-md-2"></div>
 		</div>
-	</div>
+	</div>   
 
 	<jsp:include page="../common/footer.jsp" />
 
@@ -235,8 +258,63 @@
 				}
 	});
 	
-	
 </script>
+
+
+   <script>
+      var likeFl = ${likeFl}; // 좋아요 여부 0/1
+      var boardNo = ${board.boardNo}; // 게시글 번호
+   
+      
+      // 좋아요 기능
+      $(".like").click(function() {
+         
+         var url;
+         
+         if(likeFl == 0){
+         	url = "insertLike";
+         }else{
+         	url = "deleteLike";
+         }
+         	
+         $.ajax({
+            url : url,
+            data : {"boardNo" : boardNo},
+            success : function(result){
+               // 좋아요 여부 상태 변경
+               if(likeFl == 0){
+                  likeFl = 1;
+                  $(".like").attr("src", "${contextPath}/resources/images/heart2.png");
+                  $("#likeFl").text("좋아요 취소");
+               }
+               else{
+                  likeFl = 0;
+                  $(".like").attr("src", "${contextPath}/resources/images/heart1.png");
+                  $("#likeFl").text("좋아요");
+               }
+               
+               selectLikeCount();
+            },error : function(){
+               console.log("좋아요 실패")
+            }
+         });
+
+      });
+      
+      /* // 좋아요 개수 카운트
+      function selectLikeCount(){
+         $.ajax({
+            url : "selectLikeCount",
+            data : {"boardNo" : boardNo},
+            success : function(likeCount){
+               $("#likeCount").text(likeCount);
+            },error : function(){
+               console.log("좋아요 카운트 실패")
+            }
+         });
+      } */
+   </script>
+
 
 
 </body>

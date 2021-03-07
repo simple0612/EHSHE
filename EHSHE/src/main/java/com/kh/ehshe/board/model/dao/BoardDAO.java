@@ -184,4 +184,48 @@ public class BoardDAO {
 	}
 
 
+	/** 파일 정보 일괄 삭제 DAO
+	 * 작성자 mang
+	 * @param deleteFileNoList
+	 * @return result
+	 */
+	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
+		return sqlSession.delete("boardMapper.deleteAttachmentList", deleteFileNoList);
+	}
+
+
+	/** 자신이 좋아요 한 글인지 조회 Service
+    * @param map
+    * @return likeFl
+    */
+   public int selectLikeFl(Map<String, Integer> map) {
+      return sqlSession.selectOne("boardMapper.selectLikeFl", map);
+   }
+
+   
+   /** 좋아요 삽입 DAO
+    * @param map
+    * @return result
+    */
+   public int insertLike(Map<String, Integer> map) {
+      return sqlSession.insert("boardMapper.insertLike", map);
+   }
+ 
+   /** 좋아요 삭제 DAO
+    * @param map
+    * @return result
+    */
+   public int deleteLike(Map<String, Integer> map) {
+      return sqlSession.delete("boardMapper.deleteLike", map);
+   }
+
+   /** 좋아요 카운트 DAO
+    * @param boardNo
+    * @return  result
+    */
+   public int selectLikeCount(int boardNo) {
+      return sqlSession.selectOne("boardMapper.selectLikeCount", boardNo);
+   }
+
+
 }

@@ -64,7 +64,7 @@ public class BoardController {
 
 	// 게시글 상세 조회 Controller
 	@RequestMapping("{boardNo}")
-	public String boardView(@PathVariable("boardNo") int boardNo, Model model,
+	public String boardView(@PathVariable("boardNo") int boardNo, Model model, @ModelAttribute("loginMember") Member loginMember,
 			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
 
 		VBoard board = service.selectBoard(boardNo);
@@ -79,7 +79,6 @@ public class BoardController {
 
 			if (attachmentList != null && !attachmentList.isEmpty()) {
 				
-				
 				for(Attachment at : attachmentList) {
 					thumbnailFilePath = at.getThumbnailFilePath();
 					fileName = at.getFileName();
@@ -90,6 +89,13 @@ public class BoardController {
 			}
 
 			model.addAttribute("board", board);
+			
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("boardNo", boardNo);
+			map.put("memberNo", loginMember.getMemberNo());
+			int likeFl = service.selectLikeFl(map);
+			model.addAttribute("likeFl", likeFl);
+			
 			url = "board/boardView";
 
 		} else {
@@ -130,9 +136,9 @@ public class BoardController {
 		map.put("longitude", board.getLongitude());
 		
 		// 썸네일 이미지 저장경로
-		String thumbnailSavePath = request.getSession().getServletContext().getRealPath("resources/uploadImages");
+		String thumbnailSavePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
 		// content 이미지 저장 경로
-		String contentsavePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
+		String contentsavePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
 		
 		int result = service.insertBoard(map, image, thumbnailSavePath, contentsavePath);
 		
@@ -157,14 +163,14 @@ public class BoardController {
 		return url;
 	}
 
-	// ------------------------------------- summernot ------------------------------------------
+	// ------------------------------------- summernote ------------------------------------------
 	// summernote에 업로드된 이미지 저장 Controller
 	@ResponseBody
-	@RequestMapping("insertImage")
+	@RequestMapping(value= {"insertImage" , "{boardNo}/insertImage"})
 	public String insertImage(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
 
 		// 서버에 파일(이미지)을 저장할 폴더 경로 얻어오기
-		String cSavePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
+		String cSavePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
 
 		Attachment at = service.insertImage(uploadFile, cSavePath);
 
@@ -191,7 +197,7 @@ public class BoardController {
 
 	// 게시글 수정 Controller
 	@RequestMapping("{boardNo}/updateAction")
-	public String updateAction(@RequestParam(value="images", required = false) List<MultipartFile> image,
+	public String updateAction(@RequestParam(value="image", required = false) List<MultipartFile> image,
 								@PathVariable("boardNo") int boardNo,
 								@ModelAttribute Board updateBoard,
 								Model model, RedirectAttributes ra,
@@ -206,18 +212,18 @@ public class BoardController {
 		updateBoard.setBoardNo(boardNo);
 		
 		// 파일 저장 경로 얻어오기
-		String tSavePath = request.getSession().getServletContext().getRealPath("resources/uploadImages");
-		String cSavePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
+		String tSavePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
+		String cSavePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
 		
 		// 파일 수정 Service 호출
-		int result = service.updateBoard(updateBoard, image, tSavePath, cSavePath);
+		int result = service.updateBoard(updateBoard, image, tSavePath);
 		
 		String url = null;
 		
 		if(result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 수정 성공";
-			url = "redirect:../"+boardNo;
+			url = "redirect:../"+boardNo;  
 		}else {
 			swalIcon = "error";
 			swalTitle = "게시글 수정 실패";
@@ -249,7 +255,7 @@ public class BoardController {
 			url = "redirect:" + request.getHeader("referer");
 		}
 		
-		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalIcon", swalIcon);   
 		ra.addFlashAttribute("swalTitle", swalTitle);
 		
 		return url;
@@ -286,5 +292,41 @@ public class BoardController {
 		
 		return "board/boardList";
 	}
+	
+   // 좋아요 추가 Contoller
+   @ResponseBody
+   @RequestMapping("insertLike")
+   public int insertLike(@RequestParam("boardNo") int boardNo, @ModelAttribute("loginMember") Member loginMember) {
+
+      Map<String, Integer> map = new HashMap<String, Integer>();
+      map.put("boardNo", boardNo);
+      map.put("memberNo", loginMember.getMemberNo());
+
+      int result = service.insertLike(map);
+      
+      return result;
+   }
+
+   // 좋아요 삭제 Contoller
+   @ResponseBody
+   @RequestMapping("deleteLike")
+   public int deleteLike(@RequestParam("boardNo") int boardNo, @ModelAttribute("loginMember") Member loginMember) {
+
+      Map<String, Integer> map = new HashMap<String, Integer>();
+      map.put("boardNo", boardNo);
+      map.put("memberNo", loginMember.getMemberNo());
+
+      int result = service.deleteLike(map);
+
+      return result;
+   }
+
+   // 좋아요 카운트 Contoller
+   @ResponseBody
+   @RequestMapping("selectLikeCount")
+   public int selectLikeCount(@RequestParam("boardNo") int boardNo) {
+
+      return service.selectLikeCount(boardNo);
+   }
 	
 }

@@ -73,8 +73,7 @@
 
 	<!-- summernote 사용 시 필요한 js 파일 추가 -->
 	<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
-	<script
-		src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
+	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
 	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
 
 	<div class="container-fluid boardMain">
@@ -121,7 +120,7 @@
 								<tr class="addr">
 									<td>주소</td>
 									<td><input type="text" id="post" name="post"
-										class="form-control postcodify_postcode5" required></td>
+										class="form-control postcodify_postcode5" value="${fn:split(board.location,',')[0]}" required></td>
 									<td>
 										<button type="button" class="btn btn-secondary btn-sm"
 											id="postcodify_search_button">검색</button>
@@ -131,25 +130,25 @@
 									<td>도로명 주소</td>
 									<td colspan="2"><input type="text"
 										class="form-control postcodify_address" name="address1"
-										id="address1"></td>
+										id="address1" value="${fn:split(board.location,',')[1]}"></td>
 								</tr>
 								<tr class="addr2">
 									<td>상세주소</td>
 									<td colspan="2"><input type="text"
 										class="form-control postcodify_details" name="address2"
-										id="address2"></td>
+										id="address2" value="${fn:split(board.location,',')[2]}"></td>
 								</tr>
 								<tr>
 									<td>위치</td>
 									<td colspan="2">
-										<input type="hidden" id="lat" name="latitude" required> 
-										<input type="hidden" id="lng" name="longitude" required>
+										<input type="hidden" id="lat" name="latitude" value="${board.latitude}" required> 
+										<input type="hidden" id="lng" name="longitude" value="${board.longitude}" required>
 										<div class="map_wrap">
 											<div id="map"
 												style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 											<div class="Addr">
 												<span class="title">지도중심기준 행정동 주소정보</span> <span
-													id="centerAddr"></span>
+													id''="centerAddr"></span>
 											</div>
 											<div id="toggle">
 											 	<fieldset>
@@ -191,49 +190,93 @@
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f8adb912f319f193a5fe45f741e8466c&libraries=services"></script>
 	<script>
 	
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(${board.latitude}, ${board.longitude}), // 지도의 중심좌표
-        level: 4 // 지도의 확대 레벨
-    };  
-	// 지도를 생성합니다    
-	var map = new kakao.maps.Map(mapContainer, mapOption); 
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new kakao.maps.LatLng(${board.latitude}, ${board.longitude}), // 지도의 중심좌표
+	        level: 4 // 지도의 확대 레벨
+	    };  
 	
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
-	
-	$("#address2").focus(function() {
-		var map = new kakao.maps.Map(mapContainer, mapOption);
-		var here = $("#address1").val();
-		var pTitle = $("#placeName").val();
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
 		
-
-	
-		// 주소로 좌표를 검색합니다
-		geocoder.addressSearch(here, function(result, status) {
-
-	    // 정상적으로 검색이 완료됐으면 
-	     if (status === kakao.maps.services.Status.OK) {
-
-	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-	        // 결과값으로 받은 위치를 마커로 표시합니다
-	        var marker = new kakao.maps.Marker({
-	            map: map,
-	            position: coords
-	        });
-
-	        // 인포윈도우로 장소에 대한 설명을 표시합니다
-	        var infowindow = new kakao.maps.InfoWindow({
-	            content: '<div style="width:150px;text-align:center;padding:6px 0;">' + pTitle + '</div>'
-	        });
-	        infowindow.open(map, marker);
-
-	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-	        map.setCenter(coords);
-	    }
-	});
-	});
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		
+		var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+		    infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+		
+		// 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+		searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+		
+		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+		var mapTypeControl = new kakao.maps.MapTypeControl();
+		
+		// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+		// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+		
+		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+		var zoomControl = new kakao.maps.ZoomControl();
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+		
+		// 지도에 마커를 표시합니다
+		marker.setMap(map);
+		    
+		// 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+		    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+		        if (status === kakao.maps.services.Status.OK) {
+		            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+		            detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+		            
+		            var content = '<div class="bAddr">' +
+		                            '<span class="title">법정동 주소정보</span>' + 
+		                            detailAddr + 
+		                        '</div>';
+		
+		            // 마커를 클릭한 위치에 표시합니다 
+		            marker.setPosition(mouseEvent.latLng);
+		            marker.setMap(map);
+		
+		            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+		            infowindow.setContent(content);
+		            infowindow.open(map, marker);
+		            
+		            $("#lat").val(mouseEvent.latLng.getLat());
+								$("#lng").val(mouseEvent.latLng.getLng());	
+		        }   
+		    });
+		});
+		
+		// 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+		kakao.maps.event.addListener(map, 'idle', function() {
+		    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+		});
+		
+		function searchAddrFromCoords(coords, callback) {
+		    // 좌표로 행정동 주소 정보를 요청합니다
+		    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+		}
+		
+		function searchDetailAddrFromCoords(coords, callback) {
+		    // 좌표로 법정동 상세 주소 정보를 요청합니다
+		    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+		}
+		
+		// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+		function displayCenterInfo(result, status) {
+		    if (status === kakao.maps.services.Status.OK) {
+		        var infoDiv = document.getElementById('centerAddr');
+		
+		        for(var i = 0; i < result.length; i++) {
+		            // 행정동의 region_type 값은 'H' 이므로
+		            if (result[i].region_type === 'H') {
+		                infoDiv.innerHTML = result[i].address_name;
+		                break;
+		            }
+		        }
+		    }    
+		}
 </script>
 
 	<!-- 주소 api를 쓰기위한 jQeury Postcodify 로딩 -->
@@ -246,7 +289,11 @@
 </script>
 
 	<script>		
-
+	// 이미지 배치
+	<c:forEach var="at" items="${attachmentList}">
+		$(".boardImg").eq(${at.fileLevel}).children("img").attr("src", "${contextPath}${at.thumbnailFilePath}/${at.fileName}");
+	</c:forEach>
+	
 	// 이미지 영역을 클릭해도 파일선택을 할수 있도록 onclick 이벤트롤 작성
 	$(function(){
 			$("#titleImg").on("click", function(){ 
@@ -280,14 +327,18 @@
 				return false;
 			}
 			
+			if ($("#lat").val().trim().length == 0) {
+				alert("좌표를 입력해 주세요.");
+				$("#lat").focus();
+				return false;
+			}
+			
 			$location = $("<input>", {type : "hidden", name : "location",
 				value : $("#post").val() + "," + $("#address1").val() + "," + $("#address2").val()
 			});
-		
 			$("form[name='updateAction']").append($location);
 			
 		}
-		
 </script>
 
 </body>

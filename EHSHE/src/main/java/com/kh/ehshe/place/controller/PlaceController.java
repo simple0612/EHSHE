@@ -20,8 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
-import com.kh.ehshe.board.model.vo.Attachment;
-import com.kh.ehshe.board.model.vo.VBoard;
 import com.kh.ehshe.member.model.vo.Member;
 import com.kh.ehshe.place.model.service.PlaceService;
 import com.kh.ehshe.place.model.vo.PAttachment;
@@ -42,8 +40,8 @@ public class PlaceController {
 	private String swalText = null;
 	
 	// 게시글 목록 조회 Controller
-	@RequestMapping("placeList")
-	public String PlaceList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+	@RequestMapping("placeMain")
+	public String PlaceMain(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
 		
 		PlacePageInfo pInfo = service.getPlacePageInfo(cp);
 		
@@ -60,12 +58,18 @@ public class PlaceController {
 		model.addAttribute("pList", pList);
 		model.addAttribute("pInfo", pInfo);
 		
+		return "place/placeMain";
+	}
+	
+	@RequestMapping("placeList")
+	public String PlaceList() {
 		return "place/placeList";
 	}
 	
+	
 	// 게시글 상세 조회 Controller
 	@RequestMapping("{placeNo}")
-	public String placeView(@PathVariable("placeNo") int placeNo, Model model,
+	public String placeView(@PathVariable("placeNo") int placeNo, Model model, @ModelAttribute("loginMember") Member loginMember,
 			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
 		
 		VPlace place = service.selectPlace(placeNo);
@@ -85,6 +89,13 @@ public class PlaceController {
 			}
 
 			model.addAttribute("place", place);
+			
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("placeNo", placeNo);
+			map.put("memberNo", loginMember.getMemberNo());
+			int scrapFl = service.selectScrapFl(map);
+			model.addAttribute("scrapFl", scrapFl);
+			
 			url = "place/placeView";
 
 		} else {
@@ -102,7 +113,7 @@ public class PlaceController {
 	// 게시글 등록 화면 전환용 Controller
 	@RequestMapping("insertPlace")
 	public String insertView() {
-		return "admin/insertPlace";
+		return "../admin/insertPlace";
 	}
 	
 	public String insertAction(@ModelAttribute Place place, @ModelAttribute("loginMember") Member loginMember,
@@ -203,7 +214,7 @@ public class PlaceController {
 	
 	
 	@RequestMapping("deleteAction/{placeNo}")
-	public String deleteBoard(@PathVariable("placeNo") int placeNo, RedirectAttributes ra,
+	public String deletePlace(@PathVariable("placeNo") int placeNo, RedirectAttributes ra,
 								HttpServletRequest request,
 								@RequestHeader(value = "referer", required = false) String referer) {
 		
@@ -214,7 +225,7 @@ public class PlaceController {
 		if(result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 삭제 성공";
-			url = "redirect:../boardList";
+			url = "redirect:../placeList";
 		}else {
 			swalIcon = "error";
 			swalTitle = "게시글 삭제 실패";
@@ -228,6 +239,49 @@ public class PlaceController {
 	}
 	
 	
+	
+	
+	
+	
+	// 즐겨찾기 Contoller
+   @ResponseBody
+   @RequestMapping("insertScrap")
+   public int insertScrap(@RequestParam("placeNo") int placeNo, @ModelAttribute("loginMember") Member loginMember) {
+
+      Map<String, Integer> map = new HashMap<String, Integer>();
+      map.put("placeNo", placeNo);
+      map.put("memberNo", loginMember.getMemberNo());
+
+      int result = service.insertScrap(map);
+      
+      System.out.println("게시글 삽입" + result);
+      
+      return result;
+   }
+
+   // 즐겨찾기 취소 Contoller
+   @ResponseBody
+   @RequestMapping("deleteScrap")
+   public int deleteScrap(@RequestParam("placeNo") int placeNo, @ModelAttribute("loginMember") Member loginMember) {
+
+      Map<String, Integer> map = new HashMap<String, Integer>();
+      map.put("placeNo", placeNo);
+      map.put("memberNo", loginMember.getMemberNo());
+
+      int result = service.deleteScrap(map);
+      
+      System.out.println("게시글 삭제" + result);
+
+      return result;
+   }
+
+   // 즐겨찾기 수 카운트 Contoller
+   @ResponseBody
+   @RequestMapping("selectScrapCount")
+   public int selectScrapCount(@RequestParam("placeNo") int placeNo) {
+
+      return service.selectScrapCount(placeNo);
+   }
 	
 	
 	

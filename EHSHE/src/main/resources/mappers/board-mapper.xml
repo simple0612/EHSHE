@@ -212,4 +212,39 @@
 		ORDER BY BOARD_NO DESC
 	</select>
 	
+	<!-- 파일 정보 일괄 삭제 -->
+	<delete id="deleteAttachmentList" parameterType="list">
+		DELETE FROM EH_BOARD_ATTACHMENT
+		WHERE BOARD_AT_NO IN
+		<foreach collection="list" item="fileNo" open="(" close=")" separator=",">
+			#{fileNo}
+		</foreach>
+	</delete>
+	
+   <!-- 좋아요 여부 확인 -->
+   <select id="selectLikeFl" parameterType="map" resultType="_int">
+      SELECT COUNT(*) FROM EH_BOARD_LIKE
+      WHERE MEMBER_NO = #{memberNo}
+      AND BOARD_NO = #{boardNo}
+   </select>
+
+   <!-- 좋아요 삽입 -->
+   <insert id="insertLike" parameterType="map">
+      INSERT INTO EH_BOARD_LIKE
+      VALUES(#{boardNo}, #{memberNo})
+   </insert>
+
+   <!-- 좋아요 삭제-->
+   <insert id="deleteLike" parameterType="map">
+      DELETE FROM EH_BOARD_LIKE
+      WHERE MEMBER_NO = #{memberNo}
+      AND BOARD_NO = #{boardNo}
+   </insert>
+
+   <!-- 좋아요 카운트 -->
+   <select id="selectLikeCount" parameterType="_int" resultType="_int">
+      SELECT COUNT(*) FROM EH_BOARD_LIKE
+      WHERE BOARD_NO = #{boardNo}
+   </select>
+	
 </mapper>
