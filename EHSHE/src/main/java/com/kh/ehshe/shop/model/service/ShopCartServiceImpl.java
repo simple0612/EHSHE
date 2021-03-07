@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.ehshe.shop.model.dao.ShopCartDAO;
+import com.kh.ehshe.shop.model.vo.Cart;
 import com.kh.ehshe.shop.model.vo.ShopCart;
 
 @Service
@@ -79,6 +80,16 @@ public class ShopCartServiceImpl implements ShopCartService {
 		
 		
 		return result;
+	}
+
+	
+	
+	// 장바구니에 담기.
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertCart(Cart insertItem) {
+		
+		return dao.insertCart(insertItem);
 	}
 	
 }

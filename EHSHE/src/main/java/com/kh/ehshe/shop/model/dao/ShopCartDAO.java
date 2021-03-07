@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.ehshe.shop.model.vo.Cart;
 import com.kh.ehshe.shop.model.vo.ShopCart;
 
 
@@ -105,5 +106,18 @@ public class ShopCartDAO {
 	public int deletOrderItemFromCart(Map<String, Object> map) {
 		
 		return sqlSession.delete("cartMapper.deletOrderItemFromCart", map);
+	}
+
+
+
+
+
+	/** 장바구니에 담기
+	 * @param insertItem
+	 * @return result
+	 */
+	public int insertCart(Cart insertItem) {
+		
+		return sqlSession.insert("cartMapper.insertCart", insertItem);
 	}
 }

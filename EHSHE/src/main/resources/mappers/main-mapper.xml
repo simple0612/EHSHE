@@ -10,14 +10,37 @@
 		<result property="imgName" column="IMG_NAME"/>
 		<result property="imgPath" column="IMG_PATH"/>
 		<result property="imgLevel" column="IMG_LEVEL"/>
-		<result property="itemRating" column="ITEM_RATING"/>
+		<result property="itemCategory" column="ITEM_CATEGORY"/>
+	</resultMap>
+	
+	<resultMap type="TopItem" id="TopItem_rm">
+		<result property="rowNum" column="ROWNUM"/>
+		<result property="itemNo" column="ITEM_NO"/>
+		<result property="score" column="SCORE"/>
 	</resultMap>
 	
 	
-	<select id="selectItemList" resultMap="Item_rm">
 	
+	<select id="selectItemList" resultMap="Item_rm" parameterType="list">
+		SELECT
+		ITEM_NO, ITEM_NM, ITEM_PRICE, IMG_NAME, IMG_PATH, IMG_LEVEL, ITEM_CATEGORY
+		FROM EH_ITEM
+		JOIN EH_ITEM_IMG USING(ITEM_NO)
+		WHERE IMG_LEVEL = 0
+		AND ITEM_NO IN 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item.itemNo}
+		</foreach>
 	</select>
-
+	
+	
+	<select id="selectTopList" resultMap="TopItem_rm">
+		SELECT * FROM 
+		(SELECT ROWNUM, V.*
+		FROM
+		(SELECT * FROM JV_SCORE) V)
+		WHERE ROWNUM BETWEEN 1 AND 3
+	</select>
 	
 	
 	

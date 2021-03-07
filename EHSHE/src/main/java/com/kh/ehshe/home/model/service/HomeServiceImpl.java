@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.ehshe.home.model.dao.HomeDAO;
 import com.kh.ehshe.home.model.vo.Item;
+import com.kh.ehshe.home.model.vo.TopItem;
 
 @Service
 public class HomeServiceImpl implements HomeService {
@@ -20,8 +21,18 @@ public class HomeServiceImpl implements HomeService {
 	
 	// 아이템 베스트 3 조회
 	@Override
-	public List<Item> selectItemList() {
+	public List<Item> selectItemList(List<TopItem> tList) {
 		
-		return dao.selectItemList();
+		return dao.selectItemList(tList);
+	}
+
+
+
+
+	// 아이템 평점 탑 3 조회
+	@Override
+	public List<TopItem> selectTopList() {
+
+		return dao.selectTopList();
 	}
 }

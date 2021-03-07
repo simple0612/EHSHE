@@ -3,6 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cartMapper">
 
+	<resultMap type="Cart" id="cart_rm">
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="optionSpecifyNo" column="OPTION_SPECIFY_NO" />
+		<result property="buyingQuantity" column="BUYING_QUANTITY" />
+		<result property="itemNo" column="ITEM_NO" />
+	</resultMap>
+
 
 	<resultMap type="ShopCart" id="shopCart_rm">
 		<result property="memberNo" column="MEMBER_NO" />
@@ -37,6 +44,12 @@
 		<result property="orderNo" column="ORDER_NO" />
 		<result property="optionSpecifyNo" column="OPTION_SPECIFY_NO" />
 	</resultMap>
+	
+	
+	
+	<insert id="insertCart" parameterType="Cart">
+		INSERT INTO EH_CART VALUES (#{memberNo}, #{optionSpecifyNo}, #{buyingQuantity}, #{itemNo}) 	
+	</insert>
 
 
 	<!--장바구니 조회 -->
