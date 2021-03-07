@@ -15,6 +15,10 @@
     <!-- jquery가 항상 먼저여야된다! -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+		<!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+		<script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+    
     <style>
 /*  div{
 border: 1px solid black;
@@ -59,6 +63,11 @@ display:inline-block;
 .line{
 line-height:55px; 
 	/* margin-top:20px; */
+}
+
+
+.swal2-styled.swal2-confirm{
+	background-color : #F5dF4D;
 }
     </style>
 </head>
@@ -107,9 +116,9 @@ line-height:55px;
                 			<tr>
                 				<td><strong>옵션선택</strong> : </td>
                 				<td> 
-                		      <select name="select" class="form-control form-control-sm" style="width: 100%;"> 
+                		      <select id="optionSelect" name="select" class="form-control form-control-sm" style="width: 100%;" onchange="SetSelectBox();"> 
 													<c:if test="${!empty ShopOptionList}">
-                           <option selected>옵션을 선택하세요.</option>
+                           <option>옵션을 선택하세요.</option>
 					                 		<c:forEach var="shopOption" items="${ShopOptionList}">
 					                      <option value="${shopOption.optionSpecify_NO}">${shopOption.optionSpecifyContent}</option>
 					               			 </c:forEach>
@@ -120,7 +129,7 @@ line-height:55px;
                 		
                 			<tr>
                 				<td><strong>개수</strong> : </td>
-              					<td><input type="number" class="form-control form-control-sm" min="0" max="100" value="1" style="width: 100%;"/>
+              					<td><input type="number" id="Quantity"class="form-control form-control-sm" min="0" max="100" value="0" style="width: 100%;"/>
 											  </td>
                 			</tr>
                 			<tr>
@@ -186,8 +195,8 @@ line-height:55px;
                     </div>  --%>
                       
                       <div class="float-left col-10"style="margin-top:20px;" >
-                         <button class="btn btn-warning btn-lg btn-block">결제하기</button>
-                         <button class="btn btn-secondary btn-lg btn-block">장바구니</button>
+                         <button id="paybtn" class="btn btn-warning btn-lg btn-block">결제하기</button>
+                         <button id="cartbtn" class="btn btn-secondary btn-lg btn-block">장바구니</button>
                       </div>
                </div>
                
@@ -275,5 +284,77 @@ line-height:55px;
         $("#myModal").modal();
     });
 });
+  
+  
+  
+  //로그인한 회원번호
+  var memberNo = ${loginMember.memberNo};
+  console.log(memberNo)
+  
+  // 선택한 상세옵션번호
+  var optionSpecifyNo
+  function SetSelectBox(){
+	  
+  optionSpecifyNo = $("#optionSelect option:selected").val();
+
+  console.log(optionSpecifyNo);
+  }
+  
+  // 현재 아이템 번호
+	var itemNo = ${shop.itemNo};	
+	console.log(itemNo);
+  
+	
+	var buyingQuantity;
+	$("#Quantity").on("change", function(){
+		
+		buyingQuantity = $("#Quantity").val()
+		
+		console.log(buyingQuantity);
+	});
+	 
+	$("#cartbtn").on("click", function(){
+		Swal.fire({
+			  title: '장바구니에 담으시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true,
+			  confirmButtonColor: '#F5dF4D',
+			  cancelButtonColor: '#939597',
+			  confirmButtonText: '카트에 담기',
+			  cancelButtonText: '취소' 
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			      $.ajax({
+							url : "${contextPath}/shop2/cart/insertCart",
+							method : "POST",
+							data : {"memberNo" : memberNo,
+											"optionSpecifyNo" : optionSpecifyNo,
+											"itemNo" : itemNo,
+											"buyingQuantity" : buyingQuantity},
+							success : function(result){
+								if(result > 0){
+									Swal.fire(
+					      		'장바구니에 담겼습니다!'
+							    )
+									
+								}
+								
+							},
+							error : function(){
+								console.log("장바구니에 담기 실패");
+							}
+
+						})
+						
+							
+							
+			  }
+			})
+		
+	});
+  
+  
+  
+  
 </script>
 </html>

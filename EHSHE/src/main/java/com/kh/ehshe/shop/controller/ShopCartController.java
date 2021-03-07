@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.ehshe.member.model.vo.Member;
 import com.kh.ehshe.shop.model.service.ShopCartService;
+import com.kh.ehshe.shop.model.vo.Cart;
 import com.kh.ehshe.shop.model.vo.Order;
 import com.kh.ehshe.shop.model.vo.ShopCart;
 
@@ -58,6 +59,20 @@ public class ShopCartController {
 	public String payment() {
 		return "shop/payment";
 	}*/
+	
+	
+	
+	// 카트에 담기.
+	@ResponseBody
+	@RequestMapping("cart/insertCart")
+	public int insertCart(@ModelAttribute("insertItem") Cart insertItem) {
+		
+		//System.out.println(insertItem);
+		
+		return service.insertCart(insertItem);
+	}
+	
+	
 	
 	@RequestMapping("cart/deleteCartItem")
 	@ResponseBody

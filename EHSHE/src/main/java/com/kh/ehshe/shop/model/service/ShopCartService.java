@@ -3,6 +3,7 @@ package com.kh.ehshe.shop.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.ehshe.shop.model.vo.Cart;
 import com.kh.ehshe.shop.model.vo.ShopCart;
 
 
@@ -51,6 +52,17 @@ public interface ShopCartService {
 	 * @return result
 	 */
 	public abstract int insertPayment(Map<String, Object> map);
+
+
+
+
+	
+	
+	/** 장바구니에 담기.
+	 * @param insertItem
+	 * @return result
+	 */
+	public abstract int insertCart(Cart insertItem);
 	
 	
 

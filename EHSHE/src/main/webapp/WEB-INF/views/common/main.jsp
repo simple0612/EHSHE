@@ -64,7 +64,7 @@ nav{
                 <h2>Looking for <b>unique,</b> <br>
                     <b>romantic</b> date ideas
                 </h2>
-                <a href="#">Search for a place</a>
+                <a href="${contextPath}/place/placeList">Search for a place</a>
             </div>
         </section>
         <section class="ranking">
@@ -72,6 +72,8 @@ nav{
                 <div class="ranking-content">
                     <h2>THE BEST PLACE</h2>
                     <div class="places">
+                    
+                  
                         <div class="place">
                             <div class="place-image">
                                 <img src="">
@@ -102,7 +104,7 @@ nav{
                                 <a href="#" class="view-place">View More</a>
                             </div>
                         </div>
-
+											
                     </div>
                 </div>
             </div>
@@ -112,7 +114,7 @@ nav{
                 <h2>Check out our <b>couple items</b><br>
                 for the very best in <b>unique</b> or custom,<br>
                 <b>handmade pieces</b> from our shops.</h2>
-                <a href="#">Search for an item</a>
+                <a href="${contextPath}/shop/shopMain">Search for an item</a>
             </div>
         </section>
         <section class="ranking">
@@ -120,36 +122,24 @@ nav{
                 <div class="ranking-content">
                     <h2>THE BEST ITEM</h2>
                     <div class="citems">
-                        <div class="citem">
-                            <div class="citem-image">
-                                <img src="">
-                            </div>
-                            <div class="citem-description">
-                                <span><b>가격</b></span>
-                                <h3><b>이름</b></h3>
-                                <a href="#" class="view-item">View More</a>
-                            </div>
-                        </div>
-                        <div class="citem">
-                            <div class="citem-image">
-                                <img src="">
-                            </div>
-                            <div class="citem-description">
-                                <span><b>가격</b></span>
-                                <h3><b>이름</b></h3>
-                                <a href="#" class="view-item">View More</a>
-                            </div>
-                        </div>
-                        <div class="citem">
-                            <div class="citem-image">
-                                <img src="">
-                            </div>
-                            <div class="citem-description">
-                                <span><b>가격</b></span>
-                                <h3><b>이름</b></h3>
-                                <a href="#" class="view-item">View More</a>
-                            </div>
-                        </div>
+                        
+                        
+                      <c:if test="${!empty iList && !empty tList}">
+                      	<c:forEach var="rankingItem" items="${iList}" varStatus="avg">
+			                        <div class="citem">
+			                            <div class="citem-image">
+			                                <img src="${contextPath}${rankingItem.imgPath}/${rankingItem.imgName}">
+			                            </div>
+			                            <div class="citem-description">
+		                            		<span> 평점 : ${tList[avg.index].score}</span>
+		                                <span><b>가격 : ${rankingItem.itemPrice}</b></span>
+		                                <h3><b>이름 : ${rankingItem.itemNm} </b></h3>
+		                                <a href="${contextPath}/shop/${rankingItem.itemCategory}/${rankingItem.itemNo}" class="view-item">View More</a>
+			                            </div>
+                        			</div>
+                           
+                        	</c:forEach>
+                       </c:if> 
                     </div>
                 </div>
             </div>
