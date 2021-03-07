@@ -223,6 +223,11 @@ public class ShopDAO {
 	public List<Shop> selectShopHotList() {
 		return sqlSession.selectList("shopMapper.selectMainHotList");
 	}
+
+	// 상세페이지 별점 조회
+	public ShopScore selectViewStarRation(int itemNo) {
+		return sqlSession.selectOne("shopMapper.selectViewStarRation",itemNo);
+	}
 	
 	
 

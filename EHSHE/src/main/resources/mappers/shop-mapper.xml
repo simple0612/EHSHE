@@ -80,6 +80,17 @@
 		 AND ITEM_CATEGORY =#{itemCategory}
   </select>
 
+<select id="selectViewStarRation" parameterType="_int" resultMap="shopscore_rm">
+		SELECT
+		AVG(ITEM_RATING) SCORE, ITEM_NO
+		FROM EH_ITEM_REVIEW
+		JOIN EH_ITEM USING(ITEM_NO)
+		JOIN EH_ITEM_CATEGORY USING(ITEM_CATEGORY)
+		WHERE ITEM_NO = #{itemNo}
+		GROUP BY ITEM_NO
+</select>
+
+
 
 	<!-- 게시글에  포함된 이미지 목록 조회  -->
 		<select id="selectShopAttachmentList" parameterType="_int" resultMap="shopattachment_rm">
