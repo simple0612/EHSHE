@@ -249,7 +249,24 @@ line-height:55px;
     </div>
  </div>
            <div class="tab-pane fade" id="qna">
-             <p><jsp:include page="shopReply.jsp"/></p>
+             <p>       dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+               dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+               ddddddddddddddddddddddddddddddddddd
+               dddddddddddddddddddddddddddddd
+               ddddddddddddddddddddddddd dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+               dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+               ddddddddddddddddddddddddddddddddddd
+               dddddddddddddddddddddddddddddd
+               ddddddddddddddddddddddddd
+               dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+               dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+               ddddddddddddddddddddddddddddddddddd
+               dddddddddddddddddddddddddddddd
+               ddddddddddddddddddddddddd dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+               dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+               ddddddddddddddddddddddddddddddddddd
+               dddddddddddddddddddddddddddddd
+               ddddddddddddddddddddddddd</p>
            </div>
          </div>
      </div>
@@ -257,6 +274,7 @@ line-height:55px;
         <br>
         <br>
      </div>
+     
    <jsp:include page="../common/footer.jsp" />		
      
 </body>
@@ -319,22 +337,14 @@ line-height:55px;
 									Swal.fire(
 					      		'장바구니에 담겼습니다!'
 							    )
-									
-							    
 								}
-								
 							},
 							error : function(){
 								console.log("장바구니에 담기 실패");
 							}
-
 						})
-						
-							
-							
 			  }
 			})
-		
 	});
   
   
