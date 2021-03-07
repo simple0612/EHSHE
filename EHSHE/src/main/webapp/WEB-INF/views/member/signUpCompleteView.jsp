@@ -112,7 +112,7 @@
 			
 			<br>
 			<div class="welcome-area">
-				<span class="member-name"> ${loginMember.memberId} 님, </span>
+				<span class="member-name"> ${loginMember.memberNm} 님, </span>
 				<span class="welcome-text"> 환영합니다! </span>
 			</div>
 

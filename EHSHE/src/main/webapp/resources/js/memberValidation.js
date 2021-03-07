@@ -25,7 +25,7 @@ var $certify = $("#certify");
 		var regExp = /^[a-z][a-zA-z\d]{4,11}$/;
 		
 		if(!regExp.test($memberId.val())) {
-			$("#checkId").text("아이디 형식이 유효하지 않습니다.").css("color", "red");
+			$("#checkId").text("아이디 형식이 올바르지 않습니다.").css("color", "red").css("visibility","visible");
 			signUpCheck.memberId = false;
 		
 		} else {	
@@ -38,10 +38,10 @@ var $certify = $("#certify");
 					//console.log(result);
 					
 					if(result == 0){ // 중복 x == 사용 가능한 아이디
-						$("#checkId").text("사용 가능한 아이디 입니다.").css("color", "green");
+						$("#checkId").css("visibility", "hidden");
 						signUpCheck.memberId = true;
 					} else {
-						$("#checkId").text("이미 사용중인 아이디 입니다.").css("color", "red");
+						$("#checkId").text("이미 사용중인 아이디 입니다.").css("color", "red").css("visibility","visible");
 						signUpCheck.memberId = false;							
 					}					
 				},
@@ -60,24 +60,28 @@ var $certify = $("#certify");
 
 		// 비밀번호1
 		if (!regExp.test($("#memberPw1").val())) {
-			$("#checkPw1").text("비밀번호 형식이 유효하지 않습니다.").css("color", "red");
+			$("#checkPw").text("영문 대소문자 + 숫자, 6 ~ 12 자").css("color", "red").css("visibility","visible");
 			signUpCheck.memberPw1 = false;
 		} else {
-			$("#checkPw1").text("유효한 비밀번호 형식입니다.").css("color", "green");
+			$("#checkPw").css("visibility", "hidden");
 			signUpCheck.memberPw1 = true;
 		}
 
 		// 비밀번호1이 유효하지 않은 상태로 비밀번호 2를 작성하는 경우
 		if (!signUpCheck.memberPw1 && $memberPw2.val().length > 0) {
-			swal("유효한 비밀번호를 작성해 주세요.");
-			$memberPw2.val("");
-			$memberPw1.focus();
+			swal("비밀번호 형식이 올바르지 않습니다.")
+			.then(function(){
+				$memberPw1.val("");
+				$("#checkPw").css("visibility","hidden");
+				$memberPw2.val("");
+				$memberPw1.focus();
+			});
 		} else if (signUpCheck.memberPw1 && $memberPw2.val().length > 0) {
 			if ($("#memberPw1").val().trim() != $("#memberPw2").val().trim()) {
-				$("#checkPw2").text("비밀번호 불일치").css("color", "red");
+				$("#checkPw").text("비밀번호가 일치하지 않습니다.").css("color", "red").css("visibility","visible");
 				signUpCheck.memberPw2 = false;
 			} else {
-				$("#checkPw2").text("비밀번호 일치").css("color", "green");
+				$("#checkPw").css("visibility", "hidden");
 				signUpCheck.memberPw2 = true;
 			}
 		}
@@ -90,10 +94,10 @@ var $certify = $("#certify");
 		var regExp = /^[가-힣]{2,}$/;
 
 		if (!regExp.test($(this).val())) {
-			$("#checkNm").text("한글 두 글자 이상을 입력하세요.").css("color", "red");
+			$("#checkNm").text("한글 두 글자 이상을 입력해주세요.").css("color", "red").css("visibility","visible");
 			signUpCheck.memberNm = false;
 		} else {
-			$("#checkNm").text("정상입력").css("color", "green");
+			$("#checkNm").css("visibility", "hidden");
 			signUpCheck.memberNm = true;
 		}
 	}); // 이름 유효성 검사 
@@ -110,10 +114,10 @@ var $certify = $("#certify");
 		var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 
 		if (!regExp.test($memberPhone.val())) {
-			$("#checkPhone").text("전화번호가 유효하지 않습니다.").css("color", "red");
+			$("#checkPhone").text("전화번호의 형식이 올바르지 않습니다.").css("color", "red").css("visibility","visible");
 			signUpCheck.memberPhone = false;
 		} else {
-			$("#checkPhone").text("유효한 전화번호입니다.").css("color", "green");
+			$("#checkPhone").css("visibility", "hidden");
 			signUpCheck.memberPhone = true;
 		}
 	}); // 휴대번호 유효성 검사
@@ -125,13 +129,13 @@ var $certify = $("#certify");
 		var regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
 
 		if (!regExp.test($(this).val())) {
-			$("#checkEmail").text("이메일 형식이 유효하지 않습니다.").css("color", "red");
+			$("#checkEmail").text("이메일 형식이 올바르지 않습니다.").css("color", "red").css("visibility","visible");
 			signUpCheck.memberEmail = false;
 		} else {
-			$("#checkEmail").text("유효한 이메일 형식입니다.").css("color", "green");
+			$("#checkEmail").css("visibility", "hidden");
 			signUpCheck.memberEmail = true;
 		}
-	});
+	}); 
 	
 	// 이메일 인증 검사	
 	// 이메일 인증 번호 저장을 위한 변수
@@ -146,7 +150,7 @@ var $certify = $("#certify");
 	        type: "GET",
 	        success: function(data) {
 	        	console.log(data)
-	        	$("#certificationCheck").text("인증번호가 발송되었습니다.").css("color", "green");
+	        	$("#checkEmail").text("인증번호가 발송되었습니다.").css("color", "green").css("visibility", "visible");
 	        	signUpCheck.certificationCheck = false;
 	        	code = data;
 	        },
@@ -154,22 +158,54 @@ var $certify = $("#certify");
 						console.log("ajax 통신 실패");
 					}
 	    });
-	});
+	}); 
 	
 	// 인증 번호 비교
 	$(function(){
 		$("#certify").on("input", function(){
+			$("#checkEmail").css("visibility", "hidden");
 			if($(this).val() != code || $(this).val() == 0){
-			 $("#certificationCheck").text("인증번호가 불일치합니다.").css("color", "red");				
+			 $("#certificationCheck").text("인증번호가 불일치합니다.").css("color", "red").css("visibility","visible");				
 			 signUpCheck.certificationCheck = false;
 			} else {
-			 $("#certificationCheck").text("인증번호가 일치합니다.").css("color", "green");
+			 $("#certificationCheck").css("visibility","hidden");
 			 signUpCheck.certificationCheck = true;
+			 console.log(signUpCheck.certificationCheck)
 			}
 		});
 	});
 	
-	// 유효성 검사
+	
+	$(function(){
+		$("input").on("input", function(){
+			console.log(signUpCheck.certificationCheck)
+			if( signUpCheck.memberId && signUpCheck.memberPw1 && signUpCheck.memberPw2 &&
+			signUpCheck.memberNm && signUpCheck.memberPhone && 
+			signUpCheck.memberEmail 
+			&& signUpCheck.certificationCheck == true
+			){
+
+				$(".signUpBtn").attr("style", "background-color: #F5DF4D !important;")
+				.mouseover(function(){
+					$(this).attr("style", "background-color: #f0d700 !important;");	
+				})		
+				.mouseout(function(){
+					$(this).attr("style", "background-color: #F5DF4D !important;");	
+				})
+			
+			} 
+			else {
+				$(".signUpBtn").attr("style", "background-color: #f6f6f6 !important;")
+				.mouseover(function(){
+					$(this).attr("style", "background-color: #dbdbdb !important;");	
+				})		
+				.mouseout(function(){
+					$(this).attr("style", "background-color: #f6f6f6 !important;");	
+				}) 
+			} 
+		});
+	});
+	
 	function validate() {
 	
 		for ( var key in signUpCheck) {
@@ -195,9 +231,8 @@ var $certify = $("#certify");
 						$(certify).focus();
 					}
 				return false;								
-			}				
-		}
-
+			}	
+		}s
 		
 		// 입력된 주소 조합하여 form태그에 hidden으로 추가 하기
 		// 왜? -> 커맨드 객체를 이용하여 파라미터를 한번에 받기 쉽게 하기 위하여

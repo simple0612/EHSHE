@@ -111,7 +111,8 @@
            </ul>
         </div>
     </div>
- 
+ <!-- kakao jdk -->
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script>
     		/* 사이드바 토글  */
         $('.btn_area').click(function(){
@@ -131,7 +132,6 @@
             $(this).children('ul').stop().slideUp();
 
         });
-        
     </script>
     
 </body>

@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<!-- 네이버 로그인 API -->
+<%-- 
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %> --%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -226,9 +233,20 @@ input[id="saveId"]:checked + label em {
 	
 			&nbsp;&nbsp;&nbsp;	
 			<span class="link-sns">
-				<a href="<%-- ${contextPath}/member/ --%>">
+			<%--   <%
+			    String clientId = "0i2Q6n2gEIeu1XkiUfeX";//애플리케이션 클라이언트 아이디값";
+			    String redirectURI = URLEncoder.encode("http://localhost:8080/ehshe/member/loginView/callback", "UTF-8");
+			    SecureRandom random = new SecureRandom();
+			    String state = new BigInteger(130, random).toString();
+			    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+			    apiURL += "&client_id=" + clientId;
+			    apiURL += "&redirect_uri=" + redirectURI;
+			    apiURL += "&state=" + state;
+			    session.setAttribute("state", state);
+			 	%> 
+				<a href="<%=apiURL%>"> 
 				<img src ="${contextPath}/resources/images/naver.png" style="width: 51px; height: 51px; margin-bottom: 5px">
-				<br> 네이버 로그인</a>
+				<br> 네이버 로그인</a>--%>
 			</span>
 		</div>		
 	</div> <%-- form-wrapper end --%>
@@ -242,8 +260,7 @@ input[id="saveId"]:checked + label em {
 	<script>
 	// 로그인 버튼 색 제어
 	// 부트스트랩 사용 시, css 변경할 경우 !important가 필요
-	// -> .css() 메서드는 !important 안되므로  .atrr() 사용
-		
+	// -> .css() 메서드는 !important 안되므로  .atrr() 사용		
 	$("#memberId").on("input", function(){
 		$("#memberPw").on("input", function(){			
 			if($("#memberId").val().trim().length != 0 && 
@@ -254,7 +271,7 @@ input[id="saveId"]:checked + label em {
 				})		
 				.mouseout(function(){
 					$(this).attr("style", "background-color: #F5DF4D !important;");	
-				}) ;
+				});
 				
 			}else{
 				$(".loginBtn").attr("style", "background-color: #f6f6f6 !important;")
@@ -291,6 +308,28 @@ input[id="saveId"]:checked + label em {
 			}
 		});
 	});	
+	
+  // 카카오톡 로그아웃
+	function klogout(){
+	 	if(!Kako.Auth.getAccessToken()){
+ 		//console.log('Not logged in');
+ 		return;
+ 		} 
+ 	
+	 	Kakao.Auth.logout(function(){
+	 	console.log(Kakao.Auth.getAccessToken());
+	 	});
+	}
+
+	Kakao.API.request({
+		  url: '/v1/user/unlink',
+		  success: function(response) {
+		    console.log(response);
+		  },
+		  fail: function(error) {
+		    console.log(error);
+		  },
+		});
 	</script>
 </body>
 </html>

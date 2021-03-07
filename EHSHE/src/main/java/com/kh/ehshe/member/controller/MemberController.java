@@ -160,6 +160,13 @@ public class MemberController {
 		return loginMember;			
 	}
 	
+	// 네이버 로그인 Controller
+	/*
+	 * @RequestMapping(value = "/naverLogin") public String naverLogin() {
+	 * 
+	 * return "/"; }
+	 */
+	
 	
 	// 이용약관 화면 Controller
 	@RequestMapping("tosView")
@@ -371,16 +378,15 @@ public class MemberController {
         // 이메일 보내기
         String setFrom = "EHSHE" + " <ehshetest01@gmail.com>";
         String toMail = email;
-        String title = "EHSHE 인증 메일 입니다!";
+        String title = "EHSHE 회원 인증 메일 입니다.";
         String content = 
-        		"<img src =\'https://i.postimg.cc/R0QvY3dW/forEmail.jpg\'>" +
-                "<br><br>" +
-				"안녕하세요." + "<span style = 'font-weight : bold'>" + " EHSHE " + "</span>" + "에 방문해주셔서 감사합니다." +
+        		"<img src =\'https://i.postimg.cc/RF1MFDnG/emailImg.jpg\'>" +
+                "<br><br>" + "안녕하세요." + 
+                "<br>" + "<span style = 'font-weight : bold'>" + " EHSHE " + "</span>" + "에 방문해주셔서 감사합니다!" +
                 "<br><br>" + 
-                "인증 번호는 " + "<span style = 'font-weight : bold'>" + checkNum + "</span>" + " 입니다." + 
-                "<br>" + 
-                "해당 번호를 인증번호 확인란에 입력해 주세요.";
-       
+                "인증 번호는 " + "<span style = 'font-weight : bold'>" + checkNum + "</span>" + "입니다." + 
+                "<br>" + "해당 번호를 이메일 인증 입력란에 입력해 주세요.";
+        
          try {
         	
 	        MimeMessage message = mailSender.createMimeMessage();

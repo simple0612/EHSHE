@@ -123,6 +123,18 @@ label{
 .btn:hover {
 	background-color: #dbdbdb !important;
 }
+
+/* .modal-header{
+	border-bottom: none;
+} */
+
+.modal-content{
+	padding: 1.5rem 3rem 3rem 3rem;
+	}
+
+/* .modal-footer{
+	border-top: none;
+	}  */
  
 </style>
 
@@ -155,7 +167,7 @@ label{
 				<input type="checkbox" id="check1" name="check" required>
 				<label for="check1" class="text-tos"><em></em> &nbsp; [필수] 이용약관</label>	
 				<div class=view-all>
-			  	<a href="#">전체보기</a>
+			  	<a data-toggle="modal" href="#modal-container-1">전체보기</a>
 		   	</div>
 			
 		  	<br><br>		   
@@ -178,7 +190,7 @@ label{
 				<input type="checkbox" id="check2" name="check" required>
 		    <label for="check2" class="text-tos"><em></em> &nbsp; [필수] 개인정보 수집 및 이용</label>	
 		    <div class="view-all">
-		    	<a href="#">전체보기</a>
+		    	<a class="modalOpacity" data-toggle="modal" href="#modal-container-1">전체보기</a>
 		    </div>
 		
 		    <br><br>		     
@@ -201,7 +213,7 @@ label{
 				<input type="checkbox" id="check3" name="check">
 		    <label for="check3" class="text-tos"><em></em> &nbsp; [선택] 개인정보 제 3자 제공</label>	
 		    <div class="view-all">
-		    	<a href="#">전체보기</a>
+		    	<a class="modalOpacity" data-toggle="modal" href="#modal-container-1">전체보기</a>
 		    </div>
 	    
 	  	  <br><br>     
@@ -223,6 +235,39 @@ label{
 				<br><br>
 				<button type="submit" class="btn btn-lg btn-block">동의</button>
 			</form>
+		</div>
+	</div>
+	
+	<%-- 전체보기 모달창 --%>
+	<div class="modal fade" id="modal-container-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">×</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<p>
+						 제 1조 (샘플)
+				    <br><br>		   	
+					  Lorem ipsum dolor sit amet, consectetur
+					  adipisicing elit, sed do eiusmod tempor
+					  incididunt ut labore et dolore magna aliqua.
+					  Ut enim ad minim veniam, quis nostrud
+					  exercitation ullamco laboris nisi ut aliquip
+					  exea commodo consequat. Duis aute irure 
+					  dolor in reprehenderit in voluptate velit 
+					  esse cillum dolore eu fugiat nulla pariatur. 
+					  Excepteur sint occaecat cupidatat non 
+					  proident,sunt in culpa qui officia deserunt
+					  mollit anim id est laborum.
+					</p>
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -283,8 +328,6 @@ label{
 			});								
 		}
  	}); // 체크박스 함수 end
-	
-	
 	
 	</script>		
 </body>
