@@ -14,6 +14,13 @@ public class Shop {
 	private int itemCategory;
 	private String itemCategoryNm;
 	
+	private int fileNo;
+	private String fileName;
+	private String filePath;
+	private int fileLevel;
+	
+	private double score;
+	
 
 	public Shop() {}
 
@@ -23,11 +30,9 @@ public class Shop {
 	}
 
 
-
 	public void setItemNo(int itemNo) {
 		this.itemNo = itemNo;
 	}
-
 
 
 	public String getItemContent() {
@@ -35,11 +40,9 @@ public class Shop {
 	}
 
 
-
 	public void setItemContent(String itemContent) {
 		this.itemContent = itemContent;
 	}
-
 
 
 	public String getItemNm() {
@@ -47,11 +50,9 @@ public class Shop {
 	}
 
 
-
 	public void setItemNm(String itemNm) {
 		this.itemNm = itemNm;
 	}
-
 
 
 	public int getItemPrice() {
@@ -59,11 +60,9 @@ public class Shop {
 	}
 
 
-
 	public void setItemPrice(int itemPrice) {
 		this.itemPrice = itemPrice;
 	}
-
 
 
 	public int getTransCharge() {
@@ -71,11 +70,9 @@ public class Shop {
 	}
 
 
-
 	public void setTransCharge(int transCharge) {
 		this.transCharge = transCharge;
 	}
-
 
 
 	public String getItemDeleteFl() {
@@ -83,11 +80,9 @@ public class Shop {
 	}
 
 
-
 	public void setItemDeleteFl(String itemDeleteFl) {
 		this.itemDeleteFl = itemDeleteFl;
 	}
-
 
 
 	public Timestamp getItemCreateDt() {
@@ -95,11 +90,9 @@ public class Shop {
 	}
 
 
-
 	public void setItemCreateDt(Timestamp itemCreateDt) {
 		this.itemCreateDt = itemCreateDt;
 	}
-
 
 
 	public int getItemCategory() {
@@ -107,11 +100,9 @@ public class Shop {
 	}
 
 
-
 	public void setItemCategory(int itemCategory) {
 		this.itemCategory = itemCategory;
 	}
-
 
 
 	public String getItemCategoryNm() {
@@ -119,24 +110,72 @@ public class Shop {
 	}
 
 
-
 	public void setItemCategoryNm(String itemCategoryNm) {
 		this.itemCategoryNm = itemCategoryNm;
 	}
 
+
+	public int getFileNo() {
+		return fileNo;
+	}
+
+
+	public void setFileNo(int fileNo) {
+		this.fileNo = fileNo;
+	}
+
+
+	public String getFileName() {
+		return fileName;
+	}
+
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+
+	public int getFileLevel() {
+		return fileLevel;
+	}
+
+
+	public void setFileLevel(int fileLevel) {
+		this.fileLevel = fileLevel;
+	}
+
+
+	public double getScore() {
+		return score;
+	}
+
+
+	public void setScore(double score) {
+		this.score = score;
+	}
 
 
 	@Override
 	public String toString() {
 		return "Shop [itemNo=" + itemNo + ", itemContent=" + itemContent + ", itemNm=" + itemNm + ", itemPrice="
 				+ itemPrice + ", transCharge=" + transCharge + ", itemDeleteFl=" + itemDeleteFl + ", itemCreateDt="
-				+ itemCreateDt + ", itemCategory=" + itemCategory + ", itemCategoryNm=" + itemCategoryNm + "]";
+				+ itemCreateDt + ", itemCategory=" + itemCategory + ", itemCategoryNm=" + itemCategoryNm + ", fileNo="
+				+ fileNo + ", fileName=" + fileName + ", filePath=" + filePath + ", fileLevel=" + fileLevel + ", score="
+				+ score + "]";
 	}
 
 
 	
-
-
     
 		
 }

@@ -46,9 +46,19 @@ public class ShopController {
 		List<Shop> sList = service.selectShopMainList();
 		model.addAttribute("sList",sList);
 		
-		if(sList != null && !sList.isEmpty()) {
-		 List<ShopAttachment> thumbnailList  = service.selectMainAttachmentlList(sList);
+		List<Shop> shList = service.selectShopHotList();
+		model.addAttribute("shList",shList);
+
 		
+		if(sList != null && !sList.isEmpty()) {
+			
+			List<ShopScore> starRating = service.selectStarRation(sList);
+			model.addAttribute("starRating",starRating);
+			System.out.println(starRating+"dddddd");
+			
+			
+			List<ShopAttachment> thumbnailList  = service.selectMainAttachmentlList(sList);
+		 
 		 if(thumbnailList != null) {
 				model.addAttribute("thMList",thumbnailList);
 			}
@@ -104,12 +114,19 @@ public class ShopController {
 
 		if(shop != null) {
 			
+			/*
+			 * ShopScore starRating = service.selectStarRation(ShopAttachmentList);
+			 * model.addAttribute("starRating",starRating);
+			 * System.out.println(starRating+"dddddd");
+			 */
+			
 			ShopAttachment ShopAttachmentList =service.selectShopAttachmentList(itemNo);
 			 
 			List<ShopOption> ShopOptionList = service.selectShopOptionList(itemNo);
 
 			if(ShopAttachmentList != null && ShopOptionList != null) {
 				
+			
 				model.addAttribute("ShopAttachmentList", ShopAttachmentList);
 				model.addAttribute("ShopOptionList",ShopOptionList);
 				
@@ -123,7 +140,7 @@ public class ShopController {
 		   url = "redirect:../shopList/" + type;
 			
 		}else {
-			url = "redirect:" + referer;
+			url = "redirect:" + referer; 
 		}
 		ra.addFlashAttribute("swalIcon","error");
 		ra.addFlashAttribute("swalTitle","존재하지 않는 게시글입니다.");
@@ -144,9 +161,10 @@ public class ShopController {
 	public String shopInsertAction(@ModelAttribute Shop shop,
 			@PathVariable("type") int type,
 			@RequestParam(value = "images", required = false) List<MultipartFile> images, HttpServletRequest request,
-			  @RequestParam(value = "sizeMenu", required = false,defaultValue = "") List<String> sizeMenu,
-		     @RequestParam(value = "colorMenu", required = false,defaultValue = "") List<String> colorMenu,
-			RedirectAttributes ra) {
+			@RequestParam(value = "sizeMenu", required = false,defaultValue = "") List<String> sizeMenu,
+		    @RequestParam(value = "colorMenu", required = false,defaultValue = "") List<String> colorMenu,
+
+		     RedirectAttributes ra) {
 		
 		System.out.println(sizeMenu + "aaa" +colorMenu);
 		

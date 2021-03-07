@@ -249,24 +249,7 @@ line-height:55px;
     </div>
  </div>
            <div class="tab-pane fade" id="qna">
-             <p>       dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-               dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-               ddddddddddddddddddddddddddddddddddd
-               dddddddddddddddddddddddddddddd
-               ddddddddddddddddddddddddd dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-               dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-               ddddddddddddddddddddddddddddddddddd
-               dddddddddddddddddddddddddddddd
-               ddddddddddddddddddddddddd
-               dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-               dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-               ddddddddddddddddddddddddddddddddddd
-               dddddddddddddddddddddddddddddd
-               ddddddddddddddddddddddddd dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-               dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-               ddddddddddddddddddddddddddddddddddd
-               dddddddddddddddddddddddddddddd
-               ddddddddddddddddddddddddd</p>
+             <p><jsp:include page="shopReply.jsp"/></p>
            </div>
          </div>
      </div>

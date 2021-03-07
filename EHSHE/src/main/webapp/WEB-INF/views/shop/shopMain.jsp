@@ -117,7 +117,7 @@
         <p><strong>최근 올라온 상품</strong></p>
         <div class="row">
           <c:forEach var="shop" items="${sList}" varStatus="vs">
-            <div class="col-md-4 ppp">
+            <div class="col-md-4 ppp" onclick="location.href='../shop/${shop.itemCategory}/${shop.itemNo}'">
                 <div class="mb-4 a">
                   <c:forEach items="${thMList}" var="th">
                    	<c:if test="${th.parentShopNo == shop.itemNo}">
@@ -131,7 +131,19 @@
                             <div><strong>${shop.itemNm}</strong></div>
                             <div>가격: <fmt:formatNumber value="${shop.itemPrice}" pattern="#,###"/>원</div>
                             <div>배송비: <fmt:formatNumber value="${shop.transCharge}" pattern="#,###"/>원</div>
-                            <div><img src="${contextPath}/resources/shopCommonImg/별모양.png" class="mainImg" style="width: 20px; height: 20px;"> 4.15</div>
+                             
+                           <c:choose>
+                             <c:when test="${!empty starRating}">
+                            <c:forEach items="${starRating}" var="sr">
+							  							 <c:if test="${sr.itemNo == shop.itemNo}">
+		                            <div><img src="${contextPath}/resources/shopCommonImg/별모양.png" class="mainImg" style="width: 20px; height: 20px;"> ${sr.score}</div>
+	 														 </c:if>
+    												</c:forEach> 
+    												</c:when>  
+	 													<c:otherwise>	
+	 														<div><img src="${contextPath}/resources/shopCommonImg/별모양.png" class="mainImg" style="width: 20px; height: 20px;"> 별점없음</div>
+    												</c:otherwise>
+    												</c:choose>                 
                         </div>
                     </div>
                   </div>
@@ -144,22 +156,25 @@
 
         <p><strong>인기상품(Hot!!)</strong></p>
         <div class="row">
+         <c:forEach var="shop" items="${shList}" varStatus="vs">
             <div class="col-md-4">
                 <div class="mb-4 a">
-                    <img src="여행.jpg" class="rounded mx-auto d-block shopmainImg">
+                    <img src="${contextPath}${shop.filePath}/${shop.fileName}"  class="rounded mx-auto d-block shopmainImg">
                 </div>
                 <div class="card mb-3">
                     <div class="card-body">
                         <div>
-                            <div><strong>커플옷</strong></div>
-                            <div>가격: 30,000원</div>
-                            <div>배송비: 무료</div>
+                            <div><strong>${shop.itemNm}</strong></div>
+                            <div>가격: <fmt:formatNumber value="${shop.itemPrice}" pattern="#,###"/>원</div>
+                            <div>배송비: <fmt:formatNumber value="${shop.transCharge}" pattern="#,###"/>원</div>
+                            <div><img src="${contextPath}/resources/shopCommonImg/별모양.png" class="mainImg" style="width: 20px; height: 20px;"> ${shop.score}</div>
                         </div>
                     </div>
                   </div>
               </div>
-         
-              <div class="col-md-4">
+        </c:forEach>
+			</div>         
+<!--               <div class="col-md-4">
                 <div class="mb-4 a">
                     <img src="여행.jpg" class="rounded mx-auto d-block shopmainImg">
                 </div>
@@ -189,9 +204,9 @@
                   </div>
               </div>
         </div>
-    </div>
+    </div> -->
 
-    <div class="container" style="margin-top: 50px;">
+<!--     <div class="container" style="margin-top: 50px;">
         <p><strong>shop 제품</strong></p>
         <div class="row">
             <div class="col-md-3">
@@ -255,7 +270,7 @@
               </div>
         </div>
    
-        <div class="row">
+         <div class="row">
             <div class="col-md-3">
                 <div class="mb-3 a">
                     <img src="여행.jpg" class="rounded mx-auto d-block shopmainImg">
@@ -376,8 +391,8 @@
                   </div>
               </div>
       
-        </div>
-    </div>
+        </div> 
+    </div> -->
     </div>
     </div>
  <br>

@@ -116,6 +116,11 @@ public interface ShopService {
 	 */
 	List<Shop> selectShopSearchList(SearchShop search, ShopPageInfo pInfo);
 
+	/** 메인페이지 인기순위 리스트
+	 * @return shList
+	 */
+	List<Shop> selectShopHotList();
+
 
 	
 
