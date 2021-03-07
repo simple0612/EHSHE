@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.ehshe.shop.model.vo.SearchShop;
 import com.kh.ehshe.shop.model.vo.Shop;
 import com.kh.ehshe.shop.model.vo.ShopAttachment;
 import com.kh.ehshe.shop.model.vo.ShopOption;
@@ -66,7 +67,7 @@ public interface ShopService {
 	 * @param sizemenu 
 	 * @return result
 	 */
-	int insertShop(Map<String, Object> map, List<MultipartFile> images, String savePath, List<String> sizemenu, List<String> colormenu);
+	int insertShop(Map<String, Object> map, List<MultipartFile> images, String savePath, List<String>colorMenu ,List<String>sizeMenu);
 
 	/** 섬머노트 업로드 이미지 저장 Service
 	 * @param uploadFile
@@ -100,6 +101,22 @@ public interface ShopService {
 	 * @return starRating
 	 */
 	List<ShopScore> selectStarRation(List<Shop> sList);
+
+	/** 검색 조건이 포함된 페이징 처리 객체 생성 Service
+	 * @param search
+	 * @param cp
+	 * @return
+	 */
+	ShopPageInfo getSearchPageInfo(SearchShop search, int cp);
+
+	/** 검색 조건이 포함된 게시글  목록 조회  Service
+	 * @param search
+	 * @param pInfo
+	 * @return bList
+	 */
+	List<Shop> selectShopSearchList(SearchShop search, ShopPageInfo pInfo);
+
+
 	
 
 

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.kh.ehshe.shop.model.service.ShopService;
+import com.kh.ehshe.shop.model.vo.SearchShop;
 import com.kh.ehshe.shop.model.vo.Shop;
 import com.kh.ehshe.shop.model.vo.ShopAttachment;
 import com.kh.ehshe.shop.model.vo.ShopOption;
@@ -106,11 +107,12 @@ public class ShopController {
 			ShopAttachment ShopAttachmentList =service.selectShopAttachmentList(itemNo);
 			 
 			List<ShopOption> ShopOptionList = service.selectShopOptionList(itemNo);
-		
+
 			if(ShopAttachmentList != null && ShopOptionList != null) {
 				
 				model.addAttribute("ShopAttachmentList", ShopAttachmentList);
 				model.addAttribute("ShopOptionList",ShopOptionList);
+				
 			}
 		
 			model.addAttribute("shop", shop);
@@ -142,12 +144,11 @@ public class ShopController {
 	public String shopInsertAction(@ModelAttribute Shop shop,
 			@PathVariable("type") int type,
 			@RequestParam(value = "images", required = false) List<MultipartFile> images, HttpServletRequest request,
-			@RequestParam(value = "sizeMenu", required = false) List<String> sizeMenu,
-			@RequestParam(value = "colorMenu", required = false) List<String> colorMenu,
+			  @RequestParam(value = "sizeMenu", required = false,defaultValue = "") List<String> sizeMenu,
+		     @RequestParam(value = "colorMenu", required = false,defaultValue = "") List<String> colorMenu,
 			RedirectAttributes ra) {
 		
-		System.out.println("SIZEMENU" + sizeMenu);
-		System.out.println("SIZEMENU" + colorMenu);
+		System.out.println(sizeMenu + "aaa" +colorMenu);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -189,6 +190,40 @@ public class ShopController {
 
 		return url;
 	}
+	
+	// 게시글 검색 Controller
+	@RequestMapping("search/{type}")
+	public String searchShop(@PathVariable("type") int type,
+							 @RequestParam(value="cp" ,required=false , defaultValue="1") int cp,
+							 @ModelAttribute SearchShop search,Model model){
+		
+		// @PathVariable로 얻어온 게시판 타입을 Search 커맨드 객체에 저장
+		search.setShopType(type);
+		
+		// 1) 검색 조건이 포함된 페이징 처리용 객체 얻어오기
+		ShopPageInfo pInfo = service.getSearchPageInfo(search,cp);
+		System.out.println("ddddd"+pInfo);
+		
+		// 2) 검색 조건이 포함된 게시글 목록 조회
+		List<Shop> sList = service.selectShopSearchList(search,pInfo);
+		System.out.println("ddd"+sList);
+
+		
+		// 3) 썸네일 목록 조회
+		if(!sList.isEmpty()) {
+			List<ShopAttachment> thList = service.selectShopThumbnailList(sList);
+			model.addAttribute("thList",thList);
+			
+		}
+		
+		model.addAttribute("sList",sList);
+		model.addAttribute("pInfo",pInfo);
+		model.addAttribute("search",search);
+
+			
+		return "shop/shopList";
+	}
+	
 	
 	// -------------------------------- summernote --------------------------------
 	// summernote에 업로드된 이미지 저장 Controller
@@ -260,8 +295,8 @@ public class ShopController {
     		 						Model model,RedirectAttributes ra,
     		 						HttpServletRequest request,
     		 						@RequestParam(value="images" ,required=false) MultipartFile images,
-    		 						@RequestParam(value="sizeMenu" ,required=false) List<String> sizeMenu, 
-    		 						@RequestParam(value="colorMenu" ,required=false)List<String> colorMenu
+    		 						@RequestParam(value="sizeMenu" ,required=false, defaultValue="1") List<String> sizeMenu, 
+    		 						@RequestParam(value="colorMenu" ,required=false , defaultValue="1")List<String> colorMenu
     		 						){
     	 
     	 System.out.println("3333"+sizeMenu + "--"+colorMenu);

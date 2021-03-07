@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.ehshe.shop.model.Exception.InsertShopAttachmentFailException;
 import com.kh.ehshe.shop.model.Exception.UpdateShopAttachmentFailException;
 import com.kh.ehshe.shop.model.dao.ShopDAO;
+import com.kh.ehshe.shop.model.vo.SearchShop;
 import com.kh.ehshe.shop.model.vo.Shop;
 import com.kh.ehshe.shop.model.vo.ShopAttachment;
 import com.kh.ehshe.shop.model.vo.ShopOption;
@@ -89,7 +90,7 @@ public class ShopServiceImpl implements ShopService {
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public int insertShop(Map<String, Object> map, List<MultipartFile> images, String savePath,
-							List<String> sizeMenu, List<String> colorMenu) {
+			List<String>colorMenu ,List<String>sizeMenu) {
 		
 		int result = 0;
 	
@@ -109,9 +110,6 @@ public class ShopServiceImpl implements ShopService {
 				
 				if(optionInsert > 0) {
 					
-					try {
-						
-					
 					shopOptionNo = dao.selectOptionNextNO(shopNo); // 옵션번호 조회하기
 					
 					List<ShopOption> shopOption = new ArrayList<ShopOption>(); 
@@ -120,21 +118,21 @@ public class ShopServiceImpl implements ShopService {
 					String optionColor =null;
 					String optionSize = null;
 				
-					
-					if(sizeMenu.isEmpty()) {
-					
-				    for (int i = 0; i < colorMenu.size(); i++) {
-				    	   
-				    	    optionColor=colorMenu.get(i);
-				    		
-				    	    ShopOption opd = new ShopOption(shopOptionNo,optionColor);
-				    		shopOption.add(opd);
-				    		
-					}
-					
-				    int insertOptionDetail = dao.insertOptionDeatail(shopOption);
+				
+				 if(sizeMenu.isEmpty() && colorMenu.size()>0) {
+							
+						    for (int i = 0; i < colorMenu.size(); i++) {
+						    	   
+						    	    optionColor=colorMenu.get(i);
+						    		
+						    	    ShopOption opd = new ShopOption(shopOptionNo,optionColor);
+						    		shopOption.add(opd);
+						    		
+							}
+							
+						    int insertOptionDetail = dao.insertOptionDeatail(shopOption);
 				    
-					}else if(colorMenu.isEmpty()) {
+					}else if(colorMenu.isEmpty() && sizeMenu.size()>0) {
 						
 						
 						   for (int i = 0; i < sizeMenu.size(); i++) {
@@ -148,8 +146,7 @@ public class ShopServiceImpl implements ShopService {
 						   int insertOptionDetail = dao.insertOptionDeatail(shopOption);
 
 					
-					
-					}else if(!sizeMenu.isEmpty() && !colorMenu.isEmpty()){
+					}else if(sizeMenu.size()>0 && colorMenu.size()>0){
 						
 					    for (int i = 0; i < sizeMenu.size(); i++) {
 							
@@ -168,21 +165,14 @@ public class ShopServiceImpl implements ShopService {
 					
 					
 					}else{
-						
-						ShopOption opd = new ShopOption(shopOptionNo,"옵션없음");
-						System.out.println("ddddddd2222"+opd);
-						shopOption.add(opd);
-						int insertOptionDetail = dao.insertOptionDeatail(shopOption);
-					}
+						// 옵션을 설정하지 않은 경우
+						int insertOptionNoDetail = dao.insertOptionNoDeatail(shopOptionNo);
+						System.out.println(insertOptionNoDetail+"성공");
+					} 
 					
-					
-					}catch(Exception e){
-						
-						throw new InsertShopAttachmentFailException("옵션정보추가 실패");
-						
-					}
 				
 			}
+				 
 				
 				List<ShopAttachment> uploadImages = new ArrayList<ShopAttachment>(); 
 
@@ -352,6 +342,8 @@ public class ShopServiceImpl implements ShopService {
 			
 			List<ShopOption> optionList = dao.selectShopOptionList(updateShopBoard.getItemNo());
 			
+			
+			
 		    System.out.println("optionList" + optionList);
 			
 			
@@ -450,7 +442,6 @@ public class ShopServiceImpl implements ShopService {
 				
 				boolean flag = true;
 				
-				
 				for(ShopAttachment oldAt : oldFiles) {
 					
 					if(oldAt.getFileLevel() == 0) continue;
@@ -469,7 +460,6 @@ public class ShopServiceImpl implements ShopService {
 				}
 				
 			}
-			
 			
 			// 수정전 게시글 파일명 목록(oldFlies)와
 			// 수정된 파일 정보 목록(fileNameList)를 비교해서
@@ -555,6 +545,24 @@ public class ShopServiceImpl implements ShopService {
 		return dao.selectStarRatingList(sList);
 	}
 
+	// 검색 조건이 포함된 페이징 처리 객체 생성 Service 구현
+	@Override
+	public ShopPageInfo getSearchPageInfo(SearchShop search, int cp) {
+		
+		// 검색조건에 맞는 게시글 수 조회
+		int listCount = dao.getSearchListCount(search);
+		return new ShopPageInfo(cp,listCount,search.getShopType());
+	}
+
+	/**
+	 * 검색 조건이 포함된 게시글 목록 조회 Service 구현
+	 */
+	@Override
+	public List<Shop> selectShopSearchList(SearchShop search, ShopPageInfo pInfo) {
+		return dao.selectShopSearchList(search,pInfo);
+	}
+
+	 
 
 	
 	

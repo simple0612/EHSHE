@@ -42,6 +42,10 @@ border: 1px solid black;
  header{
    position:relative !important;
 }
+.btnColor{
+  background-color: #F5dF4D;
+  color:white;
+}
  
 </style>
 <body>
@@ -73,13 +77,13 @@ border: 1px solid black;
                     <div class="card-body">
                         <div>
                             <div><strong>${shop.itemNm}</strong></div>
-                            <div>가격: ${shop.itemPrice}</div>
-                            <div>배송비: ${shop.transCharge}</div>
-                          
+                            <div>가격: <fmt:formatNumber value="${shop.itemPrice}" pattern="#,###"/>원</div>
+                            <div>배송비: <fmt:formatNumber value="${shop.transCharge}" pattern="#,###"/>원</div>
+
                           <c:forEach items="${starRating}" var="sr">
-						    <c:if test="${sr.itemNo == shop.itemNo}">
+						  							 <c:if test="${sr.itemNo == shop.itemNo}">
                               <img class="shopimg" src="${contextPath}/resources/shopCommonImg/별모양.png" style="width: 20px; height: 20px;">  ${sr.score}
- 							</c:if>
+ 													</c:if>
                        	  </c:forEach>
                         
                         </div>
@@ -205,12 +209,37 @@ border: 1px solid black;
         </div> -->
         
         
-        <a class="btn btn-info float-right btn-lg" href="../${pInfo.shopType}/shopInsert">등록</a>
+        <a class="btn btnColor float-right" href="../${pInfo.shopType}/shopInsert">등록</a>
        
         <div aria-label="Page navigation example" style="margin-top:100px;">
         
-      				<c:url var="pageUrl" value="${pInfo.shopType}?"/>
+							
+							<c:choose>
+								<%-- 검색이 된 경우 --%>
+								<c:when test="${!empty search}">
+									<%-- 선택된 카테고리를 하나의 쿼리스트링으로 조합 --%>
+									
+									<%--검색된 내용이 있다면 --%>
+									<c:if test="${!empty search.sv}">
+										<c:set var="searchStr" value="&sk=${search.sk}&sv=${search.sv}"/>
+									</c:if>
+									  
+									  <c:url var="pageUrl" value="../search/${pInfo.shopType}?${searchStr}&"/>
+													<%--목록으로 버튼에 사용할 URL 저장 변수 선언 --%>	
+									  <c:set var="returnListURL" value="${contextPath}/shop/search/${pageUrl}cp=${pInfo.currentPage}"
+										scope="session"/>
+							
+								</c:when>
+								
+							 <c:otherwise>
+      						<c:url var="pageUrl" value="${pInfo.shopType}?"/>
+      							<%--목록으로 버튼에 사용할 URL 저장 변수 선언 --%>	
+									<c:set var="returnListURL" value="${contextPath}/shop/search/${pageUrl}cp=${pInfo.currentPage}"
+										scope="session"/>
+							 </c:otherwise>
+							</c:choose>
 
+							
 							<!-- 화살표에 들어갈 주소를 변수로 생성 -->
 							<c:set var="firstPage" value="${pageUrl}cp=1"/>
 							<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}"/>
@@ -263,17 +292,19 @@ border: 1px solid black;
             </ul>
         </div>
         
+          <form action="../search/${pInfo.shopType}">
          <div class="form-row text-center" style="margin-top: 50px;">
             <div class="form-group"  style="margin:0px auto;">
-                <select name="sk" class="form-control t" style="width: 150px; display: inline-block;">
-					<option value="tit">글제목</option>
+       <select name="sk" class="form-control t" style="width: 150px; display: inline-block;">
+					<option value="tit">상품명</option>
 					<option value="con">내용</option>
-					<option value="titcont">제목+내용</option>
-				</select> 
+					<option value="titcont">상품명+내용</option>
+			</select> 
 				<input type="text" name="sv" class="form-control t" style="width: 300px; display: inline-block;">
-				<button class="form-control btn btn-success t" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
+				<button class="form-control btn btn-success t" type="submit" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
             </div>
         </div>
+        </form>
        </div>
        <br>
        <br>
@@ -284,4 +315,21 @@ border: 1px solid black;
        <jsp:include page="../common/footer.jsp" />		
        
     </body>
+    	<script>
+    $(function () {
+			// 검색 조건(sk)
+			$("select[name=sk] > option").each(function(index,item){
+				if($(item).val() == "${search.sk}"){
+					$(item).prop("selected",true);
+					
+				}
+    	
+		 });
+    	
+		// 검색 값(sv)
+		$("input[name=sv]").val("${search.sv}");
+    
+	 });
+    
+   	 </script>
 </html>

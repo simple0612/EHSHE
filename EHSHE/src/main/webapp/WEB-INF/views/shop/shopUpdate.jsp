@@ -98,9 +98,9 @@ outline:none;
                    
                     <div class="form-group">
                     <label for="productCategory">카테고리</label>
-                    <select class="form-control" id="productCategory" name="itemCategory" required>
+                    <select class="form-control" id="productCategory" name="itemCategory">
                         <option selected>카테고리를선택하시오.</option>
-                        <option value="1">Cloths</option>
+                        <option value="1">Clothes</option>
                         <option value="2">Accessory</option>
                         <option value="3">Etc</option>
                     </select>
@@ -202,7 +202,7 @@ outline:none;
         </div>
         <div class="float-right">
             <button class="btn btnColor btn" type="submit">수정</button>
-            <button class="btn btnColor2 btn">취소</button>
+            <a class="btn btnColor2 btn" href="${header.referer}">취소</a>
         </div>
        </form>
     </div>
@@ -212,11 +212,17 @@ outline:none;
 <script>
 
 
-
-
 $(document).ready(function() {
-	   
+	
+	// 카테고리 선택
+	$.each($("#productCategory > option"), function(index, item){
+		if($(item).text() == "${shop.itemCategoryNm}"){
+			$(item).prop("selected", "true");
+		}
+	});
 
+	   
+		
 	  $("#optionBtn").on("click",function(){
 
 	    var size =$("#size").val(); // 사이즈값 가져오기
@@ -320,7 +326,6 @@ $(document).ready(function() {
 
 
 	});
-
 
 
 
