@@ -16,11 +16,10 @@
 	</resultMap>
 
 	<resultMap type="ShopOption" id="shopoption_rm">
-		<result property="optionNo" column="OPTION_NO"/>
 		<result property="itemOptionContent" column="ITEM_OPTION_CONTENT"/>
-		<result property="itemNo" column="ITEM_NO"/>
+		<result property="optionSpecify_NO" column="OPTION_SPECIFY_NO"/>
 		<result property="optionSpecifyContent" column="OPTION_SPECIFY_CONTENT"/>
-		<result property="optionNo" column="OPTION_NO"/>
+		<result property="itemNo" column="ITEM_NO"/>
 	</resultMap>		
 
 		<resultMap type="ShopAttachment" id="shopattachment_rm">
@@ -113,7 +112,7 @@
 	  SELECT OPTION_NO
 	  FROM
 	  EH_ITEM_OPTION 
-	  WHERE ITEM_NO = #{ShopNo}
+	  WHERE ITEM_NO = #{shopNo}
 	 </select>
 
 
@@ -128,8 +127,12 @@
 				</foreach>
 			)A
 	 </insert>
+	 
 
-	
+	<!-- shop 옵션없을경우 -->
+	<insert id="insertOtionNoDetail" parameterType="_int">
+	  INSERT INTO EH_ITEM_OPTIONDETAIL VALUES(SEQ_IT_OPTION_DENO.NEXTVAL,'단일상품',#{shopOptionNo})
+	</insert>
 
 	
 		<!-- 파일 정보 삽입(List 이용)-->
@@ -225,6 +228,56 @@
 	</select>
 	
 	
+	<!-- 검색 조건에 맞는 게시글 수 조회 -->
+	<select id="getSearchListCount" parameterType="SearchShop" resultType="_int">
+	SELECT COUNT(*) FROM V_ITEM
+	WHERE ITEM_DELETE_FL ='N'
+	AND ITEM_CATEGORY = #{shopType}
+	
+	<if test="sv != null"> <!-- 검색한 내용이 있다면 -->
+		<bind name="val" value="'%' + sv + '%'"/>  <!-- bind: 변수처럼 사용 -->
+		AND 
+		<choose>
+			<when test="sk =='tit'">
+			  ITEM_NM LIKE #{val}
+			</when>
+			<when test="sk =='con'">
+			 ITEM_CONTENT LIKE #{val}
+			</when>
+			<when test="sk =='titcont'">
+			 (ITEM_NM LIKE #{val} OR ITEM_CONTENT LIKE #{val})
+			</when>
+		</choose>
+	</if>
+	</select>
+	
+	
+<!-- 검색 조건에 맞는 게시글 목록 조회 -->
+<select id="selectShopSearchList" parameterType="SearchShop" resultMap="shop_rm">
+SELECT * FROM V_ITEM
+WHERE ITEM_DELETE_FL ='N'
+AND ITEM_CATEGORY = #{shopType}
+
+<if test="sv != null"> <!-- 검색한 내용이 있다면 -->
+	<bind name="val" value="'%' + sv + '%'"/>  <!-- bind: 변수처럼 사용 -->
+	AND 
+	<choose>
+		<when test="sk =='tit'">
+		  ITEM_NM LIKE #{val}
+		</when>
+		<when test="sk =='con'">
+		 ITEM_CONTENT LIKE #{val}
+		</when>
+		<when test="sk =='titcont'">
+		 (ITEM_NM LIKE #{val} OR ITEM_CONTENT LIKE #{val})
+		</when>
+	</choose>
+</if>
+ORDER BY ITEM_NO DESC
+</select>	
+
+	
+
 	
 
 

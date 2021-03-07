@@ -129,8 +129,8 @@
                     <div class="card-body">
                         <div>
                             <div><strong>${shop.itemNm}</strong></div>
-                            <div>가격: ${shop.itemPrice}원</div>
-                            <div>배송비: ${shop.transCharge}</div>
+                            <div>가격: <fmt:formatNumber value="${shop.itemPrice}" pattern="#,###"/>원</div>
+                            <div>배송비: <fmt:formatNumber value="${shop.transCharge}" pattern="#,###"/>원</div>
                             <div><img src="${contextPath}/resources/shopCommonImg/별모양.png" class="mainImg" style="width: 20px; height: 20px;"> 4.15</div>
                         </div>
                     </div>

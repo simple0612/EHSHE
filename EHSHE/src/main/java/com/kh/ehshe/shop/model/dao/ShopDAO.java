@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.ehshe.shop.model.vo.SearchShop;
 import com.kh.ehshe.shop.model.vo.Shop;
 import com.kh.ehshe.shop.model.vo.ShopAttachment;
 import com.kh.ehshe.shop.model.vo.ShopOption;
@@ -189,6 +190,34 @@ public class ShopDAO {
 	public List<ShopScore> selectStarRatingList(List<Shop> sList) {
 		return sqlSession.selectList("shopMapper.selectShopScore", sList);
 	}
+
+	/** 검색조건에 맞는 게시글 수 조회 DAO
+	 * @param search
+	 * @return listCount
+	 */
+	public int getSearchListCount(SearchShop search) {
+		return sqlSession.selectOne("shopMapper.getSearchListCount",search);
+	}
+
+	/** 검색 조건이 포함된 게시글 목록 조회 DAO
+	 * @param search
+	 * @param pInfo
+	 * @return bList
+	 */
+	public List<Shop> selectShopSearchList(SearchShop search, ShopPageInfo pInfo) {
+		
+		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset,pInfo.getLimit());
+		
+		return sqlSession.selectList("shopMapper.selectShopSearchList",search,rowBounds);
+	}
+
+	public int insertOptionNoDeatail(int shopOptionNo) {
+		return sqlSession.insert("shopMapper.insertOtionNoDetail",shopOptionNo);
+	}
+	
+	
 
 	/*	*//**
 			 * shop option 업데이트를 위한 번호알아오기

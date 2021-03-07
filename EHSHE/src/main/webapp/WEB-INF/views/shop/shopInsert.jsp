@@ -93,7 +93,7 @@ outline:none;
                     <div class="form-group">
                     <label for="productCategory">카테고리</label>
                     <select class="form-control" id="productCategory" name="itemCategory" required>
-                        <option selected>카테고리를선택하시오.</option>
+                        <option>카테고리를선택하시오.</option>
                         <option value="1">Cloths</option>
                         <option value="2">Accessory</option>
                         <option value="3">Etc</option>
@@ -106,7 +106,7 @@ outline:none;
                     </div>
                     <div class="form-group">
                       <label for=" deliverycharge">배송비</label>
-                      <input class="form-control" id=" deliverycharge" type="number" name="transCharge" required>
+                      <input class="form-control" id=" deliverycharge" type="number" name="transCharge"  value="3000" readonly>
                     </div>
 
     
@@ -139,13 +139,16 @@ outline:none;
                         <th scope="col"><input type="checkbox" id="optionCheckAll"></th>
                         <th scope="col">사이즈</th>
                         <th scope="col">색상</th>
-                        <th scope="col" >삭제</th>
+                        <th scope="col">삭제</th>
                       </tr>
                     </thead>
                     <tbody id="tbodyWrapper">
-                      <tr>
-                       <td colspan="4" style="text-align: center;">존재하는 데이터가 없습니다.</td>
-                     </tr>
+		        			 <tr>
+		        			   <th scope='row'><input type='checkbox' name='optionCheckBox'></th>
+							          <td><input type="text" name="sizeMenu" class="options" readonly value=""></td>
+							          <td><input type="text" name="colorMenu" class="options" readonly value=""></td>
+							          <td><div id="deleteBtn" style="margin-left:10px;"><i class="fas fa-times"></i></div></td>
+          				 </tr>
                     </tbody>
                   </table>
                   </div>
@@ -162,8 +165,9 @@ outline:none;
             </div>
         </div>
         <div class="float-right">
+            <a class="btn btnColor2 btn"href="${sessionScope.returnListURL}">목록으로</a>
             <button class="btn btnColor btn" type="submit">등록</button>
-            <button class="btn btnColor2 btn">취소</button>
+            
         </div>
        </form>
     </div>
@@ -173,195 +177,132 @@ outline:none;
 <script>
 
 
-
-
 $(document).ready(function() {
-   
-
-  $("#optionBtn").on("click",function(){
-
-    var size =$("#size").val(); // 사이즈값 가져오기
-    var color =$("#color").val(); // 색상 값 가져오기
-
-    var sizeSplit = [];  // size 배열에 담기
-    var colorSplit = [];  // color 배열에 담기
-
-    var temp =""; // 동적테이블 담을 변수
     
-    if(!size && !color){
 
-        alert("size 혹은 color를 입력해주세요.");
+    $("#optionBtn").on("click",function(){
 
-    }else{
+      var size =$("#size").val(); // 사이즈값 가져오기
+      var color =$("#color").val(); // 색상 값 가져오기
+      
+      var sizeSplit =[];  // size 배열에 담기
+      var colorSplit =[];  // color 배열에 담기
+
+      var temp =""; // 동적테이블 담을 변수
+      
+      if(!size && !color){
+
+          alert("size 혹은 color를 입력해주세요.");
+
+      }else{
 
 
-    // 사이즈,컬러 구분자로 쪼개기
-    sizeSplit = size.split(',');
-    colorSplit = color.split(',');
- 
-    // 사이즈,컬러 각각의 맞게 분배
-    for (var i=0; i<sizeSplit.length; i++) {
+      // 사이즈,컬러 구분자로 쪼개기
+      sizeSplit = size.split(',');
+      console.log(sizeSplit);
+      colorSplit = color.split(',');
+      console.log(colorSplit);
+      
+      // 사이즈,컬러 각각의 맞게 분배
+      for (var i=0; i<sizeSplit.length; i++) {
 
-        for(var j=0; j<colorSplit.length; j++){
-            
-        $("#tbodyWrapper").empty();
+          for(var j=0; j<colorSplit.length; j++){
 
-        temp +='<tr>';
-        temp +="<th scope='row'>"+ "<input type='checkbox' name='optionCheckBox'style='text-align:center;'></th>";
-        temp +='<td>'+'<input type="text" name="sizeMenu" class="options" readonly value="'+ sizeSplit[i] +'"></td>';
-        temp +='<td>'+'<input type="text" name="colorMenu" class="options" readonly value="'+ colorSplit[j] +'"></td>';
-        temp +='<td>' +'<div id="deleteBtn" style="margin-left:10px;"><i class="fas fa-times"></i></div>'+ '</td>';
-        temp +='</tr>';
+        	  $("#tbodyWrapper").empty();
 
-        $("#tbodyWrapper").append(temp);
+          temp +='<tr>';
+          temp +="<th scope='row'>"+ "<input type='checkbox' name='optionCheckBox'></th>";
+          temp +='<td>'+'<input type="text" name="sizeMenu" class="options" readonly value="'+ sizeSplit[i] +'"></td>';
+          temp +='<td>'+'<input type="text" name="colorMenu" class="options" readonly value="'+ colorSplit[j] +'"></td>';
+          temp +='<td>' +'<div id="deleteBtn" style="margin-left:10px;"><i class="fas fa-times"></i></div>'+ '</td>';
+          temp +='</tr>';
 
-        }
-        
+          $("#tbodyWrapper").append(temp);
+
+          }
+          
+      } 
     }
-}
-    
-});
+      
+  });
 
-
+  
 // 단일 tr 삭제
-$(document).on("click", "#deleteBtn", function(){
-    $(this).parent().parent().remove();
- 
-});
+  $(document).on("click", "#deleteBtn", function(){
+      $(this).parent().parent().remove();
+   
+  });
 
 // 체크박스된 tr만 삭제
-$("#selectDelete").on("click",function(){
+  $("#selectDelete").on("click",function(){
 
-    var checkbox =$("input[name=optionCheckBox]:checked");
-    console.log(checkbox);
+      var checkbox =$("input[name=optionCheckBox]:checked");
+      console.log(checkbox);
 
-        checkbox.each(function(i){
-    
-        var tr= checkbox.parent().parent();
-        
-        tr.remove();
-        
-
-     });
-
-     if($("td:empty")){
-         $("#optionCheckAll").prop("checked",false);
-       }  
-    });
-    
-
-
-    // 체크박스 전체해제 전체클릭
-    $("#optionCheckAll").click(function(){
-   
-    if($("#optionCheckAll").prop("checked")){
+          checkbox.each(function(i){
       
-        $("input[name=optionCheckBox]").prop("checked",true);
-    }else{
-        $("input[name=optionCheckBox]").prop("checked",false);
-    }
+          var tr= checkbox.parent().parent();
+          
+          tr.remove();
+          
 
-    });
+       });
+
+       if($("td:empty")){
+           $("#optionCheckAll").prop("checked",false);
+         }  
+      });
+      
+
+
+      // 체크박스 전체해제 전체클릭
+      $("#optionCheckAll").click(function(){
+     
+      if($("#optionCheckAll").prop("checked")){
+        
+          $("input[name=optionCheckBox]").prop("checked",true);
+      }else{
+          $("input[name=optionCheckBox]").prop("checked",false);
+      }
+
+      });
 
 //체크박스 하나 해제시 전체체크박스 해제
 $(document).on("click", "input[name=optionCheckBox]", function(){
 
-var checkbox =$("input[name=optionCheckBox]:checked");
+  var checkbox =$("input[name=optionCheckBox]:checked");
 
-if($("input[name=optionCheckBox]").length==checkbox.length){ 
-  
-    $("#optionCheckAll").prop("checked",true); 
-}else{ 
-   $('#optionCheckAll').prop("checked",false); 
-} 
-
-});
-
-
-
+  if($("input[name=optionCheckBox]").length==checkbox.length){ 
+    
+      $("#optionCheckAll").prop("checked",true); 
+  }else{ 
+     $('#optionCheckAll').prop("checked",false); 
+  } 
 
 });
 
 
 
 
-/*       // 추가 버튼 클릭 시
-  document.getElementById("add").onclick = function(){
-
-      
-    	  
-    	  
-    	  
-    	  // 1) div 태그 생성
-       // var div =document.getElementById("wrapper3");
-        var div = document.createElement("div");
-        div.setAttribute("style","margin-top:5px;");
-        div.setAttribute("class","form-inline");
+});
 
 
+/* function validate() {
+	if ($("#productname").val().trim().length == 0) {
+		alert("상품명을 입력해 주세요.");
+		$("#productname").focus();
+		return false;
+	}
 
-        var input = document.createElement("input");
-        input.setAttribute("type","text"); 
-        input.setAttribute("class","");
-        input.setAttribute("name","sizemenu"); 
+	if ($("#inputprice").val().trim().length == 0) {
+		alert("가격을 입력해 주세요.");
+		$("#inputprice").focus();
+		return false;
+	}
 
-
-        div.appendChild(input); 
-       
-       
-        var button = document.createElement("button"); 
-        button.setAttribute("type","button");
-        button.setAttribute("class","btn btnColor2 float-right"); 
-        button.setAttribute("onclick","deleteRow(this);"); 
-        button.setAttribute("style","margin-left: 5px;");
-        button.innerHTML="삭제"; 
-        
-        div.appendChild(button);
-
-       document.getElementById("wrapper3").appendChild(div);
-      
-      };
-
-        // 삭제
-        function deleteRow(el){
-            // el에는 클릭된 버튼(this)이 담겨있음.
-
-            // 클릭된 버튼의 부모 요소(부모 노드)를 선택해서 제거 == 한줄제거
-            el.parentNode.remove();
-        }
+} */
 
 
-        document.getElementById("add2").onclick = function(){
-
-        // 1) div 태그 생성
-   //     var div =document.getElementById("wrapper4");
-        var div = document.createElement("div");
-        div.setAttribute("style","margin-top:10px;");
-        div.setAttribute("class","form-inline");
-        div.setAttribute("style"," white-space: nowrap;");
-
-
-
-        var input = document.createElement("input");
-        input.setAttribute("type","text"); 
-        input.setAttribute("class",""); 
-        input.setAttribute("name","colormenu"); 
-        div.appendChild(input); 
-
-
-        var button = document.createElement("button"); 
-        button.setAttribute("type","button");
-        button.setAttribute("class","btn btnColor2 float-right"); 
-        button.setAttribute("onclick","deleteRow(this);"); 
-        button.setAttribute("style","margin-left: 5px;");
-        button.innerHTML="삭제"; 
-
-        div.appendChild(button);
-
-        document.getElementById("wrapper4").appendChild(div);
-
-        
-        }; */
 
         
 	// 이미지 영역을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수

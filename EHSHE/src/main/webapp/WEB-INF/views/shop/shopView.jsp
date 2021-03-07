@@ -74,12 +74,18 @@ line-height:55px;
                 </div>
                   <div class="text-center" style="margin-top:10px;">
                   	<c:url var="updateUrl" value="${shop.itemNo}/update"/>
-	      				<button type="button" class="btn btnColor2" onclick="location.href='${updateUrl}'">상품수정</button>
-	      				<button type="button" class="btn btnColor2">상품삭제</button>
-	      			<button type="button" class="btn btnColor" data-toggle="modal" data-target="#myModal">
-	 	   					  쇼핑후기등록
-	 						</button>
+				      				<button type="button" class="btn btnColor2" onclick="location.href='${updateUrl}'">상품수정</button>
+				      				<button type="button" class="btn btnColor2">상품삭제</button>
+			 				   <c:if test="${empty sessionScope.returnListURL}">
+										<c:set var="returnListURL" value="../shopList/${shop.shopType}" scope="session"/>
+								</c:if>
+	 							<a class="btn btnColor2"  href="${sessionScope.returnListURL}">목록으로</a>
+				      			<button type="button" class="btn btnColor" data-toggle="modal" data-target="#myModal">
+				 	   					  쇼핑후기등록
+				 						</button>
 			        </div>
+	 						
+			        
                  </div>
            
            		 <div class="col-md-6">
@@ -91,23 +97,23 @@ line-height:55px;
                     	</tr>
                     	<tr>
 		                   	<td><strong>가격</strong> :</td>
-		                   	<td>${shop.itemPrice}원</td>
+		                   	<td><fmt:formatNumber value="${shop.itemPrice}" pattern="#,###"/>원</td>
                     	</tr>
                 			<tr>
                 				<td><strong>배송비</strong> : </td>
-                				<td>${shop.transCharge}원</td>
+                				<td><fmt:formatNumber value="${shop.transCharge}" pattern="#,###"/>원</td>
                 			</tr>
                 			
                 			<tr>
                 				<td><strong>옵션선택</strong> : </td>
                 				<td> 
                 		      <select name="select" class="form-control form-control-sm" style="width: 100%;"> 
-                           <option selected>옵션을 선택하세요.</option>
 													<c:if test="${!empty ShopOptionList}">
-					                 <c:forEach var="shopOption" items="${ShopOptionList}">
-			                       <option>${shopOption.optionSpecifyContent}</option>
-					               	 </c:forEach>
-	                        </c:if>
+                           <option selected>옵션을 선택하세요.</option>
+					                 		<c:forEach var="shopOption" items="${ShopOptionList}">
+					                      <option value="${shopOption.optionSpecify_NO}">${shopOption.optionSpecifyContent}</option>
+					               			 </c:forEach>
+					               	 </c:if>
                           </select>
                         </td>
                 			</tr>
@@ -263,6 +269,7 @@ line-height:55px;
      
 </body>
 <script>
+
   $(document).ready(function(){
     $("#myBtn").click(function(){
         $("#myModal").modal();
