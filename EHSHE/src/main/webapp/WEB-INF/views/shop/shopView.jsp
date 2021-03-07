@@ -140,7 +140,16 @@ line-height:55px;
                					<td>
                            <img src="${contextPath}/resources/shopCommonImg/별모양.png" class="star" style="width:25px; height:25px;">
                        </td>
-                				<td> 4.15</td>
+                      
+                      <c:choose>
+                        <c:when test="${!empty starRating}">
+                				 <td>${starRating.score}</td>
+                				</c:when>
+                				<c:otherwise>
+                				  <td>별점없음</td>
+                				</c:otherwise>
+                			</c:choose>
+                			
                 			</tr>
                 			<tr>
                 			<td></td>

@@ -114,11 +114,10 @@ public class ShopController {
 
 		if(shop != null) {
 			
-			/*
-			 * ShopScore starRating = service.selectStarRation(ShopAttachmentList);
-			 * model.addAttribute("starRating",starRating);
-			 * System.out.println(starRating+"dddddd");
-			 */
+			  ShopScore starRating = service.selectViewStarRation(itemNo);
+			  System.out.println(starRating+"dddddd");
+			  model.addAttribute("starRating",starRating);
+
 			
 			ShopAttachment ShopAttachmentList =service.selectShopAttachmentList(itemNo);
 			 

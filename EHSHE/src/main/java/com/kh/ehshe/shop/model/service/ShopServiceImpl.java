@@ -570,6 +570,12 @@ public class ShopServiceImpl implements ShopService {
 		return dao.selectShopHotList();
 	}
 
+	// 상세페이지 별점 조회
+	@Override
+	public ShopScore selectViewStarRation(int itemNo) {
+		return dao.selectViewStarRation(itemNo);
+	}
+
 	 
 
 	

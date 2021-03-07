@@ -121,6 +121,12 @@ public interface ShopService {
 	 */
 	List<Shop> selectShopHotList();
 
+	/** 상세페이지 별점 조회
+	 * @param itemNo
+	 * @return 
+	 */
+	ShopScore selectViewStarRation(int itemNo);
+
 
 	
 
