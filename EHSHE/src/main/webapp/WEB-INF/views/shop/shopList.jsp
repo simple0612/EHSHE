@@ -79,12 +79,19 @@ border: 1px solid black;
                             <div><strong>${shop.itemNm}</strong></div>
                             <div>가격: <fmt:formatNumber value="${shop.itemPrice}" pattern="#,###"/>원</div>
                             <div>배송비: <fmt:formatNumber value="${shop.transCharge}" pattern="#,###"/>원</div>
-
+         										 
+         							 <c:choose>
+         						       <c:when test="${!empty starRating}">
                           <c:forEach items="${starRating}" var="sr">
 						  							 <c:if test="${sr.itemNo == shop.itemNo}">
                               <img class="shopimg" src="${contextPath}/resources/shopCommonImg/별모양.png" style="width: 20px; height: 20px;">  ${sr.score}
- 													</c:if>
+ 														</c:if>
                        	  </c:forEach>
+ 													</c:when>
+ 													<c:otherwise>	
+	 														<div><img src="${contextPath}/resources/shopCommonImg/별모양.png" class="mainImg" style="width: 20px; height: 20px;"> 별점없음</div>
+    												</c:otherwise>
+                      	</c:choose>                
                         
                         </div>
                     </div>
@@ -93,6 +100,8 @@ border: 1px solid black;
                 </c:forEach>
             </c:if>
           </div>
+          
+          
              <!--  <div class="col-md-3">
                 <div class="mb-3 a">
                     <img src="여행.jpg" class="rounded mx-auto d-block shopimg">

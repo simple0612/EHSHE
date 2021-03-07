@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="replyMapper">
+	
+	<resultMap type="ShopReply" id="shopreply_rm">
+		<id property="replyNo" column="QA_NO"/>
+		<result property="replyContent" column="QA_CONTENT"/>
+		<result property="replyCreateDate" column="QA_CREATE_DT"/>
+		<result property="replyModifyDate" column="QA_MODIFY_DT"/>
+		<result property="replyStatus" column="QA_STATUS"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="parentBoardNo" column="ITEM_NO"/>
+		<result property="parentReplyNo" column="PARENT_QA_NO"/>
+		<result property="replyDepth" column="QA_DEPTH"/>
+	</resultMap>
+		
+
+	<!-- 댓글 목록 조회 -->
+	<select id="selectReplyList" parameterType="_int" resultMap="shopreply_rm">
+		SELECT * FROM V_SHOP_REPLY
+		WHERE QA_STATUS = 'Y'
+		AND ITEM_NO = #{parentBoardNo}
+		AND PARENT_QA_NO IN ( SELECT QA_NO FROM V_SHOP_REPLY
+                             WHERE QA_STATUS = 'Y'
+                             AND QA_DEPTH = 0
+                             AND ITEM_NO = #{parentBoardNo} )
+		ORDER BY PARENT_QA_NO DESC,  
+	            CASE WHEN PARENT_QA_NO = QA_NO  THEN 99999999
+	            ELSE  QA_NO END DESC
+ </select>
+	 
+
+	<!-- 댓글 삽입 -->
+	<insert id="insertReply" parameterType="map">
+		INSERT INTO EH_ITEM_QA(QA_NO, QA_CONTENT,ITEM_NO,
+										  PARENT_QA_NO, MEMBER_NO)
+	  VALUES(SEQ_SRNO.NEXTVAL, #{replyContent},#{parentBoardNo},
+			 	   SEQ_SRNO.CURRVAL, #{replyWriter})
+	</insert>
+	
+	<update id="updateReply" parameterType="ShopReply">
+		UPDATE EH_ITEM_QA SET
+		QA_CONTENT = #{replyContent},
+		QA_MODIFY_DT = SYSDATE
+		WHERE QA_NO = #{replyNo}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<update id="deleteReply" parameterType="_int">
+		UPDATE EH_ITEM_QA SET
+		QA_STATUS = 'N'
+		WHERE QA_NO = #{replyNo}
+	</update>
+	
+	<!--대댓글 삽입 -->
+	<insert id="insertChildReply" parameterType="map">
+	 INSERT INTO EH_ITEM_QA
+	 (QA_NO,QA_CONTENT,ITEM_NO,
+	 	PARENT_QA_NO, MEMBER_NO,QA_DEPTH)
+	 VALUES(SEQ_SRNO.NEXTVAL,#{replyContent},#{parentBoardNo},
+	 #{parentReplyNo}, #{replyWriter},1)
+	</insert>	
+</mapper>

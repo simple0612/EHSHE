@@ -562,6 +562,14 @@ public class ShopServiceImpl implements ShopService {
 		return dao.selectShopSearchList(search,pInfo);
 	}
 
+	/**
+	 * 메인페이지 인기순위 리스트 조회
+	 */
+	@Override
+	public List<Shop> selectShopHotList() {
+		return dao.selectShopHotList();
+	}
+
 	 
 
 	

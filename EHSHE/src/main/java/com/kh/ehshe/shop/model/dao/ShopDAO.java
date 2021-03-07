@@ -216,6 +216,13 @@ public class ShopDAO {
 	public int insertOptionNoDeatail(int shopOptionNo) {
 		return sqlSession.insert("shopMapper.insertOtionNoDetail",shopOptionNo);
 	}
+
+	/** 메인페이지 인기순위 리스트 조회
+	 * @return
+	 */
+	public List<Shop> selectShopHotList() {
+		return sqlSession.selectList("shopMapper.selectMainHotList");
+	}
 	
 	
 
