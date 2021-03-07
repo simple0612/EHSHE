@@ -1,0 +1,31 @@
+header{
+    position:relative !important;
+}
+
+.ehsheYellow{
+    background-color: #F5dF4D !important;
+}
+
+.placeMain {
+    margin-top: 50px;
+}
+
+.container-fluid {
+    margin-top: 15px;
+}
+
+h4{
+    border-bottom: 1px solid rgb(160, 160, 160);
+}
+
+.table1 td:first-child {
+    width: 150px;
+}
+
+.insert-place{
+    justify-content: center; 
+}
+
+.name>td:nth-of-type(2){
+    width: 80%;
+}

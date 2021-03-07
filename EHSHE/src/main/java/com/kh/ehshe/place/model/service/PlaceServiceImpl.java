@@ -232,18 +232,6 @@ public class PlaceServiceImpl implements PlaceService{
 	
 	
 	
-	// 크로스 사이트 스크립팅 방지 메소드
-	private String replaceParameter(String param) {
-		String result = param;
-		if (param != null) {
-			result = result.replaceAll("&", "&amp;");
-			result = result.replaceAll("<", "&lt;");
-			result = result.replaceAll(">", "&gt;");
-			result = result.replaceAll("\"", "&quot;");
-		}
-
-		return result;
-	}
 	
 	public String rename(String originFileName) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
@@ -260,13 +248,39 @@ public class PlaceServiceImpl implements PlaceService{
 		return date + str + ext;
 	}
 	
-	
+	// place 게시글 삭제 Service 구현
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int deletePlace(int placeNo) {
 		int result = dao.deletePlace(placeNo);
 		
 		return result;
+	}
+
+	// 즐겨찾기 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertScrap(Map<String, Integer> map) {
+		return dao.insertScrap(map);
+	}
+
+	// 즐겨찾기 취소 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteScrap(Map<String, Integer> map) {
+		return dao.deleteScrap(map);
+	}
+
+	// 즐겨찾기 수 카운트 Service 구현
+	@Override
+	public int selectScrapCount(int placeNo) {
+		return dao.selectScrapCount(placeNo);
+	}
+
+	// 자신이 즐겨찾기한 글인지 조회 Service 구현
+	@Override
+	public int selectScrapFl(Map<String, Integer> map) {
+		return dao.selectScrapFl(map);
 	}
 	
 }

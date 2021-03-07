@@ -20,7 +20,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
-<link rel="stylesheet" href="${contextPath}/resources/css/place/placeList.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/place/placeMain.css">
 
 <style>
 </style>
@@ -65,7 +65,7 @@
 					</div>
 				</div>
 				
-				<h4>EHSHE 장소</h4>
+				<h4>요즘 뜨는 장소</h4>
 				<div class="row">
 					<c:if test="${!empty pList }">
 						<c:forEach var="place" items="${pList}" varStatus="vs">
@@ -91,89 +91,6 @@
 							</div>
 						</c:forEach>
 					</c:if>
-				</div>
-				
-				
-				<%-- ----------------------------페이지 네이션 --------------------------------- --%>
-				<div class="row">
-					<div class="col-md-2"></div>
-						<div class="col-md-8">
-							<div class="pagination-area">
-								<ul class="pagination">
-								
-								<c:choose>
-								<%-- 검색이 된 경우 --%>
-									<c:when test="${!empty search}">
-										<c:forEach items="${search.ct}" var="c">
-											<c:set var="category" value="${category}ct=${c}&"/>
-										</c:forEach>
-										
-										<c:set var="searchStr" value="${category}"/>
-										
-										<%-- 검색된 내용이 있다면 --%>
-										<c:if test="${!empty search.sv }">
-											<c:set var="searchStr" value="${category}sk=${search.sk}&sv=${search.sv}"/>
-										</c:if>
-										
-										<c:url var="pageUrl" value="../search/?${searchStr}"/>
-										<c:set var="returnListURL" value="${contextPath}/place/search/${pageUrl}cp=${pInfo.currentPage}" scope="session"/>
-										
-									</c:when>
-									<%-- 검색이 되지 않은 경우 --%>
-									<c:otherwise>
-									<c:set var="returnListURL" value="${contextPath}/place/placeList/${pageUrl}cp=${pInfo.currentPage}" scope="session"/>
-										<c:url var="pageUrl" value="?"/>
-									</c:otherwise>
-								</c:choose>
-								
-								
-								
-	
-								<c:set var="firstPage" value="${pageUrl}cp=1" />
-								<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}" />
-
-								<fmt:parseNumber var="c1"
-									value="${(pInfo.currentPage - 1) / 10 }" integerOnly="true" />
-								<fmt:parseNumber var="prev" value="${ c1 * 10 }"
-									integerOnly="true" />
-								<c:set var="prevPage" value="${pageUrl}cp=${prev}" />
-
-								<fmt:parseNumber var="c2"
-									value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
-								<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }"
-									integerOnly="true" />
-								<c:set var="nextPage" value="${pageUrl}cp=${next}" />
-
-								<c:if test="${pInfo.currentPage > pInfo.pageSize}">
-									<li><a class="page-link" href="${firstPage}">&lt;&lt;</a></li>
-
-									<li><a class="page-link" href="${prevPage}">&lt;</a></li>
-								</c:if>
-
-								<!-- 페이지 목록 -->
-								<c:forEach var="page" begin="${pInfo.startPage}"
-									end="${pInfo.endPage}">
-									<c:choose>
-										<c:when test="${pInfo.currentPage == page }">
-											<li><a class="page-link">${page}</a></li>
-										</c:when>
-
-										<c:otherwise>
-											<li><a class="page-link" href="${pageUrl}cp=${page}">${page}</a>
-											</li>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-
-								<c:if test="${next <= pInfo.maxPage}">
-									<li><a class="page-link" href="${nextPage }">&gt;</a></li>
-
-									<li><a class="page-link" href="${lastPage }">&gt;&gt;</a></li>
-								</c:if>
-								</ul>
-							</div>
-						</div>
-					<div class="col-md-2"></div>
 				</div>
 				
 			<div class="col-md-2"></div>

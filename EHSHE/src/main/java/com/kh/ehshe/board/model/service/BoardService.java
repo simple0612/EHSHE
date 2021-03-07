@@ -49,7 +49,7 @@ public interface BoardService {
 
 	public abstract Attachment insertImage(MultipartFile uploadFile, String savePath);
 
-	public abstract int updateBoard(Board updateBoard, List<MultipartFile> image, String savePath, String cSavePath);
+	public abstract int updateBoard(Board updateBoard, List<MultipartFile> image, String savePath);
 
 	/** 게시글 삭제 Service
 	 * @param boardNo
@@ -70,5 +70,29 @@ public interface BoardService {
 	 * @return bList
 	 */
 	public abstract List<VBoard> selectSearchList(PageInfo pInfo, Map<String, Object> map);
+
+	/** 자신이 좋아요 한 글인지 조회 Service
+	 * @param map
+	 * @return result
+	 */
+	public abstract int selectLikeFl(Map<String, Integer> map);
 	
+	/** 좋아요 Service
+	 * @param map
+	 * @return result
+	 */
+	public abstract int insertLike(Map<String, Integer> map);
+
+	/** 좋아요 취소 Service
+	 * @param map
+	 * @return reuslt
+	 */
+	public abstract int deleteLike(Map<String, Integer> map);
+
+	
+	/** 좋아요 수 조회 Service
+	 * @param boardNo
+	 * @return result
+	 */
+	public abstract int selectLikeCount(int boardNo);
 }

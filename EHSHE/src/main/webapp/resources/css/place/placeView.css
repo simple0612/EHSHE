@@ -6,13 +6,17 @@ header{
     background-color: #F5dF4D !important;
 }
 
-.boardMain {
+.placeMain {
     margin-top: 50px;
 }
 
 body {
 	border-bottom: 1px solid gray;
 }
+
+.scrap:hover{
+	cursor:pointer;
+}}
 
 .view-header {
 	margin-top: 20px;

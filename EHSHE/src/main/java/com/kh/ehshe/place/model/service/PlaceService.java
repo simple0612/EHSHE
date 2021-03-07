@@ -66,5 +66,29 @@ public interface PlaceService {
 	 */
 	int deletePlace(int placeNo);
 
+	/** 즐겨찾기 Service
+	 * @param map
+	 * @return result
+	 */
+	int insertScrap(Map<String, Integer> map);
+
+	/** 즐겨찾기 취소 Service
+	 * @param map
+	 * @return result
+	 */
+	int deleteScrap(Map<String, Integer> map);
+
+	/** 즐겨찾기 수 카운트 Service
+	 * @param placeNo
+	 * @return result
+	 */
+	int selectScrapCount(int placeNo);
+
+	/** 자신이 즐겨찾기한 글인지 조회 Service
+	 * @param map
+	 * @return result
+	 */
+	int selectScrapFl(Map<String, Integer> map);
+
 
 }

@@ -127,8 +127,49 @@ public class PlaceDAO {
 	
 	
 	
+	/** place 게시글 삭제 DAO
+	 * 작성자 mang
+	 * @param placeNo
+	 * @return
+	 */
 	public int deletePlace(int placeNo) {
 		return sqlSession.update("placeMapper.deletePlace", placeNo);
+	}
+
+	/** 즐겨찾기 DAO
+	 * 작성자 mang
+	 * @param map
+	 * @return result
+	 */
+	public int insertScrap(Map<String, Integer> map) {
+		return sqlSession.insert("placeMapper.insertScrap", map);
+	}
+
+	/** 즐겨찾기 취소 DAO
+	 * 작성자 mang
+	 * @param map
+	 * @return result
+	 */
+	public int deleteScrap(Map<String, Integer> map) {
+		return sqlSession.delete("placeMapper.deleteScrap", map);
+	}
+
+	/** 즐겨찾기 수 카운트 DAo
+	 * 작성자 mang
+	 * @param placeNo
+	 * @return result
+	 */
+	public int selectScrapCount(int placeNo) {
+		return sqlSession.selectOne("placeMapper.selectScrapCount", placeNo);
+	}
+
+	/** 자신이 즐겨찾기 한 글인지 조회 DAO
+	 * 작성자 mang
+	 * @param map
+	 * @return result
+	 */
+	public int selectScrapFl(Map<String, Integer> map) {
+		return sqlSession.selectOne("placeMapper.selectScrapFl", map);
 	}
 
 	
