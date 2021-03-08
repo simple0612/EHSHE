@@ -40,7 +40,7 @@
         <nav>
             <div class="logo_area">
                 <a href="${contextPath}">
-                    <img id="logo_img" src="${contextPath}/resources/images/ehsheLogo.png">
+                    <img id="logo_img" src="${contextPath}/resources/images/ehshe_final_logo.png">
                 </a>
             </div>
 
