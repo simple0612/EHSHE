@@ -106,11 +106,11 @@ line-height:55px;
                     	</tr>
                     	<tr>
 		                   	<td><strong>가격</strong> :</td>
-		                   	<td><fmt:formatNumber value="${shop.itemPrice}" pattern="#,###"/>원</td>
+		                   	<td id="iprice"><fmt:formatNumber value="${shop.itemPrice}" pattern="#,###"/>원</td>
                     	</tr>
                 			<tr>
                 				<td><strong>배송비</strong> : </td>
-                				<td><fmt:formatNumber value="${shop.transCharge}" pattern="#,###"/>원</td>
+                				<td id="sprice"><fmt:formatNumber value="${shop.transCharge}" pattern="#,###"/>원</td>
                 			</tr>
                 			
                 			<tr>
@@ -134,7 +134,7 @@ line-height:55px;
                 			</tr>
                 			<tr>
                 				<td><strong>Total</strong> : </td>
-                				<td>${shop.itemPrice}원</td>
+                				<td id="isprice">${shop.itemPrice}원</td>
                 			</tr>
                 			<tr>
                					<td>
@@ -361,6 +361,55 @@ line-height:55px;
 		
 		return true;
 	}
+	
+	
+/* 	var iprice =${shop.itemPrice}
+	
+	var sprice =${shop.transCharge}
+	var isprice = 0;
+	console.log(iprice);
+	console.log(sprice);
+	
+	if(iprice < 20000){
+		
+		isprice = iprice + sprice
+		$("#isprice").text(isprice + "원")
+		console.log(isprice);
+	}else{
+		isprice = iprice
+		$("#isprice").text(isprice + "원")
+		console.log(isprice);
+	} */
+	
+	var sprice =${shop.transCharge}
+	var iprice =${shop.itemPrice}
+	var inumber = 1;
+	$("#Quantity").on("change", function(){
+		
+		inumber = Number($(this).val());
+		
+		var total = iprice * inumber
+		
+		if(total < 20000){
+			
+			total = total + sprice
+			console.log(total)
+			
+			$("#isprice").text(total);
+		
+		}else{
+			
+			$("#isprice").text(total);
+		}
+		
+		
+		console.log(inumber);
+	});
+	
+	
+	
+	
+	
 	
   
   

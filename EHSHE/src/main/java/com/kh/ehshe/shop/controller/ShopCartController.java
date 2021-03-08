@@ -220,7 +220,7 @@ public class ShopCartController {
 		
 		int result = service.insertPayment(map);
 		
-		
+		System.out.println("결과  : " +  result);
 		return result;
 	}
 	
