@@ -9,6 +9,15 @@
 		<result property="buyingQuantity" column="BUYING_QUANTITY" />
 		<result property="itemNo" column="ITEM_NO" />
 	</resultMap>
+	
+	<resultMap type="Pitem" id="pitem_rm">
+		<result property="optionSpecifyContent" column="OPTION_SPECIFY_CONTENT" />
+		<result property="itemNm" column="ITEM_NM" />
+		<result property="itemNo" column="ITEM_NO" />
+		<result property="itemPrice" column="ITEM_PRICE" />
+		<result property="imgName" column="IMG_NAME" />
+		<result property="imgPath" column="IMG_PATH" />
+	</resultMap>
 
 
 	<resultMap type="ShopCart" id="shopCart_rm">
@@ -152,8 +161,25 @@
 			close=")" separator=",">
 			#{optionNo}
 		</foreach>
-	
 	</delete>
+	
+	
+	<!-- 상세페이지에서 결제 버튼 누른 아이템 정보 조회-->
+	<select id="itemPayment" parameterType="map"
+		resultMap="pitem_rm">
+		SELECT OPTION_SPECIFY_CONTENT, ITEM_NM, ITEM_NO, ITEM_PRICE, IMG_NAME, IMG_PATH
+		FROM EH_ITEM_OPTIONDETAIL
+		JOIN EH_ITEM_OPTION USING(OPTION_NO)
+		JOIN EH_ITEM USING(ITEM_NO)
+		JOIN EH_ITEM_IMG USING(ITEM_NO)
+		WHERE IMG_LEVEL = 0
+		AND OPTION_SPECIFY_NO = #{OptionSpecifyNo}
+		
+	</select>
+	
+	
+	
+	
 	
 	
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.ehshe.shop.model.vo.Cart;
+import com.kh.ehshe.shop.model.vo.Pitem;
 import com.kh.ehshe.shop.model.vo.ShopCart;
 
 
@@ -119,5 +120,18 @@ public class ShopCartDAO {
 	public int insertCart(Cart insertItem) {
 		
 		return sqlSession.insert("cartMapper.insertCart", insertItem);
+	}
+
+
+
+
+
+	/** 상세페이지에서 결제 버튼 누르면 결제페이지로 이동.
+	 * @param map
+	 * @return list
+	 */
+	public List<Pitem> itemPayment(Map<String, Object> map) {
+		
+		return sqlSession.selectList("cartMapper.itemPayment", map);
 	}
 }
