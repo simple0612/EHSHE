@@ -23,6 +23,9 @@ public class VPlace {
 	private String holiday;
 	private String enroll;
 	private String enrollContents;
+	private String memberId;
+	private String memberNm;
+	private int favoriteCount;
 	
 	public VPlace() {
 		// TODO Auto-generated constructor stub
@@ -31,7 +34,7 @@ public class VPlace {
 	public VPlace(int placeNo, String placeTitle, String placeContent, Date placeCtreateDate, Date placeModifyDate,
 			String location, String categoryName, String phone, int readCount, String placeDeleteFl, double latitude,
 			double longitude, int adminNo, String priceRange, String businessHours, String parking, String holiday,
-			String enroll, String enrollContents) {
+			String enroll, String enrollContents, String memberId, String memberNm, int favoriteCount) {
 		super();
 		this.placeNo = placeNo;
 		this.placeTitle = placeTitle;
@@ -52,6 +55,9 @@ public class VPlace {
 		this.holiday = holiday;
 		this.enroll = enroll;
 		this.enrollContents = enrollContents;
+		this.memberId = memberId;
+		this.memberNm = memberNm;
+		this.favoriteCount = favoriteCount;
 	}
 
 	public int getPlaceNo() {
@@ -206,6 +212,30 @@ public class VPlace {
 		this.enrollContents = enrollContents;
 	}
 
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+	public String getMemberNm() {
+		return memberNm;
+	}
+
+	public void setMemberNm(String memberNm) {
+		this.memberNm = memberNm;
+	}
+
+	public int getFavoriteCount() {
+		return favoriteCount;
+	}
+
+	public void setFavoriteCount(int favoriteCount) {
+		this.favoriteCount = favoriteCount;
+	}
+
 	@Override
 	public String toString() {
 		return "VPlace [placeNo=" + placeNo + ", placeTitle=" + placeTitle + ", placeContent=" + placeContent
@@ -214,9 +244,11 @@ public class VPlace {
 				+ ", placeDeleteFl=" + placeDeleteFl + ", latitude=" + latitude + ", longitude=" + longitude
 				+ ", adminNo=" + adminNo + ", priceRange=" + priceRange + ", businessHours=" + businessHours
 				+ ", parking=" + parking + ", holiday=" + holiday + ", enroll=" + enroll + ", enrollContents="
-				+ enrollContents + "]";
+				+ enrollContents + ", memberId=" + memberId + ", memberNm=" + memberNm + ", favoriteCount="
+				+ favoriteCount + "]";
 	}
 
+	
 
 	
 	

@@ -44,11 +44,29 @@ public interface BoardService {
 	 */
 	public abstract List<Attachment> selectAttachmentList(int boardNo);
 
+	/**
+	 * @param map
+	 * @param image
+	 * @param thumbnailSavePath
+	 * @param contentsavePath
+	 * @return
+	 */
 	public abstract int insertBoard(Map<String, Object> map, List<MultipartFile> image, String thumbnailSavePath,
 			String contentsavePath);
 
+	/**
+	 * @param uploadFile
+	 * @param savePath
+	 * @return
+	 */
 	public abstract Attachment insertImage(MultipartFile uploadFile, String savePath);
 
+	/**
+	 * @param updateBoard
+	 * @param image
+	 * @param savePath
+	 * @return
+	 */
 	public abstract int updateBoard(Board updateBoard, List<MultipartFile> image, String savePath);
 
 	/** 게시글 삭제 Service

@@ -15,8 +15,10 @@
 		<typeAlias type="com.kh.ehshe.board.model.vo.VBReply" alias="VBReply"/>
 		<typeAlias type="com.kh.ehshe.board.model.vo.BReply" alias="BReply"/>
 		<typeAlias type="com.kh.ehshe.board.model.vo.Attachment" alias="Attachment"/>
-		<typeAlias type="com.kh.ehshe.place.model.vo.VPlace" alias="VPlace"/>
 		<typeAlias type="com.kh.ehshe.place.model.vo.Place" alias="Place"/>
+		<typeAlias type="com.kh.ehshe.place.model.vo.VPlace" alias="VPlace"/>
+		<typeAlias type="com.kh.ehshe.place.model.vo.VPReview" alias="VPReview"/>
+		<typeAlias type="com.kh.ehshe.place.model.vo.PReview" alias="PReview"/>
 		<typeAlias type="com.kh.ehshe.place.model.vo.PAttachment" alias="PAttachment"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.Shop" alias="Shop"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopCart" alias="ShopCart"/>
@@ -31,8 +33,10 @@
 		<typeAlias type="com.kh.ehshe.home.model.vo.TopItem" alias="TopItem"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.Cart" alias="Cart"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.Pitem" alias="Pitem"/>
-			<typeAlias type="com.kh.ehshe.shop.model.vo.Cart" alias="ITemReview"/>
-			<typeAlias type="com.kh.ehshe.shop.model.vo.Cart" alias="QandA"/>
+		<typeAlias type="com.kh.ehshe.shop.model.vo.Cart" alias="ITemReview"/>
+		<typeAlias type="com.kh.ehshe.shop.model.vo.Cart" alias="QandA"/>
+		<typeAlias type="com.kh.ehshe.place.model.vo.SearchPlace" alias="SearchPlace"/>
+		
 	</typeAliases>
 
 	<mappers>
@@ -41,11 +45,11 @@
 		<mapper resource="/mappers/board-mapper.xml"/>
 		<mapper resource="/mappers/bReply-mapper.xml"/>
 		<mapper resource="/mappers/place-mapper.xml"/>
+		<mapper resource="/mappers/pReview-mapper.xml"/>
 		<mapper resource="/mappers/shop-mapper.xml"/>
 		<mapper resource="/mappers/cart-mapper.xml"/>
 		<mapper resource="/mappers/main-mapper.xml"/>
 		<mapper resource="/mappers/ShopReply-mapper.xml"/>
-		
 	</mappers>
 	
 	  

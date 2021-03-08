@@ -96,8 +96,12 @@
 							<c:set var="loca" value="${fn:split(place.location,',')[1]}" />
 							
 							<span>${fn:split(loca,' ')[0]} - ${place.categoryName}</span> <br>
-							<span>뷰 ${place.readCount} 댓글 234 스크랩 312</span>
+							<span>뷰 ${place.readCount}</span>
+							<span>댓글</span>
+							<span>스크랩 </span>
+							<span id="favoriteCount">${place.favoriteCount}</span>
 						</div>
+						
 						<div class="view-body menuTable">
 							<table>
 								<tr>
@@ -175,7 +179,15 @@
 				<div class="row">
 					<div class="col-md-12 btnBox">	
 						<a class="btn ehsheYellow"
-								href="${sessionScope.returnListURL}">목록으로</a>				
+								href="${sessionScope.returnListURL}">목록으로</a>		
+								
+						<c:url var="updateUrl" value="${place.placeNo}/update" />
+								
+						<c:if
+						test="${(loginMember != null) && (place.adminNo == loginMember.memberNo)}">
+						<button id="deleteBtn" class="btn ehsheYellow">삭제</button>
+						<a href="${updateUrl}" class="btn ehsheYellow ml-1 mr-1">수정</a>
+					</c:if>		
 					</div>
 				</div>
 
@@ -289,8 +301,9 @@
   var scrapFl = ${scrapFl};
   var placeNo = ${place.placeNo};
   
-  $(".scrap").click(function() {
-     var url;
+  $(".scrap").on("click",function() {
+     
+	  var url;
      
      if(scrapFl == 0){
      	url = "insertScrap";
@@ -298,24 +311,42 @@
      	url = "deleteScrap";
      }
      	
+     
      $.ajax({
-        url : url,
+    	 url : url,
+         data : {"placeNo" : placeNo},
+         success : function(result){
+            if(scrapFl == 0){
+         	   scrapFl = 1;
+               $(".scrap").attr("src", "${contextPath}/resources/images/scrap2.png");
+               $("#scrapFl").text("즐겨찾기 취소");
+            }else{
+         	   scrapFl = 0;
+               $(".scrap").attr("src", "${contextPath}/resources/images/scrap1.png");
+               $("#scrapFl").text("즐겨찾기");
+            }
+            
+            selectFavoriteCount();
+            
+         },error : function(){
+            console.log("즐겨찾기 실패");
+         }
+     })
+     
+  });
+  
+  // 즐겨찾기 개수 카운트
+  function selectFavoriteCount(){
+     $.ajax({
+        url : "selectScrapCount",
         data : {"placeNo" : placeNo},
-        success : function(result){
-           if(scrapFl == 0){
-        	   scrapFl = 1;
-              $(".scrap").attr("src", "${contextPath}/resources/images/scrap2.png");
-              $("#scrapFl").text("즐겨찾기 취소");
-           }else{
-        	   scrapFl = 0;
-              $(".scrap").attr("src", "${contextPath}/resources/images/scrap1.png");
-              $("#scrapFl").text("즐겨찾기");
-           }
+        success : function(favoriteCount){
+           $("#favoriteCount").text(favoriteCount);
         },error : function(){
-           console.log("즐겨찾기 실패");
+           console.log("좋아요 카운트 실패")
         }
      });
-  });
+  }
 </script>
 
 </body>

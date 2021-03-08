@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -25,6 +26,7 @@ import com.kh.ehshe.place.model.service.PlaceService;
 import com.kh.ehshe.place.model.vo.PAttachment;
 import com.kh.ehshe.place.model.vo.Place;
 import com.kh.ehshe.place.model.vo.PlacePageInfo;
+import com.kh.ehshe.place.model.vo.SearchPlace;
 import com.kh.ehshe.place.model.vo.VPlace;
 
 @Controller
@@ -41,7 +43,8 @@ public class PlaceController {
 	
 	// placeMain 목록 조회 Controller
 	@RequestMapping("placeMain")
-	public String PlaceMain(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+	public String PlaceMain(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model
+			) {
 		
 		PlacePageInfo pInfo = service.getPlacePageInfo(cp);
 		
@@ -57,8 +60,6 @@ public class PlaceController {
 		}
 		model.addAttribute("pList", pList);
 		model.addAttribute("pInfo", pInfo);
-		
-		
 		
 		return "place/placeMain";
 	}
@@ -82,6 +83,7 @@ public class PlaceController {
 		}
 		model.addAttribute("pList", pList);
 		model.addAttribute("pInfo", pInfo);
+		
 		
 		return "place/placeList";
 	}
@@ -221,24 +223,48 @@ public class PlaceController {
 		}  
 		model.addAttribute("place", place);
 
-		return "/place/placeUpdate";
+		return "place/placeUpdate";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// place 게시글 수정 Controller
+	@RequestMapping("{placeNo}/updateAction")
+	public String updateAction(@RequestParam(value="image", required = false) List<MultipartFile> image,
+								@PathVariable("placeNo") int placeNo,
+								@ModelAttribute Place updatePlace,
+								Model model, RedirectAttributes ra,
+								HttpServletRequest request,
+								@RequestHeader(value = "referer", required = false) String referer) {
+		
+		
+		for(MultipartFile m : image) {
+			System.out.println(m.getOriginalFilename());
+		}
+		
+		updatePlace.setPlaceNo(placeNo);
+		
+		// 파일 저장 경로 얻어오기
+		String tSavePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
+		
+		// 파일 수정 Service 호출
+		int result = service.updatePlace(updatePlace, image, tSavePath);
+		
+		String url = null;
+		
+		if(result > 0) {
+			swalIcon = "success";
+			swalTitle = "Place 수정 성공";
+			url = "redirect:../"+ placeNo;  
+		}else {
+			swalIcon = "error";
+			swalTitle = "Place 수정 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return url;
+	}
 	
 	@RequestMapping("deleteAction/{placeNo}")
 	public String deletePlace(@PathVariable("placeNo") int placeNo, RedirectAttributes ra,
@@ -265,10 +291,26 @@ public class PlaceController {
 		return url;
 	}
 	
-	
-	
-	
-	
+	// place 검색 Controller
+	@RequestMapping("search")
+	public String searchPlace(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+							@ModelAttribute SearchPlace search, Model model) {
+		
+		PlacePageInfo pInfo = service.getSearchPageInfo(search, cp);
+		
+		List<VPlace> pList = service.selectSearchList(pInfo, search);
+		
+		if(!pList.isEmpty()) {
+			List<PAttachment> thList = service.selectThumbnailList(pList);
+			model.addAttribute("thList", thList);
+			
+		}
+		model.addAttribute("pList", pList);
+		model.addAttribute("pInfo", pInfo);
+		model.addAttribute("search", search);
+		
+		return "place/placeList";
+	}
 	
 	// 즐겨찾기 Contoller
    @ResponseBody
@@ -306,7 +348,6 @@ public class PlaceController {
    @ResponseBody
    @RequestMapping("selectScrapCount")
    public int selectScrapCount(@RequestParam("placeNo") int placeNo) {
-
       return service.selectScrapCount(placeNo);
    }
 	

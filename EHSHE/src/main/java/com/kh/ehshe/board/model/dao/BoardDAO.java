@@ -163,6 +163,14 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.deleteBoard", boardNo);
 	}
 
+	/** 파일 정보 일괄 삭제 DAO
+	 * 작성자 mang
+	 * @param deleteFileNoList
+	 * @return result
+	 */
+	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
+		return sqlSession.delete("boardMapper.deleteAttachmentList", deleteFileNoList);
+	}
 
 	/** 검색조건에 맞는 게시글 수 조회 DAO
 	 * 작성자 mang
@@ -182,17 +190,6 @@ public class BoardDAO {
 		
 		return sqlSession.selectList("boardMapper.selectSearchList", map, rowBounds);
 	}
-
-
-	/** 파일 정보 일괄 삭제 DAO
-	 * 작성자 mang
-	 * @param deleteFileNoList
-	 * @return result
-	 */
-	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
-		return sqlSession.delete("boardMapper.deleteAttachmentList", deleteFileNoList);
-	}
-
 
 	/** 자신이 좋아요 한 글인지 조회 Service
     * @param map

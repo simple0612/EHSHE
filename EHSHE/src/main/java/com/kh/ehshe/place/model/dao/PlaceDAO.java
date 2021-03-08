@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.ehshe.place.model.vo.PAttachment;
+import com.kh.ehshe.place.model.vo.Place;
 import com.kh.ehshe.place.model.vo.PlacePageInfo;
+import com.kh.ehshe.place.model.vo.SearchPlace;
 import com.kh.ehshe.place.model.vo.VPlace;
 
 @Repository
@@ -69,7 +71,7 @@ public class PlaceDAO {
 
 	/** 게시글 이미지 목록 조회 DAO
 	 * 작성자 mang
-	 * @param boardNo
+	 * @param placeNo
 	 * @return Thumbnail
 	 */
 	public PAttachment selectAttachment(int placeNo) {
@@ -78,7 +80,7 @@ public class PlaceDAO {
 	
 	/** 게시글 이미지 목록 조회 DAO
 	 * 작성자 mang
-	 * @param boardNo
+	 * @param placeNo
 	 * @return attachmentList
 	 */
 	public List<PAttachment> selectAttachmentList(int placeNo) {
@@ -111,7 +113,31 @@ public class PlaceDAO {
 		return sqlSession.insert("placeMapper.insertAttachmentList", uploadImages);
 	}
 
-	
+	/** Place 수정 DAO
+	 * @param updatePlace
+	 * @return result
+	 */
+	public int updatePlace(Place updatePlace) {
+		return sqlSession.update("placeMapper.updatePlace", updatePlace);
+	}
+
+	/** 파일 정보 수정 DAO
+	 * 작성자 mang
+	 * @param at
+	 * @return
+	 */
+	public int updatePAttachment(PAttachment at) {
+		return sqlSession.update("placeMapper.updatePAttachment", at);
+	}
+
+	/** 파일 정보 삽입 DAO
+	 *  작성자 mang
+	 * @param at
+	 * @return
+	 */
+	public int insertPAttachment(PAttachment at) {
+		return sqlSession.insert("placeMapper.insertPAttachment", at);
+	}
 	
 	
 	
@@ -171,6 +197,50 @@ public class PlaceDAO {
 	public int selectScrapFl(Map<String, Integer> map) {
 		return sqlSession.selectOne("placeMapper.selectScrapFl", map);
 	}
+
+	/** 검색조건이 포함된 페이징 처리 객체 생성 DAO
+	 * 작성자 mang
+	 * @param search
+	 * @return listCount
+	 */
+	public int getSearchListCount(SearchPlace search) {
+		
+		return sqlSession.selectOne("placeMapper.getSearchListCount", search);
+	}
+
+	/** 검색 조건이 포함된 게시글 목록 조회 DAO
+	 * @param search
+	 * @param pInfo
+	 * @return pList
+	 */
+	public List<VPlace> selectSearchList(SearchPlace search, PlacePageInfo pInfo) {
+		
+		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		
+		return sqlSession.selectList("placeMapper.selectSearchList", search, rowBounds);
+	}
+
+	/** 파일 정보 삭제 DAO
+	 * 작성자 mang
+	 * @param fileNo
+	 * @return result
+	 */
+	public int deletePAttachment(int fileNo) {
+		return sqlSession.delete("placeMapper.deletePAttachment", fileNo);
+	}
+
+	/** 파일 정보 일괄 삭제 DAO
+	 * 작성자 mang
+	 * @param deleteFileNoList
+	 * @return result
+	 */
+	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
+		return sqlSession.delete("placeMapper.deleteAttachmentList", deleteFileNoList);
+	}
+
+	
 
 	
 	

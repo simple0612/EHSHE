@@ -65,7 +65,7 @@
 					</div>
 				</div>
 				
-				<h4>요즘 뜨는 장소</h4>
+				<h4>EHSHE 추천 맛집</h4>
 				<div class="row">
 					<c:if test="${!empty pList }">
 						<c:forEach var="place" items="${pList}" varStatus="vs">
@@ -74,7 +74,63 @@
 									<div style="display: none;">${place.placeNo}</div>
 									<c:forEach var="th" items="${thList}">
 											<c:if test="${th.placeNo == place.placeNo}">
-												<img class="card-img-top" src="${contextPath}/resources/uploadImages/210303203008_53871.jpg"/>
+												<img class="card-img-top" src="${contextPath}${th.filePath}/${th.fileName}"/>
+											</c:if>
+									</c:forEach>
+									<div class="card-block">
+										<h6 class="card-title">
+											<span>${place.placeTitle}</span><span class="" href="#">별점 4.2</span>
+										</h6>
+										<p class="card-text">
+										<c:set var = "loca" value="${fn:split(place.location,',')[1]}" />
+											<span class="" href="#">${fn:split(loca,' ')[0]}</span> - <span class="" href="#">음식점</span>
+											<span class="" href="#">뷰${place.readCount} 댓글 아직</span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
+				</div>
+
+				<img class="" src="${contextPath}/resources/images/scrap2.png"/>
+				<div class="row">
+					<c:if test="${!empty pList }">
+						<c:forEach var="place" items="${pList}" varStatus="vs">
+							<div class="col-md-6 width400">
+								<div class="card">
+									<div style="display: none;">${place.placeNo}</div>
+									<c:forEach var="th" items="${thList}">
+											<c:if test="${th.placeNo == place.placeNo}">
+												<img class="card-img-top" src="${contextPath}${th.filePath}/${th.fileName}"/>
+											</c:if>
+									</c:forEach>
+									<div class="card-block">
+										<h6 class="card-title">
+											<span>${place.placeTitle}</span><span class="" href="#">별점 4.2</span>
+										</h6>
+										<p class="card-text">
+										<c:set var = "loca" value="${fn:split(place.location,',')[1]}" />
+											<span class="" href="#">${fn:split(loca,' ')[0]}</span> - <span class="" href="#">음식점</span>
+											<span class="" href="#">뷰${place.readCount} 댓글 아직</span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
+				</div>
+				
+				<img class="placeList" src="${contextPath}/resources/images/scrap1.png"/>
+				<div class="row">
+					<c:if test="${!empty pList }">
+						<c:forEach var="place" items="${pList}" varStatus="vs">
+							<div class="col-md-6 width400">
+								<div class="card">
+									<div style="display: none;">${place.placeNo}</div>
+									<c:forEach var="th" items="${thList}">
+											<c:if test="${th.placeNo == place.placeNo}">
+												<img class="card-img-top" src="${contextPath}${th.filePath}/${th.fileName}"/>
 											</c:if>
 									</c:forEach>
 									<div class="card-block">
@@ -110,6 +166,10 @@
 		var placeViewURL = "${contextPath}/place/" + placeNo;
 
 		location.href = placeViewURL;
+	});
+	
+	$(".placeList").on("click", function(){
+		location.href = "${contextPath}/place/placeList";
 	});
 	
 	// 검색 파라미터 유지하기
