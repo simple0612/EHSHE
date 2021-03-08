@@ -228,6 +228,11 @@ public class ShopDAO {
 	public ShopScore selectViewStarRation(int itemNo) {
 		return sqlSession.selectOne("shopMapper.selectViewStarRation",itemNo);
 	}
+
+	// 옵션삭제
+	public int deleteOptionList(List<Integer> deleteOptionList) {
+		return sqlSession.insert("shopMapper.deleteOptionList",deleteOptionList);
+	}
 	
 	
 

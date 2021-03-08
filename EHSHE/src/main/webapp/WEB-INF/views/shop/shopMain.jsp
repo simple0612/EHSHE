@@ -15,47 +15,51 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> 
     <style>
-   /*      div{
-            border: 1px solid black;
-        }    */
-    /*     #wrapper{
-            width: 1280px;
-            height: 3000px;
-            margin: 0px auto;
-        } */
- /*        #promotion{
-            width : 700px;
-            height:  200px;
-            margin: 0px auto;
-        } */
-        .a{
-            height: 300px;
-        }
-        .b{
-            height: 150px;
-        }
-        #center{
-            margin:0px auto;
-        }
-        .shopmainImg{
-            width:100%;
-            height:100%;
-        } 
-        .c{
-        margin-top:200px;
-        }
-       .shopmain{
-  			margin-top:50px;
-        }  
-       header{
-        position:relative !important;
-        }
-        .mainImg{
-        	height:100%;
-        	width:100%;
-        }
-        
-    </style>
+/*div{
+border: 1px solid black;
+}*/
+/*
+#wrapper{
+width: 1280px;
+height: 3000px;
+margin: 0px auto;
+} */
+ /*       
+#promotion{
+width : 700px;
+height:  200px;
+margin: 0px auto;
+} */
+.a{
+height: 300px;
+}
+.b{
+height: 150px;
+}
+#center{
+margin:0px auto;
+}
+.shopmainImg{
+width:100%;
+height:100%;
+} 
+.c{
+margin-top:200px;
+}
+.shopmain{
+margin-top:50px;
+}  
+header{
+position:relative !important;
+}
+.mainImg{
+height:100%;
+width:100%;
+}
+.mainPointer{
+cursor:pointer;
+}
+</style>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -75,7 +79,7 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img class="d-block w-100 rounded mx-auto d-block" alt="Carousel Bootstrap First" src="https://www.layoutit.com/img/sports-q-c-1600-500-1.jpg" />
+                            <img class="d-block w-100 rounded mx-auto d-block" alt="Carousel Bootstrap First" src="${contextPath}/resources/shopCommonImg/화이트데이광고2.jpg" />
                             <div class="carousel-caption">
                                 <h4>
                                     First Thumbnail label
@@ -117,7 +121,7 @@
         <p><strong>최근 올라온 상품</strong></p>
         <div class="row">
           <c:forEach var="shop" items="${sList}" varStatus="vs">
-            <div class="col-md-4 ppp" onclick="location.href='../shop/${shop.itemCategory}/${shop.itemNo}'">
+            <div class="col-md-4 mainPointer" onclick="location.href='../shop/${shop.itemCategory}/${shop.itemNo}'">
                 <div class="mb-4 a">
                   <c:forEach items="${thMList}" var="th">
                    	<c:if test="${th.parentShopNo == shop.itemNo}">
@@ -157,7 +161,7 @@
         <p><strong>인기상품(Hot!!)</strong></p>
         <div class="row">
          <c:forEach var="shop" items="${shList}" varStatus="vs">
-            <div class="col-md-4">
+            <div class="col-md-4 mainPointer" onclick="location.href='../shop/${shop.itemCategory}/${shop.itemNo}'">
                 <div class="mb-4 a">
                     <img src="${contextPath}${shop.filePath}/${shop.fileName}"  class="rounded mx-auto d-block shopmainImg">
                 </div>
@@ -393,6 +397,7 @@
       
         </div> 
     </div> -->
+    </div>
     </div>
     </div>
  <br>

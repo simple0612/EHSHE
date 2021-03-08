@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.ehshe.shop.model.Exception.InsertShopAttachmentFailException;
@@ -90,7 +91,7 @@ public class ShopServiceImpl implements ShopService {
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public int insertShop(Map<String, Object> map, List<MultipartFile> images, String savePath,
-			List<String>colorMenu ,List<String>sizeMenu) {
+			List<String> optionDetail) {
 		
 		int result = 0;
 	
@@ -98,7 +99,7 @@ public class ShopServiceImpl implements ShopService {
 		int shopOptionNo = 0;
 		int shopNo = dao.selectShopNextNo();
 		
-		if(shopNo > 0) {
+	if(shopNo > 0) {
 			
 			map.put("shopNo", shopNo); 
 			
@@ -113,67 +114,33 @@ public class ShopServiceImpl implements ShopService {
 					shopOptionNo = dao.selectOptionNextNO(shopNo); // 옵션번호 조회하기
 					
 					List<ShopOption> shopOption = new ArrayList<ShopOption>(); 
-					
-					String optionDetail =null;
-					String optionColor =null;
-					String optionSize = null;
 				
-				
-				 if(sizeMenu.isEmpty() && colorMenu.size()>0) {
-							
-						    for (int i = 0; i < colorMenu.size(); i++) {
-						    	   
-						    	    optionColor=colorMenu.get(i);
-						    		
-						    	    ShopOption opd = new ShopOption(shopOptionNo,optionColor);
-						    		shopOption.add(opd);
-						    		
-							}
-							
-						    int insertOptionDetail = dao.insertOptionDeatail(shopOption);
-				    
-					}else if(colorMenu.isEmpty() && sizeMenu.size()>0) {
+					
+				if(!optionDetail.isEmpty()) {
+					
+					for (int i = 0; i < optionDetail.size(); i++) {
 						
-						
-						   for (int i = 0; i < sizeMenu.size(); i++) {
-					    	   
-							    optionSize=sizeMenu.get(i);
-					    		
-					    	    ShopOption opd = new ShopOption(shopOptionNo,optionSize);
-					    		shopOption.add(opd);
-						   }
-						 
-						   int insertOptionDetail = dao.insertOptionDeatail(shopOption);
-
+						ShopOption opd = new ShopOption(shopOptionNo,optionDetail.get(i));
+						shopOption.add(opd);
+					}
 					
-					}else if(sizeMenu.size()>0 && colorMenu.size()>0){
-						
-					    for (int i = 0; i < sizeMenu.size(); i++) {
-							
-						    	optionSize = sizeMenu.get(i);
-						    	optionColor = colorMenu.get(i);
-							    	
-							    optionDetail = optionSize +"("+optionColor+")";
-							    ShopOption opd = new ShopOption(shopOptionNo,optionDetail);
-							    shopOption.add(opd);
-								
-								
-							}
-							
-						int insertOptionDetail = dao.insertOptionDeatail(shopOption);
-						System.out.println("옵션디테일삽입 성공 : "+insertOptionDetail);
+					int insertOptionDetail = dao.insertOptionDeatail(shopOption);
+					System.out.println("옵션디테일삽입 성공 : "+insertOptionDetail);
 					
 					
-					}else{
-						// 옵션을 설정하지 않은 경우
-						int insertOptionNoDetail = dao.insertOptionNoDeatail(shopOptionNo);
-						System.out.println(insertOptionNoDetail+"성공");
-					} 
+				}else {
 					
-				
+					int insertOptionNoDetail = dao.insertOptionNoDeatail(shopOptionNo);
+					System.out.println(insertOptionNoDetail+"성공");
+					
+					
+				} 
+					
 			}
-				 
+					
+      }
 				
+		
 				List<ShopAttachment> uploadImages = new ArrayList<ShopAttachment>(); 
 
 				String filePath = null;
@@ -266,8 +233,6 @@ public class ShopServiceImpl implements ShopService {
 				
 			}
 			
-		}
-		
 		
 	}
 		return result;
@@ -329,8 +294,7 @@ public class ShopServiceImpl implements ShopService {
 	// shop 게시글 수정 Service 구현
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int updateShopBoard(Shop updateShopBoard, MultipartFile images, String savePath, List<String> sizeMenu,
-								List<String> colorMenu
+	public int updateShopBoard(Shop updateShopBoard, MultipartFile images, String savePath, List<String> updateOption
 								) {
 	
 		updateShopBoard.setItemNm(replaceParameter(updateShopBoard.getItemNm()));
@@ -342,9 +306,6 @@ public class ShopServiceImpl implements ShopService {
 			
 			List<ShopOption> optionList = dao.selectShopOptionList(updateShopBoard.getItemNo());
 			
-			
-			
-		    System.out.println("optionList" + optionList);
 			
 			
 			String filePath = null;
@@ -397,6 +358,171 @@ public class ShopServiceImpl implements ShopService {
 			tmp.delete();
 		
 			}
+			
+
+			// 옵션 업데이트 
+			List<ShopOption> oldOption = dao.selectShopOptionList(updateShopBoard.getItemNo());
+			
+			// DB에 새로 추가할 이미지파일 정보를 모아둘 List 생성
+			List<ShopOption> newOptionList = new ArrayList<ShopOption>();
+			
+			// DB에서 삭제할 옵션  LIST 생성
+			List<Integer> deleteOptionList = new ArrayList<Integer>();
+			
+			int optionInsert = dao.insertOption(updateShopBoard.getItemNo());
+			int shopOptionNo = dao.selectOptionNextNO(updateShopBoard.getItemNo());
+			
+			int oldCount = oldOption.size();
+			int newCount = updateOption.size();
+			
+			if(oldCount == newCount) {
+				
+				
+				
+			}
+			
+			
+			 
+			
+			
+			/*
+			 * for(int i =0; i<oldOption.size(); i++) {
+			 * 
+			 * oldOption.get(i).getOptionSpecify_NO();
+			 * 
+			 * updateOption.get(i); }
+			 */
+			
+		
+			for(ShopOption old : oldOption ) {  // 올드와 뉴가 내용이 같지 않다면 올드를 delete에 담아주
+				
+				for(String news : updateOption){
+						
+					if(!old.getItemOptionContent().equals(news)) {
+					
+						deleteOptionList.add(old.getOptionSpecify_NO());
+						
+						
+					}
+					
+				}
+				
+	       }
+			
+			
+			
+//			
+//			dao.deleteOptionList(deleteOptionList);
+//			
+//			
+//			for(String news : updateOption){ // 뉴가 없다면 인서트
+//				
+//				
+//				
+
+		//
+			
+		/*
+		 * int optionInsert = dao.insertOption(updateShopBoard.getItemNo()); int
+		 * shopOptionNo = dao.selectOptionNextNO(updateShopBoard.getItemNo());
+		 */
+			
+			
+			
+		/*	for(String news : updateOption){ // 뉴가 없다면 인서트
+			
+				for(ShopOption old : oldOption ) {
+						
+								
+							if(old.getItemOptionContent().equals(news)) {
+								
+								ShopOption so = new ShopOption(news,shopOptionNo);
+
+							}
+							
+						}
+						
+					}*/
+			
+			
+			
+			
+			
+			/*	
+			for(String upOt : updateOption) {
+				System.out.println(upOt+"업데이트");
+				boolean flag = true;
+				
+				for(ShopOption oldOt : oldOption) {
+					System.out.println(oldOt +"올드"); 
+					
+					if(upOt.equals(oldOt.getItemOptionContent())){ // 수정 후 / 수정 전 같은 파일이 있다.== 수정되지 않았다.
+						flag = false;
+						break;
+					}
+				}
+				
+				
+				if(flag) {
+					int shopOptionNo = dao.insertOption(updateShopBoard.getItemNo());
+					shopOptionNo = dao.selectOptionNextNO(updateShopBoard.getItemNo());
+
+					ShopOption so = new ShopOption(upOt,shopOptionNo);
+					newOptionList.add(so);
+					System.out.println(newOptionList+"생성된파일");
+					
+				}
+				
+			}
+			
+			
+			for(ShopOption oldOt : oldOption) {
+				
+				boolean flag = true;
+				
+				for(String upOt : updateOption) {
+					if(upOt.equals(oldOt.getItemOptionContent())) {
+						flag =  false;
+						break;
+					}
+				}
+				
+				// flag == true ==  수정 전 게시글 파일명과 수정 후  파일명이 일치하는게 없을 경우
+				// == 삭제된 이미지 --> deleteFileNoList 추가
+				if(flag){
+					deleteOptionList.add(oldOt.getOptionSpecify_NO());
+					System.out.println(deleteOptionList+"삭제파일 리스트");
+				}
+				
+			}
+			
+			
+			if(!newOptionList.isEmpty()) { //새로 삽입된 이미지가 있다면
+			
+				
+				result = dao.insertOptionDeatail(newOptionList);
+				
+				if(result != newOptionList.size()) { // 삽입된 결과행의 수와 삽입을 수행한 리스트 수가 맞지 않을 경우 == 실패
+					throw new InsertShopAttachmentFailException("옵션수정삽입 실패");
+				}
+			}
+			
+			if(!deleteOptionList.isEmpty()){ // 삭제할 이미지가 있다면
+				result = dao.deleteOptionList(deleteOptionList);
+			
+				if(result != deleteOptionList.size()) {
+					throw new InsertShopAttachmentFailException("옵션삭제실패");
+					
+				}
+			
+			}
+			
+			*/
+			
+			
+			
+			
+			
 			
 			// 1) summernote로 작성된 게시글  부분 수정
 			// 2) 썸네일 이미지 수정
@@ -460,6 +586,19 @@ public class ShopServiceImpl implements ShopService {
 				}
 				
 			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			// 수정전 게시글 파일명 목록(oldFlies)와
 			// 수정된 파일 정보 목록(fileNameList)를 비교해서
