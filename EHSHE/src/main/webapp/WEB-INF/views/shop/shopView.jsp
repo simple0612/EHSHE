@@ -129,7 +129,7 @@ line-height:55px;
                 		
                 			<tr>
                 				<td><strong>개수</strong> : </td>
-              					<td><input type="number" id="Quantity" name="Quantity" class="form-control form-control-sm" min="0" max="100" value="0" style="width: 100%;"/>
+              					<td><input type="number" id="Quantity" name="Quantity" class="form-control form-control-sm" min="0" max="100" value="1" style="width: 100%;"/>
 											  </td>
                 			</tr>
                 			<tr>
@@ -296,17 +296,23 @@ line-height:55px;
 		//console.log(itemNo);
   
 	// 구매할 수량.
-	var buyingQuantity;
-	$("#Quantity").on("change", function(){
+	var buyingQuantity = 1;
+	$("#Quantity").on("input", function(){
 		
 		buyingQuantity = $("#Quantity").val()
+			
+		console.log(buyingQuantity);
+	
+				
 		
-		//console.log(buyingQuantity);
 	});
+
+		
 	 
 	
 	// 장바구니에 아이템 담기.
 	$("#cartbtn").on("click", function(){
+			
 		Swal.fire({
 			  title: '장바구니에 담으시겠습니까?',
 			  icon: 'question',
@@ -315,6 +321,7 @@ line-height:55px;
 			  cancelButtonColor: '#939597',
 			  confirmButtonText: '카트에 담기',
 			  cancelButtonText: '취소' 
+
 			}).then((result) => {
 			  if (result.isConfirmed) {
 			      $.ajax({
@@ -335,7 +342,7 @@ line-height:55px;
 
 								Swal.fire({
 									  title: '장바구니 담기 실패!',
-									  text: '옵션과 수량을 확인해주세요.같은 옵션은 중복해  담을 수 없습니다.',
+									  text: '옵션을 선택해주세요.같은 옵션은 중복해  담을 수 없습니다.',
 									  icon: 'error'
 									})
 							}
@@ -351,10 +358,7 @@ line-height:55px;
 			Swal.fire({icon:'error', text:'옵션을 선택해주세요'})
 			return false
 		}
-		if($("#Quantity").val() == 0){
-			Swal.fire({icon:'error', text:'수량을 입력해주세요'})
-			return false	
-		}
+		
 		return true;
 	}
 	

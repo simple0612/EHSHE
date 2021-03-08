@@ -32,9 +32,9 @@ public class ShopCartController {
 	private ShopCartService service;
 	
 	
-	private String swalIcon;
-	private String swalTitle;
-	private String swalText;
+	/*
+	 * private String swalIcon; private String swalTitle; private String swalText;
+	 */
 	
 	
 	@RequestMapping("cart")
@@ -244,7 +244,7 @@ public class ShopCartController {
 		System.out.println(bbList.get(0).getItemPrice());
 		
 		// 아이템 가격 얻어오기
-		int tprice= bbList.get(0).getItemPrice();
+		int tprice= (bbList.get(0).getItemPrice())*buyingQuantity;
 		
 		
 		// 아이템 가격이 20000원 미만이면 배송료 3000원. 20000원 이상이라면 배송 무료.
