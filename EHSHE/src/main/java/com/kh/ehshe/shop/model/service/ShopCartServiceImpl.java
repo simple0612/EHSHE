@@ -73,12 +73,8 @@ public class ShopCartServiceImpl implements ShopCartService {
 		}
 		
 		if(result > 0) {
-			
-			result = dao.deletOrderItemFromCart(map);
+			dao.deletOrderItemFromCart(map);
 		}
-		
-		
-		
 		
 		return result;
 	}

@@ -296,7 +296,7 @@ header {
 																	"OptionSpecifyNo" : rsp.custom_data //옵션 상세번호
 																},//결제성공 +삽입성공+장바구니에서 삭제 성공 시 .
 																success : function(result) {
-
+																		
 																	if (result > 0) {
 																		swal(
 																				{
@@ -313,7 +313,7 @@ header {
 
 																},
 																error : function() {
-
+																	alert("error");
 																}
 
 															});
