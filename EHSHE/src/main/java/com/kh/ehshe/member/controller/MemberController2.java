@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kh.ehshe.board.model.vo.Attachment;
+import com.kh.ehshe.board.model.vo.BReply;
 import com.kh.ehshe.board.model.vo.PageInfo;
 import com.kh.ehshe.board.model.vo.VBoard;
-import com.kh.ehshe.member.model.service.MemberService;
 import com.kh.ehshe.member.model.service.MemberService2;
 import com.kh.ehshe.member.model.vo.Member;
+import com.kh.ehshe.shop.model.vo.ItemReview;
+import com.kh.ehshe.shop.model.vo.Order;
+import com.kh.ehshe.shop.model.vo.ShopReply;
 
 @Controller // 프레젠테이션 레이어, 웹 애플리케이션 전달된 요청 응답을 처리하는 클래스 + bean 등록
 @RequestMapping("/page/*")
@@ -36,7 +38,7 @@ public class MemberController2 {
 	private String swalText;
 
 	/**
-	 * 마이페이지로 이동하기  
+	 * 마이페이지로 이동하기
 	 * 
 	 * @return
 	 */
@@ -60,14 +62,13 @@ public class MemberController2 {
 			@ModelAttribute(name = "loginMember", binding = false) Member loginMember, RedirectAttributes ra) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		map.put("memberPwd", memberPwd); 
+		map.put("memberPwd", memberPwd);
 
 		map.put("memberNo", loginMember.getMemberNo());
 
 		int result = service.checkPwd(map);
 
 		String returnURL = null;
-System.out.println(result);
 		if (result > 0) {
 
 			returnURL = "memberopstion";
@@ -82,16 +83,13 @@ System.out.println(result);
 		ra.addFlashAttribute("swalTitle", swalTitle);
 
 		return "redirect:" + returnURL;
-	}
+	}	
 
-	
 	@RequestMapping("memberopstion")
 	public String memberopstion() {
 		return "member/memberopstion";
 	}
 
-	
-	
 	/**
 	 * 마이페이지로이동
 	 * 
@@ -110,7 +108,7 @@ System.out.println(result);
 
 		Member loginMember1 = (Member) model.getAttribute("loginMember");
 
-		System.out.println(loginMember1);
+		
 
 		updateMember.setMemberNo(loginMember1.getMemberNo());
 
@@ -197,8 +195,8 @@ System.out.println(result);
 	// 회원 탈퇴 Controller
 	@RequestMapping(value = "deleteMember", method = RequestMethod.POST)
 	public String deleteMember(@RequestParam("memberPwd") String memberPwd,
-			@ModelAttribute(name = "loginMember", binding = false) Member loginMember,
-			RedirectAttributes ra,SessionStatus status) {
+			@ModelAttribute(name = "loginMember", binding = false) Member loginMember, RedirectAttributes ra,
+			SessionStatus status) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -231,7 +229,18 @@ System.out.println(result);
 	}
 
 	@RequestMapping("paymentdetails")
-	public String paymentdetails() {
+	public String paymentdetails(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+			@ModelAttribute("loginMember") Member loginMember) {
+
+		int memberNo = loginMember.getMemberNo();
+		PageInfo pInfo = service.getOrderPageInfo(cp);
+
+		// 주문내역 죄회
+		List<Order> OList = service.OrderSelectList(pInfo, memberNo);
+
+		model.addAttribute("OList", OList);
+		model.addAttribute("pInfo", pInfo);
+
 		return "member/paymentdetails";
 	}
 
@@ -246,32 +255,59 @@ System.out.println(result);
 	}
 
 	@RequestMapping("myQandA")
-	public String myQandA() {
+	public String myQandA(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+			@ModelAttribute("loginMember") Member loginMember) {
+
+		int memberNo = loginMember.getMemberNo();
+		PageInfo pInfo = service.getOrderPageInfo(cp);
+
+		//QANDA조회
+		List<ShopReply> QList = service.myQandA(pInfo, memberNo);
+		
+		System.out.println(QList);
+		model.addAttribute("QList", QList);
+		model.addAttribute("pInfo", pInfo);
 		return "member/myQandA";
 	}
 
 	@RequestMapping("review")
-	public String review() {
+	public String review(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+			@ModelAttribute("loginMember") Member loginMember) {
+
+		int memberNo = loginMember.getMemberNo();
+		PageInfo pInfo = service.getPageInfo(cp,memberNo);
+	
+		List<ItemReview> ItemReview = service.selectItemReviewList(pInfo, memberNo);
+
+		//List<BReply> BReply = service.selectReplyList(pInfo, memberNo);
+
+		
+		//model.addAttribute("bList", ItemReview);
+		model.addAttribute("pInfo", pInfo);
+		model.addAttribute("ItemReview", ItemReview);
+		
 		return "member/review";
 	}
 
-
-	
-	
 	@RequestMapping("bulletin")
-	public String bulletin(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+	public String bulletin(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+			@ModelAttribute("loginMember") Member loginMember) {
 
-		PageInfo pInfo = service.getPageInfo(cp);
+		int memberNo = loginMember.getMemberNo();
+		PageInfo pInfo = service.getPageInfo(cp,memberNo);
 
-		// 게시글 목록 조회
-		List<VBoard> bList = service.selectList(pInfo);
+		List<VBoard> bList = service.selectList(pInfo, memberNo);
+
+		List<BReply> BReply = service.selectReplyList(pInfo, memberNo);
 
 		
 		model.addAttribute("bList", bList);
 		model.addAttribute("pInfo", pInfo);
+		model.addAttribute("BReply", BReply);
 
+		
+		
 		return "member/bulletin";
 	}
-
 
 }
