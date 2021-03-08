@@ -31,6 +31,8 @@
 		<typeAlias type="com.kh.ehshe.home.model.vo.TopItem" alias="TopItem"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.Cart" alias="Cart"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.Pitem" alias="Pitem"/>
+			<typeAlias type="com.kh.ehshe.shop.model.vo.Cart" alias="ITemReview"/>
+			<typeAlias type="com.kh.ehshe.shop.model.vo.Cart" alias="QandA"/>
 	</typeAliases>
 
 	<mappers>

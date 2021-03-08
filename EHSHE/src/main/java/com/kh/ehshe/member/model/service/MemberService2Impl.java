@@ -8,11 +8,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kh.ehshe.board.model.vo.Attachment;
+import com.kh.ehshe.board.model.vo.BReply;
 import com.kh.ehshe.board.model.vo.PageInfo;
 import com.kh.ehshe.board.model.vo.VBoard;
 import com.kh.ehshe.member.model.dao.MemberDAO2;
 import com.kh.ehshe.member.model.vo.Member;
+import com.kh.ehshe.shop.model.vo.ItemReview;
+import com.kh.ehshe.shop.model.vo.Order;
+import com.kh.ehshe.shop.model.vo.ShopReply;
 
 @Service
 public class MemberService2Impl implements MemberService2 {
@@ -23,9 +26,9 @@ public class MemberService2Impl implements MemberService2 {
 	// 암호화를 위한 객체를 의존성 주입(DI)
 	@Autowired
 	private BCryptPasswordEncoder enc;
- 
+
 	// 회원 정보 수정 Service 구현
-	@Transactional(rollbackFor = Exception.class) 
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int updateAction(Member updateMember) {
 		return dao.updateAction(updateMember);
@@ -33,7 +36,7 @@ public class MemberService2Impl implements MemberService2 {
 
 	// 비밀번호 변경 Service 구현
 	@Transactional(rollbackFor = Exception.class)
-	@Override 
+	@Override
 	public int updatePwd(Map<String, Object> map) {
 		// 현재 비밀번호, 새 비밀번호, 회원 번호
 
@@ -115,36 +118,52 @@ public class MemberService2Impl implements MemberService2 {
 		return result;
 	}
 
-	
 	// 게시판 전체 게시글수 조회 Service 구현
-		@Override
-		public PageInfo getPageInfo(int cp) {
+	@Override
+	public PageInfo getPageInfo(int cp, int memberNo) {
 
-			int listCount = dao.getListCount();
+		int listCount = dao.getListCount(memberNo);
 
-			return new PageInfo(cp, listCount);
-		}
+		return new PageInfo(cp, listCount);
+	}
 
-		// 게시글 목록 조회 service 구현
-		@Override
-		public List<VBoard> selectList(PageInfo pInfo) {
-			return dao.selectList(pInfo);
-		}
+	// 결제주문 목록 조회 service 구현
+	@Override
+	public List<VBoard> selectList(PageInfo pInfo,int memberNo) {
+		return dao.selectList(pInfo,memberNo);
+	}
 
+	// 주문내역 다조회
+	@Override
+	public PageInfo getOrderPageInfo(int cp) {
+		int listCount = dao.getOrderPageInfo();
 
+		return new PageInfo(cp, listCount);
+	}
+
+	// 주문내역 조회리스트
+	@Override
+	public List<Order> OrderSelectList(PageInfo pInfo,int memberNo) {
+		return dao.OrderSelectList(pInfo,memberNo);
+		
+	}
+
+	//댓글 조회 리스트
+	@Override
+	public List<BReply> selectReplyList(PageInfo pInfo, int memberNo) {
+		return dao.selectReplyList(pInfo,memberNo);
+	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//아이템 리스트 조회 내가결제한 거 만 출력가능
+	@Override
+	public List<ItemReview> selectItemReviewList(PageInfo pInfo, int memberNo) {
+		return dao.selectItemReviewList(pInfo,memberNo);
+	}
+
+	@Override
+	public List<ShopReply> myQandA(PageInfo pInfo, int memberNo) {
+		return dao.myQandA(pInfo,memberNo);
+	}
+
 }

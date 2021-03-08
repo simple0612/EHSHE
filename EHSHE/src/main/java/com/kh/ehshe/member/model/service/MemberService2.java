@@ -3,10 +3,13 @@ package com.kh.ehshe.member.model.service;
 import java.util.List;
 import java.util.Map;
 
-import com.kh.ehshe.board.model.vo.Attachment;
+import com.kh.ehshe.board.model.vo.BReply;
 import com.kh.ehshe.board.model.vo.PageInfo;
 import com.kh.ehshe.board.model.vo.VBoard;
 import com.kh.ehshe.member.model.vo.Member;
+import com.kh.ehshe.shop.model.vo.ItemReview;
+import com.kh.ehshe.shop.model.vo.Order;
+import com.kh.ehshe.shop.model.vo.ShopReply;
 
 public interface MemberService2 {
 
@@ -46,13 +49,34 @@ public interface MemberService2 {
 	 * @param cp
 	 * @return pInfo
 	 */
-	public abstract PageInfo getPageInfo(int cp);
+	public abstract PageInfo getPageInfo(int cp, int memberNo);
 	
 	/** 게시글 목록 조회 Service
 	 * @param pInfo
 	 * @return bList
 	 */
-	public abstract List<VBoard> selectList(PageInfo pInfo);
+	public abstract List<VBoard> selectList(PageInfo pInfo, int memberNo);
+
+	/**
+	 * 페이징처리 (orderlist)
+	 * @param cp
+	 * @return
+	 */
+	public abstract PageInfo getOrderPageInfo(int cp);
+
+	
+	/** 페이 목록 조회 Service
+	 * @param pInfo
+	 * @param memberNo 
+	 * @return bList
+	 */
+	public abstract List<Order> OrderSelectList(PageInfo pInfo, int memberNo);
+
+	public abstract List<BReply> selectReplyList(PageInfo pInfo, int memberNo);
+
+	public abstract List<ItemReview> selectItemReviewList(PageInfo pInfo, int memberNo);
+
+	public abstract List<ShopReply> myQandA(PageInfo pInfo, int memberNo);
 
 
 	

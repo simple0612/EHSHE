@@ -179,8 +179,13 @@ input[id="saveId"]:checked+label em {
 		<br> <br> <br> <br> <br> <br> <br>
 		<br>
 		<div class="title">
-			<h1>마이페이지</h1>
-
+			<h1>내글</h1>
+			<div class="area">
+				<a href="${contextPath}/page/mypagemain"><img
+					src="${contextPath}/resources/images/mytextlist.png"
+					style="width: 100px; height: 100px; margin-bottom: 5px">
+			
+			</div>
 			<br> <br>
 		</div>
 
@@ -205,7 +210,7 @@ input[id="saveId"]:checked+label em {
 				<a href="${contextPath}/page/review"><img
 					src="${contextPath}/resources/images/review.png"
 					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>후기</h1>
+					<h3>상품&장소 후기</h3>
 			</div>
 			<div class="area">
 				<a href="${contextPath}/page/myQandA"><img
