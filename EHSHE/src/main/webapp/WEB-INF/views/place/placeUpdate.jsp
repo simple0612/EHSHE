@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>관리자 장소 등록</title>
+<title>관리자 장소 수정</title>
 <!-- summernote 사용 시 필요한 css 파일 추가 -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -25,6 +25,9 @@
 
 <link rel="stylesheet"
 	href="${contextPath}/resources/summernote/css/summernote-lite.css">
+
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/place/insertPlace.css">
 
 <style>
 .map_wrap {
@@ -63,9 +66,6 @@
 }
 </style>
 
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/board/insertBoard.css">
-
 </head>
 
 <body>
@@ -73,12 +73,11 @@
 
 	<!-- summernote 사용 시 필요한 js 파일 추가 -->
 	<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
-	<script
-		src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
-	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
+	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
+	<script src="${contextPath}/resources/summernote/js/mySummernote2.js"></script>
 
 	<div class="container-fluid boardMain">
-		<form action="insertAction" name="insertAction"
+		<form action="updateAction" name="updateAction"
 			enctype="multipart/form-data" method="post" role="form"
 			onsubmit="return validate();">
 			<div class="row">
@@ -87,7 +86,7 @@
 
 					<div class="row">
 						<div class="col-md-12">
-							<h4>장소 등록</h4>
+							<h4>장소 수정</h4>
 						</div>
 					</div>
 					<div class="col-md-9">
@@ -96,18 +95,19 @@
 							
 								<tr class="name">
 									<td>장소 이름</td>
-									<td><input class="form-control mr-sm-2" type="text" name="placeTitle" id="placeTitle"/></td>
+									<td><input class="form-control mr-sm-2" type="text"
+									name="placeTitle" id="placeTitle" value="${place.placeTitle}"/></td>
 								</tr>
 								
 								<tr class="thumbnail">
 									<td>이미지</td>
 									<td>
-										<div class="boardImg" id="titleImgArea">
+										<div class="placeImg" id="titleImgArea">
 											<img id="titleImg" width="200" height="120">
 										</div>
 
 										<div id="fileArea" style="margin-top: 4px;">
-											<input type="file" id="img0" name="image" onchange="LoadImg(this, 0)" required> 
+											<input type="file" id="img0" name="image" onchange="LoadImg(this, 0)"> 
 										</div>
 									</td>
 								</tr>
@@ -115,7 +115,8 @@
 								<tr class="addr">
 									<td>주소</td>
 									<td>
-										<input type="text" id="post" name="post" class="form-control postcodify_postcode5" required>
+										<input type="text" id="post" name="post" 
+										class="form-control postcodify_postcode5" value="${fn:split(place.location,',')[0]}" required>
 									</td>
 									<td>
 										<button type="button" class="btn btn-secondary btn-sm" id="postcodify_search_button">검색</button>
@@ -124,49 +125,59 @@
 								<tr class="addr1">
 									<td>도로명 주소</td>
 									<td colspan="2">
-										<input type="text" class="form-control postcodify_address" name="address1" id="address1">
+										<input type="text" class="form-control postcodify_address" name="address1" id="address1"
+										value="${fn:split(place.location,',')[1]}">
 									</td>
 								</tr>
 								<tr class="addr2">
 									<td>상세주소</td>
 									<td colspan="2">
-										<input type="text" class="form-control postcodify_details" name="address2" id="address2">
+										<input type="text" class="form-control postcodify_details" name="address2" id="address2"
+										value="${fn:split(place.location,',')[2]}">
 									</td>
 								</tr>
 								<tr>
 									<td>분류</td>
-									<td><input class="form-control mr-sm-2" type="text" name="categoryName" id="categoryName"/></td>
+									<td><input class="form-control mr-sm-2" type="text" name="categoryName" id="categoryName"
+									value="${place.categoryName}"/></td>
 								</tr>
 								<tr>
 									<td>전화번호</td>
-									<td><input class="form-control mr-sm-2" type="text" name="phone" id="phone"/></td>
+									<td><input class="form-control mr-sm-2" type="text" name="phone" id="phone"
+									value="${place.phone}"/></td>
 								</tr>
 								<tr>
 									<td>영업시간</td>
-									<td><input class="form-control mr-sm-2" type="text" name="businessHours" id="businessHours"/></td>
+									<td><input class="form-control mr-sm-2" type="text" name="businessHours" id="businessHours"
+									value="${place.businessHours}"/></td>
 								</tr>
 								<tr>
 									<td>가격대</td>
-									<td><input class="form-control mr-sm-2" type="text" name="priceRange" id="priceRange"/></td>
+									<td><input class="form-control mr-sm-2" type="text" name="priceRange" id="priceRange"
+									value="${place.priceRange}"/></td>
 								</tr>
 								<tr>
 									<td>주차</td>
-									<td><input class="form-control mr-sm-2" type="text" name="parking" id="parking"/></td>
+									<td><input class="form-control mr-sm-2" type="text" name="parking" id="parking"
+									value="${place.parking}"/></td>
 								</tr>
 								<tr>
 									<td>휴일</td>
-									<td><input class="form-control mr-sm-2" type="text" name="holiday" id="holiday"/></td>
+									<td><input class="form-control mr-sm-2" type="text" name="holiday" id="holiday"
+									value="${place.holiday}"/></td>
 								</tr>
 								<tr>
-									<td><input class="form-control mr-sm-2" type="text" name="enroll" id="enroll"/></td>
-									<td><input class="form-control mr-sm-2" type="text" name="enrollContents" id="enrollContents"/></td>
+									<td><input class="form-control mr-sm-2" type="text" name="enroll" id="enroll"
+									value="${place.enroll}"/></td>
+									<td><input class="form-control mr-sm-2" type="text" name="enrollContents" id="enrollContents"
+									value="${place.enrollContents}"/></td>
 								</tr>
 								
 								<tr>
 									<td>위치</td>
 									<td>
-										<input type="hidden" id="lat" name="latitude">
-										<input type="hidden" id="lng" name="longitude">
+										<input type="hidden" id="lat" name="latitude" value="${place.latitude}" required>
+										<input type="hidden" id="lng" name="longitude" value="${place.longitude}" required>
 										<div class="map_wrap">
 										<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 											<div class="Addr">
@@ -183,10 +194,14 @@
 					
 					<div class="col-md-12">
 						<h5>소개</h5>
-						<textarea class="form-control" id="summernote" name="placeContent" rows="10" style="resize: none;"></textarea>
+						<textarea class="form-control" id="summernote" name="placeContent" rows="10" style="resize: none;">
+						${place.placeContent}
+						</textarea>
 					</div>
 					<div class="col-md-12" style="width: 100%;">
-						<button class="btn btn-secondary insert-place" style="width: 40%;">등록</button>
+						<button class="btn btn-secondary insert-place" type="submit">수정</button>
+							<a class="btn btn-secondary insert-place"
+								href="${sessionScope.returnListURL}">취소</a>
 					</div>
 
 				</div>
@@ -200,9 +215,12 @@
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f8adb912f319f193a5fe45f741e8466c&libraries=services"></script>
 	<script>
+		var lat = ${place.latitude}
+		var lng = ${place.longitude}
+	
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
-			center : new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+			center : new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
 			level : 4
 		// 지도의 확대 레벨
 		};
@@ -306,12 +324,17 @@
 	</script>
 
 	<script>
+		// 이미지 배치
+		<c:forEach var="at" items="${attachmentList}">
+			$(".placeImg").eq(${at.fileLevel}).children("img").attr("src", "${contextPath}${at.filePath}/${at.fileName}");
+		</c:forEach>
+		
 		// 이미지 영역을 클릭해도 파일선택을 할수 있도록 onclick 이벤트롤 작성
 		$(function() {
 			$("#titleImg").on("click", function() {
 				$("#img0").click();
 			});
-
+	
 		});
 
 		// 업로드된 파일을 img 태그에 보여지게하는 함수
@@ -320,16 +343,17 @@
 				var reader = new FileReader();
 				reader.readAsDataURL(value.files[0]);
 				reader.onload = function(e) {
-					$(".boardImg").eq(num).children("img").attr("src",
+					$(".placeImg").eq(num).children("img").attr("src",
 							e.target.result);
 				}
 			}
 		}
+		
 		// 유효성 검사
 		function validate() {
-			if ($("#placeName").val().trim().length == 0) {
+			if ($("#placeTitle").val().trim().length == 0) {
 				alert("제목을 입력해 주세요.");
-				$("#placeName").focus();
+				$("#placeTitle").focus();
 				return false;
 			}
 
@@ -351,7 +375,7 @@
 				value : $("#post").val() + "," + $("#address1").val() + ","
 						+ $("#address2").val()
 			});
-			$("form[name='insertAction']").append($location);
+			$("form[name='updateAction']").append($location);
 
 		}
 	</script>

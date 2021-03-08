@@ -23,7 +23,9 @@
 		<result property="parking" column="PARKING"/>
 		<result property="holiday" column="HOLIDAY"/>
 		<result property="enroll" column="ENROLL"/>
-		<result property="enrollContents" column="ENROLL_CONTENTS"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="memberNm" column="MEMBER_NM"/>
+		<result property="favoriteCount" column="FAVORITE_COUNT"/>
 	</resultMap>
 
 	<resultMap type="PAttachment" id="attachment_rm">
@@ -112,18 +114,22 @@
   	UPDATE EH_PLACE SET
   	PLACE_TITLE = #{placeTitle},
   	PLACE_CONTENT = #{placeContent},
-  	CATEGORY_NM = #{categoryName},
+  	PLACE_MODIFY_DT = SYSDATE,
+  	PLACE_LOCATION = #{location},
+  	PLACE_CATEGORY = #{categoryName},
+  	PLACE_PHONE = #{phone},
   	LATITUDE = #{latitude},
   	LONGITUDE = #{longitude},
-  	PLACE_LOCATION = #{location}
+  	PRICE_RANGE = #{priceRange},
+  	BUSINESS_HOURS = #{businessHours},
+  	PARKING = #{parking},
+  	HOLIDAY = #{holiday},
+  	ENROLL = #{enroll},
+  	ENROLL_CONTENTS = #{enrollContents}
   	WHERE PLACE_NO = #{placeNo}
-  	
-  	
-  	
-  	
   </update>
 
-	<update id="updateAttachment" parameterType="PAttachment">
+	<update id="updatePAttachment" parameterType="PAttachment">
     UPDATE EH_PLACE_ATTACHMENT SET
     PLACE_AT_PATH = #{filePath},
     PLACE_AT_NM = #{fileName}
@@ -131,12 +137,12 @@
   </update>
   
   <!-- 파일 정보 삽입 -->
-  <insert id="insertAttachment" parameterType="PAttachment">
+  <insert id="insertPAttachment" parameterType="PAttachment">
     INSERT INTO EH_PLACE_ATTACHMENT
-    VALUES(SEQ_PL_ANO.NEXTVAL, #{filePath}, 0, #{fileName}, #{fileLevel}, #{placeNo})
+    VALUES(SEQ_PL_ANO.NEXTVAL, #{filePath}, #{fileName}, #{fileLevel}, #{placeNo})
   </insert>
 	
-	<delete id="deleteAttachment" parameterType="_int">
+	<delete id="deletePAttachment" parameterType="_int">
 		DELETE FROM EH_PLACE_ATTACHMENT
 		WHERE PLACE_AT_NO = #{fileNo}
 	</delete>
@@ -154,6 +160,71 @@
 		PLACE_DELETE_FL = 'Y'
 		WHERE PLACE_NO = #{placeNo}
 	</update>
+
+	<!-- 파일 정보 일괄 삭제 -->
+	<delete id="deleteAttachmentList" parameterType="list">
+		DELETE FROM EH_PLACE_ATTACHMENT
+		WHERE PLACE_AT_NO IN
+		<foreach collection="list" item="fileNo" open="(" close=")" separator=",">
+			#{fileNo}
+		</foreach>
+	</delete>
+
+	<!-- 검색 조건에 맞는 게시글 수 조회 -->
+	<select id="getSearchListCount" parameterType="SearchPlace" resultType="_int">
+		SELECT COUNT(*) FROM V_PLACE
+		WHERE PLACE_DELETE_FL = 'N'
+		<if test="sv != null"><!-- 검색 내용이 있다면 -->
+			<bind name="val" value="'%' + sv + '%'"/>
+			AND
+			<choose>
+				<when test="sk == 'all'">
+					(PLACE_TITLE LIKE #{val} OR
+					PLACE_CATEGORY LIKE #{val} OR
+					PLACE_LOCATION LIKE #{val})
+				</when>
+				<when test="sk == 'title'">
+					PLACE_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'category'">
+					PLACE_CATEGORY LIKE #{val}
+				</when>
+				<when test="sk == 'location'">
+					PLACE_LOCATION LIKE #{val}
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<!-- 검색 조건에 맞는 게시글 목록 조회 -->
+	<select id="selectSearchList" parameterType="SearchPlace" resultMap="place_rm">
+		SELECT * FROM V_PLACE
+		WHERE PLACE_DELETE_FL = 'N'
+		<if test="sv != null"><!-- 검색 내용이 있다면 -->
+			<bind name="val" value="'%' + sv + '%'"/>
+			AND
+			<choose>
+				<when test="sk == 'all'">
+					(PLACE_TITLE LIKE #{val} OR
+					PLACE_CATEGORY LIKE #{val} OR
+					PLACE_LOCATION LIKE #{val})
+				</when>
+				<when test="sk == 'title'">
+					PLACE_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'category'">
+					PLACE_CATEGORY LIKE #{val}
+				</when>
+				<when test="sk == 'location'">
+					PLACE_LOCATION LIKE #{val}
+				</when>
+			</choose>
+		</if>
+		
+		ORDER BY PLACE_NO DESC
+	</select>
+	
+
 
 
 	<!-- 즐겨찾기 여부 확인 -->

@@ -112,7 +112,7 @@
 
 										<div id="fileArea" style="margin-top: 4px;">
 											<input type="file" id="img0" name="image"
-												onchange="LoadImg(this, 0)" required>
+												onchange="LoadImg(this, 0)">
 										</div>
 									</td>
 									<td></td>
@@ -150,15 +150,8 @@
 												<span class="title">지도중심기준 행정동 주소정보</span> <span
 													id''="centerAddr"></span>
 											</div>
-											<div id="toggle">
-											 	<fieldset>
-													<input type="radio" name="chk_info" class="loc" value="autoLoc" id="autoLoc" checked="checked">
-													<label for="kraken">주소로 좌표 지정</label>
-													<input type="radio" name="chk_info" class="loc" value="clickLoc" id="clickLoc">
-													<label for="kraken">직접 좌표 지정</label>
-												</fieldset>
-											</div>
-										</div></td>
+										</div>
+									</td>
 								</tr>
 							</table>
 						</div>

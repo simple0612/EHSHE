@@ -15,9 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.ehshe.board.model.exception.InsertAttachmentFailException;
+import com.kh.ehshe.board.model.exception.UpdateAttachmentFailException;
 import com.kh.ehshe.place.model.dao.PlaceDAO;
 import com.kh.ehshe.place.model.vo.PAttachment;
+import com.kh.ehshe.place.model.vo.Place;
 import com.kh.ehshe.place.model.vo.PlacePageInfo;
+import com.kh.ehshe.place.model.vo.SearchPlace;
 import com.kh.ehshe.place.model.vo.VPlace;
 
 @Service
@@ -183,17 +186,18 @@ public class PlaceServiceImpl implements PlaceService{
 		}
 		return placeNo;
 	}
-
+	
+	// summernote 업로드 이미지 저장 Service 구현
 	@Override
 	public PAttachment insertImage(MultipartFile uploadFile, String cSavePath) {
 		// 파일명 변경
 		String fileName = rename(uploadFile.getOriginalFilename());
 
 		// 웹상 접근 주소
-		String contentFilePath = "/resources/placeImages";
+		String filePath = "/resources/placeImages";
 
 		PAttachment at = new PAttachment();
-		at.setFilePath(contentFilePath);
+		at.setFilePath(filePath);
 		at.setFileName(fileName);
 
 		// 서버에 파일 저장 ( transferTo )
@@ -208,31 +212,225 @@ public class PlaceServiceImpl implements PlaceService{
 		return at;
 	}
 
+	// 게시글 수정 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updatePlace(Place updatePlace, List<MultipartFile> image, String tSavePath) {
+		
+		// 게시글 수정 DAO 호출
+		int result = dao.updatePlace(updatePlace);
+
+		// 2) 이미지 수정(난이도 * X 100)
+		if (result > 0) {
+
+			// 수정 전 업로드 되어있던 파일 정보를 얻어옴.
+			// -> 새롭게 삽입 또는 수정되는 파일과 비교하기 위함.
+			List<PAttachment> oldFiles = dao.selectAttachmentList(updatePlace.getPlaceNo());
+			// 새로 업로드도니 파일 정보를 담을 리스트
+			List<PAttachment> uploadImages = new ArrayList<PAttachment>();
+			// 삭제 되어야할 파일 정보를 담은 리스트
+			List<PAttachment> removeFileList = new ArrayList<PAttachment>();
+
+			// DB에 저장할 웹상 이미지 접근 경로
+			String filePath = "/resources/placeImages";
+
+
+			// 새롭게 업로드된 파일 정보를 가지고 있는 images에 접근
+			for (int i = 0; i < image.size(); i++) {
+
+				// 업로드된 이미지가 있을 경우
+				if (!image.get(i).getOriginalFilename().equals("")) {
+					// 파일명 변경
+					String fileName = rename(image.get(i).getOriginalFilename());
+					// Attachment 객체 생성
+					PAttachment at = new PAttachment(filePath, fileName, i, updatePlace.getPlaceNo());
+
+					uploadImages.add(at); // 업로드 이미지 리스트에 추가
+
+					// true : update 진행
+					// false : insert 진행
+					boolean flag = false;
+
+					// 새로운 파일 정보와 이전 파일 정보를 비교하는 반복문
+					for (PAttachment old : oldFiles) {
+
+						if (old.getFileLevel() == i) {
+							// 현재 접근한 이전 파일의 레벨이
+							// 새롭게 업로드한 파일의 레벨과 같은 경우
+							// == 같은 레벨에 새로운 이미지 업로드 --> update 진행
+							flag = true;
+
+							// DB에서 파일 번호가 일치하는 행의 내용을 수정하기 위해 파일번호를 얻어옴.
+							at.setFileNo(old.getFileNo());
+
+							removeFileList.add(old); // 삭제할 파일 목록에 이전 파일 정보 추가
+						}
+					}
+					// flag 값에 따른 insert / update 제어
+					if (flag) { // true : update 진행
+						result = dao.updatePAttachment(at);
+
+					} else { // false : insert 진행
+						result = dao.insertPAttachment(at);
+					}
+
+					// insert 또는 update 실패 시 rollback 수행
+					// -> 예외를 발생 시켜서 @Transactional을 이용해 수행
+					if (result <= 0) {
+						throw new UpdateAttachmentFailException("파일 정보 수정 실패");
+					}
+				} else { // 업로드된 이미지가 없을 경우
+
+					for (PAttachment old : oldFiles) {
+
+						// x버튼으로 삭제가 되었다고 deleteImages에 true로 저장되어 있지만
+						// 혹시라도 이미지가 없는데 x버튼을 누른걸 수도 있으니
+						// 진짜로 이전 이미지가 있었는지 검사
+						if (old.getFileLevel() == 1) {
+
+							result = dao.deletePAttachment(old.getFileNo());
+
+							if (result > 0) { // 삭제 성공 시
+								// removeFileList : 서버에서 삭제할 파일의 정보를 모아둔 리스트
+								removeFileList.add(old); // 서버 파일 삭제 리스트에 추가
+
+							} else { // 삭제 실패 시
+								throw new UpdateAttachmentFailException("파일 정보 삭제 실패");
+							}
+						}
+					}
+				}
+			} // image 반복 접근 for문 종료
+
+			// uploadImages == 업로드된 파일 정보 --> 서버에 파일 저장
+			// removeFileList == 제거해야될 파일 정보 --> 서버에서 파일 삭제
+			// 수정되거나 새롭게 삽입된 이미지를 서버에 저장하기 위해 transferTo() 수행
+			if (result > 0) {
+				for (int i = 0; i < uploadImages.size(); i++) {
+
+					try {
+						image.get(uploadImages.get(i).getFileLevel())
+								.transferTo(new File(tSavePath + "/" + uploadImages.get(i).getFileName()));
+					} catch (Exception e) {
+						e.printStackTrace();
+						throw new UpdateAttachmentFailException("파일 정보 수정 실패");
+					}
+				}
+			}
+			// ------------------------------------------
+			// 이전 파일 서버에서 삭제하는 코드
+			for (PAttachment removeFile : removeFileList) {
+				File tmp = new File(tSavePath + "/" + removeFile.getFileName());
+				tmp.delete();
+			}
+			// ------------------------------------------
+
+			// 1) summernote로 작성된 게시글 부분 수정
+			// 2) 썸네일 이미지 수정
+			// 3) summernote로 작성된 게시글에 있는 이미지 정보 수정
+			/// -> 게시글 내부 <img> 태그 src 속성을 얻어와 파일명을 얻어옴.
+			/// -> 수정 전 게시글의 이미지와 수정 후 게시글 이미지 파일명을 비교
+			/// --> 새롭게 추가된 이미지, 기존 이미지에서 삭제된 것도 존재
+			/// --> Attachment 테이블에 반영
+
+			// 게시글에 작성된 <img> 태그의 src속성을 이용해서 파일명을 얻어오기
+			Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); // img 태그 src 추출 정규표현식
+
+			Matcher matcher = pattern.matcher(updatePlace.getPlaceContent());
+
+			// 정규식을 통해 게시글에 작성된 이미자 파일명만 얻어와 모아둘 List 선언
+			List<String> fileNameList = new ArrayList<String>();
+
+			String src = null; // matcher 에 저장된 src를 꺼내서 임시 저장할 변수
+			String fileName = null; // src에서 파일명을 추출해서 임시 저장할 변수
+
+			while (matcher.find()) {
+				src = matcher.group(1); // 예) /ehshe/board/resources/updateImages/abc.jpg
+				fileName = src.substring(src.lastIndexOf("/") + 1); // abc.jpg (+1은 /의 뒤부터 얻어오기 위한 코드)
+				fileNameList.add(fileName);
+			}
+
+			// DB에 새로 추가할 이미지파일 정보를 모아둘 List 생성
+			List<PAttachment> newAttachmentList = new ArrayList<PAttachment>();
+
+			// DB에서 삭제할 이미지 파일 변호를 모아둘 List 생성
+			List<Integer> deleteFileNoList = new ArrayList<Integer>();
+			
+			// 수정된 게시글 파일명 목록(fileNameList)과
+			// 수정 전 파일 정보 목록 (oldFiles)를 비교해서
+			// 수정된 게시글 파일명 하나를 기준으로 하여 수정 전 파일명과 순차적으로 비교를 진행
+			// -> 수정된 게시글 파일명과 일치하는 수정전 파일명이 없다면
+			// == 새로 삽입된 이미지임을 의미함.
+			for (String fName : fileNameList) {
+
+				boolean flag = true;
+
+				for (PAttachment oldAt : oldFiles) {
+					
+					if(oldAt.getFileLevel() == 0) continue;
+					
+					if (fName.equals(oldAt.getFileName())) { // 수정 후 / 수정 전 같은 파일이 있다 == 이미지가 수정되지 않았다.
+						flag = false;
+						break;
+					}
+				}
+				// flag == true == 수정 후 게시글 파일명과 수정 전 파일명이 일치하는게 없을 경우
+				// == 새로운 이미지 --> newAttachmentList 추가
+				if(flag) {
+					PAttachment at = new PAttachment(filePath, fName, 1, updatePlace.getPlaceNo());
+					newAttachmentList.add(at);
+				}
+				
+			}
+
+			// 수정 전 파일명 목록(oldFiles)과
+			// 수정된 파일 정보 목록 (fileNameList)를 비교
+			// 수정 전 게시글 파일명 하나를 기준으로 하여 수정된 파일명과 순차적으로 비교를 진행
+			// -> 수정 전 게시글 파일명과 일치하는 수정 후 파일명이 없다면
+			// == 기존 수정 전 이미지가 삭제됨을 의미
+			for(PAttachment oldAt : oldFiles) {
+				
+				if(oldAt.getFileLevel() == 0) continue;
+				
+				boolean flag = true;
+				
+				for (String fName : fileNameList) {
+					if(oldAt.getFileName().equals(fName)) {
+						flag = false;
+						break;
+					}
+				}
+				// flag == true == 수정 전 게시글 파일명과 수정 후 파일명이 일치하는게 없을 경우
+				// == 삭제된 이미지 --> deleteFileNoList에 추가
+				if(flag) {
+					deleteFileNoList.add(oldAt.getFileNo());
+				}
+			}
+			
+			// newAttachmentList / deleteFileNoList 완성됨
+			
+			if(!newAttachmentList.isEmpty()) { // 새로 삽입된 이미지가 있다면
+				result = dao.insertAttachmentList(newAttachmentList);
+				
+				if(result != newAttachmentList.size()) { // 삽입된 결과행의 수와 삽입을 수행한 리스트 수가 맞지 않을 경우 == 실패
+					throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삽입 중 오류 발생)");
+				}
+			}
+			
+			if(!deleteFileNoList.isEmpty()) { // 삭제할 이미지가 있다면
+				result = dao.deleteAttachmentList(deleteFileNoList);
+					
+				if(result != deleteFileNoList.size()) {
+					throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삭제 중 오류 발생)");
+				}
+			}
+		}
+
+	return result;
+
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 파일명 변경 메소드
 	public String rename(String originFileName) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
 		String date = sdf.format(new Date(System.currentTimeMillis()));
@@ -281,6 +479,20 @@ public class PlaceServiceImpl implements PlaceService{
 	@Override
 	public int selectScrapFl(Map<String, Integer> map) {
 		return dao.selectScrapFl(map);
+	}
+
+	// 검색조건이 포함된 페이징 처리 객체 생성 Service 구현
+	@Override
+	public PlacePageInfo getSearchPageInfo(SearchPlace search, int cp) {
+		
+		int listCount = dao.getSearchListCount(search);
+		return new PlacePageInfo(cp, listCount);
+	}
+	
+	// 검색 조건이 포함된 게시글 목록 조회 Service 구현
+	@Override
+	public List<VPlace> selectSearchList(PlacePageInfo pInfo, SearchPlace search) {
+		return dao.selectSearchList(search, pInfo);
 	}
 	
 }

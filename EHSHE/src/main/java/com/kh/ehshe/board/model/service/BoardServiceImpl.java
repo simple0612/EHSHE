@@ -274,7 +274,6 @@ public class BoardServiceImpl implements BoardService {
 
 		// 크로스사이트 스크립팅 방지처리
 		updateBoard.setBoardTitle(replaceParameter(updateBoard.getBoardTitle()));
-		updateBoard.setBoardContent(replaceParameter(updateBoard.getBoardContent()));
 		updateBoard.setLocation(replaceParameter(updateBoard.getLocation()));
 		
 		// 게시글 수정 DAO 호출
@@ -509,6 +508,7 @@ public class BoardServiceImpl implements BoardService {
 		return new PageInfo(cp, listCount);
 	}
 
+	// 검색 조건이 함된 게시글 목록 조회 Service 구현
 	@Override
 	public List<VBoard> selectSearchList(PageInfo pInfo, Map<String, Object> map) {
 		return dao.selectSearchList(pInfo, map);

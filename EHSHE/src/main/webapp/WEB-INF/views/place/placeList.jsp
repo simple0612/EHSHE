@@ -86,28 +86,24 @@
 							<div class="pagination-area">
 								<ul class="pagination">
 								
+								
 								<c:choose>
 								<%-- 검색이 된 경우 --%>
 									<c:when test="${!empty search}">
-										<c:forEach items="${search.ct}" var="c">
-											<c:set var="category" value="${category}ct=${c}&"/>
-										</c:forEach>
-										
-										<c:set var="searchStr" value="${category}"/>
 										
 										<%-- 검색된 내용이 있다면 --%>
 										<c:if test="${!empty search.sv }">
 											<c:set var="searchStr" value="${category}sk=${search.sk}&sv=${search.sv}"/>
 										</c:if>
 										
-										<c:url var="pageUrl" value="../search/?${searchStr}"/>
-										<c:set var="returnListURL" value="${contextPath}/place/search/${pageUrl}cp=${pInfo.currentPage}" scope="session"/>
+										<c:url var="pageUrl" value="search?${searchStr}&"/>
+										<c:set var="returnListURL" value="${contextPath}/place/${pageUrl}cp=${pInfo.currentPage}" scope="session"/>
 										
 									</c:when>
 									<%-- 검색이 되지 않은 경우 --%>
 									<c:otherwise>
-									<c:set var="returnListURL" value="${contextPath}/place/placeList/${pageUrl}cp=${pInfo.currentPage}" scope="session"/>
 										<c:url var="pageUrl" value="?"/>
+										<c:set var="returnListURL" value="${contextPath}/place/placeList${pageUrl}cp=${pInfo.currentPage}" scope="session"/>
 									</c:otherwise>
 								</c:choose>
 								
@@ -161,14 +157,11 @@
 					<div class="col-md-2"></div>
 				</div>
 				
-				
-				
-				
+				<form action="search" class="text-center" id="searchForm">
 				
 				<div class="row">
 					<div class="col-md-12">
-						<form action="search" class="form-inline selectBox">
-							<select class="form-control mr-sm-2 search-bottom"  name="sk" type="text">
+							<select class="form-control mr-sm-2 search-bottom"  name="sk">
 								<option value="all">전체</option>
 								<option value="title">제목</option>
 								<option value="category">카테고리</option>
@@ -177,16 +170,16 @@
 								type="text" />
 							<button class="btn ehsheYellow my-2 my-sm-0">
 								검색</button>
-						</form>
 					</div>
 				</div>
+				</form>
 				
+			</div>
 			<div class="col-md-2"></div>
 		</div>
 	</div>
 	
 	<jsp:include page="../common/footer.jsp" />
-	
 
 <script>
 	// 게시글 상세조회로 이동
@@ -202,25 +195,16 @@
 	
 	// 검색 파라미터 유지하기
 	$(function(){
-		// 카테고리
-		<c:forEach items="${search.ct}" var="ctName">
-			$("input[name=ct]").each(function(index, item){
-				if($(item).val() == "${ctName}"){
-					$(item).prop("checked", true);
-				}
-			})
-		</c:forEach>
-		
 		// 검색 조건 (sk)
 			// 검색 조건 sk
 			$("select[name=sk] > option").each(function(index,item){
-				if( $(item).val() == "${sk}"){
+				if( $(item).val() == "${search.sk}"){
 					$(item).prop("selected", true);
 				}
 			});
 			
 			// 검색 값 sv
-			$("input[name=sv]").val("${sv}");
+			$("input[name=sv]").val("${search.sv}");
 		});	
 	
 </script>

@@ -5,9 +5,10 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.ehshe.board.model.vo.Attachment;
 import com.kh.ehshe.place.model.vo.PAttachment;
+import com.kh.ehshe.place.model.vo.Place;
 import com.kh.ehshe.place.model.vo.PlacePageInfo;
+import com.kh.ehshe.place.model.vo.SearchPlace;
 import com.kh.ehshe.place.model.vo.VPlace;
 
 public interface PlaceService {
@@ -89,6 +90,28 @@ public interface PlaceService {
 	 * @return result
 	 */
 	int selectScrapFl(Map<String, Integer> map);
+
+	/** 검색 조건이 포함된 페이징 처리  객체 생성 Service
+	 * @param search
+	 * @param cp
+	 * @return pInfo
+	 */
+	PlacePageInfo getSearchPageInfo(SearchPlace search, int cp);
+
+	/** 검색 조건이 포함된 게시글 목록 조회 Service
+	 * @param pInfo
+	 * @param search
+	 * @return pList
+	 */
+	List<VPlace> selectSearchList(PlacePageInfo pInfo, SearchPlace search);
+
+	/** Place 게시글 수정
+	 * @param updatePlace
+	 * @param image
+	 * @param tSavePath
+	 * @return result
+	 */
+	int updatePlace(Place updatePlace, List<MultipartFile> image, String tSavePath);
 
 
 }
