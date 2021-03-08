@@ -125,7 +125,7 @@
 	  VALUES(SEQ_IT_OPTIONNO.NEXTVAL,'옵션',#{shopNo})
 	 </insert>
 	 
-	 	<!-- shop 옵션번호 추가 -->
+	 	<!-- shop  -->
 	 <select id="selectOptionNo" parameterType="_int" resultType="_int">
 	  SELECT OPTION_NO
 	  FROM
@@ -199,6 +199,15 @@
 	WHERE IMG_NO IN
 	<foreach collection="list" item="fileNo" open="(" close=")" separator=",">
 	#{fileNo}	
+	</foreach>
+</delete>
+
+<!-- 옵션리스트 삭제 -->
+<delete id="deleteOptionList" parameterType="list">
+	DELETE FROM EH_ITEM_OPTIONDETAIL
+	WHERE OPTION_SPECIFY_NO IN
+	<foreach collection="list" item="optionSpecify_NO" open="(" close=")" separator=",">
+	#{optionSpecify_NO}	
 	</foreach>
 </delete>
 

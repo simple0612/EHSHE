@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -99,14 +101,14 @@ public class ShopController {
 		
 		return "shop/shopList";
 	}
-
 	// 상세조회
-	@RequestMapping("{type}/{itemNo}")
+	@RequestMapping(value={"{type}/{itemNo}"})
 	public String shopView(@PathVariable("type") int type
 			, @PathVariable("itemNo") int itemNo, 
 			Model model,
 			@RequestHeader(value = "referer", required = false) String referer, 
-			RedirectAttributes ra) {
+			RedirectAttributes ra,
+			HttpServletRequest request, HttpSession session) {
 
 		Shop shop = service.selectShopBoard(itemNo, type);
 
@@ -130,16 +132,17 @@ public class ShopController {
 				model.addAttribute("ShopOptionList",ShopOptionList);
 				
 			}
-		
+		    //session.setAttribute("returnListURL",referer);
 			model.addAttribute("shop", shop);
+			request.getSession().setAttribute("returnListURL", "../shopMain");
+
 			url ="shop/shopView";
 		}else {
 			
 		   if(referer == null) {
-		   url = "redirect:../shopList/" + type;
-			
+		      url = "redirect:../shopList/" + type;
 		}else {
-			url = "redirect:" + referer; 
+			 url = "redirect:" + referer; 
 		}
 		ra.addFlashAttribute("swalIcon","error");
 		ra.addFlashAttribute("swalTitle","존재하지 않는 게시글입니다.");
@@ -150,8 +153,10 @@ public class ShopController {
 
 	// shop 게시글 등록 전환
 	@RequestMapping("{type}/shopInsert")
-	public String shopInsert() {
-
+	public String shopInsert(@PathVariable("type") int type,Model model) {
+		
+		model.addAttribute("type",type);
+		
 		return "shop/shopInsert";
 	}
      
@@ -160,15 +165,11 @@ public class ShopController {
 	public String shopInsertAction(@ModelAttribute Shop shop,
 			@PathVariable("type") int type,
 			@RequestParam(value = "images", required = false) List<MultipartFile> images, HttpServletRequest request,
-			@RequestParam(value = "sizeMenu", required = false,defaultValue = "") List<String> sizeMenu,
-		    @RequestParam(value = "colorMenu", required = false,defaultValue = "") List<String> colorMenu,
+			@RequestParam(value = "optionDetail", required = false,defaultValue = "") List<String> optionDetail,
 
 		     RedirectAttributes ra) {
 		
-		System.out.println(sizeMenu + "aaa" +colorMenu);
-		
 		Map<String, Object> map = new HashMap<String, Object>();
-		
 		map.put("shopContent", shop.getItemContent());
 		map.put("shopCategory", shop.getItemCategory());
 		map.put("shopItemNm", shop.getItemNm());
@@ -177,23 +178,25 @@ public class ShopController {
 
 		String savePath = null;
 
-		if (type == 1) {
+		if (shop.getItemCategory() == 1) {
 			savePath = request.getSession().getServletContext().getRealPath("resources/clothesImages");
-		} else if (type == 2) {
+		} else if (shop.getItemCategory() == 2) {
 			savePath = request.getSession().getServletContext().getRealPath("resources/accessoryImages");
 		} else {
 			savePath = request.getSession().getServletContext().getRealPath("resources/etcImages");
 		}
 
-		int result = service.insertShop(map, images, savePath,sizeMenu,colorMenu);
-
+		int result = service.insertShop(map, images, savePath,optionDetail);
+		int ShopType=shop.getItemCategory();
 		
 		String url = null;
 
 		if (result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 등록 성공";
-			url = "redirect:"+result;
+			url = "redirect:"+"/shop/"+ShopType+"/" + result;
+			
+		  //url = "shop/"+ShopType+"/"+result;
 
 			request.getSession().setAttribute("returnListURL", "../shopList/" + shop.getItemCategory());
 
@@ -312,20 +315,19 @@ public class ShopController {
     		 						Model model,RedirectAttributes ra,
     		 						HttpServletRequest request,
     		 						@RequestParam(value="images" ,required=false) MultipartFile images,
-    		 						@RequestParam(value="sizeMenu" ,required=false, defaultValue="1") List<String> sizeMenu, 
-    		 						@RequestParam(value="colorMenu" ,required=false , defaultValue="1")List<String> colorMenu
-    		 						){
+    		 						@RequestParam (value="optionDetail" ,required=false) List<String> updateOption){
     	 
-    	 System.out.println("3333"+sizeMenu + "--"+colorMenu);
+      
+    	 
+    updateShopBoard.setItemNo(itemNo);
     
-   updateShopBoard.setItemNo(itemNo);
-    
+    System.out.println("ccc"+updateOption);
     
     String savePath = null;	 
     
-	if(type==1){
+	if(updateShopBoard.getItemCategory()==1){
 		savePath = request.getSession().getServletContext().getRealPath("resources/clothesImages");
-	} else if(type==2){
+	} else if(updateShopBoard.getItemCategory()==2){
 		savePath = request.getSession().getServletContext().getRealPath("resources/accessoryImages");
 	} else {
 		savePath = request.getSession().getServletContext().getRealPath("resources/etcImages");
@@ -333,14 +335,23 @@ public class ShopController {
     	
 	
     
-	int result = service.updateShopBoard(updateShopBoard,images,savePath,sizeMenu,colorMenu);
+	int result = service.updateShopBoard(updateShopBoard,images,savePath,updateOption);
+	
+	
+	
+	int categoryNo = updateShopBoard.getItemCategory();
 	
 	String url =null;
 	
 	if(result > 0) {
 		swalIcon = "success";
 		swalTitle = "게시글 수정 성공";
-		url = "redirect:../"+itemNo;
+		 //url = "redirect:../"+itemNo;
+		// url = "redirect:.."+categoryNo+"/" + result;
+		request.getSession().setAttribute("returnListURL", "../shopList/" + updateShopBoard.getItemCategory());
+	    url = "redirect:../../"+categoryNo+"/" + itemNo;
+
+	
 	}else {
 		swalIcon = "error";
 		swalTitle = "게시글 수정 실패";

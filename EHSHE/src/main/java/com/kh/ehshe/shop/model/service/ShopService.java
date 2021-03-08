@@ -67,7 +67,7 @@ public interface ShopService {
 	 * @param sizemenu 
 	 * @return result
 	 */
-	int insertShop(Map<String, Object> map, List<MultipartFile> images, String savePath, List<String>colorMenu ,List<String>sizeMenu);
+	int insertShop(Map<String, Object> map, List<MultipartFile> images, String savePath, List<String>optionDetail);
 
 	/** 섬머노트 업로드 이미지 저장 Service
 	 * @param uploadFile
@@ -83,7 +83,7 @@ public interface ShopService {
 	 * @param savePath
 	 * @return result
 	 */
-	int updateShopBoard(Shop updateShopBoard, MultipartFile images, String savePath, List<String> sizeMenu, List<String> colorMenu);
+	int updateShopBoard(Shop updateShopBoard, MultipartFile images, String savePath, List<String> updateOption);
 
 	/** 메인 페이지 최근올라온 상품 Service
 	 * @return sList

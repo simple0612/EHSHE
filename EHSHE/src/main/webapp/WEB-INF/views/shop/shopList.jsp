@@ -46,6 +46,9 @@ border: 1px solid black;
   background-color: #F5dF4D;
   color:white;
 }
+.listPointer{
+cursor:pointer;
+}
  
 </style>
 <body>
@@ -63,7 +66,7 @@ border: 1px solid black;
         <div class="row" style="margin-top: 50px;">
             <c:if test="${!empty sList}">
               <c:forEach var="shop" items="${sList}" varStatus="vs">
-            <div class="col-md-3" onclick="location.href='../${pInfo.shopType}/${shop.itemNo}'">
+            <div class="col-md-3 listPointer" onclick="location.href='../${pInfo.shopType}/${shop.itemNo}'">
                 <div class="mb-3 a">
                 
                 <c:forEach items="${thList}" var="th">
