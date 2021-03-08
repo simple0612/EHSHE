@@ -16,6 +16,14 @@ public class ShopOption {
 
 	
 
+	public ShopOption(String itemOptionContent, int optionSpecify_NO) {
+		super();
+		ItemOptionContent = itemOptionContent;
+		this.optionSpecify_NO = optionSpecify_NO;
+	}
+
+
+
 	public ShopOption(int optionNo, String optionSpecifyContent) {
 		super();
 		this.optionNo = optionNo;

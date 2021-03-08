@@ -55,6 +55,9 @@ position:relative !important;
 border:none;
 outline:none;
 }
+.optionDelete{
+cursor:pointer;
+}
 
  
 </style>
@@ -136,18 +139,16 @@ outline:none;
                 <table class="table table-bordered" id="allTable" style="margin-top: 5px;">
                     <thead>
                       <tr>
-                        <th scope="col"><input type="checkbox" id="optionCheckAll"></th>
-                        <th scope="col">사이즈</th>
-                        <th scope="col">색상</th>
+                        <th scope="col"><input type="checkbox" class="optionDelete" id="optionCheckAll"></th>
+                        <th scope="col">옵션목록</th>
                         <th scope="col">삭제</th>
                       </tr>
                     </thead>
                     <tbody id="tbodyWrapper">
 		        			 <tr>
-		        			   <th scope='row'><input type='checkbox' name='optionCheckBox'></th>
-							          <td><input type="text" name="sizeMenu" class="options" readonly value=""></td>
-							          <td><input type="text" name="colorMenu" class="options" readonly value=""></td>
-							          <td><div id="deleteBtn" style="margin-left:10px;"><i class="fas fa-times"></i></div></td>
+		        			   		<th scope='row'><input type='checkbox' class="optionDelete" name='optionCheckBox'></th>
+							          <td><input type="text" name="optionDetail" class="options" readonly value=""></td>
+							          <td><div id="deleteBtn" class="optionDelete" style="margin-left:10px;"><i class="fas fa-times"></i></div></td>
           				 </tr>
                     </tbody>
                   </table>
@@ -188,6 +189,10 @@ $(document).ready(function() {
       var sizeSplit =[];  // size 배열에 담기
       var colorSplit =[];  // color 배열에 담기
 
+      
+      var optionDetail =[];  // size 배열에 담기
+
+      
       var temp =""; // 동적테이블 담을 변수
       
       if(!size && !color){
@@ -202,8 +207,8 @@ $(document).ready(function() {
       console.log(sizeSplit);
       colorSplit = color.split(',');
       console.log(colorSplit);
-      
-      // 사이즈,컬러 각각의 맞게 분배
+
+/*       // 사이즈,컬러 각각의 맞게 분배
       for (var i=0; i<sizeSplit.length; i++) {
 
           for(var j=0; j<colorSplit.length; j++){
@@ -221,9 +226,54 @@ $(document).ready(function() {
 
           }
           
-      } 
-    }
+      }  */
       
+      for (var i=0; i<sizeSplit.length; i++) {
+          
+    	  	for(var j=0; j<colorSplit.length; j++){
+					   	
+    	  		if(sizeSplit[0] ==""){
+    	  			optionDetail = colorSplit[j];
+    	  			
+    	  			  $("#tbodyWrapper").empty();
+
+                  temp +='<tr>';
+                  temp +="<th scope='row'>"+ "<input type='checkbox' class='optionDelete' name='optionCheckBox'></th>";
+                  temp +='<td>'+'<input type="text" name="optionDetail" class="options" readonly value="'+ optionDetail+'"></td>';
+                  temp +='<td>' +'<div id="deleteBtn" class="optionDelete" style="margin-left:10px;"><i class="fas fa-times"></i></div>'+ '</td>';
+                  temp +='</tr>';
+
+                  $("#tbodyWrapper").append(temp);
+    	  			
+    	  			
+    	  			
+    	  		}else if(colorSplit[0] ==""){
+    	  			optionDetail = sizeSplit[i];
+    	  			
+    	  			$("#tbodyWrapper").empty();
+                    temp +='<tr>';
+                    temp +="<th scope='row'>"+ "<input type='checkbox'  class='optionDelete' name='optionCheckBox'></th>";
+                    temp +='<td>'+'<input type="text" name="optionDetail" class="options" readonly value="'+ optionDetail+'"></td>';
+                    temp +='<td>' +'<div id="deleteBtn" class="optionDelete" style="margin-left:10px;"><i class="fas fa-times"></i></div>'+ '</td>';
+                    temp +='</tr>';
+                    $("#tbodyWrapper").append(temp);
+    	  		
+    	  		}else{
+        	    optionDetail = sizeSplit[i] +"("+colorSplit[j]+")";
+           	  $("#tbodyWrapper").empty();
+
+              temp +='<tr>';
+              temp +="<th scope='row'>"+ "<input type='checkbox'   class='optionDelete' name='optionCheckBox'></th>";
+              temp +='<td>'+'<input type="text" name="optionDetail" class="options" readonly value="'+ optionDetail+'"></td>';
+              temp +='<td>' +'<div id="deleteBtn"  class="optionDelete" style="margin-left:10px;"><i class="fas fa-times"></i></div>'+ '</td>';
+              temp +='</tr>';
+
+              $("#tbodyWrapper").append(temp);
+        	  
+    	  		}
+    	  }
+      }
+      }
   });
 
   
