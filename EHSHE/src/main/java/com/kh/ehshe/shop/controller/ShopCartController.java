@@ -20,10 +20,11 @@ import com.kh.ehshe.member.model.vo.Member;
 import com.kh.ehshe.shop.model.service.ShopCartService;
 import com.kh.ehshe.shop.model.vo.Cart;
 import com.kh.ehshe.shop.model.vo.Order;
+import com.kh.ehshe.shop.model.vo.Pitem;
 import com.kh.ehshe.shop.model.vo.ShopCart;
 
 @Controller
-@RequestMapping("/shop2/*")
+@RequestMapping(value={"/shop2/*","/shop/*"})
 @SessionAttributes({ "loginMember"}) // Model에 추가된 데이터 중 key 값이 해당 어노테이션에 적혀있는 값과 일치하는 데이터를 session scope로 이동
 public class ShopCartController {
 	
@@ -156,6 +157,7 @@ public class ShopCartController {
 		 */
 		
 		
+		
 		model.addAttribute("tsprice", tsprice); //
 		model.addAttribute("tprice", tprice); // 
 		model.addAttribute("sprice", sprice); // 
@@ -164,16 +166,15 @@ public class ShopCartController {
 		
 		//System.out.println(optionNoList);
 		
-		if(bList == null) {
-			swalIcon = "info";
-			swalTitle = "결제할 상품이 없습니다.";
-			swalText = "결제할 상품을 추가해주세요.";
-			
-		}
-		
-		ra.addFlashAttribute("swalIcon", swalIcon);
-		ra.addFlashAttribute("swalTitle", swalTitle);
-		ra.addFlashAttribute("swalText", swalText);
+		/*
+		 * if(bList == null) { swalIcon = "info"; swalTitle = "결제할 상품이 없습니다."; swalText
+		 * = "결제할 상품을 추가해주세요.";
+		 * 
+		 * }
+		 * 
+		 * ra.addFlashAttribute("swalIcon", swalIcon); ra.addFlashAttribute("swalTitle",
+		 * swalTitle); ra.addFlashAttribute("swalText", swalText);
+		 */
 		
 		
 		return "shop/payment";
@@ -193,12 +194,12 @@ public class ShopCartController {
 		
 		int memberNo =loginMember.getMemberNo();
 		
-//		System.out.println(orderPrice); // 100
-//		System.out.println(orderRecipient); // 유저이
-//		System.out.println(orderTel); // 01022222222
-//		System.out.println(orderAddr); // 17132 경기도 용인시 처인구 ~
-//		System.out.println(OptionSpecifyNo); // 21, 22
-//		System.out.println(orderItemName); // 커플반지 , 티셔츠 , 잠옷 = > (커블반지 외 2개).
+		System.out.println(orderPrice); // 100
+		System.out.println(orderRecipient); // 유저이
+		System.out.println(orderTel); // 01022222222
+		System.out.println(orderAddr); // 17132 경기도 용인시 처인구 ~
+		System.out.println(OptionSpecifyNo); // 21, 22
+		System.out.println(orderItemName); // 커플반지 , 티셔츠 , 잠옷 = > (커블반지 외 2개).
 		
 		String[] str = OptionSpecifyNo.split(",");
 		ArrayList<String> optionSNL = new ArrayList<String>();
@@ -206,7 +207,7 @@ public class ShopCartController {
 		for(int i=0; i<str.length; i++) {
 			optionSNL.add(str[i]);
 		}
-//		System.out.println(optionSNL); // [21, 22]
+		System.out.println(optionSNL); // [21, 22]
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
@@ -222,6 +223,60 @@ public class ShopCartController {
 		
 		return result;
 	}
+	
+	
+	// 상세페이지에서 결제 버튼 누르면 결제페이지로 이동.
+	@RequestMapping("ordersheet/itemPayment")
+	public String itemPayment(@RequestParam("select") int OptionSpecifyNo,
+							  @RequestParam("Quantity") int buyingQuantity,
+							  Model model)
+							   {
+		
+		//System.out.println(OptionSpecifyNo);
+		//System.out.println(buyingQuantity);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("OptionSpecifyNo", OptionSpecifyNo);
+		
+		List<Pitem> bbList = service.itemPayment(map);
+		
+		System.out.println(bbList);
+		System.out.println(bbList.get(0).getItemPrice());
+		
+		// 아이템 가격 얻어오기
+		int tprice= bbList.get(0).getItemPrice();
+		
+		
+		// 아이템 가격이 20000원 미만이면 배송료 3000원. 20000원 이상이라면 배송 무료.
+		int sprice = 0;
+		if(tprice < 20000) {
+			sprice = 3000;
+		}else {
+			sprice = 0;
+		}
+		
+		int tsprice = tprice + sprice;
+		
+		
+		model.addAttribute("bbList", bbList);
+		model.addAttribute("OptionSpecifyNo", OptionSpecifyNo);
+		model.addAttribute("buyingQuantity", buyingQuantity);
+		model.addAttribute("tprice", tprice);
+		model.addAttribute("sprice", sprice);
+		model.addAttribute("tsprice", tsprice);
+		
+		
+		return "shop/payment";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 }

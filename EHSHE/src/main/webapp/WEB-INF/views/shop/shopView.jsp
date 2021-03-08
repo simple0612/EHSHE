@@ -73,6 +73,7 @@ line-height:55px;
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>	
+   <form action="${contextPath}/shop/ordersheet/itemPayment" method="POST" onsubmit="return validate();">
     <div class="container main">
         <div class="row">
             <div class="col-md-6">
@@ -96,13 +97,12 @@ line-height:55px;
 	 						
 			        
                  </div>
-           
            		 <div class="col-md-6">
                     <div class="col-md-12">
                     <table class="line">
                     	<tr>
                     		<td class="" style="width:100px;"><strong>상품명</strong>: </td>
-                    		<td class="">${shop.itemNm}</td>
+                    		<td class="itemNm">${shop.itemNm}</td>
                     	</tr>
                     	<tr>
 		                   	<td><strong>가격</strong> :</td>
@@ -129,7 +129,7 @@ line-height:55px;
                 		
                 			<tr>
                 				<td><strong>개수</strong> : </td>
-              					<td><input type="number" id="Quantity"class="form-control form-control-sm" min="0" max="100" value="0" style="width: 100%;"/>
+              					<td><input type="number" id="Quantity" name="Quantity" class="form-control form-control-sm" min="0" max="100" value="0" style="width: 100%;"/>
 											  </td>
                 			</tr>
                 			<tr>
@@ -204,11 +204,11 @@ line-height:55px;
                     </div>  --%>
                       
                       <div class="float-left col-10"style="margin-top:20px;" >
-                         <button id="paybtn" class="btn btn-warning btn-lg btn-block">결제하기</button>
-                         <button id="cartbtn" class="btn btn-secondary btn-lg btn-block">장바구니</button>
+                         <button type="submit" id="paybtn" class="btn btn-warning btn-lg btn-block" >결제하기</button>
+                         <button type="button" id="cartbtn" class="btn btn-secondary btn-lg btn-block">장바구니</button>
                       </div>
-               </div>
-               
+              	 </div>
+              
              </div>
                    
         <hr>
@@ -266,7 +266,7 @@ line-height:55px;
         <br>
         <br>
      </div>
-     
+   </form> 
    <jsp:include page="../common/footer.jsp" />		
      
 </body>
@@ -282,30 +282,30 @@ line-height:55px;
   
   //로그인한 회원번호
   var memberNo = ${loginMember.memberNo};
-  console.log(memberNo)
+  	//console.log(memberNo)
   
   // 선택한 상세옵션번호
   var optionSpecifyNo
   function SetSelectBox(){
-	  
-  optionSpecifyNo = $("#optionSelect option:selected").val();
-
-  console.log(optionSpecifyNo);
+  	optionSpecifyNo = $("#optionSelect option:selected").val();
+  	//console.log(optionSpecifyNo);
   }
   
   // 현재 아이템 번호
 	var itemNo = ${shop.itemNo};	
-	console.log(itemNo);
+		//console.log(itemNo);
   
-	
+	// 구매할 수량.
 	var buyingQuantity;
 	$("#Quantity").on("change", function(){
 		
 		buyingQuantity = $("#Quantity").val()
 		
-		console.log(buyingQuantity);
+		//console.log(buyingQuantity);
 	});
 	 
+	
+	// 장바구니에 아이템 담기.
 	$("#cartbtn").on("click", function(){
 		Swal.fire({
 			  title: '장바구니에 담으시겠습니까?',
@@ -331,15 +331,33 @@ line-height:55px;
 							    )
 								}
 							},
-							error : function(){
-								console.log("장바구니에 담기 실패");
+							error : function(data){
+
+								Swal.fire({
+									  title: '장바구니 담기 실패!',
+									  text: '옵션과 수량을 확인해주세요.같은 옵션은 중복해  담을 수 없습니다.',
+									  icon: 'error'
+									})
 							}
 						})
 			  }
 			})
 	});
   
-  
+	// 옵션 유효성 검사.
+	function validate(){
+		
+		if($("#optionSelect option:selected").text() == '옵션을 선택하세요.'){
+			Swal.fire({icon:'error', text:'옵션을 선택해주세요'})
+			return false
+		}
+		if($("#Quantity").val() == 0){
+			Swal.fire({icon:'error', text:'수량을 입력해주세요'})
+			return false	
+		}
+		return true;
+	}
+	
   
   
 </script>

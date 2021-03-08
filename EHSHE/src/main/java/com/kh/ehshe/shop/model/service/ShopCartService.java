@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.ehshe.shop.model.vo.Cart;
+import com.kh.ehshe.shop.model.vo.Pitem;
 import com.kh.ehshe.shop.model.vo.ShopCart;
 
 
@@ -63,6 +64,15 @@ public interface ShopCartService {
 	 * @return result
 	 */
 	public abstract int insertCart(Cart insertItem);
+
+
+
+
+	/** 상세페이지에서 결제 버튼 누르면 결제페이지로 이동.
+	 * @param map
+	 * @return List
+	 */
+	public abstract List<Pitem> itemPayment(Map<String, Object> map);
 	
 	
 

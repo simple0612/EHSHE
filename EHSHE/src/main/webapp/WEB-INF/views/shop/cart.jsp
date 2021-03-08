@@ -13,11 +13,16 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+		<!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+		<script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
 <title>cart</title>
 <style>
 header {
 	position: relative !important;
+}
+.swal2-styled.swal2-confirm{
+	background-color : #F5dF4D;
 }
 </style>
 </head>
@@ -32,7 +37,7 @@ header {
 					<span>장바구니/결제</span>
 				</div>
 			</div>
-			<form action="ordersheet" method="POST">
+			<form action="ordersheet" method="POST" onsubmit="return validate();">
 				<div class="cart-info">
 					<div class="cart-items-info">
 						<div class="cart-items">
@@ -260,6 +265,18 @@ header {
             //console.log(totalprice);
 
         });
+        
+        
+        //주문하기 유효성 검사.
+        function validate(){
+        	if($("#tsprice").val().trim().length == 0 || $("#tsprice").val() == 0 ){
+        		Swal.fire({icon:'error', text:'상품을 선택해주세요'})
+        	
+        		return false;
+        	}
+					return true;        
+        }
+        
 
 
     </script>

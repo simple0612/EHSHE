@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.ehshe.shop.model.dao.ShopCartDAO;
 import com.kh.ehshe.shop.model.vo.Cart;
+import com.kh.ehshe.shop.model.vo.Pitem;
 import com.kh.ehshe.shop.model.vo.ShopCart;
 
 @Service
@@ -90,6 +91,13 @@ public class ShopCartServiceImpl implements ShopCartService {
 	public int insertCart(Cart insertItem) {
 		
 		return dao.insertCart(insertItem);
+	}
+
+	// 상세페이지에서 결제 버튼 누르면 결제페이지로 이동.
+	@Override
+	public List<Pitem> itemPayment(Map<String, Object> map) {
+		
+		return dao.itemPayment(map);
 	}
 	
 }

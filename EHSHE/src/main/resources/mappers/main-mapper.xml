@@ -27,6 +27,7 @@
 		FROM EH_ITEM
 		JOIN EH_ITEM_IMG USING(ITEM_NO)
 		WHERE IMG_LEVEL = 0
+		AND ITEM_DELETE_FL = 'N'
 		AND ITEM_NO IN 
 		<foreach collection="list" item="item" open="(" close=")" separator=",">
 			#{item.itemNo}

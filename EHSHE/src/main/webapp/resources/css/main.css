@@ -249,17 +249,18 @@
 }
 
 .citems .citem .citem-description{
-    padding : 10px;
+    padding-left : 20px;
     background-color: rgba(147,149,151, 0.5);
     height: 100%;
 }
 
 .citems .citem .citem-description span{
-    
+		padding-top: 5px;
+    display:block;
 }
 
-.citems .citem .citem-description h3{
-    font-size:24px;
+.citems .citem .citem-description h4{
+    font-size:18px;
     margin : 15px 0;
     letter-spacing: -1;
     font-weight: 400;
