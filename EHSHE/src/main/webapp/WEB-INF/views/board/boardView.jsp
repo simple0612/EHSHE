@@ -92,7 +92,7 @@
 				<div class="row">
 					<div class="col-md-12 subInfo">
 						
-						<c:if test="${(loginMember != null) && (board.memberNo != loginMember.memberNo)}">
+						<c:if test="${(!empty loginMember ) && (board.memberNo != loginMember.memberNo)}">
 			       	<c:choose>
 			            <c:when test="${likeFl == 0 }">
 			               <img src="${contextPath}/resources/images/heart1.png" class="like">
@@ -142,8 +142,7 @@
 						<div class="">
 
 							<c:if test="${empty sessionScope.returnListURL}">
-								<c:set var="returnListURL" value="../board/boardList"
-									scope="session" />
+								<c:set var="returnListURL" value="../board/boardList" scope="session" />
 							</c:if>
 							<a class="btn ehsheYellow"
 								href="${sessionScope.returnListURL}">목록으로</a>					

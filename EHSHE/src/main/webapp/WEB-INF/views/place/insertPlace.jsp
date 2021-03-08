@@ -64,7 +64,7 @@
 </style>
 
 <link rel="stylesheet"
-	href="${contextPath}/resources/css/admin/insertPlace.css">
+	href="${contextPath}/resources/css/place/insertPlace.css">
 
 </head>
 
@@ -75,12 +75,10 @@
 	<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
 	<script
 		src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
-	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
+	<script src="${contextPath}/resources/summernote/js/mySummernote2.js"></script>
 
 	<div class="container-fluid placeMain">
-		<form action="insertAction" name="insertAction"
-			enctype="multipart/form-data" method="post" role="form"
-			onsubmit="return validate();">
+		<form action="insertAction" name="insertAction" enctype="multipart/form-data" method="post" role="form" onsubmit="return validate();">
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
@@ -135,7 +133,7 @@
 								</tr>
 								<tr>
 									<td>분류</td>
-									<td><input class="form-control mr-sm-2" type="text" name="categoryName" id="categoryName"/></td>
+									<td><input class="form-control mr-sm-2" type="text" name="categoryName" id="categoryName" required/></td>
 								</tr>
 								<tr>
 									<td>전화번호</td>
@@ -327,9 +325,9 @@
 		}
 		// 유효성 검사
 		function validate() {
-			if ($("#placeName").val().trim().length == 0) {
+			if ($("#placeTitle").val().trim().length == 0) {
 				alert("제목을 입력해 주세요.");
-				$("#placeName").focus();
+				$("#placeTitle").focus();
 				return false;
 			}
 
@@ -345,13 +343,12 @@
 				return false;
 			}
 
-			$location = $("<input>", {
-				type : "hidden",
-				name : "location",
-				value : $("#post").val() + "," + $("#address1").val() + ","
-						+ $("#address2").val()
+			$location = $("<input>", {type : "hidden", name : "location",
+				value : $("#post").val() + "," + $("#address1").val() + "," + $("#address2").val()
 			});
 			$("form[name='insertAction']").append($location);
+			
+			console.log($location)
 
 		}
 	</script>

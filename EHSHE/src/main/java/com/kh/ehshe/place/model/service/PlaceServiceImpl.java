@@ -89,7 +89,7 @@ public class PlaceServiceImpl implements PlaceService{
 			if(result > 0) {
 				List<PAttachment> uploadImages = new ArrayList<PAttachment>();
 				
-				String filePath = "/resources/uploadImages";
+				String filePath = "/resources/placeImages";
 				
 				for(int i=0; i<image.size(); i++) {
 					if (!image.get(i).getOriginalFilename().equals("")) {
@@ -190,7 +190,7 @@ public class PlaceServiceImpl implements PlaceService{
 		String fileName = rename(uploadFile.getOriginalFilename());
 
 		// 웹상 접근 주소
-		String contentFilePath = "/resources/updateImages";
+		String contentFilePath = "/resources/placeImages";
 
 		PAttachment at = new PAttachment();
 		at.setFilePath(contentFilePath);

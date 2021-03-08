@@ -35,37 +35,13 @@
 			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12">
-						<div class="carousel slide carousel-fade" id="carousel-722581" data-ride="carousel">
-							<ol class="carousel-indicators">
-								<li data-slide-to="0" data-target="#carousel-722581"></li>
-								<li data-slide-to="1" data-target="#carousel-722581"></li>
-								<li data-slide-to="2" data-target="#carousel-722581" class="active"> </li>
-							</ol>
-							<div class="carousel-inner">
-								<div class="carousel-item" data-interval="4000">
-									<img class="d-block w-100" alt="Carousel Bootstrap First"
-										src="${contextPath}/resources/images/placeMain1.png" />
-									<div class="carousel-caption">
-									</div>
-								</div>
-								<div class="carousel-item" data-interval="4000">
-									<img class="d-block w-100" alt="Carousel Bootstrap Second"
-										src="${contextPath}/resources/images/placeMain2.png" />
-									<div class="carousel-caption">
-									</div>
-								</div>
-								<div class="carousel-item active" data-interval="4000">
-									<img class="d-block w-100" alt="Carousel Bootstrap Third"
-										src="${contextPath}/resources/images/placeMain3.png" />
-									<div class="carousel-caption">
-									</div>
-								</div>
-							</div>
-						</div>
+						<img class="placeListImg" src="">
 					</div>
 				</div>
+				<c:if test="${empty pList }">
+						<h5>존재하는 게시글이 없습니다.</h5>
+				</c:if>
 				
-				<h4>EHSHE 장소</h4>
 				<div class="row">
 					<c:if test="${!empty pList }">
 						<c:forEach var="place" items="${pList}" varStatus="vs">
@@ -74,7 +50,7 @@
 									<div style="display: none;">${place.placeNo}</div>
 									<c:forEach var="th" items="${thList}">
 											<c:if test="${th.placeNo == place.placeNo}">
-												<img class="card-img-top" src="${contextPath}/resources/uploadImages/210303203008_53871.jpg"/>
+												<img class="card-img-top" src="${contextPath}${th.filePath}/${th.fileName}"/>
 											</c:if>
 									</c:forEach>
 									<div class="card-block">
@@ -91,6 +67,15 @@
 							</div>
 						</c:forEach>
 					</c:if>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-12 insert-btn">
+						<c:if test="${!empty loginMember }">
+							<a class="btn ehsheYellow float-right writeBtn" 
+								href="${contextPath}/place/insertPlace">글쓰기</a>
+						</c:if>
+					</div>
 				</div>
 				
 				
@@ -174,6 +159,26 @@
 							</div>
 						</div>
 					<div class="col-md-2"></div>
+				</div>
+				
+				
+				
+				
+				
+				<div class="row">
+					<div class="col-md-12">
+						<form action="search" class="form-inline selectBox">
+							<select class="form-control mr-sm-2 search-bottom"  name="sk" type="text">
+								<option value="all">전체</option>
+								<option value="title">제목</option>
+								<option value="category">카테고리</option>
+								<option value="location">위치</option>
+							</select> <input id="search-input" class="form-control mr-sm-2" name="sv"
+								type="text" />
+							<button class="btn ehsheYellow my-2 my-sm-0">
+								검색</button>
+						</form>
+					</div>
 				</div>
 				
 			<div class="col-md-2"></div>

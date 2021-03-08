@@ -98,7 +98,7 @@
 										
 										<c:url var="pageUrl" value="search?${searchStr }&"/>
 										<c:set var="returnListURL" 
-												value="${contextPath}/board/search/${pageUrl}cp=${pInfo.currentPage}"
+												value="${contextPath}/board/${pageUrl}cp=${pInfo.currentPage}"
 												scope="session"/>
 									</c:when>
 									
@@ -106,7 +106,7 @@
 									<c:otherwise>
 										<c:url var="pageUrl" value="?"/>
 											<c:set var="returnListURL" 
-												value="${contextPath}/board/boardlist/${pageUrl}cp=${pInfo.currentPage}"
+												value="${contextPath}/board/boardList${pageUrl}cp=${pInfo.currentPage}"
 												scope="session"/>
 									</c:otherwise>
 								</c:choose>

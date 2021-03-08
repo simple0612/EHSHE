@@ -6,30 +6,30 @@ public class PAttachment {
 	private String filePath;
 	private String fileName;
 	private int fileLevel;
-	private int boardNo;
+	private int placeNo;
 	
 	public PAttachment() {
 	}
 
 	
 	
-	public PAttachment(String filePath, String fileName, int fileLevel, int boardNo) {
+	public PAttachment(String filePath, String fileName, int fileLevel, int placeNo) {
 		super();
 		this.filePath = filePath;
 		this.fileName = fileName;
 		this.fileLevel = fileLevel;
-		this.boardNo = boardNo;
+		this.placeNo = placeNo;
 	}
 
 
 
-	public PAttachment(int fileNo, String filePath, String fileName, int fileLevel, int boardNo) {
+	public PAttachment(int fileNo, String filePath, String fileName, int fileLevel, int placeNo) {
 		super();
 		this.fileNo = fileNo;
 		this.filePath = filePath;
 		this.fileName = fileName;
 		this.fileLevel = fileLevel;
-		this.boardNo = boardNo;
+		this.placeNo = placeNo;
 	}
 
 	public int getFileNo() {
@@ -64,19 +64,22 @@ public class PAttachment {
 		this.fileLevel = fileLevel;
 	}
 
-	public int getBoardNo() {
-		return boardNo;
+	public int getPlaceNo() {
+		return placeNo;
 	}
 
-	public void setBoardNo(int boardNo) {
-		this.boardNo = boardNo;
+	public void setPlaceNo(int placeNo) {
+		this.placeNo = placeNo;
 	}
 
 	@Override
 	public String toString() {
-		return "Attachment [fileNo=" + fileNo + ", filePath=" + filePath + ", fileName=" + fileName + ", fileLevel="
-				+ fileLevel + ", boardNo=" + boardNo + "]";
+		return "PAttachment [fileNo=" + fileNo + ", filePath=" + filePath + ", fileName=" + fileName + ", fileLevel="
+				+ fileLevel + ", placeNo=" + placeNo + "]";
 	}
+
+	
+	
 	
 	
 	
