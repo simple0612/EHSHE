@@ -50,7 +50,7 @@
 	<select id="selectThumbnailList" parameterType="list" resultMap="attachment_rm">
 		SELECT * FROM EH_BOARD_ATTACHMENT
 		WHERE BOARD_AT_LEVEL = 0
-		AND BOARD_NO IN 
+		AND BOARD_NO IN
 		<foreach collection="list" item="vBoard" separator=", " open="(" close=")">
 			#{vBoard.boardNo}
 		</foreach>

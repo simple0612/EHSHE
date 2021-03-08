@@ -39,7 +39,7 @@ public class PlaceController {
 	private String swalTitle = null;
 	private String swalText = null;
 	
-	// 게시글 목록 조회 Controller
+	// placeMain 목록 조회 Controller
 	@RequestMapping("placeMain")
 	public String PlaceMain(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
 		
@@ -58,11 +58,31 @@ public class PlaceController {
 		model.addAttribute("pList", pList);
 		model.addAttribute("pInfo", pInfo);
 		
+		
+		
 		return "place/placeMain";
 	}
 	
+	
+	// placeList 목록 조회 Controller
 	@RequestMapping("placeList")
-	public String PlaceList() {
+	public String PlaceList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+		
+		PlacePageInfo pInfo = service.getPlacePageInfo(cp);
+		
+		// 게시글 목록 조회
+		List<VPlace> pList = service.selectList(pInfo);
+		
+		if (pList != null && !pList.isEmpty()) {
+			List<PAttachment> thumbnailList = service.selectThumbnailList(pList);
+
+			if (thumbnailList != null) {
+				model.addAttribute("thList", thumbnailList);
+			}
+		}
+		model.addAttribute("pList", pList);
+		model.addAttribute("pInfo", pInfo);
+		
 		return "place/placeList";
 	}
 	
@@ -113,16 +133,20 @@ public class PlaceController {
 	// 게시글 등록 화면 전환용 Controller
 	@RequestMapping("insertPlace")
 	public String insertView() {
-		return "../admin/insertPlace";
+		return "place/insertPlace";
 	}
 	
+	
+	@RequestMapping("insertAction")
 	public String insertAction(@ModelAttribute Place place, @ModelAttribute("loginMember") Member loginMember,
 			@RequestParam(value="image", required=false) List<MultipartFile> image,
 			HttpServletRequest request, RedirectAttributes ra) {
 		
 		Map<String, Object> map =  new HashMap<String, Object>();
 		
-		map.put("memberNo", loginMember.getMemberNo());
+		System.out.println("로케이션" + place.getLocation());
+		
+		map.put("adminNo", loginMember.getMemberNo());
 		map.put("placeTitle", place.getPlaceTitle());
 		map.put("placeContent", place.getPlaceContent());
 		map.put("location", place.getLocation());
@@ -137,10 +161,12 @@ public class PlaceController {
 		map.put("enroll", place.getEnroll());
 		map.put("enrollContents", place.getEnrollContents());
 		
+		System.out.println(map);
+		
 		// 썸네일 이미지 저장경로
-		String thumbnailSavePath = request.getSession().getServletContext().getRealPath("resources/uploadImages");
+		String thumbnailSavePath = request.getSession().getServletContext().getRealPath("resources/placeImages");
 		// content 이미지 저장 경로
-		String contentsavePath = request.getSession().getServletContext().getRealPath("resources/uploadImages");
+		String contentsavePath = request.getSession().getServletContext().getRealPath("resources/placeImages");
 		
 		int result = service.insertPlace(map, image, thumbnailSavePath, contentsavePath);
 		
@@ -153,10 +179,11 @@ public class PlaceController {
 
 			// 새로 작성한 게시글 상세 조회시 목록으로 버튼 경로 지정하기
 			request.getSession().setAttribute("returnListURL", "../placeList");
+			
 		} else {
 			swalIcon = "error";
 			swalTitle = "게시글 등록 실패";
-			url = "redirect:admin/insertPlace";
+			url = "redirect:insertPlace";
 			// -----------수정부분 ---------
 		}
 
@@ -169,11 +196,11 @@ public class PlaceController {
 	//---------------------------------- summernot ------------------------------------------
 	// summernote에 업로드된 이미지 저장 Controller
 	@ResponseBody
-	@RequestMapping("insertImage")
+	@RequestMapping(value={"insertImage", "{placeNo}/insertImage"})
 	public String insertImage(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
 
 		// 서버에 파일(이미지)을 저장할 폴더 경로 얻어오기
-		String cSavePath = request.getSession().getServletContext().getRealPath("resources/updateImages");
+		String cSavePath = request.getSession().getServletContext().getRealPath("resources/placeImages");
 
 		PAttachment at = service.insertImage(uploadFile, cSavePath);
 
@@ -194,7 +221,7 @@ public class PlaceController {
 		}  
 		model.addAttribute("place", place);
 
-		return "admin/place/placeUpdate";
+		return "/place/placeUpdate";
 	}
 	
 	

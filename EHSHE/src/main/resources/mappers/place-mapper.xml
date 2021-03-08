@@ -29,7 +29,7 @@
 	<resultMap type="PAttachment" id="attachment_rm">
 		<id property="fileNo" column="PLACE_AT_NO"/>
 		
-		<result property="thumbnailFilePath" column="PLACE_AT_PATH"/>
+		<result property="filePath" column="PLACE_AT_PATH"/>
 		<result property="fileName" column="PLACE_AT_NM"/>
 		<result property="fileLevel" column="PLACE_AT_LEVEL"/>
 		<result property="placeNo" column="PLACE_NO"/>
@@ -98,7 +98,7 @@
 	  INSERT INTO EH_PLACE_ATTACHMENT
 	  SELECT SEQ_PL_ANO.NEXTVAL, A.* FROM (
      <foreach collection="list" item="item" separator="UNION ALL ">
-       SELECT #{item.filepath} PLACE_AT_PATH,
+       SELECT #{item.filePath} PLACE_AT_PATH,
               #{item.fileName} PLACE_AT_NM,
               #{item.fileLevel} PLACE_AT_LEVEL,
               #{item.placeNo} PLACE_NO
@@ -125,7 +125,7 @@
 
 	<update id="updateAttachment" parameterType="PAttachment">
     UPDATE EH_PLACE_ATTACHMENT SET
-    PLACE_AT_PATH = #{thumbnailFilePath},
+    PLACE_AT_PATH = #{filePath},
     PLACE_AT_NM = #{fileName}
     WHERE PLACE_AT_NO = #{fileNo}
   </update>
@@ -133,7 +133,7 @@
   <!-- 파일 정보 삽입 -->
   <insert id="insertAttachment" parameterType="PAttachment">
     INSERT INTO EH_PLACE_ATTACHMENT
-    VALUES(SEQ_PL_ANO.NEXTVAL, #{thumbnailFilePath}, 0, #{fileName}, #{fileLevel}, #{placeNo})
+    VALUES(SEQ_PL_ANO.NEXTVAL, #{filePath}, 0, #{fileName}, #{fileLevel}, #{placeNo})
   </insert>
 	
 	<delete id="deleteAttachment" parameterType="_int">

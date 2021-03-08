@@ -76,7 +76,7 @@
 						<div class="view-header">
 							<span>${place.placeTitle}</span> <span>별점 4.7</span>
 								
-							<c:if test="${(loginMember != null) && (place.adminNo != loginMember.memberNo)}">
+							<c:if test="${!empty loginMember }">
 			      		 	<c:choose>
 			            <c:when test="${scrapFl == 0 }">
 			               <img src="${contextPath}/resources/images/scrap1.png" class="scrap">
