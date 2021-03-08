@@ -127,25 +127,37 @@ header {
 	       
         		
 	        	$(".delete-btn").on("click", function(){
-        	
-	        		if(confirm("장바구니에서 삭제하시겠습니까?")){
-        			
-	        			$.ajax({
-        					url : "${contextPath}/shop2/cart/deleteCartItem",
-	        				data : {
-	        							"optionSpecifyNo" : optionSpecifyNo},
-	        				type : "POST",
-	        				success : function(result){
-	        					if(result > 0){
-	        						swal({icon : "success", title : "장바구니에서 삭제 완료"});
-	        						location.reload();
-	        					}
-	        				},
-	        				error : function(){
-	        					console.log("장바구니에서 삭제 실패")
-	        				}
-	        			});
-	        		}
+	        		Swal.fire({
+	        			  text: "장바구니에서 삭제하시겠습니까?",
+	        			  icon: 'question',
+	        			  showCancelButton: true,
+	        			  confirmButtonColor: '#F5dF4D',
+	        			  cancelButtonColor: '#939597',
+	        			  cancelButtonText: '취소',
+	        			  confirmButtonText: '카트에서 삭제'
+	        			}).then((result) => {
+	        			  if (result.isConfirmed) {
+			        			$.ajax({
+		        					url : "${contextPath}/shop2/cart/deleteCartItem",
+			        				data : {
+			        							"optionSpecifyNo" : optionSpecifyNo},
+			        				type : "POST",
+			        				success : function(result){
+			        					if(result > 0){
+			        						swal({icon : "success", title : "장바구니에서 삭제 완료"}).then(function(){
+			        							
+			        						location.reload();
+			        						});
+			        					}
+			        				},
+			        				error : function(){
+			        					console.log("장바구니에서 삭제 실패")
+			        				}
+			        			});
+	        			   
+	        			    
+	        			  }
+	        			})
         	});	
         		
         });
@@ -168,8 +180,11 @@ header {
             	success : function(result){
             		
             		if(result > 0){
-            			swal({icon : "success", title : "장바구니에서 삭제 성공"})
+            			swal({icon : "success", title : "장바구니에서 삭제 성공"}).then(function(){
+            				
             			location.reload();
+            				
+            			});
             		}
             	},
             	error : function(){
