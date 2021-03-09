@@ -6,8 +6,16 @@ header{
     background-color: #F5dF4D !important;
 }
 
-.placeMain {
-    margin-top: 50px;
+#placeMain{
+	margin-top:50px;
+}
+
+#PlaceHeader{
+	margin-top:30px;
+}
+
+#contentArea{
+	margin-bottom:20px;
 }
 
 body {
@@ -34,16 +42,22 @@ body {
 	color: red;
 }
 
-.view-header>span:nth-of-type(3) {
-	float: right;
-}
-
-.view-header>span:nth-of-type(n+5) {
-	font-size: 0.6em;
+.view-header>span:nth-of-type(n+4) {
+	font-size: 0.8em;
 }
 
 .view-body td:first-child {
 	width: 120px;
+}
+
+#PlaceHeader{
+	margin-bottom: 30px;
+}
+
+.scrap{
+	float:right;
+	width:75px;
+	height:100px;
 }
 
 .menuTable td{
@@ -55,7 +69,19 @@ body {
 	height: 85px;
 }
 
- .map_wrap {overflow:hidden;height:330px}
+.btnBox{
+	margin-bottom:100px;
+}
+.placeContentArea{
+	border-top: 1px solid rgb(200, 200, 200,0.3);
+}
+
+.placeContentArea h3{
+	text-align:center;
+	margin-top:30px;
+}
+
+.map_wrap {overflow:hidden;height:330px}
 
 /* .map_wrap {
 	position: relative;

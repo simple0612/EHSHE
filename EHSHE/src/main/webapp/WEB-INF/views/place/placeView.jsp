@@ -15,10 +15,8 @@
 <title>EHSHE 데이트</title>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="${contextPath}/resources/css/place/placeView.css">
 
@@ -27,51 +25,64 @@
 <body>
 	<jsp:include page="../common/header.jsp" />
 
-	<div class="container-fluid placeMain">
+	<div class="container-fluid placeMain" id="placeMain">
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
-				<div class="carousel slide" id="carousel-258703">
-					<ol class="carousel-indicators">
-						<li data-slide-to="0" data-target="#carousel-258703"
-							class="active"></li>
-						<li data-slide-to="1" data-target="#carousel-258703"></li>
-						<li data-slide-to="2" data-target="#carousel-258703"></li>
-					</ol>
-					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img class="d-block w-100" alt="Carousel Bootstrap First"
-								src="${contextPath}/resources/images/placeMain1.png" />
-							<div class="carousel-caption">
-								<h4>First Thumbnail label</h4>
-								<p></p>
-							</div>
-						</div>
-						<div class="carousel-item">
-							<img class="d-block w-100" alt="Carousel Bootstrap Second"
-								src="https://www.layoutit.com/img/sports-q-c-1600-500-2.jpg" />
-							<div class="carousel-caption">
-								<h4>Second Thumbnail label</h4>
-								<p></p>
-							</div>
-						</div>
-						<div class="carousel-item">
-							<img class="d-block w-100" alt="Carousel Bootstrap Third"
-								src="https://www.layoutit.com/img/sports-q-c-1600-500-3.jpg" />
-							<div class="carousel-caption">
-								<h4>Third Thumbnail label</h4>
-								<p></p>
+				
+					<div class="row">
+						<div class="col-md-12">
+							<div class="carousel slide" id="carousel-896804">
+								<ol class="carousel-indicators">
+									<li data-slide-to="0" data-target="#carousel-896804" class="active">
+									</li>
+									<li data-slide-to="1" data-target="#carousel-896804">
+									</li>
+									<li data-slide-to="2" data-target="#carousel-896804">
+									</li>
+								</ol>
+								<div class="carousel-inner">
+									<div class="carousel-item active">
+										<img class="d-block w-100" alt="Carousel Bootstrap First" src="https://www.layoutit.com/img/sports-q-c-1600-500-1.jpg" />
+										<div class="carousel-caption">
+											<h4>
+												First Thumbnail label
+											</h4>
+											<p>
+												Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+											</p>
+										</div>
+									</div>
+									<div class="carousel-item">
+										<img class="d-block w-100" alt="Carousel Bootstrap Second" src="https://www.layoutit.com/img/sports-q-c-1600-500-2.jpg" />
+										<div class="carousel-caption">
+											<h4>
+												Second Thumbnail label
+											</h4>
+											<p>
+												Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+											</p>
+										</div>
+									</div>
+									<div class="carousel-item">
+										<img class="d-block w-100" alt="Carousel Bootstrap Third" src="https://www.layoutit.com/img/sports-q-c-1600-500-3.jpg" />
+										<div class="carousel-caption">
+											<h4>
+												Third Thumbnail label
+											</h4>
+											<p>
+												Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+											</p>
+										</div>
+									</div>
+								</div> <a class="carousel-control-prev" href="#carousel-896804" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-896804" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
 							</div>
 						</div>
 					</div>
-					<a class="carousel-control-prev" href="#carousel-258703"
-						data-slide="prev"><span class="carousel-control-prev-icon"></span>
-						<span class="sr-only">Previous</span></a> <a
-						class="carousel-control-next" href="#carousel-258703"
-						data-slide="next"><span class="carousel-control-next-icon"></span>
-						<span class="sr-only">Next</span></a>
-				</div>
-				<div class="row">
+				
+				
+				
+				<div class="row" id="PlaceHeader">
 					<div class="col-md-8">
 						<div class="view-header">
 							<span>${place.placeTitle}</span> <span>별점 4.7</span>
@@ -79,15 +90,11 @@
 							<c:if test="${!empty loginMember }">
 			      		 	<c:choose>
 			            <c:when test="${scrapFl == 0 }">
-			               <img src="${contextPath}/resources/images/scrap1.png" class="scrap">
-			               <br>
-			     					<span id="scrapFl">즐겨찾기</span>
+			               <img src="${contextPath}/resources/images/scrap11.png" class="scrap">
 			            </c:when>
 			         
 			            <c:otherwise>
-			              <img src="${contextPath}/resources/images/scrap2.png" class="scrap">
-			              <br>
-			     					<span id="scrapFl">즐겨찾기 취소</span>
+			              <img src="${contextPath}/resources/images/scrap22.png" class="scrap">
 			            </c:otherwise>
 			         </c:choose>
 							</c:if>
@@ -95,7 +102,7 @@
 							 <br>
 							<c:set var="loca" value="${fn:split(place.location,',')[1]}" />
 							
-							<span>${fn:split(loca,' ')[0]} - ${place.categoryName}</span> <br>
+							<span><b>${fn:split(loca,' ')[0]} - ${place.categoryName}</b></span> <br>
 							<span>뷰 ${place.readCount}</span>
 							<span>댓글</span>
 							<span>스크랩 </span>
@@ -155,6 +162,7 @@
 					<div class="col-md-4"></div>
 				</div>
 				
+				
 				<c:set var="la" value="${place.latitude}"/>
 				<c:set var="lo" value="${place.longitude}"/>
 				
@@ -168,10 +176,14 @@
 						        <div id="roadview" style="width:100%;height:100%"></div> <!-- 로드뷰를 표시할 div 입니다 -->
 						    </div>
 						</div>
+					</div>
+				</div>
 					
 					
 				<div class="row">
 					<div class="col-md-12 placeContentArea">	
+						<h3>${place.placeTitle}</h3><br>
+						
 						${place.placeContent }
 					</div>
 				</div>
@@ -185,8 +197,8 @@
 								
 						<c:if
 						test="${(loginMember != null) && (place.adminNo == loginMember.memberNo)}">
-						<button id="deleteBtn" class="btn ehsheYellow">삭제</button>
 						<a href="${updateUrl}" class="btn ehsheYellow ml-1 mr-1">수정</a>
+						<button id="deleteBtn" class="btn ehsheYellow">삭제</button>
 					</c:if>		
 					</div>
 				</div>
@@ -200,6 +212,7 @@
 			</div>
 			<div class="col-md-2"></div>
 		</div>
+	</div>
 
 		
 
@@ -318,12 +331,10 @@
          success : function(result){
             if(scrapFl == 0){
          	   scrapFl = 1;
-               $(".scrap").attr("src", "${contextPath}/resources/images/scrap2.png");
-               $("#scrapFl").text("즐겨찾기 취소");
+               $(".scrap").attr("src", "${contextPath}/resources/images/scrap22.png");
             }else{
          	   scrapFl = 0;
-               $(".scrap").attr("src", "${contextPath}/resources/images/scrap1.png");
-               $("#scrapFl").text("즐겨찾기");
+               $(".scrap").attr("src", "${contextPath}/resources/images/scrap11.png");
             }
             
             selectFavoriteCount();
