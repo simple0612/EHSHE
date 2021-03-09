@@ -4,63 +4,47 @@
 <mapper namespace="pReviewMapper">
 
 	<resultMap type="VPReview" id="review_rm">
-		<id property="replyNo" column="REPLY_NO"/>
+		<id property="reviewNo" column="REVIEW_NO"/>
 		
-		<result property="replyContent" column="REPLY_CONTENT"/>
-		<result property="replyCreateDate" column="REPLY_CREATE_DT"/>
-		<result property="replyModifyDate" column="REPLY_MODIFY_DT"/>
-		<result property="replyDeleteFl" column="REPLY_DELETE_FL"/>
+		<result property="reviewContent" column="REVIEW_CONTENT"/>
+		<result property="reviewCreateDate" column="REVIEW_CREATE_DT"/>
+		<result property="reviewModifyDate" column="REVIEW_MODIFY_DT"/>
+		<result property="reviewDeleteFl" column="REVIEW_DELETE_FL"/>
 		<result property="memberId" column="MEMBER_ID"/>
 		<result property="memberNo" column="MEMBER_NO"/>
-		<result property="boardNo" column="BOARD_NO"/>
-		<result property="parentReplyNo" column="PARENT_REPLY_NO"/>
-		<result property="replyDepth" column="REPLY_DEPTH"/>
+		<result property="placeNo" column="PLACE_NO"/>
+		<result property="reviewRating" column="REVIEW_RATING"/>
 	</resultMap>
 	
 	<!-- 댓글 목록 조회 -->
-	<select id="selectReplyList" parameterType="_int" resultMap="review_rm">
-		SELECT * FROM V_B_REPLY
-		WHERE REPLY_DELETE_FL = 'N'
-		AND BOARD_NO = #{parentBoardNo}
-		AND PARENT_REPLY_NO IN (SELECT REPLY_NO FROM V_B_REPLY
-                        WHERE REPLY_DELETE_FL = 'N'
-                        AND REPLY_DEPTH = 0
-                        AND BOARD_NO = #{parentBoardNo})
-		ORDER BY PARENT_REPLY_NO DESC,
-    CASE WHEN PARENT_REPLY_NO = REPLY_NO THEN 99999999
-    ELSE REPLY_NO END DESC
+	<select id="selectReviewList" parameterType="_int" resultMap="review_rm">
+		SELECT * FROM V_P_REVIEW
+		WHERE REVIEW_DELETE_FL = 'N'
+		AND PLACE_NO = #{parentPlaceNo}
+		ORDER BY REVIEW_NO DESC
 	</select>
 
 	<!-- 댓글 삽입 -->
-   <insert id="insertReply" parameterType="map">
-         INSERT INTO EH_BOARD_REPLY(REPLY_NO, REPLY_CONTENT, BOARD_NO,
-                                    PARENT_REPLY_NO, MEMBER_NO)
-         VALUES(SEQ_BO_RNO.NEXTVAL, #{replyContent}, #{parentBoardNo},
-                   SEQ_BO_RNO.CURRVAL, #{replyWriter})
+   <insert id="insertReview" parameterType="map">
+     INSERT INTO EH_PLACE_REVIEW(REVIEW_NO, REVIEW_CONTENT, PLACE_NO,
+                                REVIEW_RATING, MEMBER_NO)
+     VALUES(SEQ_PL_RNO.NEXTVAL, #{reviewContent}, #{parentPlaceNo},
+               SEQ_PL_RNO.CURRVAL, #{reviewWriter})
    </insert>
 
 	<!-- 댓글 수정 -->
-	<update id="updateReply" parameterType="PReview">
-		UPDATE EH_BOARD_REPLY SET
-		REPLY_CONTENT = #{replyContent},
-		REPLY_MODIFY_DT = SYSDATE
-		WHERE REPLY_NO = #{replyNo}
+	<update id="updateReview" parameterType="PReview">
+		UPDATE EH_PLACE_REVIEW SET
+		REVIEW_CONTENT = #{reviewContent},
+		REVIEW_MODIFY_DT = SYSDATE
+		WHERE PLACE_NO = #{reviewNo}
 	</update>
 
 	<!-- 댓글 삭제 -->
-	<update id="deleteReply" parameterType="_int">
-		UPDATE EH_BOARD_REPLY SET
+	<update id="deleteReview" parameterType="_int">
+		UPDATE EH_PLACE_REVIEW SET
 		REPLY_DELETE_FL = 'Y'
-		WHERE REPLY_NO = #{replyNo}
+		WHERE REPLY_NO = #{reviewNo}
 	</update>
-
-	<!-- 답글 삽입 -->
-  <insert id="insertChildReply" parameterType="map">
-    INSERT INTO EH_BOARD_REPLY(REPLY_NO, REPLY_CONTENT, BOARD_NO,
-                      PARENT_REPLY_NO, MEMBER_NO, REPLY_DEPTH)
-    VALUES(SEQ_BO_RNO.NEXTVAL, #{replyContent}, #{parentBoardNo},
-              #{parentReplyNo}, #{replyWriter}, 1)
-  </insert>
-
 
 </mapper>

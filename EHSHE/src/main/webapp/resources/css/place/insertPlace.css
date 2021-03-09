@@ -1,31 +1,72 @@
-header{
-    position:relative !important;
+.reviewWrite{
+border-top : 1px solid #ccc;
+}
+
+.reviewWrite>table {
+	width: 90%;
+	margin-top : 100px;
+}
+
+#reviewContentArea {
+	width: 80%;
+}
+
+#reviewContentArea>textarea {
+	resize: none;
+	width: 100%;
+}
+
+#reviewBtnArea {
+	width: 100px;
+	text-align: center;
+}
+
+.rWriter {
+	display : inline-block;
+	margin-right: 30px;
+	vertical-align: top;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.rDate {
+	display : inline-block;
+	font-size: 0.5em;
+	color: gray;
+}
+
+#reviewListArea {
+	list-style-type: none;
+}
+
+.rContent, .btnArea{
+	display: inline-block;
+	box-sizing: border-box;
+}
+
+.rContent {
+	height: 100%;
+	width : 100%;
+	word-break:normal;
+}
+
+
+.reviewBtnArea {
+	text-align: right;
+}
+
+
+.reviewUpdateContent {
+	resize: none;
+	width: 100%;
+}
+
+
+.review-row{
+	border-top : 1px solid #ccc;
+	padding : 15px 0;
 }
 
 .ehsheYellow{
     background-color: #F5dF4D !important;
-}
-
-.placeMain {
-    margin-top: 50px;
-}
-
-.container-fluid {
-    margin-top: 15px;
-}
-
-h4{
-    border-bottom: 1px solid rgb(160, 160, 160);
-}
-
-.table1 td:first-child {
-    width: 150px;
-}
-
-.insert-place{
-    justify-content: center; 
-}
-
-.name>td:nth-of-type(2){
-    width: 80%;
 }

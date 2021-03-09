@@ -163,7 +163,7 @@
 				
 				<div class="row">
 					<div class="col-md-12 replyArea">
-				<jsp:include page="reply.jsp"/>
+						<jsp:include page="reply.jsp"/>
 					</div>
 				</div>
 				

@@ -27,7 +27,7 @@
 	href="${contextPath}/resources/summernote/css/summernote-lite.css">
 
 <link rel="stylesheet"
-	href="${contextPath}/resources/css/place/insertPlace.css">
+	href="${contextPath}/resources/css/place/insertPlace2.css">
 
 <style>
 .map_wrap {
@@ -76,7 +76,7 @@
 	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
 	<script src="${contextPath}/resources/summernote/js/mySummernote2.js"></script>
 
-	<div class="container-fluid boardMain">
+	<div class="container-fluid" id="placeMain">
 		<form action="updateAction" name="updateAction"
 			enctype="multipart/form-data" method="post" role="form"
 			onsubmit="return validate();">
@@ -84,24 +84,25 @@
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 
-					<div class="row">
+					<div class="row updateP">
 						<div class="col-md-12">
 							<h4>장소 수정</h4>
 						</div>
 					</div>
-					<div class="col-md-9">
+					
+					<div class="col-md-10">
 						<table class="table1">
 							<tbody>
 							
 								<tr class="name">
 									<td>장소 이름</td>
-									<td><input class="form-control mr-sm-2" type="text"
+									<td colspan="2"><input class="form-control mr-sm-2" type="text"
 									name="placeTitle" id="placeTitle" value="${place.placeTitle}"/></td>
 								</tr>
 								
 								<tr class="thumbnail">
 									<td>이미지</td>
-									<td>
+									<td colspan="2">
 										<div class="placeImg" id="titleImgArea">
 											<img id="titleImg" width="200" height="120">
 										</div>
@@ -113,7 +114,7 @@
 								</tr>
 								
 								<tr class="addr">
-									<td>주소</td>
+									<td >주소</td>
 									<td>
 										<input type="text" id="post" name="post" 
 										class="form-control postcodify_postcode5" value="${fn:split(place.location,',')[0]}" required>
@@ -138,44 +139,44 @@
 								</tr>
 								<tr>
 									<td>분류</td>
-									<td><input class="form-control mr-sm-2" type="text" name="categoryName" id="categoryName"
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="categoryName" id="categoryName"
 									value="${place.categoryName}"/></td>
 								</tr>
 								<tr>
 									<td>전화번호</td>
-									<td><input class="form-control mr-sm-2" type="text" name="phone" id="phone"
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="phone" id="phone"
 									value="${place.phone}"/></td>
 								</tr>
 								<tr>
 									<td>영업시간</td>
-									<td><input class="form-control mr-sm-2" type="text" name="businessHours" id="businessHours"
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="businessHours" id="businessHours"
 									value="${place.businessHours}"/></td>
 								</tr>
 								<tr>
 									<td>가격대</td>
-									<td><input class="form-control mr-sm-2" type="text" name="priceRange" id="priceRange"
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="priceRange" id="priceRange"
 									value="${place.priceRange}"/></td>
 								</tr>
 								<tr>
 									<td>주차</td>
-									<td><input class="form-control mr-sm-2" type="text" name="parking" id="parking"
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="parking" id="parking"
 									value="${place.parking}"/></td>
 								</tr>
 								<tr>
 									<td>휴일</td>
-									<td><input class="form-control mr-sm-2" type="text" name="holiday" id="holiday"
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="holiday" id="holiday"
 									value="${place.holiday}"/></td>
 								</tr>
 								<tr>
 									<td><input class="form-control mr-sm-2" type="text" name="enroll" id="enroll"
 									value="${place.enroll}"/></td>
-									<td><input class="form-control mr-sm-2" type="text" name="enrollContents" id="enrollContents"
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="enrollContents" id="enrollContents"
 									value="${place.enrollContents}"/></td>
 								</tr>
 								
 								<tr>
 									<td>위치</td>
-									<td>
+									<td colspan="2">
 										<input type="hidden" id="lat" name="latitude" value="${place.latitude}" required>
 										<input type="hidden" id="lng" name="longitude" value="${place.longitude}" required>
 										<div class="map_wrap">
@@ -190,22 +191,31 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="col-md-3"></div>
+					<div class="col-md-2"></div>
 					
+					
+					
+					
+				<div class="row updateContentArea">
 					<div class="col-md-12">
 						<h5>소개</h5>
 						<textarea class="form-control" id="summernote" name="placeContent" rows="10" style="resize: none;">
 						${place.placeContent}
 						</textarea>
 					</div>
+				</div>
+				
+				<div class="row updateBtnArea">
 					<div class="col-md-12" style="width: 100%;">
 						<button class="btn btn-secondary insert-place" type="submit">수정</button>
 							<a class="btn btn-secondary insert-place"
 								href="${sessionScope.returnListURL}">취소</a>
 					</div>
-
+				</div>	
+				
 				</div>
 				<div class="col-md-2"></div>
+				
 			</div>
 		</form>
 	</div>
