@@ -49,12 +49,14 @@ public class ReviewController {
 	@RequestMapping("insertReview/{parentPlaceNo}")
 	public int insertReview(@PathVariable("parentPlaceNo") int parentPlaceNo,
 							@RequestParam("reviewWriter") int reviewWriter,
+							@RequestParam("starRate") int starRate,
 							String reviewContent) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("parentPlaceNo",parentPlaceNo);
 		map.put("reviewWriter",reviewWriter);
 		map.put("reviewContent",reviewContent);
+		map.put("starRate", starRate);
 		
 		int result = service.insertReview(map);
 		

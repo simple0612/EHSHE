@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,7 +50,11 @@ public class PlaceController {
 		PlacePageInfo pInfo = service.getPlacePageInfo(cp);
 		
 		// 게시글 목록 조회
+		List<VPlace> rastList = service.selectrastList(pInfo);
+		List<VPlace> bestList = service.selectbestList(pInfo);
 		List<VPlace> pList = service.selectList(pInfo);
+		
+		
 		
 		if (pList != null && !pList.isEmpty()) {
 			List<PAttachment> thumbnailList = service.selectThumbnailList(pList);
@@ -58,6 +63,8 @@ public class PlaceController {
 				model.addAttribute("thList", thumbnailList);
 			}
 		}
+		model.addAttribute("rastList", rastList);
+		model.addAttribute("bestList", bestList);
 		model.addAttribute("pList", pList);
 		model.addAttribute("pInfo", pInfo);
 		
@@ -90,47 +97,50 @@ public class PlaceController {
 	
 	
 	// 게시글 상세 조회 Controller
-	@RequestMapping("{placeNo}")
-	public String placeView(@PathVariable("placeNo") int placeNo, Model model, @ModelAttribute("loginMember") Member loginMember,
-			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
-		
-		VPlace place = service.selectPlace(placeNo);
-		
-		String thumbnailFilePath = null;
-		String fileName = null;
-		
-		String url = null;
-		
-		if (place != null) {
-			List<PAttachment> attachmentList = service.selectAttachmentList(placeNo);
+   @RequestMapping("{placeNo}")
+   public String placeView(@PathVariable("placeNo") int placeNo, Model model, //@ModelAttribute("loginMember") Member loginMember,
+      
+		   @RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra, HttpSession session) {
+      Member loginMember = (Member)session.getAttribute("loginMember");
+      VPlace place = service.selectPlace(placeNo);
+      
+      String thumbnailFilePath = null;
+      String fileName = null;
+      
+      String url = null;
+      
+      if (place != null) {
+         List<PAttachment> attachmentList = service.selectAttachmentList(placeNo);
 
-			if (attachmentList != null && !attachmentList.isEmpty()) {	
-				
-				model.addAttribute("thumbnailFilePath", thumbnailFilePath);
-				model.addAttribute("fileName", fileName);
-			}
+         if (attachmentList != null && !attachmentList.isEmpty()) {   
+            
+            model.addAttribute("thumbnailFilePath", thumbnailFilePath);
+            model.addAttribute("fileName", fileName);
+         }
 
-			model.addAttribute("place", place);
-			
-			Map<String, Integer> map = new HashMap<String, Integer>();
-			map.put("placeNo", placeNo);
-			map.put("memberNo", loginMember.getMemberNo());
-			int scrapFl = service.selectScrapFl(map);
-			model.addAttribute("scrapFl", scrapFl);
-			
-			url = "place/placeView";
+         model.addAttribute("place", place);
+         
+         Map<String, Integer> map = new HashMap<String, Integer>();
+         map.put("placeNo", placeNo);
+         if(loginMember != null) {
+            map.put("memberNo", loginMember.getMemberNo());
+         }
+         int scrapFl = service.selectScrapFl(map);
+         model.addAttribute("scrapFl", scrapFl);
+         
+         url = "place/placeView";
 
-		} else {
-			if (referer == null) {
-				url = "redirect:../placeList/";
-			} else {
-				url = "redirect:" + referer;
-			}
-			ra.addFlashAttribute("swalIcon", "error");
-			ra.addFlashAttribute("swalTitle", "존재하지 않는 게시물 입니다.");
-		}
-		return url;
-	}
+      } else {
+         if (referer == null) {
+            url = "redirect:../placeList/";
+         } else {
+            url = "redirect:" + referer;
+         }
+         ra.addFlashAttribute("swalIcon", "error");
+         ra.addFlashAttribute("swalTitle", "존재하지 않는 게시물 입니다.");
+      }
+      return url;
+   	}
 	
 	// 게시글 등록 화면 전환용 Controller
 	@RequestMapping("insertPlace")

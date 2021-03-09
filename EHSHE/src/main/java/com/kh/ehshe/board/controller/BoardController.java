@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,9 +65,10 @@ public class BoardController {
 
 	// 게시글 상세 조회 Controller
 	@RequestMapping("{boardNo}")
-	public String boardView(@PathVariable("boardNo") int boardNo, Model model, @ModelAttribute("loginMember") Member loginMember,
+	public String boardView(@PathVariable("boardNo") int boardNo, Model model, HttpSession session,
 			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
 
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		VBoard board = service.selectBoard(boardNo);
 
 		String thumbnailFilePath = null;
@@ -92,7 +94,10 @@ public class BoardController {
 			
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			map.put("boardNo", boardNo);
-			map.put("memberNo", loginMember.getMemberNo());
+			if(loginMember != null) {
+				map.put("memberNo", loginMember.getMemberNo());
+			}
+			
 			int likeFl = service.selectLikeFl(map);
 			model.addAttribute("likeFl", likeFl);
 			

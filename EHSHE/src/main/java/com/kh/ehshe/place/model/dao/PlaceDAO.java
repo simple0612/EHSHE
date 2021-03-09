@@ -41,6 +41,24 @@ public class PlaceDAO {
 		
 		return sqlSession.selectList("placeMapper.selectList", null, rowBounds);
 	}
+	// 인기 음식점
+	public List<VPlace> selectrastList(PlacePageInfo pInfo) {
+		
+		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		
+		return sqlSession.selectList("placeMapper.selectrastList", null, rowBounds);
+	}
+	// bset 
+	public List<VPlace> selectbestList(PlacePageInfo pInfo) {
+		
+		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		
+		return sqlSession.selectList("placeMapper.selectbestList", null, rowBounds);
+	}
 
 	/** 게시글 목록 썸네일 조회 DAO
 	 * 작성자 mang
@@ -239,6 +257,8 @@ public class PlaceDAO {
 	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
 		return sqlSession.delete("placeMapper.deleteAttachmentList", deleteFileNoList);
 	}
+
+
 
 	
 

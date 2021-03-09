@@ -338,26 +338,6 @@ public class BoardServiceImpl implements BoardService {
 					if (result <= 0) {
 						throw new UpdateAttachmentFailException("파일 정보 수정 실패");
 					}
-				} else { // 업로드된 이미지가 없을 경우
-
-					for (Attachment old : oldFiles) {
-
-						// x버튼으로 삭제가 되었다고 deleteImages에 true로 저장되어 있지만
-						// 혹시라도 이미지가 없는데 x버튼을 누른걸 수도 있으니
-						// 진짜로 이전 이미지가 있었는지 검사
-						if (old.getFileLevel() == 1) {
-
-							result = dao.deleteAttachment(old.getFileNo());
-
-							if (result > 0) { // 삭제 성공 시
-								// removeFileList : 서버에서 삭제할 파일의 정보를 모아둔 리스트
-								removeFileList.add(old); // 서버 파일 삭제 리스트에 추가
-
-							} else { // 삭제 실패 시
-								throw new UpdateAttachmentFailException("파일 정보 삭제 실패");
-							}
-						}
-					}
 				}
 			} // image 반복 접근 for문 종료
 
@@ -477,7 +457,9 @@ public class BoardServiceImpl implements BoardService {
 			}
 			
 			if(!deleteFileNoList.isEmpty()) { // 삭제할 이미지가 있다면
+				System.out.println("deleteFileNoList : "+ deleteFileNoList);
 				result = dao.deleteAttachmentList(deleteFileNoList);
+				System.out.println("result : " + result);
 					
 				if(result != deleteFileNoList.size()) {
 					throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삭제 중 오류 발생)");

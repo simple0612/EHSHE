@@ -13,13 +13,14 @@ public class PReview {
 	private int reviewRating; 
 	private int memberNo; 
 	private int placeNo; 
+	private String ratingText; 
 	
 	public PReview() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public PReview(int reviewNo, String reviewContent, Date reviewCreateDate, Date reviewModifyDate,
-			String reviewDeleteFl, int reviewRating, int memberNo, int placeNo) {
+			String reviewDeleteFl, int reviewRating, int memberNo, int placeNo, String ratingText) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewContent = reviewContent;
@@ -29,6 +30,7 @@ public class PReview {
 		this.reviewRating = reviewRating;
 		this.memberNo = memberNo;
 		this.placeNo = placeNo;
+		this.ratingText = ratingText;
 	}
 
 	public int getReviewNo() {
@@ -95,12 +97,20 @@ public class PReview {
 		this.placeNo = placeNo;
 	}
 
+	public String getRatingText() {
+		return ratingText;
+	}
+
+	public void setRatingText(String ratingText) {
+		this.ratingText = ratingText;
+	}
+
 	@Override
 	public String toString() {
 		return "PReview [reviewNo=" + reviewNo + ", reviewContent=" + reviewContent + ", reviewCreateDate="
 				+ reviewCreateDate + ", reviewModifyDate=" + reviewModifyDate + ", reviewDeleteFl=" + reviewDeleteFl
-				+ ", reviewRating=" + reviewRating + ", memberNo=" + memberNo + ", placeNo=" + placeNo + "]";
+				+ ", reviewRating=" + reviewRating + ", memberNo=" + memberNo + ", placeNo=" + placeNo + ", ratingText="
+				+ ratingText + "]";
 	}
-	
 	
 }

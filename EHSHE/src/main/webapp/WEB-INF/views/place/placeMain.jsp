@@ -67,24 +67,24 @@
 				
 				<h4>EHSHE 추천 맛집</h4>
 				<div class="row">
-					<c:if test="${!empty pList }">
-						<c:forEach var="place" items="${pList}" varStatus="vs">
+					<c:if test="${!empty rastList }">
+						<c:forEach var="rPlace" items="${rastList}" varStatus="vs">
 							<div class="col-md-6 width400">
 								<div class="card">
-									<div style="display: none;">${place.placeNo}</div>
+									<div style="display: none;">${rPlace.placeNo}</div>
 									<c:forEach var="th" items="${thList}">
-											<c:if test="${th.placeNo == place.placeNo}">
+											<c:if test="${th.placeNo == rPlace.placeNo}">
 												<img class="card-img-top" src="${contextPath}${th.filePath}/${th.fileName}"/>
 											</c:if>
 									</c:forEach>
 									<div class="card-block">
 										<h6 class="card-title">
-											<span>${place.placeTitle}</span><span class="" href="#">별점 4.2</span>
+											<span>${rPlace.placeTitle}</span><span class="" href="#">별점 ${rPlace.avgRating}</span>
 										</h6>
 										<p class="card-text">
-										<c:set var = "loca" value="${fn:split(place.location,',')[1]}" />
-											<span class="" href="#">${fn:split(loca,' ')[0]}</span> - <span class="" href="#">음식점</span>
-											<span class="" href="#">뷰${place.readCount} 댓글 아직</span>
+										<c:set var = "loca" value="${fn:split(rPlace.location,',')[1]}" />
+											<span class="" href="#">${fn:split(loca,' ')[0]}</span> - <span class="" href="#">${rPlace.categoryName}</span>
+											<span class="" href="#">뷰 ${rPlace.readCount} 댓글 ${rPlace.reviewCount}</span>
 										</p>
 									</div>
 								</div>
@@ -95,24 +95,24 @@
 
 				<img class="" src="${contextPath}/resources/images/scrap2.png"/>
 				<div class="row">
-					<c:if test="${!empty pList }">
-						<c:forEach var="place" items="${pList}" varStatus="vs">
+					<c:if test="${!empty bestList }">
+						<c:forEach var="bPlace" items="${bestList}" varStatus="vs">
 							<div class="col-md-6 width400">
 								<div class="card">
-									<div style="display: none;">${place.placeNo}</div>
+									<div style="display: none;">${bPlace.placeNo}</div>
 									<c:forEach var="th" items="${thList}">
-											<c:if test="${th.placeNo == place.placeNo}">
+											<c:if test="${th.placeNo == bPlace.placeNo}">
 												<img class="card-img-top" src="${contextPath}${th.filePath}/${th.fileName}"/>
 											</c:if>
 									</c:forEach>
 									<div class="card-block">
 										<h6 class="card-title">
-											<span>${place.placeTitle}</span><span class="" href="#">별점 4.2</span>
+											<span>${bPlace.placeTitle}</span><span class="" href="#">별점 ${rPlace.avgRating}</span>
 										</h6>
 										<p class="card-text">
-										<c:set var = "loca" value="${fn:split(place.location,',')[1]}" />
-											<span class="" href="#">${fn:split(loca,' ')[0]}</span> - <span class="" href="#">음식점</span>
-											<span class="" href="#">뷰${place.readCount} 댓글 아직</span>
+										<c:set var = "loca" value="${fn:split(bPlace.location,',')[1]}" />
+											<span class="" href="#">${fn:split(loca,' ')[0]}</span> - <span class="" href="#">${rPlace.categoryName}</span>
+											<span class="" href="#">뷰${bPlace.readCount} 댓글 ${rPlace.reviewCount}</span>
 										</p>
 									</div>
 								</div>
@@ -135,12 +135,12 @@
 									</c:forEach>
 									<div class="card-block">
 										<h6 class="card-title">
-											<span>${place.placeTitle}</span><span class="" href="#">별점 4.2</span>
+											<span>${place.placeTitle}</span><span class="" href="#">별점 ${place.avgRating}</span>
 										</h6>
 										<p class="card-text">
 										<c:set var = "loca" value="${fn:split(place.location,',')[1]}" />
-											<span class="" href="#">${fn:split(loca,' ')[0]}</span> - <span class="" href="#">음식점</span>
-											<span class="" href="#">뷰${place.readCount} 댓글 아직</span>
+											<span class="" href="#">${fn:split(loca,' ')[0]}</span> - <span class="" href="#">${rPlace.categoryName}</span>
+											<span class="" href="#">뷰${place.readCount} 댓글 ${place.reviewCount}</span>
 										</p>
 									</div>
 								</div>

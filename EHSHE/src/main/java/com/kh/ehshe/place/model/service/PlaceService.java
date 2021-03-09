@@ -25,6 +25,10 @@ public interface PlaceService {
 	 */
 	List<VPlace> selectList(PlacePageInfo pInfo);
 
+	List<VPlace> selectrastList(PlacePageInfo pInfo);
+	
+	List<VPlace> selectbestList(PlacePageInfo pInfo);
+	
 	/** 썸네일 목록 조회 Service
 	 * @param pList
 	 * @return thList
@@ -112,6 +116,7 @@ public interface PlaceService {
 	 * @return result
 	 */
 	int updatePlace(Place updatePlace, List<MultipartFile> image, String tSavePath);
+
 
 
 }

@@ -42,6 +42,16 @@ public class PlaceServiceImpl implements PlaceService{
 	public List<VPlace> selectList(PlacePageInfo pInfo) {
 		return dao.selectList(pInfo);
 	}
+	
+	@Override
+	public List<VPlace> selectrastList(PlacePageInfo pInfo) {
+		return dao.selectrastList(pInfo);
+	}
+
+	@Override
+	public List<VPlace> selectbestList(PlacePageInfo pInfo) {
+		return dao.selectbestList(pInfo);
+	}
 
 	// 썸네일 목록 조회 Service 구현
 	@Override
@@ -494,5 +504,6 @@ public class PlaceServiceImpl implements PlaceService{
 	public List<VPlace> selectSearchList(PlacePageInfo pInfo, SearchPlace search) {
 		return dao.selectSearchList(search, pInfo);
 	}
+
 	
 }

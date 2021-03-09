@@ -26,6 +26,8 @@ public class VPlace {
 	private String memberId;
 	private String memberNm;
 	private int favoriteCount;
+	private int reviewCount;
+	private double avgRating;
 	
 	public VPlace() {
 		// TODO Auto-generated constructor stub
@@ -34,7 +36,8 @@ public class VPlace {
 	public VPlace(int placeNo, String placeTitle, String placeContent, Date placeCtreateDate, Date placeModifyDate,
 			String location, String categoryName, String phone, int readCount, String placeDeleteFl, double latitude,
 			double longitude, int adminNo, String priceRange, String businessHours, String parking, String holiday,
-			String enroll, String enrollContents, String memberId, String memberNm, int favoriteCount) {
+			String enroll, String enrollContents, String memberId, String memberNm, int favoriteCount, int reviewCount,
+			double avgRating) {
 		super();
 		this.placeNo = placeNo;
 		this.placeTitle = placeTitle;
@@ -58,6 +61,8 @@ public class VPlace {
 		this.memberId = memberId;
 		this.memberNm = memberNm;
 		this.favoriteCount = favoriteCount;
+		this.reviewCount = reviewCount;
+		this.avgRating = avgRating;
 	}
 
 	public int getPlaceNo() {
@@ -236,6 +241,22 @@ public class VPlace {
 		this.favoriteCount = favoriteCount;
 	}
 
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
+	public double getAvgRating() {
+		return avgRating;
+	}
+
+	public void setAvgRating(double avgRating) {
+		this.avgRating = avgRating;
+	}
+
 	@Override
 	public String toString() {
 		return "VPlace [placeNo=" + placeNo + ", placeTitle=" + placeTitle + ", placeContent=" + placeContent
@@ -245,10 +266,8 @@ public class VPlace {
 				+ ", adminNo=" + adminNo + ", priceRange=" + priceRange + ", businessHours=" + businessHours
 				+ ", parking=" + parking + ", holiday=" + holiday + ", enroll=" + enroll + ", enrollContents="
 				+ enrollContents + ", memberId=" + memberId + ", memberNm=" + memberNm + ", favoriteCount="
-				+ favoriteCount + "]";
+				+ favoriteCount + ", reviewCount=" + reviewCount + ", avgRating=" + avgRating + "]";
 	}
-
-	
 
 	
 	

@@ -76,9 +76,31 @@
 .stars{
 	color: rgb(190, 190, 190);
 }
+
+.stars2{
+	color: rgb(190, 190, 190);
+}
+
+.stars2 img{
+	margin-left: 10px;
+}
+
 .stars .fa{
     font-size: 20px;
     cursor: pointer;
+}
+
+.fas{
+	color: yellow;
+}
+
+.starReview{
+  text-shadow: orange 0 0 5px;
+  font-size: 20px;
+}
+
+.star{
+	font-size: 20px;
 }
 .stars .fa.active{
     color: yellow;
@@ -97,6 +119,9 @@
 
 .star-rating{margin-bottom : 5px;}
 
+.reviewUpdateContent{
+	width:100%;
+}
 </style>
 </head>
 
@@ -125,16 +150,11 @@
 													<div id="reviewContentArea">
 														 <div class="star-rating">
 												        <div class="stars">
-												        		<span style="display: none">1</span>
-												            <i class="fa fa-star"></i>
-												            <span style="display: none">2</span>
-												            <i class="fa fa-star"></i>
-												            <span style="display: none">3</span>
-												            <i class="fa fa-star"></i>
-												            <span style="display: none">4</span>
-												            <i class="fa fa-star"></i>
-												            <span style="display: none">5</span>
-												            <i class="fa fa-star"></i>
+												            <i class="fa fa-star" id="start1"></i>
+												            <i class="fa fa-star" id="start2"></i>
+												            <i class="fa fa-star" id="start3"></i>
+												            <i class="fa fa-star" id="start4"></i>
+												            <i class="fa fa-star" id="start5"></i>
 												        </div>
 												        <div class="print"> 별점 주기</div>
 												    </div>
@@ -161,34 +181,45 @@
     </div>
 
 <script>
-
-	// 별점주기 
-  $('.stars .fa').click(function(){
-      $(this).addClass('active')
-      $(this).prevAll().addClass('active')
-      $(this).nextAll().removeClass('active')
-
-      var num = $(this).index()
-      var starRate = num + 1
-      var rating = $(this).prev().text()
-      //$('.print').text(starRate)
-
-      if(starRate == 1){$('.print').html('<img src="${contextPath}/resources/images/star-lv1.png">' + '별로예요')}
-      else if(starRate == 2){$('.print').html('<img src="${contextPath}/resources/images/star-lv2.png">' + '보통이예요')}
-      else if(starRate == 3){$('.print').html('<img src="${contextPath}/resources/images/star-lv3.png">' + '그냥 그래요')}
-      else if(starRate == 4){$('.print').html('<img src="${contextPath}/resources/images/star-lv4.png">' + '맘에 들어요')}
-      else{$('.print').html('<img src="${contextPath}/resources/images/star-lv5.png">' + '아주 좋아요')}
-  });
-	
-  
-    
-</script>
-
-
-<script>
 var loginMemberId = "${loginMember.memberId}";
 var reviewWriter = "${loginMember.memberNo}";
 var parentPlaceNo = ${place.placeNo};
+//var ratingPoint = $(".print").child().eq(1).text();
+
+// 별점주기 
+var num;
+var starRate = 0;
+	
+var arr = [];	
+arr.push('<div class="stars2"><i class="fas fa-star"></i><img src="${contextPath}/resources/images/star-lv1.png"></div>');
+arr.push('<div class="stars2"><i class="fas fa-star"></i><i class="fas fa-star"></i><img src="${contextPath}/resources/images/star-lv2.png"></div>');
+arr.push('<div class="stars2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><img src="${contextPath}/resources/images/star-lv3.png"></div>');
+arr.push('<div class="stars2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><img src="${contextPath}/resources/images/star-lv4.png"></div>');
+arr.push('<div class="stars2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><img src="${contextPath}/resources/images/star-lv5.png"></div>');
+
+$('.stars .fa').click(function(){
+    $(this).addClass('active')
+    $(this).prevAll().addClass('active')
+    $(this).nextAll().removeClass('active')
+    
+
+    num = $(this).index()
+    starRate = num + 1
+    
+    if(starRate == 1){
+    	$('.print').html('<img src="${contextPath}/resources/images/star-lv1.png">' + '별로예요')
+    }else if(starRate == 2){
+    	$('.print').html('<img src="${contextPath}/resources/images/star-lv2.png">' + '보통이예요')
+    }else if(starRate == 3){
+    	$('.print').html('<img src="${contextPath}/resources/images/star-lv3.png">' + '그냥 그래요')
+    }else if(starRate == 4){
+    	$('.print').html('<img src="${contextPath}/resources/images/star-lv4.png">' + '맘에 들어요')
+    }else{
+    	$('.print').html('<img src="${contextPath}/resources/images/star-lv5.png">' + '아주 좋아요')
+    }
+    
+});
+
 
 // 페이지 로딩 완료 시 댓글 목록 호출
 $(function(){
@@ -207,10 +238,9 @@ function selectReviewList(){
 	         reviewListArea.html("");
 	         
 	         $.each(rList, function(index, item){   
-	        	 
 	            var li = $("<li>").addClass("review-row");
 	            var div = $("<div>");
-	            var starRating = $('<div class="star-rating"><div class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><div class="print"> 별점 주기</div></div>');
+	            var starRating = $("<div>").addClass("starReview").html(arr[ Number(item.reviewRating) -1 ]);
 	            var rWriter = $("<span>").addClass("rWriter").html(item.memberId);
 	            var rDate = $("<p>").addClass("rDate").html("작성일 : " + item.reviewCreateDate + "<br>마지막 수정 날짜 : " + item.reviewModifyDate);
 	            div.append(starRating).append(rWriter).append(rDate)
@@ -259,24 +289,30 @@ $("#addReview").on("click", function(){
 			
 		}else{ // 로그인 O, 댓글작성 O
 			
-			$.ajax({
-				url : "${contextPath}/review/insertReview/"+ parentPlaceNo,
-				type : "post",
-				data : {"reviewWriter" : reviewWriter, "reviewContent" : reviewContent},
-				success : function(result){
-					
-					if(result > 0){ // 댓글 삽입 성공
-						$("#reviewContent").val(""); //작성한 댓글 내용을 삭제
-							swal({icon:"success", title:"댓글 삽입 성공"});
-							selectReviewList(); // 다시 목록 조회
+			if(starRate == 0){
+				swal({icon:"info", title:"별점을 안주셨어요~"})
+				
+			}else{
+			
+				$.ajax({
+					url : "${contextPath}/review/insertReview/"+ parentPlaceNo,
+					type : "post",
+					data : {"reviewWriter" : reviewWriter, "reviewContent" : reviewContent, "starRate" : starRate},
+					success : function(result){
+						
+						if(result > 0){ // 댓글 삽입 성공
+							$("#reviewContent").val(""); //작성한 댓글 내용을 삭제
+								swal({icon:"success", title:"댓글 삽입 성공"});
+								selectReviewList(); // 다시 목록 조회
+						}
+						
+					},
+					error: function(){
+						console.log("댓글 삽입 실패")
 					}
 					
-				},
-				error: function(){
-					console.log("댓글 삽입 실패")
-				}
-				
-			});
+				});
+			}
 		}
 	}
 	
