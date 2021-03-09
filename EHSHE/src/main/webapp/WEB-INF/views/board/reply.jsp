@@ -38,7 +38,7 @@ border-top : 1px solid #ccc;
 .rDate {
 	display : inline-block;
 	font-size: 0.5em;
-	color: red;
+	color: gray;
 }
 
 .placeReview textarea{

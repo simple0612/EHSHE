@@ -35,7 +35,6 @@ public class ReviewServiceImpl implements ReviewService{
 		// 개행문자 처리 \n -> <br>
 		map.put("reviewContent", ((String)map.get("reviewContent")).replaceAll("\n", "<br>") );
 
-		
 		return dao.insertReview(map);
 	}
 	

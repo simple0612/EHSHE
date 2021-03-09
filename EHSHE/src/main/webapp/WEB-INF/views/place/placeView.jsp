@@ -191,7 +191,7 @@
 				<div class="row">
 					<div class="col-md-12 btnBox">	
 						<a class="btn ehsheYellow"
-								href="${sessionScope.returnListURL}">목록으로</a>		
+								href="${contextPath}/place/placeList">목록으로</a>		
 								
 						<c:url var="updateUrl" value="${place.placeNo}/update" />
 								

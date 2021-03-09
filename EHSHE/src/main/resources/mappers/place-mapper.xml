@@ -26,6 +26,8 @@
 		<result property="memberId" column="MEMBER_ID"/>
 		<result property="memberNm" column="MEMBER_NM"/>
 		<result property="favoriteCount" column="FAVORITE_COUNT"/>
+		<result property="reviewCount" column="REVIEW_COUNT"/>
+		<result property="avgRating" column="AVG_RATING"/>
 	</resultMap>
 
 	<resultMap type="PAttachment" id="attachment_rm">
@@ -49,6 +51,31 @@
 		FROM EH_PLACE
 		WHERE PLACE_DELETE_FL = 'N'
 		ORDER BY PLACE_NO DESC
+	</select>
+	
+	
+	<select id="selectrastList" resultMap="place_rm">
+		SELECT * FROM
+		(SELECT ROWNUM, V.*
+		FROM
+		(SELECT *
+		FROM V_PLACE
+		WHERE PLACE_DELETE_FL = 'N'
+		AND (PLACE_CATEGORY LIKE '%음식점%' OR PLACE_CATEGORY LIKE '%카페%')
+		ORDER BY AVG_RATING DESC) V)
+		WHERE ROWNUM BETWEEN 1 AND 4
+	</select>
+	
+	<select id="selectbestList" resultMap="place_rm">
+		SELECT * FROM
+		(SELECT ROWNUM, V.*
+		FROM
+		(SELECT *
+		FROM V_PLACE
+		WHERE PLACE_DELETE_FL = 'N'
+		AND (PLACE_CATEGORY NOT LIKE '%음식점%' AND PLACE_CATEGORY NOT LIKE '%카페%')
+		ORDER BY AVG_RATING DESC) V)
+		WHERE ROWNUM BETWEEN 1 AND 4
 	</select>
 	
 	<!-- 썸네일 이미지 목록 조회 -->
