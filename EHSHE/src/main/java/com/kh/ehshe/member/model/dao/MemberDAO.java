@@ -104,4 +104,22 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.login", member);
 	}
 
+
+	/** 구글 회원 등록 DAO
+	 * @param kakaoInfo
+	 * @return result
+	 */
+	public int googleSignUp(Member member) {
+		return sqlSession.insert("memberMapper.googleReg", member);
+	}
+
+
+	/** 구글 로그인 DAO
+	 * @param memberId
+	 * @return member
+	 */
+	public Member googleLogin(Member member) {
+		return sqlSession.selectOne("memberMapper.login", member);
+	}
+
 }

@@ -116,6 +116,18 @@ public class MemberServiceImpl implements MemberService {
 	public Member KaKaoLogin(Member member) {
 		return dao.kakaoLogin(member);
 	}
+
+	// 구글 회원 등록 Service 구현
+	@Override
+	public int googleSignUp(Member member) {
+		return dao.googleSignUp(member);
+	}
+	
+	// 구글 로그인 Service 구현
+	@Override
+	public Member googleLogin(Member member) {
+		return dao.googleLogin(member);
+	}
 	
 }
 	
