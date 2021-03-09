@@ -39,14 +39,14 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h1 class="myPlace-header">
-							결제확인<br> <br> <br>
+							<br> <br><br>Q&A<br> <br> <br>
 
 							<div>
 
 
 								<a href="${contextPath}/page/mypagemain"> <img
-									src="${contextPath}/resources/images/pricelist.png"
-									style="width: 100px; height: 100px; margin-bottom: 5px"></a>
+					src="${contextPath}/resources/images/QandA.png"
+					style="width: 200px; height: 200px; margin-bottom: 5px"></a>
 							</div>
 
 						</h1>
@@ -67,9 +67,8 @@
 								<th><input type="checkbox"></th>
 								<th>댓글번호</th>
 								<th>댓글내용</th>
-								<th>댓글 수정일</th>
+								<th>게시글 이름</th>
 								<th>댓글 게시글 번호</th>
-
 							</tr>
 
 
@@ -87,13 +86,10 @@
 										<td><input type="checkbox" name="chk"></td>
 
 
-										<td>${qlist.replyNo}</td>
+										<td>${qlist.qaNo}</td>
 										<td>${qlist.replyContent}</td>
-										<td>${qlist.replyModifyDate}</td>
-										<td>${qlist.parentBoardNo}</td>
 										<td>${qlist.itemNm}</td>
-
-
+										<td>${qlist.parentBoardNo}</td>
 
 
 									</tr>

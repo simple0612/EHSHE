@@ -12,8 +12,10 @@ import com.kh.ehshe.board.model.vo.BReply;
 import com.kh.ehshe.board.model.vo.PageInfo;
 import com.kh.ehshe.board.model.vo.VBoard;
 import com.kh.ehshe.member.model.vo.Member;
+import com.kh.ehshe.place.model.vo.VPlace;
 import com.kh.ehshe.shop.model.vo.ItemReview;
 import com.kh.ehshe.shop.model.vo.Order;
+import com.kh.ehshe.shop.model.vo.QandA;
 import com.kh.ehshe.shop.model.vo.ShopReply;
 
 @Repository
@@ -109,12 +111,19 @@ public class MemberDAO2 {
 		return sqlSession.selectList("memberMapper2.selectItemReviewList", memberNo, rowBounds);
 	}
 
-	public List<ShopReply> myQandA(PageInfo pInfo, int memberNo) {
+	public List<QandA> myQandA(PageInfo pInfo, int memberNo) {
 		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
 
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
 
 		return sqlSession.selectList("memberMapper2.myQandA", memberNo, rowBounds);
+	}
+
+	public List<VPlace> selectbookmarkList(PageInfo pInfo, String memberId) {
+		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("memberMapper2.selectbookmarkList", memberId, rowBounds);
 	}
 
 }
