@@ -20,8 +20,10 @@ import com.kh.ehshe.board.model.vo.PageInfo;
 import com.kh.ehshe.board.model.vo.VBoard;
 import com.kh.ehshe.member.model.service.MemberService2;
 import com.kh.ehshe.member.model.vo.Member;
+import com.kh.ehshe.place.model.vo.VPlace;
 import com.kh.ehshe.shop.model.vo.ItemReview;
 import com.kh.ehshe.shop.model.vo.Order;
+import com.kh.ehshe.shop.model.vo.QandA;
 import com.kh.ehshe.shop.model.vo.ShopReply;
 
 @Controller // 프레젠테이션 레이어, 웹 애플리케이션 전달된 요청 응답을 처리하는 클래스 + bean 등록
@@ -245,7 +247,25 @@ public class MemberController2 {
 	}
 
 	@RequestMapping("bookmark")
-	public String bookmark() {
+	public String bookmark(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+			@ModelAttribute("loginMember") Member loginMember) {
+
+		int memberNo = loginMember.getMemberNo();
+		
+		String MemberId = loginMember.getMemberId();
+		
+		PageInfo pInfo = service.getPageInfo(cp,memberNo);
+
+		List<VPlace> bookList = service.selectbookmarkList(pInfo, MemberId);
+
+		
+
+		
+		model.addAttribute("bookList", bookList);
+		model.addAttribute("pInfo", pInfo);
+
+		
+		
 		return "member/bookmark";
 	}
 
@@ -262,7 +282,7 @@ public class MemberController2 {
 		PageInfo pInfo = service.getOrderPageInfo(cp);
 
 		//QANDA조회
-		List<ShopReply> QList = service.myQandA(pInfo, memberNo);
+		List<QandA> QList = service.myQandA(pInfo, memberNo);
 		
 		System.out.println(QList);
 		model.addAttribute("QList", QList);
@@ -285,7 +305,7 @@ public class MemberController2 {
 		//model.addAttribute("bList", ItemReview);
 		model.addAttribute("pInfo", pInfo);
 		model.addAttribute("ItemReview", ItemReview);
-		
+		System.out.println(ItemReview);
 		return "member/review";
 	}
 

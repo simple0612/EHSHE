@@ -14,7 +14,10 @@ public class ItemReview {
 	private String orderAddr; // 주문주소//
 	private String orderTel; // 주문 전화번호//
 	private String orderRecipient; // 수령자 이름//
-
+	private int itemCategory;
+	private String itemNm;
+	private String itemNo;
+	
 	
 	public ItemReview() {
 		// TODO Auto-generated constructor stub
@@ -22,7 +25,8 @@ public class ItemReview {
 
 
 	public ItemReview(int orderNo, String orderContent, String itemContent, Date orderDate, String orderConfirm,
-			int orderPrice, int memberNo, String orderAddr, String orderTel, String orderRecipient) {
+			int orderPrice, int memberNo, String orderAddr, String orderTel, String orderRecipient, int itemCategory,
+			String itemNm, String itemNo) {
 		super();
 		this.orderNo = orderNo;
 		this.orderContent = orderContent;
@@ -34,6 +38,9 @@ public class ItemReview {
 		this.orderAddr = orderAddr;
 		this.orderTel = orderTel;
 		this.orderRecipient = orderRecipient;
+		this.itemCategory = itemCategory;
+		this.itemNm = itemNm;
+		this.itemNo = itemNo;
 	}
 
 
@@ -137,16 +144,47 @@ public class ItemReview {
 	}
 
 
+	public int getItemCategory() {
+		return itemCategory;
+	}
+
+
+	public void setItemCategory(int itemCategory) {
+		this.itemCategory = itemCategory;
+	}
+
+
+	public String getItemNm() {
+		return itemNm;
+	}
+
+
+	public void setItemNm(String itemNm) {
+		this.itemNm = itemNm;
+	}
+
+
+	public String getItemNo() {
+		return itemNo;
+	}
+
+
+	public void setItemNo(String itemNo) {
+		this.itemNo = itemNo;
+	}
+
+
 	@Override
 	public String toString() {
 		return "ItemReview [orderNo=" + orderNo + ", orderContent=" + orderContent + ", itemContent=" + itemContent
 				+ ", orderDate=" + orderDate + ", orderConfirm=" + orderConfirm + ", orderPrice=" + orderPrice
 				+ ", memberNo=" + memberNo + ", orderAddr=" + orderAddr + ", orderTel=" + orderTel + ", orderRecipient="
-				+ orderRecipient + "]";
+				+ orderRecipient + ", itemCategory=" + itemCategory + ", itemNm=" + itemNm + ", itemNo=" + itemNo + "]";
 	}
 	
 	
 	
 	
 	
+
 }

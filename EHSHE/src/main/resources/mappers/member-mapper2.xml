@@ -66,39 +66,76 @@
 
 
 	<resultMap type="ITemReview" id="itemreview_rm">
-		<id property="OrderSpecifyNo" column="ORDER_SPECIFY_NO" />
+		<id property="orderNo" column="ORDER_SPECIFY_NO" />
 
 		<result property="orderContent" column="ORDER_CONTENT" />
 		<result property="itemContent" column="ITEM_CONTENT" />
 		<result property="orderDate" column="ORDER_DATE" />
-	
+
 		<result property="orderPrice" column="ORDER_PRICE" />
 		<result property="orderContent" column="ORDER_CONTENT" />
-	
+
 		<result property="memberNo" column="MEMBER_NO" />
 		<result property="orderAddr" column="ORDER_ADDR" />
 		<result property="orderTel" column="ORDER_TEL" />
 		<result property="orderRecipient" column="ORDER_RECIPIENT" />
-
-	</resultMap>
-
-
-
-
-
-<!--  Q&A-->
-	<resultMap type="ShopReply" id="shopreply_rm">
-		<id property="replyNo" column="QA_NO"/>
-		<result property="replyContent" column="QA_CONTENT"/>
-		<result property="replyCreateDate" column="QA_CREATE_DT"/>
-		<result property="replyModifyDate" column="QA_MODIFY_DT"/>
-		<result property="replyStatus" column="QA_STATUS"/>
-		<result property="memberId" column="MEMBER_ID"/>
-		<result property="parentBoardNo" column="ITEM_NO"/>
-		<result property="parentReplyNo" column="PARENT_QA_NO"/>
-		<result property="replyDepth" column="QA_DEPTH"/>
-	</resultMap>
+		<result property="itemCategory" column="ITEM_CATEGORY" />
+		<result property="itemNm" column="ITEM_NM" />
+		<result property="itemNo" column="ITEM_NO" />
 		
+
+	</resultMap>
+
+
+	<!-- 장소 -->
+	<resultMap type="VPlace" id="place_rm">
+		<id property="placeNo" column="PLACE_NO" />
+
+		<result property="placeTitle" column="PLACE_TITLE" />
+		<result property="placeContent" column="PLACE_CONTENT" />
+		<result property="placeCtreateDate" column="PLACE_CREATE_DT" />
+		<result property="placeModifyDate" column="PLACE_MODIFY_DT" />
+		<result property="location" column="PLACE_LOCATION" />
+		<result property="categoryName" column="PLACE_CATEGORY" />
+		<result property="phone" column="PLACE_PHONE" />
+		<result property="readCount" column="PLACE_READ_COUNT" />
+		<result property="placeDeleteFl" column="PLACE_DELETE_FL" />
+		<result property="latitude" column="LATITUDE" />
+		<result property="longitude" column="LONGITUDE" />
+		<result property="adminNo" column="ADMIN_NO" />
+		<result property="priceRange" column="PRICE_RANGE" />
+		<result property="businessHours" column="BUSINESS_HOURS" />
+		<result property="parking" column="PARKING" />
+		<result property="holiday" column="HOLIDAY" />
+		<result property="enroll" column="ENROLL" />
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberNm" column="MEMBER_NM" />
+		<result property="favoriteCount" column="FAVORITE_COUNT" />
+	</resultMap>
+
+
+
+	<!-- Q&A -->
+	<resultMap type="QandA" id="QandA_rm">
+		<result property="qaNo" column="QA_NO" />
+		<result property="replyContent" column="QA_CONTENT" />
+		<result property="replyCreateDate" column="QA_CREATE_DT" />
+		<result property="replyModifyDate" column="QA_MODIFY_DT" />
+		<result property="replyStatus" column="QA_STATUS" />
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="parentBoardNo" column="ITEM_NO" />
+		<result property="parentReplyNo" column="PARENT_QA_NO" />
+		<result property="replyDepth" column="QA_DEPTH" />
+
+		<result property="itemNo" column="ITEM_NO" />
+		<result property="itemContent" column="ITEM_CONTENT" />
+		<result property="itemNm" column="ITEM_NM" />
+		<result property="itemPrice" column="ITEM_PRICE" />
+		<result property="transCharge" column="TRANSPORT_CHARGE" />
+		<result property="itemDeleteFl" column="ITEM_DELETE_FL" />
+
+	</resultMap>
+
 
 	<!-- 회원 정보 수정 -->
 	<update id="updateAction" parameterType="Member">
@@ -201,15 +238,14 @@
 	<!-- 상품 후기 조회 -->
 	<select id="selectItemReviewList" resultMap="itemreview_rm">
 
-
-		SELECT ORDER_NO,ORDER_CONTENT,ITEM_CONTENT,ORDER_DATE
-		FROM
-		EH_ORDER O,EH_ITEM_REVIEW N
+        SELECT *
+        FROM EH_ITEM a,  
+		(SELECT	*
+		FROM EH_ORDER O,EH_ITEM_REVIEW N
 		WHERE O.ORDER_NO= N.ORDER_SPECIFY_NO
-		AND
-		ORDER_CONFIRM ='Y'
-		AND MEMBER_NO= #{memberNo}
-		
+		AND	ORDER_CONFIRM ='Y'
+		AND MEMBER_NO=  #{memberNo} ) b
+        WHERE a.ITEM_NO= b.ITEM_NO
 	</select>
 
 
@@ -218,16 +254,42 @@
 
 
 	<!-- 상품 후기 조회 -->
-	<select id="myQandA" resultMap="shopreply_rm">
+	<select id="myQandA" resultMap="QandA_rm">
 
 
-	  	SELECT *
-        FROM EH_ITEM_QA 
-        WHERE  MEMBER_NO =  #{memberNo}
+		SELECT QA_NO,QA_CONTENT,
+		QA_CREATE_DT,ITEM_NM,ITEM.ITEM_NO
+		FROM EH_ITEM_QA QA,EH_ITEM ITEM
+		WHERE
+		QA.ITEM_NO=ITEM.ITEM_NO
+		AND MEMBER_NO = #{memberNo}
+		ORDER BY QA_NO DESC
+
+
 	</select>
 
 
 
+
+
+	<!-- 좋아요한글 -->
+
+	<select id="selectbookmarkList" resultMap="place_rm">
+
+
+		SELECT *
+		FROM
+		EH_FAVORITE FA ,EH_PLACE PL
+		WHERE FA.PLACE_NO = PL.PLACE_NO
+		AND
+		MEMBER_NO =
+		(SELECT DISTINCT ME.MEMBER_NO
+		FROM EH_MEMBER ME ,EH_FAVORITE
+		FA
+		WHERE ME.MEMBER_NO = FA.MEMBER_NO
+		AND MEMBER_ID = #{memberId})
+
+	</select>
 </mapper>
 
 
