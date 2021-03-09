@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -270,7 +271,16 @@ public class ShopCartController {
 	}
 	
 	
-	
+	// 스프링 예외 처리
+		@ExceptionHandler(Exception.class)
+		public String etcException(Exception e, Model model) {
+			// 특정 예외를 제외한 나머지 예외 처리
+			
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "장바구니 서비스 중 오류 발생");
+			return "common/errorPage";
+		}
+
 	
 	
 	

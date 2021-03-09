@@ -31,6 +31,8 @@
 		<typeAlias type="com.kh.ehshe.shop.model.vo.OrderDetails" alias="OrderDetails"/>
 		<typeAlias type="com.kh.ehshe.home.model.vo.Item" alias="Item"/>
 		<typeAlias type="com.kh.ehshe.home.model.vo.TopItem" alias="TopItem"/>
+		<typeAlias type="com.kh.ehshe.home.model.vo.TopPlace" alias="TopPlace"/>
+		<typeAlias type="com.kh.ehshe.home.model.vo.PlaceInfo" alias="PlaceInfo"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.Cart" alias="Cart"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.Pitem" alias="Pitem"/>	
 		<typeAlias type="com.kh.ehshe.place.model.vo.SearchPlace" alias="SearchPlace"/>

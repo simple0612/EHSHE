@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kh.ehshe.home.model.service.HomeService;
 import com.kh.ehshe.home.model.vo.Item;
+import com.kh.ehshe.home.model.vo.PlaceInfo;
 import com.kh.ehshe.home.model.vo.TopItem;
+import com.kh.ehshe.home.model.vo.TopPlace;
 
 /**
  * Handles requests for the application home page.
@@ -42,15 +44,23 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		List<TopItem> tList = service.selectTopList();
-			System.out.println(tList);
+			//System.out.println(tList);
 		
 		List<Item> iList = service.selectItemList(tList);
-			System.out.println(iList);
+			//System.out.println(iList);
 		
+		List<TopPlace> tpList = service.selectTopPlaceList();
+			//System.out.println(tpList);
+		
+		List<PlaceInfo> piList = service.selectPlaceInfoList(tpList);
+			//System.out.println(piList);
+			
 		
 		model.addAttribute("serverTime", formattedDate );
 	    model.addAttribute("tList", tList);
 	    model.addAttribute("iList", iList);
+	    model.addAttribute("tpList", tpList);
+	    model.addAttribute("piList", piList);
 		
 		return "common/main";
 	}
