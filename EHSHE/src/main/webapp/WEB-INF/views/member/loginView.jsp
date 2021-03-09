@@ -1,17 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!-- 네이버 로그인 API -->
-<%-- 
-<%@ page import="java.net.URLEncoder" %>
-<%@ page import="java.security.SecureRandom" %>
-<%@ page import="java.math.BigInteger" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %> --%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="google-signin-client_id" content="615360582092-qfuk3argrhcsqv59ad6a3g4un91e88s8.apps.googleusercontent.com">
 
 <!-- jquery  -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -27,9 +21,6 @@
 
 <!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-<!-- kakao jdk -->
-<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <title>EHSHE</title>
 
@@ -153,7 +144,7 @@ input[id="saveId"]:checked + label em {
 .link-sns > a:hover {
 	color: #007bff;
 }
-    
+
 </style>
 
 </head>
@@ -233,26 +224,24 @@ input[id="saveId"]:checked + label em {
 	
 			&nbsp;&nbsp;&nbsp;	
 			<span class="link-sns">
-			<%--   <%
-			    String clientId = "0i2Q6n2gEIeu1XkiUfeX";//애플리케이션 클라이언트 아이디값";
-			    String redirectURI = URLEncoder.encode("http://localhost:8080/ehshe/member/loginView/callback", "UTF-8");
-			    SecureRandom random = new SecureRandom();
-			    String state = new BigInteger(130, random).toString();
-			    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-			    apiURL += "&client_id=" + clientId;
-			    apiURL += "&redirect_uri=" + redirectURI;
-			    apiURL += "&state=" + state;
-			    session.setAttribute("state", state);
-			 	%> 
-				<a href="<%=apiURL%>"> 
-				<img src ="${contextPath}/resources/images/naver.png" style="width: 51px; height: 51px; margin-bottom: 5px">
-				<br> 네이버 로그인</a>--%>
+ 				<a href="javascript:init();" id="googleLogin">
+				<img id="test" src ="${contextPath}/resources/images/google.png" style="width: 51px; height: 51px; margin-bottom: 5px">
+				<br> 구글 로그인 </a>
 			</span>
 		</div>		
 	</div> <%-- form-wrapper end --%>
+	
+	<%-- kakao JDK --%>
+	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+		
+	<%-- google API --%>
+	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 
 	<%-- kakao Login JS --%>
 	<script src="${contextPath}/resources/js/kakaoLogin.js"></script>
+	
+	<%-- google Login JS --%>
+	<script src="${contextPath}/resources/js/googleLogin.js"></script>
 
 	<%-- footer include --%>
 	<jsp:include page="../common/footer.jsp" />			
@@ -330,7 +319,18 @@ input[id="saveId"]:checked + label em {
 		    console.log(error);
 		  },
 		});
-	</script>
+	  
+// 구글 로그 아웃
+/* function gLogout(){
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function(){
+	  console.log('signed out')
+  });
+}
+ */
+</script>
+
+        
 </body>
 </html>
 

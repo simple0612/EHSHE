@@ -97,6 +97,14 @@
     DEFAULT, DEFAULT, DEFAULT, 1)
 	</insert>
 
+	<!-- 구글 회원 등록 -->
+	<insert id="googleReg" parameterType="Member">
+		INSERT INTO EH_MEMBER
+    VALUES(SEQ_MNO.NEXTVAL, #{memberId}, #{memberPw}, #{memberNm},
+    #{memberEmail}, #{memberPhone}, #{memberGender}, #{memberAddr},
+    DEFAULT, DEFAULT, DEFAULT, 2)
+	</insert>
+
 
 
 

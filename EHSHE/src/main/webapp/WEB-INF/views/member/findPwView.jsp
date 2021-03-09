@@ -82,7 +82,7 @@
 }
 
 .form-control {
-	height: 3rem !important;
+	height: 2.8rem !important;
 	border-radius: 1rem !important;
 	display: inline-block !important;
 }
@@ -119,6 +119,7 @@
   height: 2.8rem !important;
   border: 1px solid #dbdbdb;
   border-radius: 1rem;
+  vertical-align: baseline;
 }
 
 #certifyBtn:hover{
