@@ -20,6 +20,18 @@
 	</resultMap>
 	
 	
+	<resultMap type="TopPlace" id="TopPlace_rm">
+		<result property="rowNum" column="ROWNUM"/>
+		<result property="score" column="SCORE"/>
+		<result property="placeNo" column="PLACE_NO"/>
+	</resultMap>
+	
+	<resultMap type="PlaceInfo" id="PlaceInfo_rm">
+		<result property="placeNo" column="PLACE_NO"/>
+		<result property="placeTitle" column="PLACE_TITLE"/>
+		<result property="placeAtPath" column="PLACE_AT_PATH"/>
+		<result property="placeAtName" column="PLACE_AT_NM"/>
+	</resultMap>
 	
 	<select id="selectItemList" resultMap="Item_rm" parameterType="list">
 		SELECT
@@ -43,7 +55,26 @@
 		WHERE ROWNUM BETWEEN 1 AND 3
 	</select>
 	
+	<select id="selectTopPlaceList" resultMap="TopPlace_rm">
+		SELECT * FROM 
+		(SELECT ROWNUM, V.*
+		FROM
+		(SELECT * FROM JV_PLACE_SOCRE) V)
+		WHERE ROWNUM BETWEEN 1 AND 3
+	</select>
 	
+	<select id="selectPlaceInfoList" resultMap="PlaceInfo_rm">
+		SELECT
+		PLACE_NO, PLACE_TITLE, PLACE_AT_PATH, PLACE_AT_NM
+		FROM EH_PLACE
+		JOIN EH_PLACE_ATTACHMENT USING(PLACE_NO)
+		WHERE PLACE_AT_LEVEL = 0
+		AND PLACE_DELETE_FL = 'N'
+		AND PLACE_NO IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item.placeNo}
+		</foreach>
+	</select>
 	
 
 </mapper>

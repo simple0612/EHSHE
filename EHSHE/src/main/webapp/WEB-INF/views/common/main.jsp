@@ -75,38 +75,20 @@ nav{
                     <h2>THE BEST PLACE</h2>
                     <div class="places">
                     
-                  
-                        <div class="place">
-                            <div class="place-image">
-                                <img src="">
-                            </div>
-                            <div class="place-description">
-                                <span><b>좋아요/평점 - </b></span>
-                                <h3><b>장소이름 - </b></h3>
-                                <a href="#" class="view-place">View More</a>
-                            </div>
-                        </div>
-                        <div class="place">
-                            <div class="place-image">
-                                <img src="" alt="이미지">
-                            </div>
-                            <div class="place-description">
-                                <span><b>좋아요/평점 - </b></span>
-                                <h3><b>장소이름 - </b></h3>
-                                <a href="#" class="view-place">View More</a>
-                            </div>
-                        </div>
-                        <div class="place">
-                            <div class="place-image">
-                                <img src="" alt="이미지">
-                            </div>
-                            <div class="place-description">
-                                <span><b>좋아요/평점 </b></span>
-                                <h3><b>장소이름 - </b></h3>
-                                <a href="#" class="view-place">View More</a>
-                            </div>
-                        </div>
-											
+                  	<c:if test="${!empty tpList && !empty piList}">
+                  		<c:forEach var="rankingPlace" items="${piList}" varStatus="avg">
+	                        <div class="place">
+	                            <div class="place-image">
+	                                <img src="${contextPath}${rankingPlace.placeAtPath}/${rankingPlace.placeAtName}">
+	                            </div>
+	                            <div class="place-description">
+	                                <span><i class="fas fa-star"></i> ${tpList[avg.index].score}</span>
+	                                <h3><b>${rankingPlace.placeTitle} </b></h3>
+	                                <a href="${contextPath}/place/${rankingPlace.placeNo}" class="view-place">View More</a>
+	                            </div>
+	                        </div>
+                        </c:forEach>
+                      </c:if>
                     </div>
                 </div>
             </div>
