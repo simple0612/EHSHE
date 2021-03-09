@@ -1,0 +1,52 @@
+header{
+    position:relative !important;
+}
+
+.ehsheYellow{
+    background-color: #F5dF4D !important;
+}
+
+#placeMain {
+    margin-top: 50px;
+}
+
+.container-fluid {
+    margin-top: 15px;
+}
+
+.updateP{
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.table1 td:first-child {
+    width: 180px;
+}
+
+.insert-place{
+    justify-content: center; 
+}
+
+.name>td:nth-of-type(2){
+    width: 80%;
+}
+
+.table1 td{
+	height:50px;
+}
+
+.table1 input{
+	width: 90%;
+}
+
+.updateContentArea{
+	margin-top: 80px;
+}
+
+.updateBtnArea{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.updateBtnArea a{
+	float:right;
+}

@@ -38,7 +38,11 @@ border-top : 1px solid #ccc;
 .rDate {
 	display : inline-block;
 	font-size: 0.5em;
-	color: gray;
+	color: red;
+}
+
+.placeReview textarea{
+	width: 400px;
 }
 
 #replyListArea {
