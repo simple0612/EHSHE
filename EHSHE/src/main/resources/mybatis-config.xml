@@ -32,10 +32,10 @@
 		<typeAlias type="com.kh.ehshe.home.model.vo.Item" alias="Item"/>
 		<typeAlias type="com.kh.ehshe.home.model.vo.TopItem" alias="TopItem"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.Cart" alias="Cart"/>
-		<typeAlias type="com.kh.ehshe.shop.model.vo.Pitem" alias="Pitem"/>
-		<typeAlias type="com.kh.ehshe.shop.model.vo.Cart" alias="ITemReview"/>
-		<typeAlias type="com.kh.ehshe.shop.model.vo.Cart" alias="QandA"/>
+		<typeAlias type="com.kh.ehshe.shop.model.vo.Pitem" alias="Pitem"/>	
 		<typeAlias type="com.kh.ehshe.place.model.vo.SearchPlace" alias="SearchPlace"/>
+		<typeAlias type="com.kh.ehshe.shop.model.vo.ItemReview" alias="ItemReview"/>
+		<typeAlias type="com.kh.ehshe.shop.model.vo.QandA" alias="QandA"/>
 		
 	</typeAliases>
 

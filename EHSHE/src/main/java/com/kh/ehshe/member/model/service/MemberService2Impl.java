@@ -13,8 +13,10 @@ import com.kh.ehshe.board.model.vo.PageInfo;
 import com.kh.ehshe.board.model.vo.VBoard;
 import com.kh.ehshe.member.model.dao.MemberDAO2;
 import com.kh.ehshe.member.model.vo.Member;
+import com.kh.ehshe.place.model.vo.VPlace;
 import com.kh.ehshe.shop.model.vo.ItemReview;
 import com.kh.ehshe.shop.model.vo.Order;
+import com.kh.ehshe.shop.model.vo.QandA;
 import com.kh.ehshe.shop.model.vo.ShopReply;
 
 @Service
@@ -162,8 +164,13 @@ public class MemberService2Impl implements MemberService2 {
 	}
 
 	@Override
-	public List<ShopReply> myQandA(PageInfo pInfo, int memberNo) {
+	public List<QandA> myQandA(PageInfo pInfo, int memberNo) {
 		return dao.myQandA(pInfo,memberNo);
+	}
+
+	@Override
+	public List<VPlace> selectbookmarkList(PageInfo pInfo, String memberId) {
+		return dao.selectbookmarkList(pInfo,memberId);
 	}
 
 }

@@ -56,7 +56,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h1 class="myPlace-header">
-							상품 & 장소<br> <br> <br>
+							 <br>상품 & 장소 후기<br> <br> <br>
 
 							<div>
 
@@ -70,24 +70,20 @@
 
 					</div>
 				</div>
-
-
-				<input type="button" value="상품" id="btn1" class="btn"> <input
-					type="button" value="장소" id="btn2" class="btn">
-
-
+				<br> <input type="button" value="상품" id="btn1" class="btn">
+				<input type="button" value="장소" id="btn2" class="btn"> <br>
 				<div class="container board-list" id="bullet">
 					<!-- 게시글  얻어오기 -->
 
 					<div>
 						<table class="table table-hover table-striped" id="list-table">
-
 							<tr>
 
 
+								<th></th>
 								<th>상품 번호</th>
 								<th>상품 제목</th>
-								<th>후기 내용</th>
+								<th>상품 내용</th>
 								<th>등록일</th>
 
 							</tr>
@@ -95,7 +91,7 @@
 
 							<c:if test="${empty ItemReview}">
 								<tr>
-									<td colspan="4">존재하는 게시글이 없습니다.</td>
+									<td colspan="5">존재하는 게시글이 없습니다.</td>
 								</tr>
 							</c:if>
 
@@ -105,10 +101,10 @@
 
 									<tr class="cklist">
 
-										<td>${ItemReview.orderNo}</td>
-										<td>${ItemReview.orderContent}</td>
-										<td>${ItemReview.itemContent}</td>
-
+										<td>${ItemReview.itemCategory}</td>
+										<td>${ItemReview.itemNo}</td>
+										<td>${ItemReview.itemNm}</td>
+										<td>${ItemReview.itemContent	}</td>
 										<td>
 											<%-- 날짜 출력 모양 지정 --%> <fmt:formatDate var="createDate"
 												value="${ItemReview.orderDate }" pattern="yyyy-MM-dd" /> <fmt:formatDate
@@ -158,11 +154,11 @@
 
 							<tr>
 
-
-								<th>게시글번호</th>
-
-								<th>댓글 내용</th>
-								<th>댓글작성일</th>
+	
+								<th>장소 번호</th>
+								<th>장소 제목</th>
+								<th>장소 내용</th>
+								<th>등록일</th>
 
 							</tr>
 
@@ -298,13 +294,14 @@
 	<script>
 		// 게시글 상세보기 기능 (jquery를 통해 작업)
 		$(".cklist").on("click", function() {
-			var boardNo = $(this).children().eq(0).text();
+			var shopNo = $(this).children().eq(0).text();
+			var shopNo1 = $(this).children().eq(1).text();
 
-			var boardViewURL = "${contextPath}/board/" + boardNo;
+			var shopViewURL = "${contextPath}/shop/" + shopNo + "/" + shopNo1;
 
 			// var boardViewURL = "../" + boardNo;
 
-			location.href = boardViewURL;
+			location.href = shopViewURL;
 		});
 
 		//체크박스 선택시 전체 선택
@@ -353,6 +350,8 @@
 			box2.style.display = "block";
 
 		});
+
+		x
 	</script>
 
 

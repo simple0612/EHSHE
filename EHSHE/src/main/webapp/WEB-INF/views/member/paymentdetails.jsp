@@ -39,7 +39,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h1 class="myPlace-header">
-							결제확인<br> <br> <br>
+						<br> <br> <br>	결제확인<br> <br> <br>
 
 							<div>
 
@@ -68,7 +68,7 @@
 								<th>주문번호</th>
 								<th>주문일자</th>
 								<th>상품정보</th>
-								<th>주문금액,수량</th>
+								<th>주문금액</th>
 
 							</tr>
 
@@ -90,7 +90,7 @@
 											<td>${order.orderNo}</td>
 											<td>${order.orderDate}</td>
 											<td>${order.orderContent}</td>
-											<td>${order.orderContent}</td>
+											<td>${order.orderPrice}</td>
 
 
 

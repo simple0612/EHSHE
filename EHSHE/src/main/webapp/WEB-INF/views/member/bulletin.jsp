@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>나만의 장소</title>
+<title>내가쓴글</title>
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -32,7 +32,6 @@
 	width: 20%;
 	height: 2.8rem;
 	margin-top: 0.7rem;
-	
 	max-width: 350px;
 	font-weight: 600;
 	font-size: 15px;
@@ -57,7 +56,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h1 class="myPlace-header">
-							내 댓글<br> <br> <br>
+							내 가 쓴 글<br> <br> <br>
 
 							<div>
 
@@ -72,12 +71,11 @@
 					</div>
 				</div>
 
-  
-            <input type="button" value = "내가 쓴글" id = "btn1" class ="btn">
-	
-            <input type="button" value = "댓글" id = "btn2"  class ="btn">
-  
-	
+
+				<input type="button" value="내가 쓴글" id="btn1" class="btn"> <input
+					type="button" value="댓글" id="btn2" class="btn">
+
+
 				<div class="container board-list" id="bullet">
 					<!-- 게시글  얻어오기 -->
 
@@ -104,31 +102,31 @@
 							<c:if test="${!empty bList}">
 								<c:forEach var="board" items="${bList}" varStatus="vs">
 
-								
-										<tr class="cklist">
 
-											<td>${board.boardNo}</td>
-											<td>${board.boardTitle}</td>
-											<td>${board.memberNo}</td>
+									<tr class="cklist">
 
-											<td>
-												<%-- 날짜 출력 모양 지정 --%> <fmt:formatDate var="createDate"
-													value="${board.boardCreateDate }" pattern="yyyy-MM-dd" />
-												<fmt:formatDate var="now" value="<%=new java.util.Date()%>"
-													pattern="yyyy-MM-dd" /> <c:choose>
-													<c:when test="${createDate != now}">
+										<td>${board.boardNo}</td>
+										<td>${board.boardTitle}</td>
+										<td>${board.memberNo}</td>
+
+										<td>
+											<%-- 날짜 출력 모양 지정 --%> <fmt:formatDate var="createDate"
+												value="${board.boardCreateDate }" pattern="yyyy-MM-dd" /> <fmt:formatDate
+												var="now" value="<%=new java.util.Date()%>"
+												pattern="yyyy-MM-dd" /> <c:choose>
+												<c:when test="${createDate != now}">
 											${createDate }
 										</c:when>
-													<c:otherwise>
-														<fmt:formatDate value="${board.boardCreateDate }"
-															pattern="HH:mm" />
-													</c:otherwise>
-												</c:choose>
-											</td>
+												<c:otherwise>
+													<fmt:formatDate value="${board.boardCreateDate }"
+														pattern="HH:mm" />
+												</c:otherwise>
+											</c:choose>
+										</td>
 
-										</tr>
+									</tr>
 
-								
+
 								</c:forEach>
 							</c:if>
 
@@ -152,7 +150,7 @@
 				</div>
 
 
-				<div class="container board-list" id="review"  style="display: none;">
+				<div class="container board-list" id="review" style="display: none;">
 					<!-- 게시글  얻어오기 -->
 
 					<div>
@@ -161,48 +159,48 @@
 							<tr>
 
 
-								<th>게시글번호</th>
-							
-								<th>댓글 내용</th>
-								<th>댓글작성일</th>
+								<th>장소 번호</th>
+
+								<th>장소 내용</th>
+								<th>장소 후기 작성일</th>
 
 							</tr>
 
 
 							<c:if test="${empty BReply}">
 								<tr>
-									<td colspan="3">존재하는 게시글이 없습니다.</td>
+									<td colspan="4">존재하는 게시글이 없습니다.</td>
 								</tr>
 							</c:if>
 
 							<c:if test="${!empty BReply}">
 								<c:forEach var="reply" items="${BReply}" varStatus="vs">
 
-									
-										<tr class="cklist">
 
-											<td>${reply.boardNo}</td>
-											
-											<td>${reply.replyContent}</td>
+									<tr class="cklist">
 
-											<td>
-												<%-- 날짜 출력 모양 지정 --%> <fmt:formatDate var="createDate"
-													value="${reply.replyCreateDate }" pattern="yyyy-MM-dd" />
-												<fmt:formatDate var="now" value="<%=new java.util.Date()%>"
-													pattern="yyyy-MM-dd" /> <c:choose>
-													<c:when test="${createDate != now}">
+										<td>${reply.boardNo}</td>
+
+										<td>${reply.replyContent}</td>
+
+										<td>
+											<%-- 날짜 출력 모양 지정 --%> <fmt:formatDate var="createDate"
+												value="${reply.replyCreateDate }" pattern="yyyy-MM-dd" /> <fmt:formatDate
+												var="now" value="<%=new java.util.Date()%>"
+												pattern="yyyy-MM-dd" /> <c:choose>
+												<c:when test="${createDate != now}">
 											${createDate }
 										</c:when>
-													<c:otherwise>
-														<fmt:formatDate value="${reply.replyCreateDate }"
-															pattern="HH:mm" />
-													</c:otherwise>
-												</c:choose>
-											</td>
+												<c:otherwise>
+													<fmt:formatDate value="${reply.replyCreateDate }"
+														pattern="HH:mm" />
+												</c:otherwise>
+											</c:choose>
+										</td>
 
-										</tr>
+									</tr>
 
-									
+
 								</c:forEach>
 							</c:if>
 
@@ -337,32 +335,24 @@
 				}
 			}
 		});
-		
-		
-		
-		document.getElementById("btn1").addEventListener("click",function()
-		{
-			var box1= document.getElementById("bullet");
-			var box2= document.getElementById("review");
-			
-				box2.style.display ="none";
-				
-				box1.style.display ="block";
-				
-			
-		}		
-		);
-		
-		document.getElementById("btn2").addEventListener("click",function()
-				{
-					var box1= document.getElementById("bullet");
-					var box2= document.getElementById("review");
-						box1.style.display ="none";
-						box2.style.display ="block";
-					
-		
-				}		
-				);
+
+		document.getElementById("btn1").addEventListener("click", function() {
+			var box1 = document.getElementById("bullet");
+			var box2 = document.getElementById("review");
+
+			box2.style.display = "none";
+
+			box1.style.display = "block";
+
+		});
+
+		document.getElementById("btn2").addEventListener("click", function() {
+			var box1 = document.getElementById("bullet");
+			var box2 = document.getElementById("review");
+			box1.style.display = "none";
+			box2.style.display = "block";
+
+		});
 	</script>
 
 
