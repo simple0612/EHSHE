@@ -67,4 +67,16 @@ public interface MemberService {
 	 */
 	public abstract Member KaKaoLogin(Member member);
 
+	/** 구글 회원 등록 Service
+	 * @param kakaoInfo
+	 * @return result
+	 */
+	public abstract int googleSignUp(Member member);
+
+	/** 구글 로그인 Service
+	 * @param memberId
+	 * @return
+	 */
+	public abstract Member googleLogin(Member member);
+
 }

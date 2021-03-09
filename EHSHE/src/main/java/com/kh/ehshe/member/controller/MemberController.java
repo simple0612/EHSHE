@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -50,6 +51,50 @@ public class MemberController {
 	private String swalTitle;
 	private String swalText;
 	
+    @ResponseBody
+	@RequestMapping(value = "/googleLogin", method = RequestMethod.POST)
+	public Member googleLogin(@RequestParam String memberId,
+							  @RequestParam String memberNm,
+							  Model model) {
+
+		// 아이디 중복 검사
+		int result = service.idDupCheck(memberId);
+		
+		Member member = new Member();
+		member.setMemberId(memberId);
+		member.setMemberNm(memberNm);
+		
+		System.out.println(member);
+		
+		Member loginMember = null;
+		
+		if(result > 0) {						
+			loginMember = service.KaKaoLogin(member); 
+			//System.out.println("이미 등록 되어 있는 경우 : " + loginMember);
+				
+		} else {
+			//System.out.println("등록 x");
+			
+			member = new Member();
+			member.setMemberId(memberId);
+			member.setMemberNm(memberNm);			
+
+			int kakaoReg = service.kakaoSignUp(member); 
+			
+			//System.out.println(kakaoReg);
+			//System.out.println(member);
+
+			if(kakaoReg > 0) {
+				loginMember = service.KaKaoLogin(member); 
+				//System.out.println("회원 등록 후 : " + loginMember);				
+			}
+		}
+		model.addAttribute("loginMember", loginMember);				
+		
+		return loginMember;			
+	}
+ 
+	
 	// 로그인 화면 Controller
 	@RequestMapping("loginView")
 	public String loginView() {
@@ -60,7 +105,7 @@ public class MemberController {
 	@RequestMapping("login")
 	public String login(Member member,
 						@RequestParam(value="saveId", required=false) String saveId,
-						HttpServletResponse response, Model model) {
+						HttpServletResponse response, Model model, RedirectAttributes ra) {
 		
 		// 비즈니스 로직 수행 후 결과 반환 받기
 		Member loginMember = service.login(member);
@@ -97,8 +142,8 @@ public class MemberController {
 			url = "/"; 
 			
 		} else {
-			swalTitle = "EHSEH";
-			swalText = "아이디와 비밀번호를 다시 확인해주세요.";
+			ra.addFlashAttribute("swalTitle", "EHSHE");
+			ra.addFlashAttribute("swalText", "EHSHE 계정 정보가 일치하지 않습니다. 다시 입력해주세요.");
 			
 			// 실패 시 로그인 화면으로 재요청 
 			url = "loginView";
@@ -160,12 +205,6 @@ public class MemberController {
 		return loginMember;			
 	}
 	
-	// 네이버 로그인 Controller
-	/*
-	 * @RequestMapping(value = "/naverLogin") public String naverLogin() {
-	 * 
-	 * return "/"; }
-	 */
 	
 	
 	// 이용약관 화면 Controller

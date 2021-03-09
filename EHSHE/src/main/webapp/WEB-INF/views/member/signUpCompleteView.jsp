@@ -33,7 +33,7 @@
 .form-container {
 	margin: auto;
 	height: 100%;
-  max-width: 350px;
+  max-width: 400px;
 }
  
 .title {
@@ -58,14 +58,13 @@
 .welcome-area {
 	font-size: 20px;
 	text-align: center;
-	color: #252525;
+	color: #959595;
 }
 
-.img-area {
+ .img-area {
 	width: 350px;
 	height: 200px;
-	background: url(${contextPath}/resources/images/heart.png) 0 0 no-repeat;	
-}
+} 
 
 .text-guide {
 	font-size: 14px;
@@ -93,8 +92,111 @@
 
 .btn:hover{
 	background-color: #f0d700;
+} 
+
+/* 이미지 css */
+
+figure.cat {
+  font-family: 'Raleway', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;  
+	font-weight: 600;
+	color: #ffffff;
+	font-size: 18px;
+  background-color: #000000;
+  border-radius: 1rem;
 }
-    
+
+ figure.cat * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+} 
+
+
+figure.cat:after, 
+figure.cat figcaption {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+figure.cat:after {
+  content: '';
+  background-color: rgba(0, 0, 0, 0.65);
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+  opacity: 0;
+  border-radius: 1rem;
+}
+
+figure.cat figcaption {
+  z-index: 1;
+  padding: 40px;
+}
+
+
+figure.cat h3 {
+  line-height: 1.1em;
+  font-weight: 700;
+  font-size: 1em;
+  text-transform: uppercase;
+  opacity: 0;
+}
+
+figure.cat p {
+  text-align:center;
+  font-size: 0.8em;
+  font-weight: 300;
+  letter-spacing: 1px;
+  opacity: 0;
+  top: 50%;
+  -webkit-transform: translateY(40px);
+  transform: translateY(40px);
+}
+
+figure.cat a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+figure.cat:hover img,
+figure.cat.hover img {
+  zoom: 1;
+  filter: alpha(opacity=50);
+  -webkit-opacity: 0.5;
+  opacity: 0.5;
+}
+
+figure.cat:hover:after,
+figure.cat.hover:after {
+  opacity: 1;
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+}
+
+figure.cat:hover h3,
+figure.cat.hover h3,
+figure.cat:hover p,
+figure.cat.hover p,
+figure.cat:hover i,
+figure.cat.hover i {
+  -webkit-transform: translate(0px, 0px);
+  transform: translate(0px, 0px);
+  opacity: 1;
+}
+ 
 </style>
 
 
@@ -112,17 +214,29 @@
 			
 			<br>
 			<div class="welcome-area">
-				<span class="member-name"> ${loginMember.memberNm} 님, </span>
+				<span class="member-name"> ${loginMember.memberNm} 애옹이 님, </span>
 				<span class="welcome-text"> 환영합니다! </span>
 			</div>
 
-			<br>						
-			<div class=img-area></div>
+			<br>	
+			<figure class="cat">
+				<img style="border-radius: 1rem;" src="${contextPath}/resources/images/welcome.gif" />
+				<figcaption>
+			 		<br>
+				  <p>EHSHE 가입이 완료되었습니다. <br>
+				       로그인하시면 다양한 서비스를 <br> 
+				       이용하실 수 있습니다.	
+				  </p>
+			 </figcaption>
+			 <a href="loginView"></a>
+			</figure>
 
 			<br>
-			<div class="text-guide"> EHSHE 가입이 완료되었습니다. <br>
-					  로그인하시면 다양한 서비스를 이용하실 수 있습니다.		
+			<%-- 
+ 			<div class="text-guide"> EHSHE 가입이 완료되었습니다. <br>
+															  로그인하시면 다양한 서비스를 이용하실 수 있습니다.		
 		  </div>
+		  --%>
 		</div> <%-- form-wrapper --%>		
 
 		<br>
@@ -136,7 +250,7 @@
 
 	<%-- footer include --%>
 	<jsp:include page="../common/footer.jsp" />		
-	
+
 </body>
 </html>
 
