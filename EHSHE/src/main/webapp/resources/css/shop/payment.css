@@ -231,7 +231,9 @@ label > span{
     border-radius: 10px;
     border : 1px solid rgb(147,149,151);
 }
-
+.specify-number{
+	display:none; !important
+}
 
 
 /* final info 최종결제정보 */
