@@ -54,9 +54,9 @@ background-color: #F5dF4D;
 color:black;
 }
 .btnColor2{
-  background-color: #939597;
-  color: white;
- }
+background-color: #939597;
+color: white;
+}
 .productClass{
 display:inline-block;
 }
@@ -150,14 +150,14 @@ line-height:55px;
                 				 <td>${starRating.score}</td>
                 				</c:when>
                 				<c:otherwise>
-                				  <td>별점없음</td>
+                				  <td>0.0</td>
                 				</c:otherwise>
                 			</c:choose>
                 			
                 			</tr>
-                			<tr>
+          <!--       			<tr>
                 			<td></td>
-                			</tr>
+                			</tr> -->
                     </table>
                     </div>
                       
@@ -190,16 +190,14 @@ line-height:55px;
            </li>
          </ul>
          <div class="tab-content">
-           <div class="tab-pane fade" id="qna">
+          <div class="tab-pane fade" id="qna">
           	 <jsp:include page="shopReply.jsp"/> 
          </div>
-           
            <div class="tab-pane fade show active" id="review">
              <jsp:include page="shopReview.jsp"/>
  					</div>
-
          </div>
-     		</div>
+       </div>
         </div>
      </div>
    </form> 

@@ -49,6 +49,9 @@ border: 1px solid black;
 .listPointer{
 cursor:pointer;
 }
+.pagination li a{
+   color:black;
+}
  
 </style>
 <body>
@@ -62,7 +65,6 @@ cursor:pointer;
 							<c:when test="${pInfo.shopType == 3}"><h1>Etc</h1></c:when>
 						</c:choose> 
         </div>
-       
         <div class="row" style="margin-top: 50px;">
             <c:if test="${!empty sList}">
               <c:forEach var="shop" items="${sList}" varStatus="vs">
@@ -82,20 +84,17 @@ cursor:pointer;
                             <div><strong>${shop.itemNm}</strong></div>
                             <div>가격: <fmt:formatNumber value="${shop.itemPrice}" pattern="#,###"/>원</div>
                             <div>배송비: <fmt:formatNumber value="${shop.transCharge}" pattern="#,###"/>원</div>
-         										 
-         							 <c:choose>
-         						       <c:when test="${!empty starRating}">
-                          <c:forEach items="${starRating}" var="sr">
-						  							 <c:if test="${sr.itemNo == shop.itemNo}">
-                              <img class="shopimg" src="${contextPath}/resources/shopCommonImg/별모양.png" style="width: 20px; height: 20px;">  ${sr.score}
- 														</c:if>
-                       	  </c:forEach>
- 													</c:when>
- 													<c:otherwise>	
-	 														<div><img src="${contextPath}/resources/shopCommonImg/별모양.png" class="mainImg" style="width: 20px; height: 20px;"> 별점없음</div>
-    												</c:otherwise>
-                      	</c:choose>                
-                        
+         							 
+          							 <c:forEach items="${starRating}" var="sr">
+ 														<c:choose>
+ 															 <c:when test="${sr.itemNo == shop.itemNo}">
+                            			<div><img class="shopimg" src="${contextPath}/resources/shopCommonImg/별모양.png" style="width: 20px; height: 20px;">${sr.score}</div>
+ 															</c:when>
+ 															<c:otherwise>
+ 															    <div><img class="shopimg" src="${contextPath}/resources/shopCommonImg/별모양.png" style="width: 20px; height: 20px;">0</div>
+ 															</c:otherwise>
+                        	 </c:choose>
+                        </c:forEach>
                         </div>
                     </div>
                   </div>

@@ -139,7 +139,25 @@ font-size: 20px;
 <div id="reply-area">
 	 
 	<!-- 댓글 작성 부분 -->
- 	   <div class="star-rating">
+<!--  	   <div class="star-rating">
+        <div class="stars">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+        </div>
+        <div class="print">
+		   		   별점주기
+        </div>
+    </div> -->
+ 
+	<div class="replyWrite">
+		<table>
+			<tr>
+				<td id="replyContentArea">
+				
+ 	   <div class="star-rating" style="margin-bottom:10px;">
         <div class="stars">
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
@@ -151,11 +169,10 @@ font-size: 20px;
 		   		   별점주기
         </div>
     </div>
- 
-	<div class="replyWrite">
-		<table>
-			<tr>
-				<td id="replyContentArea"><textArea rows="3" id="replyShopContent"></textArea>
+				
+				<textArea rows="3" id="replyShopContent">
+				</textArea>
+				
 				</td>
 				<td id="sreplyBtnArea">
 					<button type="button" class="btn btnColor" id="addShopReply">댓글<br>등록</button>
