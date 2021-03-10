@@ -86,6 +86,8 @@ public class BoardController {
 					fileName = at.getFileName();
 				}
 				
+				
+				model.addAttribute("attachmentList", attachmentList);
 				model.addAttribute("thumbnailFilePath", thumbnailFilePath);
 				model.addAttribute("fileName", fileName);
 			}

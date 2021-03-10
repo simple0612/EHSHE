@@ -79,12 +79,16 @@
 			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12 h-boardView">
-						<h3>${board.boardTitle}</h3>
-						<h5>${board.categoryName}</h5>
-						<c:set var="loca" value="${fn:split(board.location,',')[1]}" />
-						<h4>${fn:split(loca,' ')[0]} ${fn:split(loca,' ')[1]}</h4>
+							<img src="${contextPath}${thumbnailFilePath}/${fileName}">
+							<div class="h-textArea">
+								<h3>${board.boardTitle}</h3>
+								<h5>${board.categoryName}</h5>
+								<c:set var="loca" value="${fn:split(board.location,',')[1]}" />
+								<h4>${fn:split(loca,' ')[0]} ${fn:split(loca,' ')[1]}</h4>
+							</div>
 					</div>
 				</div>
+							
 
 				
 
