@@ -101,9 +101,9 @@ figure.cat {
   position: relative;
   overflow: hidden;
   margin: 10px;  
-	font-weight: 600;
+	font-weight: bold;
 	color: #ffffff;
-	font-size: 18px;
+	font-size: 30px;
   background-color: #000000;
   border-radius: 1rem;
 }
@@ -227,12 +227,9 @@ figure.cat.hover i {
 			<figure class="cat">
 				<img src="${contextPath}/resources/images/welcome.gif" />
 				<figcaption>
-				  <p>봄의 정원으로 오라. <br>
-				  	  이곳에 꽃과 술과 촛불이 있으니 <br> 
-				           만일 당신이 오지 않는다면 <br>
-				           이것들이 무슨 의미가 있는가.	<br><br>
-				   	  그리고 만일 당신이 온다면 <br>
-				 		  이것들이 또한 무슨 의미가 있는가. <br>
+				  <p>
+				  	 <br>
+				  	 클릭하라옹
 				  </p>
 			 </figcaption>
 			 <a href="loginView"></a>

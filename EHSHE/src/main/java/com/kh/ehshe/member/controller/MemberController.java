@@ -100,7 +100,7 @@ public class MemberController {
 			
 		} else {
 			ra.addFlashAttribute("swalTitle", "EHSHE");
-			ra.addFlashAttribute("swalText", "EHSHE 계정 정보가 일치하지 않습니다. 다시 입력해주세요.");
+			ra.addFlashAttribute("swalText", "EHSHE 계정 정보가 일치하지 않습니다. 다시 확인해 주세요.");
 			
 			// 실패 시 로그인 화면으로 재요청 
 			url = "loginView";
@@ -289,7 +289,7 @@ public class MemberController {
 		
 		if(result > 0) {	
 			Member memberInfo = service.findId(member);
-			//System.out.println(memberInfo);
+			System.out.println(memberInfo);
 			
 			if(memberInfo != null) {
 				model.addAttribute("memberInfo", memberInfo);
@@ -298,13 +298,15 @@ public class MemberController {
 			url = "findIdCompleteView";
 		
 		} else {
-			url = "findIdView";	
-			swalIcon = "error";
-			swalTitle = "입력하신 정보와 일치하는 계정이 없습니다.";
+			url = "findIdView";
+			
+			swalTitle = "EHSHE";
+			swalText = "입력하신 정보와 일치하는 계정이 없습니다.";
 		}
 		
-		ra.addFlashAttribute("swalIcon", swalIcon);
+		
 		ra.addFlashAttribute("swalTitle", swalTitle);
+		ra.addFlashAttribute("swalText", swalText);
 		
 		return "redirect:" + url;
 	}
@@ -343,9 +345,13 @@ public class MemberController {
 		
 		} else {
 			url = "findPwView";	
-			swalIcon = "error";
-			swalTitle = "입력하신 정보와 일치하는 계정이 없습니다.";
+			
+			swalTitle = "EHSHE";
+			swalText = "입력하신 정보와 일치하는 계정이 없습니다.";
 		}
+		
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		ra.addFlashAttribute("swalText", swalText);
 		
 		return "redirect:" + url;
 	}
@@ -372,18 +378,18 @@ public class MemberController {
 		String url = null;
 	  
 		if(result > 0) { 
-			swalIcon = "success"; 
-			swalTitle = "비밀번호 변경 성공"; 
+			swalTitle = "EHSHE"; 
+			swalText = "비밀번호 변경 성공"; 
 			url = "loginView";
 	  
 		} else { 
-			swalIcon = "error"; 
-			swalTitle = "비밀번호 변경 과정에서 문제가 발생하였습니다"; 
+			swalTitle = "EHSHE"; 
+			swalText = "비밀번호 변경 과정에서 문제가 발생하였습니다"; 
 			url = "changePwView";
 		}
 	  
-		ra.addFlashAttribute("swalIcon", swalIcon); 
-		ra.addFlashAttribute("swalTitle", swalTitle);
+		ra.addFlashAttribute("swalTitle", swalTitle); 
+		ra.addFlashAttribute("swalText", swalText);
 	  
 		return "redirect:" + url;
 	}	

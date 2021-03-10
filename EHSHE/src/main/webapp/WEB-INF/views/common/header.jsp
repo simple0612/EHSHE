@@ -25,8 +25,8 @@
    <c:if test="${!empty swalTitle}">
       <script>
          swal({icon  : "${swalIcon}",
-              title : "${swalTitle}",
-              text  : "${swalText}"});
+              title  : "${swalTitle}",
+              text   : "${swalText}"});
       </script>
    </c:if>
    
