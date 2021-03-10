@@ -1,5 +1,6 @@
 package com.kh.ehshe.shop.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,12 +83,15 @@ public class ShopController {
 		if(sList != null && !sList.isEmpty()) {
 			
 			List<ShopScore> starRating = service.selectStarRation(sList);
-			System.out.println("ssss"+starRating);
 			
-			if(starRating != null) {
+	
+			System.out.println("ssss"+sList);
+			
+			if(starRating != null) { 
+				
 				model.addAttribute("starRating",starRating);
 			}
-			
+		
 			
 			List<ShopAttachment> thumbnailList = service.selectShopThumbnailList(sList);
 			

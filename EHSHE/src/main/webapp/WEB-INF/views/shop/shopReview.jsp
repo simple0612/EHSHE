@@ -5,9 +5,9 @@
 /*댓글*/
 
 .replyWrite>table {
-	width: 90%;
-  margin-top : 100px;
-}
+width: 90%;
+margin-top : 100px;
+} 
 
 #replyContentArea {
 	width: 90%;
@@ -18,72 +18,73 @@
 	width: 100%;
 }
 
-#replyBtnArea {
+#sreplyBtnArea {
 	width: 100px;
 	text-align: center;
 }
 
-.rWriter {
+.srWriter {
 	display : inline-block;
 	margin-right: 30px;
 	vertical-align: top;
 	font-weight: bold;
 	font-size: 1.2em;
+	color:#939597;
 }
 
-.rDate {
+.srDate {
 	display : inline-block;
 	font-size: 0.5em;
 	color: gray;
 }
 
-#replyListArea {
+#shopReplyListArea {
 	list-style-type: none;
 }
 
-.rContent, .btnArea{
+.srContent, .btnArea{
 	display: inline-block;
 	box-sizing: border-box;
 }
 
-.rContent {
+.srContent {
 	height: 100%;
 	width : 100%;
 	word-break:normal;
 }
 
 
-.replyBtnArea {
+.sreplyBtnArea {
 	text-align: right;
 }
 
 
-.replyUpdateContent {
+.shopReplyUpdateContent {
 resize: none;
 width: 100%;
 }
 
 
-.reply-row{
+.shopReply-row{
 border-top : 1px solid #ccc;
 padding : 15px 0;
 }
 
-/* 답글(대댓글) */
-.childReply-li{
-padding-left: 50px;  
-}
-
-.childReplyArea{
-padding-top : 30px;
-width : 100%;
-text-align: right;
-}
-
-.childReplyContent{
-resize: none;  
-width : 100%; 
-}
+/* /* 답글(대댓글) */
+/* 	.childReply-li{
+	padding-left: 50px;  
+	}
+	
+	.childReplyArea{
+	padding-top : 30px;
+	width : 100%;
+	text-align: right;
+	}
+	
+	.childReplyContent{
+	resize: none;  
+	width : 100%; 
+	}  */
 .star-rating{
 font-family: 'Noto Sans KR', sans-serif;
 background-color: white;
@@ -114,13 +115,49 @@ color: black;
 vertical-align: middle;
 margin-right: 5px;
 }
+.btnColor{
+  background-color: #F5dF4D;
+  color:white;
+}
+.btnColor2{
+  background-color: #939597;
+  color: white;
+}
+.stars2{
+ color: rgb(190, 190, 190);
+}
+.stars2 img{
+margin-left: 10px;
+}
+.starReview{
+text-shadow: orange 0 0 5px;
+font-size: 20px;
+}
 
 </style>
     
 <div id="reply-area">
 	 
 	<!-- 댓글 작성 부분 -->
-     <div class="star-rating">
+<!--  	   <div class="star-rating">
+        <div class="stars">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+        </div>
+        <div class="print">
+		   		   별점주기
+        </div>
+    </div> -->
+ 
+	<div class="replyWrite">
+		<table>
+			<tr>
+				<td id="replyContentArea">
+				
+ 	   <div class="star-rating" style="margin-bottom:10px;">
         <div class="stars">
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
@@ -132,13 +169,13 @@ margin-right: 5px;
 		   		   별점주기
         </div>
     </div>
-	<div class="replyWrite">
-		<table>
-			<tr>
-				<td id="replyContentArea"><textArea rows="3" id="replyShopContent"></textArea>
+				
+				<textArea rows="3" id="replyShopContent">
+				</textArea>
+				
 				</td>
-				<td id="replyBtnArea">
-					<button type="button" class="btn btn-success" id="addShopReply">댓글<br>등록</button>
+				<td id="sreplyBtnArea">
+					<button type="button" class="btn btnColor" id="addShopReply">댓글<br>등록</button>
 				</td>
 			</tr>
 		</table>
@@ -147,7 +184,7 @@ margin-right: 5px;
 
 	<!-- 댓글 출력 부분 -->
 	<div class="replyList mt-5 pt-2">
-		<ul id="replyListArea">
+		<ul id="shopReplyListArea">
 			
 		
 		</ul>
@@ -160,9 +197,18 @@ margin-right: 5px;
 
 var loginMemberId = "${loginMember.memberId}"; // 로그인한 회원 아이디 (있으면 아이디 없으면 빈문자열)
 var replyWriter = "${loginMember.memberNo}";   // 로그인한 회원 번호  -- > 자바스크립트에서는 "1" ==  1  == true
-var parentBoardNo = ${shop.itemNo};            // 게시글 번호  -- > 자바스크립트에서는 "1" ==  1  == true
+var itemNo = ${shop.itemNo};            // 게시글 번호  -- > 자바스크립트에서는 "1" ==  1  == true
 
+
+				var num;
 			  var starRate = 0;
+			  var arr = [];   
+			  arr.push('<div class="stars2"><i class="fas fa-star"></i><img src="${contextPath}/resources/shopCommonImg/star-lv1.png"></div>');
+			  arr.push('<div class="stars2"><i class="fas fa-star"></i><i class="fas fa-star"></i><img src="${contextPath}/resources/shopCommonImg/star-lv2.png"></div>');
+			  arr.push('<div class="stars2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><img src="${contextPath}/resources/shopCommonImg/star-lv3.png"></div>');
+			  arr.push('<div class="stars2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><img src="${contextPath}/resources/shopCommonImg/star-lv4.png"></div>');
+			  arr.push('<div class="stars2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><img src="${contextPath}/resources/shopCommonImg/star-lv5.png"></div>');
+
 
 	  $(".stars .fa").on("click", function(){
 		    $(this).addClass('active')
@@ -177,7 +223,8 @@ var parentBoardNo = ${shop.itemNo};            // 게시글 번호  -- > 자바�
 		    else if(starRate == 3){$('.print').html('<img src="${contextPath}/resources/shopCommonImg/star-lv3.png">' + '그냥 그래요')}
 		    else if(starRate == 4){$('.print').html('<img src="${contextPath}/resources/shopCommonImg/star-lv4.png">' + '맘에 들어요')}
 		    else{$('.print').html('<img src="${contextPath}/resources/shopCommonImg/star-lv5.png">' + '아주 좋아요')} 
-				});
+			
+	  });
 	
 
 // 댓글
@@ -185,71 +232,67 @@ var parentBoardNo = ${shop.itemNo};            // 게시글 번호  -- > 자바�
 $(function(){
 	selectShopViewReplyList();
 });
-
+ 
 // 댓글 목록 불러오기(AJAX)
-function selectShopViewReplyList(){
+ function selectShopViewReplyList(){
 	
 	$.ajax({
-		url : "${contextPath}/ShopReviewReply/selectReplyList/" + parentBoardNo,
+		url : "${contextPath}/ShopReviewReply/selectReplyList/" + itemNo,
 		type: "post",
 		dataType : "json",
 		success : function(rList){
-			
-			// 조회된 댓글을 화면에 추가 (새로운 요소(태그)생성)
+			 console.log(rList);
+		
+			 // 조회된 댓글을 화면에 추가 (새로운 요소(태그)생성)
 			// rList에는 현재 게시글의 댓글 List가 담겨 있음.
 	         
-	         var replyListArea = $("#replyListArea");
+	         var shopReplyListArea = $("#shopReplyListArea");
 	         
-	         replyListArea.html(""); // 기존 정보 초기화
+	         shopReplyListArea.html(""); // 기존 정보 초기화
 	         
 	         
 	         // 댓글 List 반복 접근
 	         $.each(rList, function(index, item){   
 	            
 	            // 댓글을 출력할 li 요소를 생성
-	            var li = $("<li>").addClass("reply-row");
-	            
-	            
-	            // 댓글의 깊이가 1인 요소는 대댓글 이므로 별도 스타일을 적용할 수 있도록 childReply-li 클래스를 추가
-	            if(item.replyDepth == 1){
-	               li.addClass("childReply-li");
-	            }
+	            var li = $("<li>").addClass("shopReply-row");
 	            
 	            // 작성자, 작성일, 수정일 영역 
 	            var div = $("<div>");
-	            var rWriter = $("<a>").addClass("rWriter").html(item.memberId);
-	            var rDate = $("<p>").addClass("rDate").html("작성일 : " + item.replyCreateDate + "<br>마지막 수정 날짜 : " + item.replyModifyDate);
-	            div.append(rWriter).append(rDate)
+							var starRating =$("<div>").addClass("starReview").html(arr[Number(item.itemRating)-1]);	            
+	            var srWriter = $("<a>").addClass("srWriter").html(item.memberId);
+	            var srDate = $("<p>").addClass("srDate").html("작성일 : " + item.replyCreateDate + "<br>마지막 수정 날짜 : " + item.replyModifyDate);
+	            
+	            div.append(starRating).append(srWriter).append(srDate);
 	            
 	            
 	            // 댓글 내용
-	            var rContent = $("<p>").addClass("rContent").html(item.replyContent);
+	            var srContent = $("<p>").addClass("srContent").html(item.replyContent);
 	            
 	            // 대댓글, 수정, 삭제 버튼 영역
-	            var replyBtnArea = $("<div>").addClass("replyBtnArea");
+	            var sreplyBtnArea = $("<div>").addClass("sreplyBtnArea");
 	            
-	            // 로그인 되어 있고, 대댓글이 아닐 경우 경우에 답글 버튼 추가
+	         /*     // 로그인 되어 있고, 대댓글이 아닐 경우 경우에 답글 버튼 추가
 	            if(loginMemberId != "" && item.replyDepth != 1){
 	               var childReply = $("<button type='button'>").addClass("btn btn-sm btn-success ml-1 childReply").text("답글").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")");
-	               replyBtnArea.append(childReply);
-	            }
-	            
+	            		sreplyBtnArea.append(childReply);
+	            }  */
+	        
 	            // 현재 댓글의 작성자와 로그인한 멤버의 아이디가 같을 때 버튼 추가
 	            if(item.memberId == loginMemberId){
-	               
 	               // ** 추가되는 댓글에 onclick 이벤트를 부여하여 버튼 클릭 시 수정, 삭제를 수행할 수 있는 함수를 이벤트 핸들러로 추가함. 
-	               var showUpdate = $("<button type='button'>").addClass("btn btn-success btn-sm ml-1").text("수정").attr("onclick", "showUpdateReply(" + item.replyNo + ", this)");
-	               var deleteReply = $("<button type='button'>").addClass("btn btn-success btn-sm ml-1").text("삭제").attr("onclick", "deleteReply(" + item.replyNo + ")");
+	               var reShowUpdate = $("<button type='button'>").addClass("btn btnColor btn-sm ml-1").text("수정").attr("onclick", "reShowUpdate(" + item.replyNo + ", this)");
+	               var reDeleteReply = $("<button type='button'>").addClass("btn btnColor2 btn-sm ml-1").text("삭제").attr("onclick", "reDeleteReply(" + item.replyNo + ")");
 	               
-	               replyBtnArea.append(showUpdate, deleteReply);
+	               sreplyBtnArea.append(reShowUpdate, reDeleteReply);
 	            }
 	            
 	            
 	            // 댓글 하나로 합치기
-	            li.append(div).append(rContent).append(replyBtnArea);
+	            li.append(div).append(srContent).append(sreplyBtnArea);
 	            
 	            // 댓글 영역을 화면에 배치
-	            replyListArea.append(li);
+	            shopReplyListArea.append(li);
 	         });
 	         
 			
@@ -261,7 +304,7 @@ function selectShopViewReplyList(){
 		
 	});
 	
-}
+} 
 
 //-----------------------------------------------------------------------------------------
  
@@ -283,17 +326,17 @@ $("#addShopReply").on("click", function(){
 		}else{ // 로그인 o , 댓글 작성 o 인 경우
 
 			$.ajax({
-				url : "${contextPath}/ShopReviewReply/insertReply/" + parentBoardNo,
+				url : "${contextPath}/ShopReviewReply/insertReply/" + itemNo,
 				type : "post",
-				data :{"replyWriter" : replyWriter , "replyContent" : replyContent ,"starRate" : starRate  },
+				data :{"replyWriter" : replyWriter , "replyShopContent" : replyShopContent ,"starRate" : starRate},
+				
 				success: function(result){
 					
 					if(result>0){ // 댓글 삽입 성공
 					  $("#replyShopContent").val(""); // 작성한 댓글 내용을 삭제
 					  swal({icon:"success", title : "댓글 삽입 성공"});
-				//	  selectShopViewReplyList(); // 다시 목록 조회
+					  selectShopViewReplyList();
 					}
-					
 					
 				}, error : function(){
 					console.log("댓글 삽입 실패");
@@ -301,9 +344,6 @@ $("#addShopReply").on("click", function(){
 				
 				
 			});
-		
-		
-		
 		}
 		
 	}
@@ -311,56 +351,54 @@ $("#addShopReply").on("click", function(){
 });
 
 
-
 //-----------------------------------------------------------------------------------------
 
 //댓글 수정 폼
 
-var beforeReplyRow;
-
-function showUpdateReply(replyNo, el){
+ var reBeforeReplyRow;
+function reShowUpdate(replyNo, el){
 	// replyNo : 수정하려는 댓글 번호
 	// el  : 클릭된 수정 버튼 요소 자체
 	   
 	// 이미 열려있는 댓글 수정 창이 있을 경우 닫아주기
-	   if($(".replyUpdateContent").length > 0){
-	      $(".replyUpdateContent").eq(0).parent().html(beforeReplyRow);
+	   if($(".shopReplyUpdateContent").length > 0){
+	      $(".shopReplyUpdateContent").eq(0).parent().html(reBeforeReplyRow);
 	   }
 	   
 	   // 댓글 수정화면 출력 전 요소를 저장해둠.
-	   beforeReplyRow = $(el).parent().parent().html();
+	   reBeforeReplyRow = $(el).parent().parent().html();
 	   
 	   // 작성되어있던 내용(수정 전 댓글 내용) 
-	   var beforeContent = $(el).parent().prev().html();
+	   var reBeforeContent = $(el).parent().prev().html();
 	   
 	   
 	   // 이전 댓글 내용의 크로스사이트 스크립트 처리 해제, 개행문자 변경
 	   // -> 자바스크립트에는 replaceAll() 메소드가 없으므로 정규 표현식을 이용하여 변경
-	   beforeContent = beforeContent.replace(/&amp;/g, "&");   
-	   beforeContent = beforeContent.replace(/&lt;/g, "<");   
-	   beforeContent = beforeContent.replace(/&gt;/g, ">");   
-	   beforeContent = beforeContent.replace(/&quot;/g, "\"");   
+	   reBeforeContent = reBeforeContent.replace(/&amp;/g, "&");   
+	   reBeforeContent = reBeforeContent.replace(/&lt;/g, "<");   
+	   reBeforeContent = reBeforeContent.replace(/&gt;/g, ">");   
+	   reBeforeContent = reBeforeContent.replace(/&quot;/g, "\"");   
 	   
-	   beforeContent = beforeContent.replace(/<br>/g, "\n");   
+	   reBeforeContent = reBeforeContent.replace(/<br>/g, "\n");   
 	   
 	   
 	   // 기존 댓글 영역을 삭제하고 textarea를 추가 
 	   $(el).parent().prev().remove();
-	   var textarea = $("<textarea>").addClass("replyUpdateContent").attr("rows", "3").val(beforeContent);
+	   var textarea = $("<textarea>").addClass("shopReplyUpdateContent").attr("rows", "3").val(reBeforeContent);
 	   $(el).parent().before(textarea);
 	   
 	   
 	   // 수정 버튼
-	   var updateReply = $("<button type='button'>").addClass("btn btn-success btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
+	   var reUpdateReply = $("<button type='button'>").addClass("btn btnColor btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "reUpdateReply(" + replyNo + ", this)");
 	   
 	   // 취소 버튼
-	   var cancelBtn = $("<button type='button'>").addClass("btn btn-success btn-sm ml-1 mb-4").text("취소").attr("onclick", "updateCancel(this)");
+	   var reCancelBtn = $("<button type='button'>").addClass("btn btnColor2 btn-sm ml-1 mb-4").text("취소").attr("onclick", "reUpdateCancel(this)");
 	   
-	   var replyBtnArea = $(el).parent();
+	   var sreplyBtnArea = $(el).parent();
 	   
-	   $(replyBtnArea).empty(); 
-	   $(replyBtnArea).append(updateReply); 
-	   $(replyBtnArea).append(cancelBtn); 	
+	   $(sreplyBtnArea).empty(); 
+	   $(sreplyBtnArea).append(reUpdateReply); 
+	   $(sreplyBtnArea).append(reCancelBtn); 	
 	
 }
 
@@ -368,17 +406,17 @@ function showUpdateReply(replyNo, el){
 
 
 //댓글 수정
-function updateReply(replyNo, el){
+ function reUpdateReply(replyNo, el){
 	 // replyNo : 수정하려는 댓글 번호
 	 // el : "댓글 수정" 버튼
 	
 	 // 수정된 댓글 내용 저장
-	 var replyContent = $(el).parent().prev().val();
+	 var replyShopContent = $(el).parent().prev().val();
 	 
-	 if(replyContent.trim().length == 0){ // 댓글이 작성되지 않은 경우
+	 if(replyShopContent.trim().length == 0){ // 댓글이 작성되지 않은 경우
 		 swal({icon: "info" , title:"댓글을 작성해주세요."});
 	 }else{
-		
+		 
 		 // queryString : 주소에 파라미터를 담아서 전달
 		 // -> /reply/updateReply?replyNo=100&replyContent=abcs
 				 
@@ -390,10 +428,10 @@ function updateReply(replyNo, el){
 		 // queryString : 필터, 검색조건을 만들 때
 		 
 		 
-		 $.ajax({
+	 $.ajax({
 				url : "${contextPath}/ShopReviewReply/updateReply/"+ replyNo,
 				type: "post",
-				data: {"replyContent" : replyContent},
+				data: {"replyShopContent" : replyShopContent},
 				success : function(result){
 					
 					if(result > 0){
@@ -411,24 +449,20 @@ function updateReply(replyNo, el){
 		 
 	 }
 	
-	
-	
-}
-
+} 
 //-----------------------------------------------------------------------------------------
 
-
 //댓글 수정 취소 시 원래대로 돌아가기
-function updateCancel(el){
+function reUpdateCancel(el){
 	// el : 취소 버튼 자체
 	// beforeReplyRow : 수정 전 댓글 내용이 있던 요소 
-	$(el).parent().parent().html(beforeReplyRow);
+	$(el).parent().parent().html(reBeforeReplyRow);
 	
-}
+} 
 //-----------------------------------------------------------------------------------------
 
 //댓글 삭제
-function deleteReply(replyNo){
+ function reDeleteReply(replyNo){
 	// replyNo : 삭제할 댓글의 번호
 	if(confirm("정말로 삭제하시겠습니까?")){
 		
@@ -447,143 +481,14 @@ function deleteReply(replyNo){
 				
 			}, error:function(){
 				
-				console.log("댓글 삭제실 패")
+				console.log("댓글 삭제실패")
 			}
 			
 		});
 		
 	}
 	
-}
-
-//---------------------------------------------------------------------------------------------------------
-
-// 답글 버튼 동작(대댓글 작성 영역 생성)
-// 1) 답글 버튼을 클릭한 댓글 밑에 생성되어야함.
-// 		+ placeholder로  ' "댓글 작성자"에게 답글 작성하기'  라는 문구 추가
-// 2) 대댓글 작성 영역은 여러 개가 아닌 딱 하나만 생성되게 해야함.
-
-/*  function addChildReplyArea(el,parentReplyNo){
-	// el : 클릭한 답글 버튼
-	// parentReplyNo : 답글 버튼이 클릭된  부모 댓글 번호
-	
-	
-	// 일단 생성되어 있는 모든  대댓글 작성 영역을 화면에서 제거
-	var check = cancelChildReply();
-	
-	
-	// 이전에 생성된 대댓글 영역이 모두 삭제된 경우에만 새로운 대댓글 영역 생성
-	if(check){
-	
-	// 댓글 작성자 아이디 얻어오기
-	var writer =$(el).parent().prev().prev().children("a").text();
-	
-	
-	// 댓글 작성 영역에 필요한 요소(textarea, button 2개) 생성
-	
-	var div = $("<div>").addClass("childReplyArea"); // 대댓글 작성 영역 전체를 감싼 div
-	var textarea =$("<textarea row='3'>").addClass("childReplyContent")
-	                .attr("placeholder", writer +"님께 답글 작성하기");
-	
-	var btnArea =  $("<div>").addClass("btnArea"); // 등록, 취소 버튼을 감쌀 div
-	var insertBtn = $("<button>").addClass("btn btn-sm btn-success ml-1").text("등록")
-									.attr("onclick","addChildReply(this, "+ parentReplyNo + ")");
-												// onclick="addChildReply(this,5)"
-	
-	
-  var cancelBtn =$("<button>").addClass("btn btn-sm btn-secondary ml-1 reply-cancel").text("취소")
-  								.attr("onclick","cancelChildReply()");
-	
-	btnArea.append(insertBtn).append(cancelBtn); // 버튼 영역에 등록, 취소 버튼 추가
-	div.append(textarea).append(btnArea); // 대댓글 영역에 textarea, 버튼 영역 추가
-	
-	$(el).parent().after(div); // 답글 버튼 부모 요소 다음(이후)에 대댓글 영역 추가
-	
-	// 추가된 대댓글 영역으로 포커스 이동
-	$(".childReplyContent").focus();
-	}
-}  */
-//-------------------------------------------------
-
-
-// 답글(대댓글) 취소
-/*  function cancelChildReply(){
-
-	// 대댓글 영역에 작성된 내용 얻어오기
-	var tmp = $(".childReplyContent").val();
-
-	
-	// 대댓글 textarea에 아무것도 작성되지 않았거나,  대댓글 textarea가 없을 경우
-	// == 아무것도 작성되지 않으면 confirm창으로 확인하는 과정없이 바로 닫히게 만듦.
-	
-	if(tmp == "" || tmp == undefined){
-		
-	// 대댓글 작성 영역 (childReplyArea)을 모두 제거
-	$(".childReplyArea").remove();
-	
-	return true;
-		
-	}else{  // 대댓글 textarea에 내용이 작성되어 있을 경우
-		
-		var cancelConfirm = confirm("작성된 댓글 내용이 사라집니다. 작성 취소 하시겠습니까?");
-		
-		if(cancelConfirm){
-			$(".childReplyArea").remove();
-		}
-	
-		
-		return cancelConfirm;
-	}
-	
-	
-}  */
-
-// ---------------------------------------------------------------------------
-
-// 답글(대댓글 ) 등록
-/*  function addChildReply(el,parentReplyNo){
-	// el : 대댓글 등록버튼
-	// parentReplyNo : 대댓글이 작성된 부모 댓글 번호
-	
-	// 작성된 대댓글 내용 얻어오기
-	var replyContent = $(el).parent().prev().val();
-	
-	if(replyContent.trim().length == 0){ // 대댓글 미작성 시
-		swal({icon : "info" , title : "댓글 작성 후 클릭해주세요."});
-
-	}else{
-		
-		$.ajax({
-			url : "${contextPath}/ShopReviewReply/insertChildReply/" + parentBoardNo,
-			data : {"parentReplyNo" : parentReplyNo, 
-							"replyContent" : replyContent,
-							"replyWriter" : replyWriter},
-		
-			type :"post",
-			success : function(result){
-				
-				if(result > 0){
-					
-					swal({icon:"success", title : "답글 등록 성공"});
-					selectShopViewReplyList();
-				}
-				
-			}, error : function(){
-				console.log("답글(대댓글) 등록 실패");
-			}
-			
-			
-			
-		});
-		
-		
-		
-		
-	}
-	
-	
-	
-} */
+} 
 
 
 </script>

@@ -29,6 +29,7 @@
 	vertical-align: top;
 	font-weight: bold;
 	font-size: 1.2em;
+	color:#939597;
 }
 
 .rDate {
@@ -84,6 +85,14 @@
 	resize: none;  
 	width : 100%; 
 }
+.btnColor{
+  background-color: #F5dF4D;
+  color:white;
+}
+.btnColor2{
+  background-color: #939597;
+  color: white;
+}
 
 
 </style>
@@ -95,7 +104,7 @@
 				<td id="replyContentArea"><textArea rows="3" id="replyContent"></textArea>
 				</td>
 				<td id="replyBtnArea">
-					<button type="button" class="btn btn-success" id="addReply">댓글<br>등록</button>
+					<button type="button" class="btn btnColor" id="addReply">댓글<br>등록</button>
 				</td>
 			</tr>
 		</table>
@@ -116,7 +125,8 @@
 <script>
 var loginMemberId = "${loginMember.memberId}"; // 로그인한 회원 아이디 (있으면 아이디 없으면 빈문자열)
 var replyWriter = "${loginMember.memberNo}"; 
-var loginMemberGrade = "${loginMemer.memberGrade}"// 로그인한 회원 번호  -- > 자바스크립트에서는 "1" ==  1  == true
+var loginMemberGrade = "${loginMemer.memberGrade}";
+console.log(loginMemberGrade);// 로그인한 회원 번호  -- > 자바스크립트에서는 "1" ==  1  == true
 var parentBoardNo = ${shop.itemNo}; // 게시글 번호  -- > 자바스크립트에서는 "1" ==  1  == true
 
 // 댓글
@@ -136,7 +146,7 @@ function selectReplyList(){
 			
 			// 조회된 댓글을 화면에 추가 (새로운 요소(태그)생성)
 			// rList에는 현재 게시글의 댓글 List가 담겨 있음.
-	         
+	        
 	         var replyListArea = $("#replyListArea");
 	         
 	         replyListArea.html(""); // 기존 정보 초기화
@@ -144,7 +154,7 @@ function selectReplyList(){
 	         
 	         // 댓글 List 반복 접근
 	         $.each(rList, function(index, item){   
-	            
+	            	console.log(item.replyNo);
 	            // 댓글을 출력할 li 요소를 생성
 	            var li = $("<li>").addClass("reply-row");
 	            
@@ -168,8 +178,8 @@ function selectReplyList(){
 	            var replyBtnArea = $("<div>").addClass("replyBtnArea");
 	            
 	            // 로그인 되어 있고, 대댓글이 아닐 경우 경우에 답글 버튼 추가
-	            if(loginMemberId != "" && item.replyDepth != 1){
-	               var childReply = $("<button type='button'>").addClass("btn btn-sm btn-success ml-1 childReply").text("답글").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")");
+	            if(loginMemberId != "" && item.replyDepth != 1 && "${loginMemer.memberGrade}" == 'A'){
+	               var childReply = $("<button type='button'>").addClass("btn btn-sm btnColor ml-1 childReply").text("답글").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")");
 	               replyBtnArea.append(childReply);
 	            }
 	            
@@ -177,8 +187,8 @@ function selectReplyList(){
 	            if(item.memberId == loginMemberId){
 	               
 	               // ** 추가되는 댓글에 onclick 이벤트를 부여하여 버튼 클릭 시 수정, 삭제를 수행할 수 있는 함수를 이벤트 핸들러로 추가함. 
-	               var showUpdate = $("<button type='button'>").addClass("btn btn-success btn-sm ml-1").text("수정").attr("onclick", "showUpdateReply(" + item.replyNo + ", this)");
-	               var deleteReply = $("<button type='button'>").addClass("btn btn-success btn-sm ml-1").text("삭제").attr("onclick", "deleteReply(" + item.replyNo + ")");
+	               var showUpdate = $("<button type='button'>").addClass("btn btnColor btn-sm ml-1").text("수정").attr("onclick", "showUpdateReply(" + item.replyNo + ", this)");
+	               var deleteReply = $("<button type='button'>").addClass("btn btnColor2 btn-sm ml-1").text("삭제").attr("onclick", "deleteReply(" + item.replyNo + ")");
 	               
 	               replyBtnArea.append(showUpdate, deleteReply);
 	            }
@@ -290,10 +300,10 @@ function showUpdateReply(replyNo, el){
 	   
 	   
 	   // 수정 버튼
-	   var updateReply = $("<button type='button'>").addClass("btn btn-success btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
+	   var updateReply = $("<button type='button'>").addClass("btn btnColor btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
 	   
 	   // 취소 버튼
-	   var cancelBtn = $("<button type='button'>").addClass("btn btn-success btn-sm ml-1 mb-4").text("취소").attr("onclick", "updateCancel(this)");
+	   var cancelBtn = $("<button type='button'>").addClass("btn btnColor2 btn-sm ml-1 mb-4").text("취소").attr("onclick", "updateCancel(this)");
 	   
 	   var replyBtnArea = $(el).parent();
 	   
