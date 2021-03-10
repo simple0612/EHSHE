@@ -95,7 +95,7 @@
 				<td id="replyContentArea"><textArea rows="3" id="replyContent"></textArea>
 				</td>
 				<td id="replyBtnArea">
-					<button class="btn btn-success" id="addReply">댓글<br>등록</button>
+					<button type="button" class="btn btn-success" id="addReply">댓글<br>등록</button>
 				</td>
 			</tr>
 		</table>

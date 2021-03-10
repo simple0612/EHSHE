@@ -14,16 +14,13 @@ public class ShopOption {
 	public ShopOption() {
 	}
 
-	
 
-	public ShopOption(String itemOptionContent, int optionSpecify_NO) {
-		super();
-		ItemOptionContent = itemOptionContent;
-		this.optionSpecify_NO = optionSpecify_NO;
-	}
-
-
-
+	/*
+	 * public ShopOption(int optionSpecify_NO, String optionSpecifyContent) {
+	 * super(); this.optionSpecify_NO = optionSpecify_NO; this.optionSpecifyContent
+	 * = optionSpecifyContent; }
+	 * 
+	 */
 	public ShopOption(int optionNo, String optionSpecifyContent) {
 		super();
 		this.optionNo = optionNo;
@@ -31,6 +28,13 @@ public class ShopOption {
 	}
 
 
+
+
+	/*
+	 * public ShopOption(String itemOptionContent, int optionSpecify_NO) { super();
+	 * ItemOptionContent = itemOptionContent; this.optionSpecify_NO =
+	 * optionSpecify_NO; }
+	 */
 
 
 

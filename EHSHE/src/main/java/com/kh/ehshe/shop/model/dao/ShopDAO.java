@@ -1,5 +1,6 @@
 package com.kh.ehshe.shop.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import com.kh.ehshe.shop.model.vo.SearchShop;
 import com.kh.ehshe.shop.model.vo.Shop;
 import com.kh.ehshe.shop.model.vo.ShopAttachment;
 import com.kh.ehshe.shop.model.vo.ShopOption;
+import com.kh.ehshe.shop.model.vo.ShopOptionUpdate;
 import com.kh.ehshe.shop.model.vo.ShopPageInfo;
 import com.kh.ehshe.shop.model.vo.ShopScore;
 
@@ -231,9 +233,32 @@ public class ShopDAO {
 
 	// 옵션삭제
 	public int deleteOptionList(List<Integer> deleteOptionList) {
-		return sqlSession.insert("shopMapper.deleteOptionList",deleteOptionList);
+		return sqlSession.update("shopMapper.deleteOptionList",deleteOptionList);
 	}
+
+	// 옵션 업데이트 
+	public int updateShopOption(List<ShopOptionUpdate> ShopOptionUpdate) {
+		return sqlSession.update("shopMapper.updateShopOption",ShopOptionUpdate);
+	}
+ 
+	// 상품 옵션 번호 구해오기 
+	public int selectOption(int itemNo) {
+		return sqlSession.selectOne("shopMapper.selectOption",itemNo);
 	
+	}
+
+	
+	// 상품 삭제 
+	public int deleteProduct(int itemNo) {
+		return sqlSession.update("shopMapper.deleteProduct",itemNo);
+	}
+
+	// 옵션 업데이트 중 새로들어온 옵션내용 
+	/*
+	 * public int updateInsertContent(List<ShopOption> shopOptionInsert ) {
+	 * 
+	 * return sqlSession.insert("shopMapper.updateOptionInsert",shopOptionInsert); }
+	 */
 	
 
 	/*	*//**

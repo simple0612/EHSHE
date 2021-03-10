@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>html문서 제목</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    
     <!-- 부트스트랩 사용을 위한 라이브러리 추가 -->
     <!-- jquery가 항상 먼저여야된다! -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -18,7 +17,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 		<!-- Optional: include a polyfill for ES6 Promises for IE11 -->
 		<script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"> <!--CDN 링크 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"> <!--CDN 링크 --> 
     <style>
 /*  div{
 border: 1px solid black;
@@ -47,7 +47,7 @@ header{
 position:relative !important;
 }
 .main{
-margin-top:50px;
+margin-top:100px;
 }
 .btnColor{
 background-color: #F5dF4D;
@@ -64,12 +64,11 @@ display:inline-block;
 line-height:55px; 
 	/* margin-top:20px; */
 }
-
-
 .swal2-styled.swal2-confirm{
 	background-color : #F5dF4D;
 }
-    </style>
+
+</style>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>	
@@ -83,9 +82,12 @@ line-height:55px;
           				 	</c:if>
                 </div>
                   <div class="text-center" style="margin-top:10px;">
-                  	<c:url var="updateUrl" value="${shop.itemNo}/update"/>
-				      				<button type="button" class="btn btnColor2" onclick="location.href='${updateUrl}'">상품수정</button>
-				      				<button type="button" class="btn btnColor2">상품삭제</button>
+                  	<c:if test="${loginMember.memberGrade == 'A' }">
+	                  	<c:url var="updateUrl" value="${shop.itemNo}/update"/>
+	                  	<c:url var="deleteUrl" value="${shop.itemNo}/deleteProduct"/>
+					      				<button type="button" class="btn btnColor2" onclick="location.href='${updateUrl}'">상품수정</button>
+					      				<button type="button" class="btn btnColor2" onclick="location.href='${deleteUrl}'">상품삭제</button>
+			 				    	</c:if>
 			 				   <c:if test="${empty sessionScope.returnListURL}">
 										<c:set var="returnListURL" value="../shopList/${shop.shopType}" scope="session"/>
 								</c:if>
@@ -106,11 +108,11 @@ line-height:55px;
                     	</tr>
                     	<tr>
 		                   	<td><strong>가격</strong> :</td>
-		                   	<td id="iprice"><fmt:formatNumber value="${shop.itemPrice}" pattern="#,###"/>원</td>
+		                   	<td id="iprice"><fmt:formatNumber value="${shop.itemPrice}" pattern="#,###"/> 원</td>
                     	</tr>
                 			<tr>
                 				<td><strong>배송비</strong> : </td>
-                				<td id="sprice"><fmt:formatNumber value="${shop.transCharge}" pattern="#,###"/>원</td>
+                				<td id="sprice"><fmt:formatNumber value="${shop.transCharge}" pattern="#,###"/> 원</td>
                 			</tr>
                 			
                 			<tr>
@@ -120,8 +122,10 @@ line-height:55px;
 													<c:if test="${!empty ShopOptionList}">
                            <option>옵션을 선택하세요.</option>
 					                 		<c:forEach var="shopOption" items="${ShopOptionList}">
-					                      <option value="${shopOption.optionSpecify_NO}">${shopOption.optionSpecifyContent}</option>
-					               			 </c:forEach>
+					                 			<c:if test="${shopOption.optionSpecifyContent ne '품절'}">
+					                      	<option value="${shopOption.optionSpecify_NO}">${shopOption.optionSpecifyContent}</option>
+					               				</c:if>
+					               			</c:forEach>
 					               	 </c:if>
                           </select>
                         </td>
@@ -129,12 +133,12 @@ line-height:55px;
                 		
                 			<tr>
                 				<td><strong>개수</strong> : </td>
-              					<td><input type="number" id="Quantity" name="Quantity" class="form-control form-control-sm" min="0" max="100" value="1" style="width: 100%;"/>
+              					<td><input type="number" id="Quantity" name="Quantity" class="form-control form-control-sm" min="1" max="1000" value="1" style="width: 100%;"/>
 											  </td>
                 			</tr>
                 			<tr>
                 				<td><strong>Total</strong> : </td>
-                				<td id="isprice">${shop.itemPrice}원</td>
+                				<td id="isprice"><%-- <fmt:formatNumber value="${shop.itemPrice}" pattern="#,###"/> 원 --%></td>
                 			</tr>
                 			<tr>
                					<td>
@@ -156,52 +160,6 @@ line-height:55px;
                 			</tr>
                     </table>
                     </div>
-                <%--     <div class="col-md-12">
-                     <div class="line">
-                       <div class="productClass"><strong>상품명</strong> : </div>
-                       <div class="productClass">${shop.itemNm}</div>
-                     </div>
-                     
-                       
-                      <div class="line">
-                       <div class="productClass"><strong>가격</strong> : </div>
-                       <div class="productClass">${shop.itemPrice}원</div>
-                      </div>
-                      
-                      <div class="line">
-                       <div class="productClass"><strong>배송비</strong> : </div>
-                       <div class="productClass">${shop.transCharge}</div>
-                      </div>
-                       
-                       <div class="line">
-                           <div class="productClass"><strong>옵션선택</strong> : </div>
-                              <select name="select" class="form-control productClass" style="width: 255px;"> 
-                              <option selected>옵션을 선택하세요.</option>
-																<c:if test="${!empty ShopOptionList}">
-								                 <c:forEach var="shopOption" items="${ShopOptionList}">
-						                       <option>${shopOption.optionSpecifyContent}</option>
-								               	 </c:forEach>
-				                        </c:if>
-                             </select>
-                    		</div>
-                            
-                           <div class="line">
-                            <div class="productClass"><strong>개수</strong> : </div>
-                            <input type="number" class="form-control productClass " min="0" max="100" value="1" style="width: 255px;"/>
-                          </div>
-                          
-                          <div class="line">
-                            <div class="productClass"><strong>Total</strong> : </div>
-                            <div class="productClass">${shop.itemPrice}원</div>
-                    	 </div>
-                    	 
-                    	 <div class="line">
-                              <div class="j productClass">
-                                <img src="${contextPath}/resources/shopCommonImg/별모양.png">
-                              </div>
-                           		<div class="productClass"> 4.15</div>
-                        </div>
-                    </div>  --%>
                       
                       <div class="float-left col-10"style="margin-top:20px;" >
                          <button type="submit" id="paybtn" class="btn btn-warning btn-lg btn-block" >결제하기</button>
@@ -210,7 +168,9 @@ line-height:55px;
               	 </div>
               
              </div>
-                   
+             
+             
+    
         <hr>
         <div class="row" style="margin-top: 30px;">
           <div class="col-md-12">
@@ -223,45 +183,23 @@ line-height:55px;
     <div class="col-md-12">
          <ul class="nav nav-tabs">
            <li class="nav-item">
-             <a class="nav-link active"data-toggle="tab" href="#review">상품후기</a>
+             <a class="nav-link active" data-toggle="tab" href="#review">상품후기</a>
            </li>
            <li class="nav-item">
              <a class="nav-link" data-toggle="tab" href="#qna">Q&A</a>
            </li>
          </ul>
          <div class="tab-content">
-           <div class="tab-pane fade show active" id="review">
-           <p style="word-break:break-all; margin-top: 20px;">
-            asdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdasdsadasdasdasdasdasdasd
-           </p>
-
-    <div class="modal" id="myModal" tabindex="-1">
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">쇼핑후기</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p style="word-break:break-all;">
-            
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-warning">등록하기</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-          </div>
-        </div>
-      </div>
-    </div>
- </div>
            <div class="tab-pane fade" id="qna">
-             <p><jsp:include page="shopReply.jsp"/></p>
-           </div>
+         			<jsp:include page="shopReply.jsp"/> 
+          </div>
+          
+           <div class="tab-pane fade show active" id="review">
+             <jsp:include page="shopReview.jsp"/>
+ 					</div>
+
          </div>
-     </div>
+     		</div>
         </div>
         <br>
         <br>
@@ -270,18 +208,91 @@ line-height:55px;
    <jsp:include page="../common/footer.jsp" />		
      
 </body>
-<script>
 
-  $(document).ready(function(){
-    $("#myBtn").click(function(){
-        $("#myModal").modal();
-    });
-});
-  
-  
+
+<script>
+//로그인한 회원번호
+	  var sprice =${shop.transCharge};
+	  var iprice =${shop.itemPrice}; 
+	  var total = iprice+sprice;
+	 
+/* 	  if(total > 20000){
+		  
+	  $("#sprice").html("무료배송");
+	  
+	  var commaIPrice = numberWithCommas(iprice);
+	  $("#isprice").html(commaIPrice +' 원 ');
+	  
+	  }else{
+	 
+		  var commaIPrice = numberWithCommas(total);
+	  $("#isprice").html(commaIPrice +' 원');
+	 
+	  } 
+	   */
+
+	  $(document).ready(function() {
+		  var sprice =${shop.transCharge};
+		  var iprice =${shop.itemPrice}; 
+		  var total = iprice+sprice;
+		 
+		  if(total > 20000){
+			  
+		  $("#sprice").html("무료배송");
+		  
+		  var commaIPrice = numberWithCommas(iprice);
+		  $("#isprice").html(commaIPrice +' 원 ');
+		  
+		  }else{
+		 
+			  var commaIPrice = numberWithCommas(total);
+		  $("#isprice").html(commaIPrice +' 원');
+		 
+		  } 
+		  
+	  
+			var sprice =${shop.transCharge};
+			var iprice =${shop.itemPrice};
+			var inumber = 1;
+			
+			$("#Quantity").on("change", function(){
+				
+				inumber = Number($(this).val());
+				
+				var total = iprice * inumber
+				
+				if(total < 20000){
+			   var commaSprice = numberWithCommas(sprice);
+			   	$("#sprice").html(commaSprice +' 원');
+			   	
+			   	total = total + sprice;
+			    var totalComma  =numberWithCommas(total); 
+					console.log(total)
+					
+					$("#isprice").text(totalComma +' 원');
+
+				}else{
+		   		 $("#sprice").html("무료배송");
+					  totalComma =numberWithCommas(total); 
+					$("#isprice").text(totalComma +' 원');
+				}
+				
+				console.log(inumber);
+			
+			});
+	  	
+
+	
+	 }); 
+	  
+
+	
+
+   
+
   
   //로그인한 회원번호
-  var memberNo = ${loginMember.memberNo};
+  //var memberNo = ${loginMember.memberNo};
   	//console.log(memberNo)
   
   // 선택한 상세옵션번호
@@ -307,9 +318,6 @@ line-height:55px;
 		
 	});
 
-		
-	 
-	
 	// 장바구니에 아이템 담기.
 	$("#cartbtn").on("click", function(){
 			
@@ -344,13 +352,20 @@ line-height:55px;
 									  title: '장바구니 담기 실패!',
 									  text: '옵션을 선택해주세요.같은 옵션은 중복해  담을 수 없습니다.',
 									  icon: 'error'
-									})
+									});
 							}
-						})
+						});
 			  }
-			})
+			});
 	});
   
+	
+	
+	 // 콤마 함수
+	function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	
 	// 옵션 유효성 검사.
 	function validate(){
 		
@@ -362,55 +377,7 @@ line-height:55px;
 		return true;
 	}
 	
-	
-/* 	var iprice =${shop.itemPrice}
-	
-	var sprice =${shop.transCharge}
-	var isprice = 0;
-	console.log(iprice);
-	console.log(sprice);
-	
-	if(iprice < 20000){
-		
-		isprice = iprice + sprice
-		$("#isprice").text(isprice + "원")
-		console.log(isprice);
-	}else{
-		isprice = iprice
-		$("#isprice").text(isprice + "원")
-		console.log(isprice);
-	} */
-	
-	var sprice =${shop.transCharge}
-	var iprice =${shop.itemPrice}
-	var inumber = 1;
-	$("#Quantity").on("change", function(){
-		
-		inumber = Number($(this).val());
-		
-		var total = iprice * inumber
-		
-		if(total < 20000){
-			
-			total = total + sprice
-			console.log(total)
-			
-			$("#isprice").text(total);
-		
-		}else{
-			
-			$("#isprice").text(total);
-		}
-		
-		
-		console.log(inumber);
-	});
-	
-	
-	
-	
-	
-	
+
   
   
 </script>
