@@ -3,13 +3,60 @@ header{
 }
 
 .boardMain {
-    margin-top: 50px;
+    margin-top: 55px;
 }
 
-.h-boardView{ text-align: center; }
+.h-textArea{
+	 margin-top: 0px;
+	 text-align: center;
+	 color: white;
+	 
+	 position:relative;
+	 width:300px;
+	 height:280px;
+}
 
-.h-boardView>h3{
-    font-weight: bolder;
+.h-textArea h3{
+	margin-top: 45px;
+}
+.h-textArea:before,
+.h-textArea:after{
+	margin-top:20px;
+	position: absolute;
+	content: "";
+	left: 150px;
+	top: 0;
+	width: 150px;
+	height: 230px;
+	background-color:rgba(22,22,22,0.8);
+	border-radius: 150px 150px 0 0;
+	transform: rotate(-45deg);
+	transform-origin: 0 100%;
+	z-index:-2;
+}
+
+.h-textArea:after {
+	height: 87px;
+	width: 150px;
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 105.5% 267.9%;
+}
+
+.h-boardView{ 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.h-boardView>img{
+    width: 100%;
+    height: 300px;
+    position:absolute;
+    margin:auto;
+    right:0;
+    left:0;
+    z-index:-3;
 }
 
 .subInfo{
