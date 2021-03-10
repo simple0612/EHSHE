@@ -63,7 +63,7 @@ public interface MemberService {
 
 	/** 카카오 로그인 Service
 	 * @param memberId
-	 * @return
+	 * @return result
 	 */
 	public abstract Member KaKaoLogin(Member member);
 
@@ -75,7 +75,7 @@ public interface MemberService {
 
 	/** 구글 로그인 Service
 	 * @param memberId
-	 * @return
+	 * @return result
 	 */
 	public abstract Member googleLogin(Member member);
 

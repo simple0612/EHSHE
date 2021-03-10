@@ -76,8 +76,8 @@ input[id="saveId"]:checked + label em {
 }
 
 .form-control {
-	height: 3rem !important;
-	border-radius: 1rem !important;
+	height: 3rem ;
+	border-radius: 1rem;
 }
 
 .info-user, .list-user {
@@ -112,7 +112,7 @@ input[id="saveId"]:checked + label em {
 }
 
 .loginBtn:hover {
-	background-color: #dbdbdb !important;
+	background-color: #dbdbdb;
 }
 
 .title-sns {
@@ -132,8 +132,10 @@ input[id="saveId"]:checked + label em {
 	text-align: center;
 }
 
+
 .link-sns{
 	display: inline-block;
+	margin: 0 30px 0 30px;
 }
 
 .link-sns > a {
@@ -145,13 +147,30 @@ input[id="saveId"]:checked + label em {
 	color: #007bff;
 }
 
+.snsIcon {
+	width: 51px; 
+	height: 51px; 
+	margin-bottom: 5px;
+}
+
+.swal-button {
+	background-color: #F5DF4D;
+}
+
+.swal-button:not([disabled]):hover {
+	background-color: #f0d700;
+}
+
+.swal-button:focus {
+	box-shadow: 0 0 0 3px #fff;
+}
 </style>
 
 </head>
 <body>	
 	<c:if test="${!empty swalTitle}">
 		<script>
-			swal({title  : "${swalTitle}",
+			swal({title : "${swalTitle}",
 				    text  : "${swalText}"});
 		</script>
 	</c:if>
@@ -185,7 +204,7 @@ input[id="saveId"]:checked + label em {
 					>
 	   		 	<label for="saveId"><em></em>&nbsp; 아이디 저장</label>	
 				</div>
-				<button class="btn btn-lg btn-block loginBtn" type="submit">로그인</button>			
+				<button class="btn btn-block loginBtn" type="submit">로그인</button>			
 			</form>
 			
 			<br>		
@@ -218,15 +237,14 @@ input[id="saveId"]:checked + label em {
 		<div class="img-area">
 			<span class="link-sns">
 				<a href="javascript:klogin();">
-				<img src ="${contextPath}/resources/images/kakao.png" style="width: 51px; height: 51px; margin-bottom: 5px">
-				<br> 카카오 로그인</a>
+				<img src ="${contextPath}/resources/images/kakao.png" class="snsIcon">
+				<br> 카카오 </a>
 			</span>
 	
-			&nbsp;&nbsp;&nbsp;	
 			<span class="link-sns">
  				<a href="javascript:init();" id="googleLogin">
-				<img id="test" src ="${contextPath}/resources/images/google.png" style="width: 51px; height: 51px; margin-bottom: 5px">
-				<br> 구글 로그인 </a>
+				<img src ="${contextPath}/resources/images/google.png" class="snsIcon">
+				<br> 구글 </a>
 			</span>
 		</div>		
 	</div> <%-- form-wrapper end --%>
@@ -247,28 +265,28 @@ input[id="saveId"]:checked + label em {
 	<jsp:include page="../common/footer.jsp" />			
 
 	<script>
-	// 로그인 버튼 색 제어
-	// 부트스트랩 사용 시, css 변경할 경우 !important가 필요
+	// 로그인 버튼 색 변경
+	// 부트스트랩 사용 시, 속성 변경할 경우 !important가 필요
 	// -> .css() 메서드는 !important 안되므로  .atrr() 사용		
 	$("#memberId").on("input", function(){
 		$("#memberPw").on("input", function(){			
 			if($("#memberId").val().trim().length != 0 && 
 					$("#memberPw").val().trim().length != 0){
-				$(".loginBtn").attr("style", "background-color: #F5DF4D !important;")
+				$(".loginBtn").attr("style", "background-color: #F5DF4D")
 				.mouseover(function(){
 					$(this).attr("style", "background-color: #f0d700 !important;");	
 				})		
 				.mouseout(function(){
-					$(this).attr("style", "background-color: #F5DF4D !important;");	
+					$(this).attr("style", "background-color: #F5DF4D");	
 				});
 				
 			}else{
-				$(".loginBtn").attr("style", "background-color: #f6f6f6 !important;")
+				$(".loginBtn").attr("style", "background-color: #f6f6f6")
 				.mouseover(function(){
-					$(this).attr("style", "background-color: #f0d700 !important;");	
+					$(this).attr("style", "background-color: #f0d700");	
 				})		
 				.mouseout(function(){
-					$(this).attr("style", "background-color: #F5DF4D !important;");	
+					$(this).attr("style", "background-color: #F5DF4D");	
 				});	 
 			}
 		});	
@@ -278,59 +296,27 @@ input[id="saveId"]:checked + label em {
 		$("#memberId").on("input", function(){
 			if($("#memberId").val().trim().length != 0 && 
 					$("#memberPw").val().trim().length != 0){
-				$(".loginBtn").attr("style", "background-color: #F5DF4D !important;")
+				$(".loginBtn").attr("style", "background-color: #F5DF4D")
 				.mouseover(function(){
 					$(this).attr("style", "background-color: #f0d700 !important;");	
 				})		
 				.mouseout(function(){
-					$(this).attr("style", "background-color: #F5DF4D !important;");	
+					$(this).attr("style", "background-color: #F5DF4D");	
 				}) ;
 				
 			}else{
-				$(".loginBtn").attr("style", "background-color: #f6f6f6 !important;")
+				$(".loginBtn").attr("style", "background-color: #f6f6f6")
 				.mouseover(function(){
-					$(this).attr("style", "background-color: #f0d700 !important;");	
+					$(this).attr("style", "background-color: #f0d700");	
 				})		
 				.mouseout(function(){
-					$(this).attr("style", "background-color: #F5DF4D !important;");	
+					$(this).attr("style", "background-color: #F5DF4D");	
 				});	 
 			}
 		});
 	});	
-	
-  // 카카오톡 로그아웃
-	function klogout(){
-	 	if(!Kako.Auth.getAccessToken()){
- 		//console.log('Not logged in');
- 		return;
- 		} 
- 	
-	 	Kakao.Auth.logout(function(){
-	 	console.log(Kakao.Auth.getAccessToken());
-	 	});
-	}
-
-	Kakao.API.request({
-		  url: '/v1/user/unlink',
-		  success: function(response) {
-		    console.log(response);
-		  },
-		  fail: function(error) {
-		    console.log(error);
-		  },
-		});
-	  
-// 구글 로그 아웃
-/* function gLogout(){
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function(){
-	  console.log('signed out')
-  });
-}
- */
 </script>
-
-        
+  
 </body>
 </html>
 

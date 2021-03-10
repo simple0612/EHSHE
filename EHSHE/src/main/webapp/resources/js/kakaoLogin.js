@@ -39,6 +39,27 @@ function klogin() {
         }
     });   
 }
-    
 
+    
+// 카카오톡 로그아웃
+function klogout(){
+ 	if(!Kako.Auth.getAccessToken()){
+	//console.log('Not logged in');
+	return;
+	} 
+
+ 	Kakao.Auth.logout(function(){
+ 	console.log(Kakao.Auth.getAccessToken());
+ 	});
+}
+
+Kakao.API.request({
+	  url: '/v1/user/unlink',
+	  success: function(response) {
+	    console.log(response);
+	  },
+	  fail: function(error) {
+	    console.log(error);
+	  },
+	});
    	
