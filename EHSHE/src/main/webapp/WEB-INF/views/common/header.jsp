@@ -128,7 +128,8 @@
 						</c:if>
              
             
-                <li><a href="${contextPath}/member/logout">로그아웃</a></li>
+                <%-- <li><a href="${contextPath}/member/logout">로그아웃</a></li> --%>
+                <li><a href="#" id="logout1">로그아웃</a></li>
                 <li><a href="${contextPath}/shop2/cart"><img src="${contextPath}/resources/images/shoppingCart.png"></a></li>
                      </c:otherwise>
                   </c:choose>
@@ -165,15 +166,8 @@
       });
   
       /* 구글 로그아웃  */
-      function gLogout() {
-         var  auth2 = gapi.auth2.getAuthInstance();
-         auth2.signOut().then(function () {
-            console.log('User signed out.');
-         });
-      }
-      
       var popup;
-      $("#logout").on("click",function(){
+      $("#logout, #logout1").on("click",function(){
          popup = window.open("https://accounts.google.com/logout", "hiddenframe", "resiable=no, width=1, height=1, left=-500, top:-500");
          window.setTimeout(function(){
             popup.close();
