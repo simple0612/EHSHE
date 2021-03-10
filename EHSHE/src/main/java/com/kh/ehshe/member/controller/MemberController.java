@@ -50,50 +50,7 @@ public class MemberController {
 	private String swalIcon;
 	private String swalTitle;
 	private String swalText;
-	
-    @ResponseBody
-	@RequestMapping(value = "/googleLogin", method = RequestMethod.POST)
-	public Member googleLogin(@RequestParam String memberId,
-							  @RequestParam String memberNm,
-							  Model model) {
-
-		// 아이디 중복 검사
-		int result = service.idDupCheck(memberId);
-		
-		Member member = new Member();
-		member.setMemberId(memberId);
-		member.setMemberNm(memberNm);
-		
-		System.out.println(member);
-		
-		Member loginMember = null;
-		
-		if(result > 0) {						
-			loginMember = service.KaKaoLogin(member); 
-			//System.out.println("이미 등록 되어 있는 경우 : " + loginMember);
-				
-		} else {
-			//System.out.println("등록 x");
-			
-			member = new Member();
-			member.setMemberId(memberId);
-			member.setMemberNm(memberNm);			
-
-			int kakaoReg = service.kakaoSignUp(member); 
-			
-			//System.out.println(kakaoReg);
-			//System.out.println(member);
-
-			if(kakaoReg > 0) {
-				loginMember = service.KaKaoLogin(member); 
-				//System.out.println("회원 등록 후 : " + loginMember);				
-			}
-		}
-		model.addAttribute("loginMember", loginMember);				
-		
-		return loginMember;			
-	}
- 
+	 
 	
 	// 로그인 화면 Controller
 	@RequestMapping("loginView")
@@ -152,15 +109,6 @@ public class MemberController {
 		return "redirect:" + url;
 	}
 	
-	// 로그아웃 Controller
-	@RequestMapping("logout")
-	public String logout(SessionStatus status) {
-		// SessionStatus : 세션의 상태를 관리할 수 있는 객체
-		// setComplete(); @SessionAttributes로 Session에 등록된 값을 모두 지움
-		status.setComplete();
-		return "redirect:/";
-	}
-	
 	// 카카오 로그인 Controller
 	@ResponseBody
 	@RequestMapping(value = "/kakaoLogin", method = RequestMethod.POST)
@@ -205,7 +153,58 @@ public class MemberController {
 		return loginMember;			
 	}
 	
+	// 구글 로그인 Controller
+    @ResponseBody
+	@RequestMapping(value = "/googleLogin", method = RequestMethod.POST)
+	public Member googleLogin(@RequestParam String memberId,
+							  @RequestParam String memberNm,
+							  Model model) {
+
+		// 아이디 중복 검사
+    	int result = service.idDupCheck(memberId);
+		
+		Member member = new Member();
+		member.setMemberId(memberId);
+		member.setMemberNm(memberNm);
+		
+		System.out.println(member);
+		
+		Member loginMember = null;
+		
+		if(result > 0) {						
+			loginMember = service.googleLogin(member); 
+			//System.out.println("이미 등록 되어 있는 경우 : " + loginMember);
+				
+		} else {
+			//System.out.println("등록 x");
+			
+			member = new Member();
+			member.setMemberId(memberId);
+			member.setMemberNm(memberNm);			
+
+			int googleReg = service.googleSignUp(member); 
+			
+			//System.out.println(kakaoReg);
+			//System.out.println(member);
+
+			if(googleReg > 0) {
+				loginMember = service.googleLogin(member); 
+				//System.out.println("회원 등록 후 : " + loginMember);				
+			}
+		}
+		model.addAttribute("loginMember", loginMember);				
+		
+		return loginMember;			
+	}
 	
+	// 로그아웃 Controller
+	@RequestMapping("logout")
+	public String logout(SessionStatus status) {
+		// SessionStatus : 세션의 상태를 관리할 수 있는 객체
+		// setComplete(); @SessionAttributes로 Session에 등록된 값을 모두 지움
+		status.setComplete();
+		return "redirect:/";
+	}
 	
 	// 이용약관 화면 Controller
 	@RequestMapping("tosView")
