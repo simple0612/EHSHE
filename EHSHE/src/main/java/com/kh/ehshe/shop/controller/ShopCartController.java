@@ -67,8 +67,10 @@ public class ShopCartController {
 	// 카트에 담기.
 	@ResponseBody
 	@RequestMapping("cart/insertCart")
-	public int insertCart(@ModelAttribute("insertItem") Cart insertItem) {
+	public int insertCart(@ModelAttribute("insertItem") Cart insertItem,
+							@ModelAttribute("loginMember") Member loginMember) {
 		
+		insertItem.setMemberNo(loginMember.getMemberNo());
 		//System.out.println(insertItem);
 		
 		return service.insertCart(insertItem);

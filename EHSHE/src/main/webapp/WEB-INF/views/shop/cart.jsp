@@ -62,11 +62,12 @@ header {
 											<span><a href=#>${shopCart.itemNm}</a></span> <span>${shopCart.optionSpecifyContent}</span>
 										</div>
 										<div class="cart-price">
+										
 											<div class="item-price">
-												<span class="iprice">${shopCart.itemPrice}</span>
+												<span class="iprice">${shopCart.itemPrice}</span>원
 											</div>
 											<div class="item-number">
-												<span class="item-num">${shopCart.buyingQuantity}</span>
+												<span class="item-num">${shopCart.buyingQuantity}</span>개
 											</div>
 											<div class="item-delete">
 												<span class="delete-btn">삭제</span>
@@ -292,7 +293,12 @@ header {
 					return true;        
         }
         
+				
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
 
+        
 
     </script>
 

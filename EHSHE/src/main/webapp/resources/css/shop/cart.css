@@ -120,7 +120,7 @@
 
 
 .cart-items .cart-item .cart-img{
-    flex :5;
+    flex :6;
     width:100px;
     height:110px;
     background-color: #F5dF4D;
@@ -134,7 +134,7 @@
 }
 
 .cart-items .cart-item .cart-item-name{
-    flex: 8;
+    flex: 10;
     padding : 10px;
     margin-left:5px;
 }
@@ -149,12 +149,15 @@
     
 }
 .cart-items .cart-item .cart-price{
-    flex: 5;
+    flex: 4;
+    display:flex;
+    flex-direction : column;
+    justify-content : space-around;
+    align-items : center;
 }
 
 .cart-items .cart-item .cart-price span{
     padding : 5px 5px;
-    display: block;
     text-align: center;
 }
 

@@ -288,7 +288,7 @@ line-height:55px;
 
   
   //로그인한 회원번호
-   var memberNo = ${loginMember.memberNo};
+   //var memberNo = ${loginMember.memberNo};
   	//console.log(memberNo)
   
   // 선택한 상세옵션번호
@@ -331,7 +331,7 @@ line-height:55px;
 			      $.ajax({
 							url : "${contextPath}/shop2/cart/insertCart",
 							method : "POST",
-							data : {"memberNo" : memberNo,
+							data : {/*"memberNo" : memberNo,*/
 											"optionSpecifyNo" : optionSpecifyNo,
 											"itemNo" : itemNo,
 											"buyingQuantity" : buyingQuantity},

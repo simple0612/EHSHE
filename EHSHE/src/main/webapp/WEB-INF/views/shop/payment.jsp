@@ -89,7 +89,7 @@ header {
 														${shopCart.itemNm} <span class="item-option">${shopCart.optionSpecifyContent}</span><span class="specify-number">${shopCart.optionSpecifyNo}</span>
 													</div>
 													<div class="item-price">
-														${shopCart.itemPrice} 원 <span class="item-number">${shopCart.buyingQuantity}</span><b>개</b>
+														${shopCart.itemPrice} 원 <span class="item-number">${shopCart.buyingQuantity}</span> 개
 													</div>
 												</div>
 											</div>
@@ -121,7 +121,7 @@ header {
 
 							<div class="item-number">
 								<h5 class="total-quantity">
-									총 <span id="totalBuyingNumber"> </span> 건
+									총 <span id="totalBuyingNumber"> </span> 개
 								</h5>
 							</div>
 						</div>
@@ -236,19 +236,21 @@ header {
 		
 		// 결제 유효성 검사
 		function validate(){
-			if($("#name").val().trim().length == 0 || 
-				$("#adress0, #address1").val().trim().length == 0 ||
-					$("#tel").val().trim().length == 0){
-				Swal.fire({icon:'error', text:'배송지 정보를 입력해주세요.'})
-			}
+			
 				return false;
 		}
 		
 		
 		
 		/* 아임포트 결제 */
-		$("#btn-payment")
-				.on("click", function() {
+		$("#btn-payment").on("click", function() {
+			if($("#name").val().trim().length == 0 || 
+					$("#adress0, #address1").val().trim().length == 0 ||
+						$("#tel").val().trim().length == 0){
+					Swal.fire({icon:'error', text:'배송지 정보를 입력해주세요.'})
+				}else{
+			
+			
 							var IMP = window.IMP;
 							IMP.init("imp87438017");
 							IMP.request_pay(
@@ -325,6 +327,7 @@ header {
 												}
 												alert(msg);
 											});
+				}
 						});
 
 		// 수량 합계 구하기.

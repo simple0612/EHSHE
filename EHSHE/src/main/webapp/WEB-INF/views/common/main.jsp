@@ -116,7 +116,7 @@ nav{
 			                            </div>
 			                            <div class="citem-description">
 		                            		<span class="socre-area"> <i class="fas fa-star"></i> ${tList[avg.index].score}</span>
-		                                <span><b><fmt:formatNumber value="${rankingItem.itemPrice}" type="currency" currencySymbol=""/> </b></span>
+		                                <span><b><fmt:formatNumber value="${rankingItem.itemPrice}" type="currency"/> </b></span>
 		                                <h4><b>${rankingItem.itemNm} </b></h4>
 		                                <a href="${contextPath}/shop/${rankingItem.itemCategory}/${rankingItem.itemNo}" class="view-item">View More</a>
 			                            </div>
