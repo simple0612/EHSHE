@@ -7,8 +7,8 @@ public class PReview {
 	
 	private int reviewNo;
 	private String reviewContent; 
-	private Date reviewCreateDate; 
-	private Date reviewModifyDate; 
+	private Timestamp reviewCreateDate; 
+	private Timestamp reviewModifyDate; 
 	private String reviewDeleteFl; 
 	private int reviewRating; 
 	private int memberNo; 
@@ -19,7 +19,7 @@ public class PReview {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PReview(int reviewNo, String reviewContent, Date reviewCreateDate, Date reviewModifyDate,
+	public PReview(int reviewNo, String reviewContent, Timestamp reviewCreateDate, Timestamp reviewModifyDate,
 			String reviewDeleteFl, int reviewRating, int memberNo, int placeNo, String ratingText) {
 		super();
 		this.reviewNo = reviewNo;
@@ -49,19 +49,19 @@ public class PReview {
 		this.reviewContent = reviewContent;
 	}
 
-	public Date getReviewCreateDate() {
+	public Timestamp getReviewCreateDate() {
 		return reviewCreateDate;
 	}
 
-	public void setReviewCreateDate(Date reviewCreateDate) {
+	public void setReviewCreateDate(Timestamp reviewCreateDate) {
 		this.reviewCreateDate = reviewCreateDate;
 	}
 
-	public Date getReviewModifyDate() {
+	public Timestamp getReviewModifyDate() {
 		return reviewModifyDate;
 	}
 
-	public void setReviewModifyDate(Date reviewModifyDate) {
+	public void setReviewModifyDate(Timestamp reviewModifyDate) {
 		this.reviewModifyDate = reviewModifyDate;
 	}
 
@@ -112,5 +112,6 @@ public class PReview {
 				+ ", reviewRating=" + reviewRating + ", memberNo=" + memberNo + ", placeNo=" + placeNo + ", ratingText="
 				+ ratingText + "]";
 	}
+
 	
 }

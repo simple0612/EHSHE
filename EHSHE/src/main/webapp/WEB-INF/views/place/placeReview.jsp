@@ -95,7 +95,7 @@
 }
 
 .starReview{
-  text-shadow: orange 0 0 5px;
+  text-shadow: black 0 0 5px;
   font-size: 20px;
 }
 
@@ -104,7 +104,7 @@
 }
 .stars .fa.active{
     color: yellow;
-    text-shadow: orange 0 0 5px;
+    text-shadow: black 0 0 5px;
 }
 
 .print{
@@ -122,6 +122,20 @@
 .reviewUpdateContent{
 	width:100%;
 }
+
+.swal-button {
+   background-color: #F5DF4D;
+}
+
+.swal-button:not([disabled]):hover {
+   background-color: #f0d700;
+}
+
+.swal-button:focus {
+   box-shadow: 0 0 0 3px #fff;
+}
+
+
 </style>
 </head>
 
@@ -137,7 +151,7 @@
                         <h4>리뷰</h4>
                     </div>
                     <div class="col-md-10">
-                        <h6>전체(232) | 최고(120) | 보통(20) | 별로(12)</h6>
+                        <h6>전체( ${place.reviewCount} )</h6>
                     </div>
                 </div>
                 
@@ -148,6 +162,7 @@
                     
                        <div class="placeReview">
 													<div id="reviewContentArea">
+													
 														 <div class="star-rating">
 												        <div class="stars">
 												            <i class="fa fa-star" id="start1"></i>
@@ -157,7 +172,7 @@
 												            <i class="fa fa-star" id="start5"></i>
 												        </div>
 												        <div class="print"> 별점 주기</div>
-												    </div>
+												   	 </div>
 														
 														<textArea rows="3" id="reviewContent"></textArea>
 													</div>

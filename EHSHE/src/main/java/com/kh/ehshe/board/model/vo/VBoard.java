@@ -11,7 +11,7 @@ public class VBoard {
 	private String memberId;
 	private String memberNm;
 	private int memberNo;
-	private Date boardCreateDate;
+	private Timestamp boardCreateDate;
 	private int readCount;
 	private String boardDeleteFl;
 	private String categoryName;
@@ -25,7 +25,7 @@ public class VBoard {
 	}
 
 	public VBoard(int boardNo, String boardTitle, String boardContent, String memberId, String memberNm, int memberNo,
-			Date boardCreateDate, int readCount, String boardDeleteFl, String categoryName, String latitude,
+			Timestamp boardCreateDate, int readCount, String boardDeleteFl, String categoryName, String latitude,
 			String longitude, String location, int likeCount) {
 		super();
 		this.boardNo = boardNo;
@@ -92,11 +92,11 @@ public class VBoard {
 		this.memberNo = memberNo;
 	}
 
-	public Date getBoardCreateDate() {
+	public Timestamp getBoardCreateDate() {
 		return boardCreateDate;
 	}
 
-	public void setBoardCreateDate(Date boardCreateDate) {
+	public void setBoardCreateDate(Timestamp boardCreateDate) {
 		this.boardCreateDate = boardCreateDate;
 	}
 
@@ -154,7 +154,7 @@ public class VBoard {
 
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
-	}  
+	}
 
 	@Override
 	public String toString() {
@@ -164,6 +164,7 @@ public class VBoard {
 				+ categoryName + ", latitude=" + latitude + ", longitude=" + longitude + ", location=" + location
 				+ ", likeCount=" + likeCount + "]";
 	}
+
 	
 	
 }

@@ -73,6 +73,9 @@ public class BoardController {
 
 		String thumbnailFilePath = null;
 		String fileName = null;
+		String firstFilePath = null;
+		String firstFileName = null;
+		
 		
 		String url = null;
 
@@ -86,10 +89,13 @@ public class BoardController {
 					fileName = at.getFileName();
 				}
 				
+				firstFilePath = attachmentList.get(0).getThumbnailFilePath();
+				firstFileName = attachmentList.get(0).getFileName();
 				
-				model.addAttribute("attachmentList", attachmentList);
 				model.addAttribute("thumbnailFilePath", thumbnailFilePath);
 				model.addAttribute("fileName", fileName);
+				model.addAttribute("firstFilePath", firstFilePath);
+				model.addAttribute("firstFileName", firstFileName);
 			}
 
 			model.addAttribute("board", board);

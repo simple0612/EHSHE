@@ -195,7 +195,6 @@
 					
 					
 					
-					
 				<div class="row updateContentArea">
 					<div class="col-md-12">
 						<h5>소개</h5>
@@ -206,7 +205,7 @@
 				</div>
 				
 				<div class="row updateBtnArea">
-					<div class="col-md-12" style="width: 100%;">
+					<div class="col-md-12">
 						<button class="btn btn-secondary insert-place" type="submit">수정</button>
 							<a class="btn btn-secondary insert-place"
 								href="${sessionScope.returnListURL}">취소</a>

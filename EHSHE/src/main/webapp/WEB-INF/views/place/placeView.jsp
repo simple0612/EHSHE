@@ -43,36 +43,18 @@
 								</ol>
 								<div class="carousel-inner">
 									<div class="carousel-item active">
-										<img class="d-block w-100" alt="Carousel Bootstrap First" src="https://www.layoutit.com/img/sports-q-c-1600-500-1.jpg" />
+										<img class="d-block w-100 pt" alt="Carousel Bootstrap First" src="${contextPath}${firstFilePath}/${firstFileName}"/>
 										<div class="carousel-caption">
-											<h4>
-												First Thumbnail label
-											</h4>
-											<p>
-												Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-											</p>
 										</div>
 									</div>
 									<div class="carousel-item">
-										<img class="d-block w-100" alt="Carousel Bootstrap Second" src="https://www.layoutit.com/img/sports-q-c-1600-500-2.jpg" />
+										<img class="d-block w-100 pt" alt="Carousel Bootstrap Second" src="https://www.layoutit.com/img/sports-q-c-1600-500-2.jpg" />
 										<div class="carousel-caption">
-											<h4>
-												Second Thumbnail label
-											</h4>
-											<p>
-												Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-											</p>
 										</div>
 									</div>
 									<div class="carousel-item">
-										<img class="d-block w-100" alt="Carousel Bootstrap Third" src="https://www.layoutit.com/img/sports-q-c-1600-500-3.jpg" />
+										<img class="d-block w-100 pt" alt="Carousel Bootstrap Third" src="https://www.layoutit.com/img/sports-q-c-1600-500-3.jpg" />
 										<div class="carousel-caption">
-											<h4>
-												Third Thumbnail label
-											</h4>
-											<p>
-												Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-											</p>
 										</div>
 									</div>
 								</div> <a class="carousel-control-prev" href="#carousel-896804" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-896804" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
@@ -85,7 +67,7 @@
 				<div class="row" id="PlaceHeader">
 					<div class="col-md-8">
 						<div class="view-header">
-							<span>${place.placeTitle}</span> <span>별점 4.7</span>
+							<span>${place.placeTitle}</span> <span>별점 ${place.avgRating}</span>
 								
 							<c:if test="${!empty loginMember }">
 			      		 	<c:choose>
@@ -104,8 +86,8 @@
 							
 							<span><b>${fn:split(loca,' ')[0]} - ${place.categoryName}</b></span> <br>
 							<span>뷰 ${place.readCount}</span>
-							<span>댓글</span>
-							<span>스크랩 </span>
+							<span>댓글 ${place.reviewCount}</span>
+							<span>스크랩</span>
 							<span id="favoriteCount">${place.favoriteCount}</span>
 						</div>
 						
