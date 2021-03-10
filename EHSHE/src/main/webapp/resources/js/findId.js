@@ -1,33 +1,14 @@
 // 유효성 검사 결과를 저장할 객체
+
 var findIdCheck = {
-	"memberNm" : false,
 	"memberEmail" : false,
 	"certificationCheck" : false
 };
 
 // 실시간 유효성 검사 --------------------
 // 정규표현식
-var $memberNm = $("#memberNm");
 var $memberEmail = $("#memberEmail");
 var $certify = $("#certify");
-	
-	
-	
-	// 이름 유효성 검사
-	$memberNm.on("input", function() {
-		// 한글 두 글자 이상
-		var regExp = /^[가-힣]{2,}$/;
-
-		if (!regExp.test($(this).val())) {
-			$("#checkNm").text("한글 두 글자 이상을 입력해주세요.").css("color", "red").css("visibility","visible");
-			findIdCheck.memberNm = false;
-		} else {
-			$("#checkNm").css("visibility", "hidden");
-			findIdCheck.memberNm = true;
-		}
-	}); // 이름 유효성 검사 
-	
-
 	
 	
 	// 이메일 유효성 검사
@@ -85,10 +66,8 @@ var $certify = $("#certify");
 	// 유효성 검사로 가입 버튼 제어
 	$(function(){
 		$("input").on("input", function(){
-			console.log(findIdCheck.certificationCheck)
-			
+
 			if(
-				findIdCheck.memberNm && 
 				findIdCheck.memberEmail 
 			&& findIdCheck.certificationCheck == true){
 
@@ -117,7 +96,6 @@ var $certify = $("#certify");
 			if (!findIdCheck[key]) {
 				var str;
 				switch (key) {	
-				case "memberNm": str = "이름";	break;
 				case "memberEmail": str = "이메일"; break;
 				case "certificationCheck": str = "이메일 인증"; break;
 				}
