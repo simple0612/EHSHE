@@ -49,6 +49,11 @@ public class MemberController2 {
 		return "member/mypagemain";
 	}
 
+	
+	@RequestMapping("adminpage")
+	public String adminpage() {
+		return "member/adminpage";
+	}
 	@RequestMapping("checkpassward")
 	public String checkpassward() {
 		return "member/checkpassward";
@@ -283,12 +288,33 @@ public class MemberController2 {
 
 		//QANDA조회
 		List<QandA> QList = service.myQandA(pInfo, memberNo);
-		
-		System.out.println(QList);
+	
 		model.addAttribute("QList", QList);
 		model.addAttribute("pInfo", pInfo);
 		return "member/myQandA";
 	}
+	
+	
+	
+	@RequestMapping("adminQandA")
+	public String adminQandA(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+			@ModelAttribute("loginMember") Member loginMember) {
+
+		
+		PageInfo pInfo = service.getOrderPageInfo(cp);
+
+		//QANDA조회
+		List<QandA> QList = service.adminQandA(pInfo);
+		
+		System.out.println(QList);
+		model.addAttribute("QList", QList);
+		model.addAttribute("pInfo", pInfo);
+		return "member/adminQandA";
+	}
+	
+	
+	
+	
 
 	@RequestMapping("review")
 	public String review(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,

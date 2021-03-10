@@ -173,4 +173,9 @@ public class MemberService2Impl implements MemberService2 {
 		return dao.selectbookmarkList(pInfo,memberId);
 	}
 
+	@Override
+	public List<QandA> adminQandA(PageInfo pInfo) {
+		return dao.adminQandA(pInfo);
+	}
+
 }

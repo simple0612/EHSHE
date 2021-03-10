@@ -126,4 +126,12 @@ public class MemberDAO2 {
 		return sqlSession.selectList("memberMapper2.selectbookmarkList", memberId, rowBounds);
 	}
 
+	public List<QandA> adminQandA(PageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+
+		return sqlSession.selectList("memberMapper2.adminQandA", 0, rowBounds);
+	}
+
 }

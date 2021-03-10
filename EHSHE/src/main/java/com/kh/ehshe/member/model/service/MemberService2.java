@@ -82,6 +82,8 @@ public interface MemberService2 {
 
 	public abstract List<VPlace> selectbookmarkList(PageInfo pInfo, String memberId);
 
+	public abstract List<QandA> adminQandA(PageInfo pInfo);
+
 
 	
 	
