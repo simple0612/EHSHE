@@ -22,21 +22,29 @@
 
  
  <style>
-  /*    div{
-            border: 1px solid black;
-        }   */ 
-  .a{
-  margin: 0px auto;
-  }
-  img{
-      width: 100%;
-      height: 100%;
-  }
-  .b{
-      height: 200px;
-      width: 200px;
-      margin: 0px auto;
-  }
+.swal-button {
+   background-color: #F5DF4D;
+}
+
+.swal-button:not([disabled]):hover {
+   background-color: #f0d700;
+}
+
+.swal-button:focus {
+   box-shadow: 0 0 0 3px #fff;
+}
+.a{
+margin: 0px auto;
+}
+img{
+    width: 100%;
+    height: 100%;
+}
+.b{
+    height: 200px;
+    width: 200px;
+    margin: 0px auto;
+}
   .q{
       width: 1280px;
 }
@@ -83,7 +91,7 @@ cursor:pointer;
                 </div>
             </div>
                 <div id="fileArea" style="display:none;">
-				          	<input type="file" id="img0" name="images" onchange="LoadImg(this,0)"> 
+				          	<input type="file" id="img0" name="images" onchange="LoadImg(this,0)" required> 
                 </div> 
                
                   <div class="col-md-6"> 

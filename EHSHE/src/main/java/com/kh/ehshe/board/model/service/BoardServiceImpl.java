@@ -64,7 +64,6 @@ public class BoardServiceImpl implements BoardService {
 				board.setReadCount(board.getReadCount() + 1);
 			}
 		}
-
 		return board;
 	}
 

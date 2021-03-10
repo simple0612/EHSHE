@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
@@ -59,26 +60,24 @@ public class ShopReviewController {
 		
 		// 주문 상세번호 161/ 162
 		List<ShopBuying> sbList = service.selectOptionSpecifyNoList(map);
-		System.out.println("주문상세번호" + sbList);
 		
-		System.out.println(sbList+"주문상세번호");
+		int result = 0;
 		
-		int orderSpecifyNo = sbList.get(0).getOrderSpecifyNo();
-
-		if(sbList.isEmpty() || sbList == null) {
-			ra.addFlashAttribute("swalIcon","error");
-			ra.addFlashAttribute("swalTitle","제품을 구매후 후기를 작성해주세요. ");
-		}
+		if(!sbList.isEmpty()) {
+			
+			
+			int orderSpecifyNo = sbList.get(0).getOrderSpecifyNo();
+			
+			map.put("replyContent", replyShopContent);
+			map.put("starRate", starRate);
+			map.put("orderSpecifyNo", orderSpecifyNo);
+			
+			result = service.insertReview(map);
 		
-		map.put("replyContent", replyShopContent);
-		map.put("starRate", starRate);
-		map.put("orderSpecifyNo", orderSpecifyNo);
-		
-		System.out.println(map + "확인확인");
-
-		int result = service.insertReview(map);
-
-		System.out.println("삽입확인" + result);
+		}else{
+			
+	       result = 0;
+	  }
 
 		return result;
 	}

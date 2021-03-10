@@ -31,7 +31,10 @@
 
 	<div class="container-fluid boardMain">
 		<div class="row">
-			<div class="col-md-2"></div>
+			<div class="col-md-2 sideheart">
+					<img class="" src="https://media.giphy.com/media/PfFtibPKBbQrK/giphy.gif"style="width:230px;,height:200px;margin-bottom:1000px;margin-top:200px;"><br>
+					<img alt="" src="https://media.giphy.com/media/3oriNO0p3Sn0itamg8/giphy.gif" style="width:230px;,height:200px;">
+			</div>
 			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12">
@@ -65,7 +68,11 @@
 					</div>
 				</div>
 				
-				<h4>EHSHE 추천 맛집</h4>
+				<div class="row">
+					<div class="col-md-12 placeMain11"> 
+						<img class="" src="${contextPath}/resources/pImages/placeMain11.png"/>
+					</div>
+				</div>
 				<div class="row">
 					<c:if test="${!empty rastList }">
 						<c:forEach var="rPlace" items="${rastList}" varStatus="vs">
@@ -93,7 +100,12 @@
 					</c:if>
 				</div>
 
-				<img class="" src="${contextPath}/resources/images/scrap2.png"/>
+				<div class="row">
+					<div class="col-md-12 placeMain11"> 
+						<img class="" src="${contextPath}/resources/pImages/placeMain22.png"/>
+					</div>
+				</div>
+				
 				<div class="row">
 					<c:if test="${!empty bestList }">
 						<c:forEach var="bPlace" items="${bestList}" varStatus="vs">
@@ -107,12 +119,12 @@
 									</c:forEach>
 									<div class="card-block">
 										<h6 class="card-title">
-											<span>${bPlace.placeTitle}</span><span class="" href="#">별점 ${rPlace.avgRating}</span>
+											<span>${bPlace.placeTitle}</span><span class="" href="#">별점 ${bPlace.avgRating}</span>
 										</h6>
 										<p class="card-text">
 										<c:set var = "loca" value="${fn:split(bPlace.location,',')[1]}" />
-											<span class="" href="#">${fn:split(loca,' ')[0]}</span> - <span class="" href="#">${rPlace.categoryName}</span>
-											<span class="" href="#">뷰${bPlace.readCount} 댓글 ${rPlace.reviewCount}</span>
+											<span class="" href="#">${fn:split(loca,' ')[0]}</span> - <span class="" href="#">${bPlace.categoryName}</span>
+											<span class="" href="#">뷰${bPlace.readCount} 댓글 ${bPlace.reviewCount}</span>
 										</p>
 									</div>
 								</div>
@@ -121,7 +133,12 @@
 					</c:if>
 				</div>
 				
-				<img class="placeList" src="${contextPath}/resources/images/scrap1.png"/>
+				<div class="row">
+					<div class="col-md-12 placeMain11 moveList"> 
+						<img class="" src="${contextPath}/resources/pImages/placeMain33.png"/>
+					</div>
+				</div>
+				
 				<div class="row">
 					<c:if test="${!empty pList }">
 						<c:forEach var="place" items="${pList}" varStatus="vs">
@@ -152,6 +169,7 @@
 			<div class="col-md-2"></div>
 		</div>
 	</div>
+	</div>
 	
 	<jsp:include page="../common/footer.jsp" />
 	
@@ -168,7 +186,7 @@
 		location.href = placeViewURL;
 	});
 	
-	$(".placeList").on("click", function(){
+	$(".moveList").on("click", function(){
 		location.href = "${contextPath}/place/placeList";
 	});
 	
@@ -194,6 +212,16 @@
 			// 검색 값 sv
 			$("input[name=sv]").val("${sv}");
 		});	
+	
+	$(function(){
+		$(".sideheart").fadeTo(0, 0.0);
+	})
+	
+	$(".sideheart").hover(function(){
+        $(this).fadeTo(1000, 1);
+    }, function(){
+        $(this).fadeTo(1000, 0);
+   });
 	
 </script>
 

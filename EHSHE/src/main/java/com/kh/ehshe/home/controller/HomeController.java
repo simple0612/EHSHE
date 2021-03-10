@@ -25,50 +25,43 @@ import com.kh.ehshe.home.model.vo.TopPlace;
  */
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	private HomeService service;
-	
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+
 		String formattedDate = dateFormat.format(date);
-		
+
 		List<TopItem> tList = service.selectTopList();
-			//System.out.println(tList);
-		
+		// System.out.println(tList);
+
 		List<Item> iList = service.selectItemList(tList);
-			//System.out.println(iList);
-		
+		// System.out.println(iList);
+
 		List<TopPlace> tpList = service.selectTopPlaceList();
-			//System.out.println(tpList);
-		
+		// System.out.println(tpList);
+
 		List<PlaceInfo> piList = service.selectPlaceInfoList(tpList);
-			//System.out.println(piList);
-			
-		
-		/*
-		 * model.addAttribute("serverTime", formattedDate ); model.addAttribute("tList",
-		 * tList); model.addAttribute("iList", iList); model.addAttribute("tpList",
-		 * tpList); model.addAttribute("piList", piList);
-		 */
-		
-	    
-	    
-	    
-	    
+		// System.out.println(piList);
+
+		model.addAttribute("serverTime", formattedDate);
+		model.addAttribute("tList", tList);
+		model.addAttribute("iList", iList);
+		model.addAttribute("tpList", tpList);
+		model.addAttribute("piList", piList);
+
 		return "common/main";
 	}
-	
-	
+
 }

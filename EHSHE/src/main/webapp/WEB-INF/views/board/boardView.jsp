@@ -73,18 +73,37 @@
 <body>
 	<jsp:include page="../common/header.jsp" />
 
-	<div class="container-fluid boardMain">
+	<div class="container-fluid" id="boardMain">
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12 h-boardView">
-							<img src="${contextPath}${thumbnailFilePath}/${fileName}">
+							<img src="${contextPath}${firstFilePath}/${firstFileName}">
 							<div class="h-textArea">
 								<h3>${board.boardTitle}</h3>
 								<h5>${board.categoryName}</h5>
 								<c:set var="loca" value="${fn:split(board.location,',')[1]}" />
 								<h4>${fn:split(loca,' ')[0]} ${fn:split(loca,' ')[1]}</h4>
+								
+								<div class="iLike">
+								<c:if test="${(!empty loginMember ) && (board.memberNo != loginMember.memberNo)}">
+			       			<c:choose>
+			            <c:when test="${likeFl == 0 }">
+			               <img src="${contextPath}/resources/pImages/h1.png" class="like">
+			               <br>
+			     					<span id="likeFl">좋아요 하기</span>
+			            </c:when>
+			         
+			            <c:otherwise>
+			              <img src="${contextPath}/resources/pImages/h2.png" class="like">
+			              <br>
+			     					<span id="likeFl">좋아요 취소</span>
+			            </c:otherwise>
+			         </c:choose>
+							</c:if>
+							</div>
+							
 							</div>
 					</div>
 				</div>
@@ -93,30 +112,14 @@
 				
 
 
-				<div class="row">
+				<div class="row subInfoArea">
 					<div class="col-md-12 subInfo">
 						
-						<c:if test="${(!empty loginMember ) && (board.memberNo != loginMember.memberNo)}">
-			       	<c:choose>
-			            <c:when test="${likeFl == 0 }">
-			               <img src="${contextPath}/resources/images/heart1.png" class="like">
-			               <br>
-			     					<span id="likeFl">좋아요</span>
-			            </c:when>
-			         
-			            <c:otherwise>
-			              <img src="${contextPath}/resources/images/heart2.png" class="like">
-			              <br>
-			     					<span id="likeFl">좋아요 취소</span>
-			            </c:otherwise>
-			         </c:choose>
-			         
-						</c:if>
 					
-						<p>작성자 : ${fn:substring(board.memberId,0,2)}****</p>
+						<span>작성자 : ${fn:substring(board.memberId,0,2)}****</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 						<fmt:formatDate var="createDate" value="${board.boardCreateDate }"
 							pattern="yyyy-MM-dd" />
-						<span>작성일 : ${createDate}</span>
+						<span>작성일 : ${createDate}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						
 					</div>
 				</div>
@@ -287,13 +290,13 @@
                // 좋아요 여부 상태 변경
                if(likeFl == 0){
                   likeFl = 1;
-                  $(".like").attr("src", "${contextPath}/resources/images/heart2.png");
+                  $(".like").attr("src", "${contextPath}/resources/pImages/h2.png");
                   $("#likeFl").text("좋아요 취소");
                }
                else{
                   likeFl = 0;
-                  $(".like").attr("src", "${contextPath}/resources/images/heart1.png");
-                  $("#likeFl").text("좋아요");
+                  $(".like").attr("src", "${contextPath}/resources/pImages/h1.png");
+                  $("#likeFl").text("좋아요 하기");
                }
                
                selectLikeCount();

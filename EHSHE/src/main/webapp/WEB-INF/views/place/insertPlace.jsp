@@ -77,7 +77,7 @@
 		src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
 	<script src="${contextPath}/resources/summernote/js/mySummernote2.js"></script>
 
-	<div class="container-fluid placeMain">
+	<div class="container-fluid" id="placeMain">
 		<form action="insertAction" name="insertAction" enctype="multipart/form-data" method="post" role="form" onsubmit="return validate();">
 			<div class="row">
 				<div class="col-md-2"></div>
@@ -94,13 +94,13 @@
 							
 								<tr class="name">
 									<td>장소 이름</td>
-									<td><input class="form-control mr-sm-2" type="text" name="placeTitle" id="placeTitle"/></td>
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="placeTitle" id="placeTitle"/></td>
 								</tr>
 								
 								<tr class="thumbnail">
 									<td>이미지</td>
-									<td>
-										<div class="placeImg" id="titleImgArea">
+									<td colspan="2">
+										<div class="placeImg" id="titleImgArea" >
 											<img id="titleImg" width="200" height="120">
 										</div>
 
@@ -133,36 +133,36 @@
 								</tr>
 								<tr>
 									<td>분류</td>
-									<td><input class="form-control mr-sm-2" type="text" name="categoryName" id="categoryName" required/></td>
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="categoryName" id="categoryName" required/></td>
 								</tr>
 								<tr>
 									<td>전화번호</td>
-									<td><input class="form-control mr-sm-2" type="text" name="phone" id="phone"/></td>
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="phone" id="phone"/></td>
 								</tr>
 								<tr>
 									<td>영업시간</td>
-									<td><input class="form-control mr-sm-2" type="text" name="businessHours" id="businessHours"/></td>
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="businessHours" id="businessHours"/></td>
 								</tr>
 								<tr>
 									<td>가격대</td>
-									<td><input class="form-control mr-sm-2" type="text" name="priceRange" id="priceRange"/></td>
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="priceRange" id="priceRange"/></td>
 								</tr>
 								<tr>
 									<td>주차</td>
-									<td><input class="form-control mr-sm-2" type="text" name="parking" id="parking"/></td>
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="parking" id="parking"/></td>
 								</tr>
 								<tr>
 									<td>휴일</td>
-									<td><input class="form-control mr-sm-2" type="text" name="holiday" id="holiday"/></td>
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="holiday" id="holiday"/></td>
 								</tr>
 								<tr>
 									<td><input class="form-control mr-sm-2" type="text" name="enroll" id="enroll"/></td>
-									<td><input class="form-control mr-sm-2" type="text" name="enrollContents" id="enrollContents"/></td>
+									<td colspan="2"><input class="form-control mr-sm-2" type="text" name="enrollContents" id="enrollContents"/></td>
 								</tr>
 								
 								<tr>
 									<td>위치</td>
-									<td>
+									<td colspan="2">
 										<input type="hidden" id="lat" name="latitude">
 										<input type="hidden" id="lng" name="longitude">
 										<div class="map_wrap">
@@ -179,12 +179,19 @@
 					</div>
 					<div class="col-md-3"></div>
 					
-					<div class="col-md-12">
-						<h5>소개</h5>
-						<textarea class="form-control" id="summernote" name="placeContent" rows="10" style="resize: none;"></textarea>
+					<div class="row updateContentArea">
+						<div class="col-md-12">
+							<h5>소개</h5>
+							<textarea class="form-control" id="summernote" name="placeContent" rows="10" style="resize: none;"></textarea>
+						</div>
 					</div>
-					<div class="col-md-12" style="width: 100%;">
-						<button class="btn btn-secondary insert-place" style="width: 40%;">등록</button>
+					
+					<div class="row updateBtnArea">
+						<div class="col-md-12">
+							<button class="btn btn-secondary insert-place">등록</button>
+							<a class="btn btn-secondary insert-place"
+								href="${sessionScope.returnListURL}">취소</a>
+						</div>
 					</div>
 
 				</div>
