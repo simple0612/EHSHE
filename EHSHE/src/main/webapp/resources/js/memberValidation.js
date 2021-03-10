@@ -69,13 +69,10 @@ var $certify = $("#certify");
 
 		// 비밀번호1이 유효하지 않은 상태로 비밀번호 2를 작성하는 경우
 		if (!signUpCheck.memberPw1 && $memberPw2.val().length > 0) {
-			swal("비밀번호 형식이 올바르지 않습니다.")
-			.then(function(){
-				$memberPw1.val("");
 				$("#checkPw").css("visibility","hidden");
 				$memberPw2.val("");
 				$memberPw1.focus();
-			});
+
 		} else if (signUpCheck.memberPw1 && $memberPw2.val().length > 0) {
 			if ($("#memberPw1").val().trim() != $("#memberPw2").val().trim()) {
 				$("#checkPw").text("비밀번호가 일치하지 않습니다.").css("color", "red").css("visibility","visible");
@@ -110,8 +107,8 @@ var $certify = $("#certify");
 			$(this).val($(this).val().slice(0, $(this).prop("maxLength")));
 		}
 
-		// - 제외, 01 + (0,1,6,7,8,9) 이후 아무숫자 3~4, 아무숫자 4글자
-		var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+		// - 제외, 01 + (0,1,6,7,8,9) 이후 아무숫자 3 ~ 4, 아무숫자 4글자
+		var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{5})$/;
 
 		if (!regExp.test($memberPhone.val())) {
 			$("#checkPhone").text("전화번호의 형식이 올바르지 않습니다.").css("color", "red").css("visibility","visible");
@@ -165,7 +162,7 @@ var $certify = $("#certify");
 		$("#certify").on("input", function(){
 			$("#checkEmail").css("visibility", "hidden");
 			if($(this).val() != code || $(this).val() == 0){
-			 $("#certificationCheck").text("인증번호가 불일치합니다.").css("color", "red").css("visibility","visible");				
+			 $("#certificationCheck")	
 			 signUpCheck.certificationCheck = false;
 			} else {
 			 $("#certificationCheck").css("visibility","hidden");
@@ -175,15 +172,15 @@ var $certify = $("#certify");
 		});
 	});
 	
-	
+	// 유효성 검사로 가입 버튼 제어
 	$(function(){
 		$("input").on("input", function(){
 			console.log(signUpCheck.certificationCheck)
+			
 			if( signUpCheck.memberId && signUpCheck.memberPw1 && signUpCheck.memberPw2 &&
 			signUpCheck.memberNm && signUpCheck.memberPhone && 
 			signUpCheck.memberEmail 
-			&& signUpCheck.certificationCheck == true
-			){
+			&& signUpCheck.certificationCheck == true){
 
 				$(".signUpBtn").attr("style", "background-color: #F5DF4D !important;")
 				.mouseover(function(){
@@ -192,9 +189,7 @@ var $certify = $("#certify");
 				.mouseout(function(){
 					$(this).attr("style", "background-color: #F5DF4D !important;");	
 				})
-			
-			} 
-			else {
+			} else {
 				$(".signUpBtn").attr("style", "background-color: #f6f6f6 !important;")
 				.mouseover(function(){
 					$(this).attr("style", "background-color: #dbdbdb !important;");	
@@ -222,24 +217,16 @@ var $certify = $("#certify");
 				}
 	
 				var member = "#" + key;
-				swal({icon:"warning", title:str + " 형식이 유효하지 않습니다."})			
+				swal({title:"EHSHE", text:str + " 형식이 유효하지 않습니다."})			
 					.then(function(){
 						$(member).focus();
 					});
 					if(key == 'certificationCheck') {
-						swal({icon:"warning", title: "인증 번호를 확인해 주세요."});
-						$(certify).focus();
+						swal({title : "EHSHE", 
+						      text  : "인증 번호를 다시 확인해 주세요."});
+						$("#certify").focus();
 					}
 				return false;								
 			}	
-		}s
-		
-		// 입력된 주소 조합하여 form태그에 hidden으로 추가 하기
-		// 왜? -> 커맨드 객체를 이용하여 파라미터를 한번에 받기 쉽게 하기 위하여
-		//		 -> 아니면 컨트롤러에서 노가다로 작성해야 함
-		$memberAddr = $("<input>", {type : "hidden", name : "memberAddr",
-				value : $("#post").val() + "," + $("#addr1").val() + "," + $("#addr2").val()
-		});
-
-		$("form[name='signUp']").append($memberAddr);
+		}
 	}

@@ -1,30 +1,48 @@
-// 입력 값들이 유효성 검사가 진행되어있는지 확인하기 위한 객체 생성
+// 유효성 검사 결과를 저장할 객체
 var findPwCheck = {
-    "memberId": false,
-    "memberEmail": false,
-		"certificationCheck" : false
-}
+	"memberId" : false,
+	"memberEmail" : false,
+	"certificationCheck" : false
+};
 
 // 실시간 유효성 검사 --------------------
 // 정규표현식
 var $memberId = $("#memberId");
 var $memberEmail = $("#memberEmail");
+var $certify = $("#certify");
+	
+	
+	
+	// 아이디 유효성 검사 
+	$memberId.on("input", function(){
+		//영어 대,소문자 + 숫자, 총 5~12글자
+		var regExp = /^[a-z][a-zA-z\d]{4,11}$/;
+		
+		if(!regExp.test($memberId.val())) {
+			$("#checkId").text("아이디 형식이 올바르지 않습니다.").css("color", "red").css("visibility","visible");
+			findPwCheck.memberId = false;
+		} else {
+			$("#checkId").css("visibility", "hidden");
+			findPwCheck.memberId = true;
+		}
+	}); // 아이디 유효성 검사
 
+	
+	
+	// 이메일 유효성 검사
+	$memberEmail.on("input",function() {
+		// 4글자 아무단어 @ 아무단어 . * 3
+		var regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
 
-// 이메일 유효성 검사
-$memberEmail.on("input",function() {
-	// 4글자 아무단어 @ 아무단어 . * 3
-	var regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
-
-	if (!regExp.test($(this).val())) {
-		$("#checkEmail").text("이메일 형식이 올바르지 않습니다.").css("color", "red").css("visibility","visible");
-		findPwCheck.memberEmail = false;
-	} else {
-		$("#checkEmail").css("visibility", "hidden");
-		findPwCheck.memberEmail = true;
-	}
-});
-
+		if (!regExp.test($(this).val())) {
+			$("#checkEmail").text("이메일 형식이 올바르지 않습니다.").css("color", "red").css("visibility","visible");
+			findPwCheck.memberEmail = false;
+		} else {
+			$("#checkEmail").css("visibility", "hidden");
+			findPwCheck.memberEmail = true;
+		}
+	}); 
+	
 	// 이메일 인증 검사	
 	// 이메일 인증 번호 저장을 위한 변수
 	var code = "";
@@ -38,7 +56,7 @@ $memberEmail.on("input",function() {
 	        type: "GET",
 	        success: function(data) {
 	        	console.log(data)
-	        	$("#certificationCheck").text("인증번호가 발송되었습니다.").css("color", "green");
+	        	$("#checkEmail").text("인증번호가 발송되었습니다.").css("color", "green").css("visibility", "visible");
 	        	findPwCheck.certificationCheck = false;
 	        	code = data;
 	        },
@@ -46,44 +64,74 @@ $memberEmail.on("input",function() {
 						console.log("ajax 통신 실패");
 					}
 	    });
-	});
+	}); 
 	
 	// 인증 번호 비교
 	$(function(){
 		$("#certify").on("input", function(){
+			$("#checkEmail").css("visibility", "hidden");
 			if($(this).val() != code || $(this).val() == 0){
-			 $("#certificationCheck").text("인증번호가 불일치합니다.").css("color", "red");				
+			 $("#certificationCheck")	
 			 findPwCheck.certificationCheck = false;
 			} else {
-			 $("#certificationCheck").text("인증번호가 일치합니다.").css("color", "green");
+			 $("#certificationCheck").css("visibility","hidden");
 			 findPwCheck.certificationCheck = true;
+			 console.log(findPwCheck.certificationCheck)
 			}
 		});
 	});
+	
+	// 유효성 검사로 가입 버튼 제어
+	$(function(){
+		$("input").on("input", function(){
+			console.log(findPwCheck.certificationCheck)
+			
+			if(
+				findPwCheck.memberId && 
+				findPwCheck.memberEmail 
+			&& findPwCheck.certificationCheck == true){
 
-
-	// 유효성 검사
+				$(".findPwBtn").attr("style", "background-color: #F5DF4D !important;")
+				.mouseover(function(){
+					$(this).attr("style", "background-color: #f0d700 !important;");	
+				})		
+				.mouseout(function(){
+					$(this).attr("style", "background-color: #F5DF4D !important;");	
+				})
+			} else {
+				$(".findPwBtn").attr("style", "background-color: #f6f6f6 !important;")
+				.mouseover(function(){
+					$(this).attr("style", "background-color: #dbdbdb !important;");	
+				})		
+				.mouseout(function(){
+					$(this).attr("style", "background-color: #f6f6f6 !important;");	
+				}) 
+			} 
+		});
+	});
+	
 	function validate() {
 	
 		for ( var key in findPwCheck) {
 			if (!findPwCheck[key]) {
 				var str;
-				switch (key) {
-				case "memberId" : str = "아이디"; break;
+				switch (key) {	
+				case "memberId": str = "아이디";	break;
 				case "memberEmail": str = "이메일"; break;
 				case "certificationCheck": str = "이메일 인증"; break;
 				}
 	
 				var member = "#" + key;
-				swal({icon:"warning", title:str + " 형식이 유효하지 않습니다."})			
+				swal({title:"EHSHE", text:str + " 형식이 유효하지 않습니다."})			
 					.then(function(){
 						$(member).focus();
 					});
 					if(key == 'certificationCheck') {
-						swal({icon:"warning", title: "인증 번호를 확인해 주세요."});
-						$(certify).focus();
+						swal({title : "EHSHE", 
+						      text  : "인증 번호를 다시 확인해 주세요."});
+						$("#certify").focus();
 					}
-					return false;								
-				}
-			}
+				return false;								
+			}	
 		}
+	}

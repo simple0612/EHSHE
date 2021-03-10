@@ -108,12 +108,24 @@
 	font-weight: 600;
 	font-size: 15px;
 	color: #191919;
-	background-color: #F5DF4D;
+	background-color: #f6f6f6;
 	border-radius: 1rem;
 }
 
 .changePwBtn:hover{
-	background-color: #f0d700 !important;
+	background-color: #dbdbdb !important;
+}
+
+.swal-button {
+	background-color: #F5DF4D;
+}
+
+.swal-button:not([disabled]):hover {
+	background-color: #f0d700;
+}
+
+.swal-button:focus {
+	box-shadow: 0 0 0 3px #fff;
 }
 </style>
 
@@ -152,7 +164,7 @@
 				</div>
 				
 				<div class="form-body">
-					<div class="pw-info"> * 비밀번호는 ~자의 영문 대소문자 조합하여 설정해 주세요.</div>
+					<div class="pw-info"> * 비밀번호는 6~12자의 영문 대소문자 조합하여 설정해 주세요.</div>
 					<div class="pw-info"> * 안전한 계정 사용을 위해 비밀번호는 주기적으로 변경해 주세요.</div>
 				</div>
 			</div> <%-- form-container --%>
