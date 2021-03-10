@@ -240,11 +240,11 @@
 
         SELECT *
         FROM EH_ITEM a,  
-		(SELECT	*
+		(SELECT	ITEM_NO
 		FROM EH_ORDER O,EH_ITEM_REVIEW N
 		WHERE O.ORDER_NO= N.ORDER_SPECIFY_NO
 		AND	ORDER_CONFIRM ='Y'
-		AND MEMBER_NO=  #{memberNo} ) b
+		AND O.MEMBER_NO=  #{memberNo} ) b
         WHERE a.ITEM_NO= b.ITEM_NO
 	</select>
 
