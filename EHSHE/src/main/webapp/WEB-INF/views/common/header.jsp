@@ -127,7 +127,7 @@
 							<!-- 아이디출력 -->
 						</c:if>
              
-                <li><a href="${contextPath}/page/mypagemain">${loginMember.memberNm}</a></li> <!-- 아이디출력 -->
+            
                 <li><a href="${contextPath}/member/logout">로그아웃</a></li>
                 <li><a href="${contextPath}/shop2/cart"><img src="${contextPath}/resources/images/shoppingCart.png"></a></li>
                      </c:otherwise>
