@@ -1,14 +1,15 @@
 package com.kh.ehshe.place.model.vo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class VPlace {
 
 	private int placeNo;
 	private String placeTitle;
 	private String placeContent;
-	private Date placeCtreateDate;
-	private Date placeModifyDate;
+	private Timestamp placeCtreateDate;
+	private Timestamp placeModifyDate;
 	private String location;
 	private String categoryName;
 	private String phone;
@@ -33,11 +34,11 @@ public class VPlace {
 		// TODO Auto-generated constructor stub
 	}
 
-	public VPlace(int placeNo, String placeTitle, String placeContent, Date placeCtreateDate, Date placeModifyDate,
-			String location, String categoryName, String phone, int readCount, String placeDeleteFl, double latitude,
-			double longitude, int adminNo, String priceRange, String businessHours, String parking, String holiday,
-			String enroll, String enrollContents, String memberId, String memberNm, int favoriteCount, int reviewCount,
-			double avgRating) {
+	public VPlace(int placeNo, String placeTitle, String placeContent, Timestamp placeCtreateDate,
+			Timestamp placeModifyDate, String location, String categoryName, String phone, int readCount,
+			String placeDeleteFl, double latitude, double longitude, int adminNo, String priceRange,
+			String businessHours, String parking, String holiday, String enroll, String enrollContents, String memberId,
+			String memberNm, int favoriteCount, int reviewCount, double avgRating) {
 		super();
 		this.placeNo = placeNo;
 		this.placeTitle = placeTitle;
@@ -89,19 +90,19 @@ public class VPlace {
 		this.placeContent = placeContent;
 	}
 
-	public Date getPlaceCtreateDate() {
+	public Timestamp getPlaceCtreateDate() {
 		return placeCtreateDate;
 	}
 
-	public void setPlaceCtreateDate(Date placeCtreateDate) {
+	public void setPlaceCtreateDate(Timestamp placeCtreateDate) {
 		this.placeCtreateDate = placeCtreateDate;
 	}
 
-	public Date getPlaceModifyDate() {
+	public Timestamp getPlaceModifyDate() {
 		return placeModifyDate;
 	}
 
-	public void setPlaceModifyDate(Date placeModifyDate) {
+	public void setPlaceModifyDate(Timestamp placeModifyDate) {
 		this.placeModifyDate = placeModifyDate;
 	}
 
@@ -269,6 +270,8 @@ public class VPlace {
 				+ favoriteCount + ", reviewCount=" + reviewCount + ", avgRating=" + avgRating + "]";
 	}
 
+	
+	
 	
 	
 }

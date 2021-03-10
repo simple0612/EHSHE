@@ -106,6 +106,8 @@ public class PlaceController {
       
       String thumbnailFilePath = null;
       String fileName = null;
+      String firstFilePath = null;
+      String firstFileName = null;
       
       String url = null;
       
@@ -120,13 +122,19 @@ public class PlaceController {
 
          model.addAttribute("place", place);
          
+         firstFilePath = attachmentList.get(0).getFilePath();
+         firstFileName = attachmentList.get(0).getFileName();
+         
          Map<String, Integer> map = new HashMap<String, Integer>();
          map.put("placeNo", placeNo);
          if(loginMember != null) {
             map.put("memberNo", loginMember.getMemberNo());
          }
          int scrapFl = service.selectScrapFl(map);
+         
          model.addAttribute("scrapFl", scrapFl);
+         model.addAttribute("firstFilePath", firstFilePath);
+         model.addAttribute("firstFileName", firstFileName);
          
          url = "place/placeView";
 

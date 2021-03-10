@@ -33,11 +33,13 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
+			
 				<div class="row">
 					<div class="col-md-12">
 						<img class="placeListImg" src="">
 					</div>
 				</div>
+				
 				<c:if test="${empty pList }">
 						<h5>존재하는 게시글이 없습니다.</h5>
 				</c:if>
@@ -55,12 +57,12 @@
 									</c:forEach>
 									<div class="card-block">
 										<h6 class="card-title">
-											<span>${place.placeTitle}</span><span class="" href="#">별점 4.2</span>
+											<span>${place.placeTitle}</span><span class="" href="#">별점 ${place.avgRating}</span>
 										</h6>
 										<p class="card-text">
 										<c:set var = "loca" value="${fn:split(place.location,',')[1]}" />
 											<span class="" href="#">${fn:split(loca,' ')[0]}</span> - <span class="" href="#">음식점</span>
-											<span class="" href="#">뷰${place.readCount} 댓글 아직</span>
+											<span class="" href="#">뷰${place.readCount} 댓글 ${place.reviewCount}</span>
 										</p>
 									</div>
 								</div>
@@ -69,9 +71,9 @@
 					</c:if>
 				</div>
 				
-				<div class="row">
+				<div class="row admin-btn">
 					<div class="col-md-12 insert-btn">
-						<c:if test="${!empty loginMember }">
+						<c:if test="${!empty loginMember && loginMember.memberGrade == 'A'}">
 							<a class="btn ehsheYellow float-right writeBtn" 
 								href="${contextPath}/place/insertPlace">글쓰기</a>
 						</c:if>
@@ -85,7 +87,6 @@
 						<div class="col-md-8">
 							<div class="pagination-area">
 								<ul class="pagination">
-								
 								
 								<c:choose>
 								<%-- 검색이 된 경우 --%>
@@ -136,7 +137,7 @@
 									end="${pInfo.endPage}">
 									<c:choose>
 										<c:when test="${pInfo.currentPage == page }">
-											<li><a class="page-link">${page}</a></li>
+											<li><a class="page-link ehsheYellow" id="white">${page}</a></li>
 										</c:when>
 
 										<c:otherwise>
@@ -158,18 +159,18 @@
 				</div>
 				
 				<form action="search" class="text-center" id="searchForm">
-				
 				<div class="row">
 					<div class="col-md-12">
-							<select class="form-control mr-sm-2 search-bottom"  name="sk">
+					
+							<select class="form-control mr-sm-2 search-key" name="sk">
 								<option value="all">전체</option>
 								<option value="title">제목</option>
 								<option value="category">카테고리</option>
 								<option value="location">위치</option>
-							</select> <input id="search-input" class="form-control mr-sm-2" name="sv"
-								type="text" />
-							<button class="btn ehsheYellow my-2 my-sm-0">
-								검색</button>
+							</select>
+							
+							<input id="search-input" class="form-control mr-sm-2" name="sv" type="text" />
+							<button class="btn ehsheYellow search-btn">검색</button>
 					</div>
 				</div>
 				</form>

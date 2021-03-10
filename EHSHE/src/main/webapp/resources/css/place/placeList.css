@@ -6,12 +6,16 @@ header{
     background-color: #F5dF4D !important;
 }
 
+#white{
+	color:white;
+}
 .boardMain {
     margin-top: 50px;
 }
 
 .width400{
-	height:300px;
+	height:350px;
+	margin-top:15px;
 }
 
 .card{
@@ -28,17 +32,16 @@ header{
 
 .card-img-top {
 	width: 100%;
-	height: 75%;
-	border-radius: 1%;
+	height: 85%;
+	border-radius: 10px;
 }
 
-.card p>span {
-	font-size: 0.8em;
+.card p span {
 }
 
 .card p>span:nth-of-type(n+3) {
 	left: 20%;
-	font-size: 0.6em;
+	font-size: 0.8em;
 }
 
 .card h6>span:nth-of-type(n+2) {
@@ -47,14 +50,58 @@ header{
 }
 
 .card-title {
-	margin-bottom: 0;
+	margin-top: 5px;
+	font-size: 1.3em;
 }
 
 .card-text {
-	/* display: flex; */
 	
 }
 
-.pagination {
-	
+.admin-btn{
+	margin-top: 70px;
 }
+
+.pagination-area{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pagination li a{
+	color:black;
+}
+
+.swal-button {
+   background-color: #F5DF4D;
+}
+
+.swal-button:not([disabled]):hover {
+   background-color: #f0d700;
+}
+
+.swal-button:focus {
+   box-shadow: 0 0 0 3px #fff;
+}
+
+#searchForm{
+	margin-bottom:30px;
+}
+
+.search-key{
+	width:16%;
+	display:inline-block;
+}
+
+#search-input{
+	width: 35%;
+	display:inline-block;
+}
+
+.search-btn{
+}
+
+
+
+
+

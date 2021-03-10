@@ -1,14 +1,15 @@
 package com.kh.ehshe.place.model.vo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Place {
 
 	private int placeNo;
 	private String placeTitle;
 	private String placeContent;
-	private Date placeCtreateDate;
-	private Date placeModifyDate;
+	private Timestamp placeCtreateDate;
+	private Timestamp placeModifyDate;
 	private String location;
 	private String categoryName;
 	private String phone;
@@ -28,10 +29,10 @@ public class Place {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Place(int placeNo, String placeTitle, String placeContent, Date placeCtreateDate, Date placeModifyDate,
-			String location, String categoryName, String phone, int readCount, String placeDeleteFl, double latitude,
-			double longitude, int adminNo, String priceRange, String businessHours, String parking, String holiday,
-			String enroll, String enrollContents) {
+	public Place(int placeNo, String placeTitle, String placeContent, Timestamp placeCtreateDate,
+			Timestamp placeModifyDate, String location, String categoryName, String phone, int readCount,
+			String placeDeleteFl, double latitude, double longitude, int adminNo, String priceRange,
+			String businessHours, String parking, String holiday, String enroll, String enrollContents) {
 		super();
 		this.placeNo = placeNo;
 		this.placeTitle = placeTitle;
@@ -78,19 +79,19 @@ public class Place {
 		this.placeContent = placeContent;
 	}
 
-	public Date getPlaceCtreateDate() {
+	public Timestamp getPlaceCtreateDate() {
 		return placeCtreateDate;
 	}
 
-	public void setPlaceCtreateDate(Date placeCtreateDate) {
+	public void setPlaceCtreateDate(Timestamp placeCtreateDate) {
 		this.placeCtreateDate = placeCtreateDate;
 	}
 
-	public Date getPlaceModifyDate() {
+	public Timestamp getPlaceModifyDate() {
 		return placeModifyDate;
 	}
 
-	public void setPlaceModifyDate(Date placeModifyDate) {
+	public void setPlaceModifyDate(Timestamp placeModifyDate) {
 		this.placeModifyDate = placeModifyDate;
 	}
 
@@ -217,7 +218,6 @@ public class Place {
 				+ enrollContents + "]";
 	}
 
-	
 	
 	
 }
