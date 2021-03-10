@@ -29,6 +29,7 @@
 		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopReply" alias="ShopReply"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopReview" alias="ShopReview"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopReview" alias="ShopOptionUpdate"/>
+		<typeAlias type="com.kh.ehshe.shop.model.vo.ShopBuying" alias="ShopBuying"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.Order" alias="Order"/>
 		<typeAlias type="com.kh.ehshe.shop.model.vo.OrderDetails" alias="OrderDetails"/>
 		<typeAlias type="com.kh.ehshe.home.model.vo.Item" alias="Item"/>

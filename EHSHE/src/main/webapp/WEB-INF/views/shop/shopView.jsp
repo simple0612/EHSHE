@@ -73,7 +73,7 @@ line-height:55px;
 <body>
 <jsp:include page="../common/header.jsp"/>	
    <form action="${contextPath}/shop/ordersheet/itemPayment" method="POST" onsubmit="return validate();">
-    <div class="container main">
+    <div class="container main" style="padding-bottom:150px;">
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4 a">
@@ -82,7 +82,7 @@ line-height:55px;
           				 	</c:if>
                 </div>
                   <div class="text-center" style="margin-top:10px;">
-                  	<c:if test="${loginMember.memberGrade == 'A' }">
+                  	<c:if test="${loginMember.memberGrade =='A'}">
 	                  	<c:url var="updateUrl" value="${shop.itemNo}/update"/>
 	                  	<c:url var="deleteUrl" value="${shop.itemNo}/deleteProduct"/>
 					      				<button type="button" class="btn btnColor2" onclick="location.href='${updateUrl}'">상품수정</button>
@@ -191,18 +191,16 @@ line-height:55px;
          </ul>
          <div class="tab-content">
            <div class="tab-pane fade" id="qna">
-         			<jsp:include page="shopReply.jsp"/> 
-          </div>
-          
+          	 <jsp:include page="shopReply.jsp"/> 
+         </div>
+           
            <div class="tab-pane fade show active" id="review">
-<%--              <jsp:include page="shopReview.jsp"/>
- --%> 					</div>
+             <jsp:include page="shopReview.jsp"/>
+ 					</div>
 
          </div>
      		</div>
         </div>
-        <br>
-        <br>
      </div>
    </form> 
    <jsp:include page="../common/footer.jsp" />		

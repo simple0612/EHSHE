@@ -9,11 +9,11 @@ public class ShopReview {
 	private Timestamp replyModifyDate;	// 댓글 수정일
 	private String replyStatus;			// 댓글 상태
 	private String memberId;			// 댓글 작성 회원
-	private int parentBoardNo;			// 댓글이 작성된 게시글 번호
 	private int parentReplyNo;			// 부모 댓글 번호
-	private int replyDepth;	
-	private int itemRating;       		// 별점
-
+	private int itemRating; 
+	private int memberNo; 		
+	
+	// 별점
 	public ShopReview() {
 	}
 
@@ -65,28 +65,12 @@ public class ShopReview {
 		this.memberId = memberId;
 	}
 
-	public int getParentBoardNo() {
-		return parentBoardNo;
-	}
-
-	public void setParentBoardNo(int parentBoardNo) {
-		this.parentBoardNo = parentBoardNo;
-	}
-
 	public int getParentReplyNo() {
 		return parentReplyNo;
 	}
 
 	public void setParentReplyNo(int parentReplyNo) {
 		this.parentReplyNo = parentReplyNo;
-	}
-
-	public int getReplyDepth() {
-		return replyDepth;
-	}
-
-	public void setReplyDepth(int replyDepth) {
-		this.replyDepth = replyDepth;
 	}
 
 	public int getItemRating() {
@@ -97,13 +81,24 @@ public class ShopReview {
 		this.itemRating = itemRating;
 	}
 
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+
 	@Override
 	public String toString() {
 		return "ShopReview [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyCreateDate="
 				+ replyCreateDate + ", replyModifyDate=" + replyModifyDate + ", replyStatus=" + replyStatus
-				+ ", memberId=" + memberId + ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo
-				+ ", replyDepth=" + replyDepth + ", itemRating=" + itemRating + "]";
+				+ ", memberId=" + memberId + ", parentReplyNo=" + parentReplyNo + ", itemRating=" + itemRating
+				+ ", memberNo=" + memberNo + "]";
 	}
+
+
+	
 
 	
 }
