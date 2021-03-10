@@ -58,7 +58,7 @@
 .welcome-area {
 	font-size: 20px;
 	text-align: center;
-	color: #959595;
+	color: #404040;
 }
 
  .img-area {
@@ -180,10 +180,10 @@ figure.cat:hover:after,
 figure.cat.hover:after {
   opacity: 1;
   position: absolute;
-  top: 10px;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
+  top: 15px;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
 }
 
 figure.cat:hover h3,
@@ -214,29 +214,29 @@ figure.cat.hover i {
 			
 			<br>
 			<div class="welcome-area">
-				<span class="member-name"> ${loginMember.memberNm} 애옹이 님, </span>
+				<span class="member-name"> ${loginMember.memberNm} 님, </span>
 				<span class="welcome-text"> 환영합니다! </span>
 			</div>
 
-			<br>	
+			<br>
+ 			<div class="text-guide"> EHSHE 가입이 완료되었습니다. <br>
+															  로그인하시면 다양한 서비스를 이용하실 수 있습니다.		
+		  </div>
+		  
+ 			<br>	
 			<figure class="cat">
-				<img style="border-radius: 1rem;" src="${contextPath}/resources/images/welcome.gif" />
+				<img src="${contextPath}/resources/images/welcome.gif" />
 				<figcaption>
-			 		<br>
-				  <p>EHSHE 가입이 완료되었습니다. <br>
-				       로그인하시면 다양한 서비스를 <br> 
-				       이용하실 수 있습니다.	
+				  <p>봄의 정원으로 오라. <br>
+				  	  이곳에 꽃과 술과 촛불이 있으니 <br> 
+				           만일 당신이 오지 않는다면 <br>
+				           이것들이 무슨 의미가 있는가.	<br><br>
+				   	  그리고 만일 당신이 온다면 <br>
+				 		  이것들이 또한 무슨 의미가 있는가. <br>
 				  </p>
 			 </figcaption>
 			 <a href="loginView"></a>
 			</figure>
-
-			<br>
-			<%-- 
- 			<div class="text-guide"> EHSHE 가입이 완료되었습니다. <br>
-															  로그인하시면 다양한 서비스를 이용하실 수 있습니다.		
-		  </div>
-		  --%>
 		</div> <%-- form-wrapper --%>		
 
 		<br>
