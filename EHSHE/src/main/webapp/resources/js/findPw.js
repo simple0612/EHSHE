@@ -1,32 +1,13 @@
 // 유효성 검사 결과를 저장할 객체
 var findPwCheck = {
-	"memberId" : false,
 	"memberEmail" : false,
 	"certificationCheck" : false
 };
 
 // 실시간 유효성 검사 --------------------
 // 정규표현식
-var $memberId = $("#memberId");
 var $memberEmail = $("#memberEmail");
 var $certify = $("#certify");
-	
-	
-	
-	// 아이디 유효성 검사 
-	$memberId.on("input", function(){
-		//영어 대,소문자 + 숫자, 총 5~12글자
-		var regExp = /^[a-z][a-zA-z\d]{4,11}$/;
-		
-		if(!regExp.test($memberId.val())) {
-			$("#checkId").text("아이디 형식이 올바르지 않습니다.").css("color", "red").css("visibility","visible");
-			findPwCheck.memberId = false;
-		} else {
-			$("#checkId").css("visibility", "hidden");
-			findPwCheck.memberId = true;
-		}
-	}); // 아이디 유효성 검사
-
 	
 	
 	// 이메일 유효성 검사
@@ -84,10 +65,8 @@ var $certify = $("#certify");
 	// 유효성 검사로 가입 버튼 제어
 	$(function(){
 		$("input").on("input", function(){
-			console.log(findPwCheck.certificationCheck)
 			
 			if(
-				findPwCheck.memberId && 
 				findPwCheck.memberEmail 
 			&& findPwCheck.certificationCheck == true){
 
@@ -116,7 +95,6 @@ var $certify = $("#certify");
 			if (!findPwCheck[key]) {
 				var str;
 				switch (key) {	
-				case "memberId": str = "아이디";	break;
 				case "memberEmail": str = "이메일"; break;
 				case "certificationCheck": str = "이메일 인증"; break;
 				}
