@@ -71,7 +71,6 @@ public class ShopReplyController {
 		int result = service.updateReply(map);*/
 		
 		
-		
 		reply.setParentReplyNo(replyNo);
 		// 커맨드 객체 updateReply를 이용하여 replyContent를 전달받고,
 		// @PathVariavle을 통해 얻어온 replyNo를 커맨드객체를 세팅하여 재활용
