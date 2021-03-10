@@ -257,35 +257,5 @@ public class PlaceDAO {
 	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
 		return sqlSession.delete("placeMapper.deleteAttachmentList", deleteFileNoList);
 	}
-
-
-
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
