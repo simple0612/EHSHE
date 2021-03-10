@@ -6,8 +6,8 @@
 
 .replyWrite>table {
 	width: 90%;
-	margin-top : 100px;
-}
+ 	margin-top : 10px;
+ }
 
 #replyContentArea {
 	width: 90%;
@@ -96,7 +96,7 @@
 
 
 </style>
-<div id="reply-area ">
+<div id="reply-area">
 	<!-- 댓글 작성 부분 -->
 	<div class="replyWrite">
 		<table align="center">
@@ -104,7 +104,7 @@
 				<td id="replyContentArea"><textArea rows="3" id="replyContent"></textArea>
 				</td>
 				<td id="replyBtnArea">
-					<button type="button" class="btn btnColor" id="addReply">댓글<br>등록</button>
+					<button type="button" class="btn btnColor" id="addReply" style="margin-bottom:15px;">댓글<br>등록</button>
 				</td>
 			</tr>
 		</table>
@@ -125,8 +125,6 @@
 <script>
 var loginMemberId = "${loginMember.memberId}"; // 로그인한 회원 아이디 (있으면 아이디 없으면 빈문자열)
 var replyWriter = "${loginMember.memberNo}"; 
-var loginMemberGrade = "${loginMemer.memberGrade}";
-console.log(loginMemberGrade);// 로그인한 회원 번호  -- > 자바스크립트에서는 "1" ==  1  == true
 var parentBoardNo = ${shop.itemNo}; // 게시글 번호  -- > 자바스크립트에서는 "1" ==  1  == true
 
 // 댓글
@@ -178,7 +176,7 @@ function selectReplyList(){
 	            var replyBtnArea = $("<div>").addClass("replyBtnArea");
 	            
 	            // 로그인 되어 있고, 대댓글이 아닐 경우 경우에 답글 버튼 추가
-	            if(loginMemberId != "" && item.replyDepth != 1 && "${loginMemer.memberGrade}" == 'A'){
+	            if(loginMemberId != "" && item.replyDepth != 1){
 	               var childReply = $("<button type='button'>").addClass("btn btn-sm btnColor ml-1 childReply").text("답글").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")");
 	               replyBtnArea.append(childReply);
 	            }
@@ -237,11 +235,12 @@ $("#addReply").on("click", function(){
 				data :{"replyWriter" : replyWriter, "replyContent" : replyContent},
 				success: function(result){
 					
-					if(result>0){ // 댓글 삽입 성공
+					 if(result>0){ // 댓글 삽입 성공
 					  $("#replyContent").val(""); // 작성한 댓글 내용을 삭제
 					  swal({icon:"success", title : "댓글 삽입 성공"});
 					  selectReplyList(); // 다시 목록 조회
 					}
+					
 					
 					
 				}, error : function(){
@@ -258,7 +257,6 @@ $("#addReply").on("click", function(){
 	}
 	
 });
-
 
 
 //-----------------------------------------------------------------------------------------
@@ -435,12 +433,12 @@ function addChildReplyArea(el,parentReplyNo){
 	                .attr("placeholder", writer +"님께 답글 작성하기");
 	
 	var btnArea =  $("<div>").addClass("btnArea"); // 등록, 취소 버튼을 감쌀 div
-	var insertBtn = $("<button type='button'>").addClass("btn btn-sm btn-success ml-1").text("등록")
+	var insertBtn = $("<button type='button'>").addClass("btn btn-sm btnColor ml-1").text("등록")
 									.attr("onclick","addChildReply(this, "+ parentReplyNo + ")");
 												// onclick="addChildReply(this,5)"
 	
 	
-  var cancelBtn =$("<button type='button'>").addClass("btn btn-sm btn-secondary ml-1 reply-cancel").text("취소")
+  var cancelBtn =$("<button type='button'>").addClass("btn btn-sm btnColor2 ml-1 reply-cancel").text("취소")
   								.attr("onclick","cancelChildReply()");
 	
 	btnArea.append(insertBtn).append(cancelBtn); // 버튼 영역에 등록, 취소 버튼 추가

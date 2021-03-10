@@ -67,6 +67,17 @@ line-height:55px;
 .swal2-styled.swal2-confirm{
 	background-color : #F5dF4D;
 }
+.swal-button {
+   background-color: #F5DF4D;
+}
+
+.swal-button:not([disabled]):hover {
+   background-color: #f0d700;
+}
+
+.swal-button:focus {
+   box-shadow: 0 0 0 3px #fff;
+}
 
 </style>
 </head>
@@ -130,7 +141,6 @@ line-height:55px;
                           </select>
                         </td>
                 			</tr>
-                		
                 			<tr>
                 				<td><strong>개수</strong> : </td>
               					<td><input type="number" id="Quantity" name="Quantity" class="form-control form-control-sm" min="1" max="1000" value="1" style="width: 100%;"/>
@@ -144,7 +154,6 @@ line-height:55px;
                					<td>
                            <img src="${contextPath}/resources/shopCommonImg/별모양.png" class="star" style="width:25px; height:25px;">
                        </td>
-                      
                       <c:choose>
                         <c:when test="${!empty starRating}">
                 				 <td>${starRating.score}</td>
@@ -191,10 +200,10 @@ line-height:55px;
          </ul>
          <div class="tab-content">
           <div class="tab-pane fade" id="qna">
-          	 <jsp:include page="shopReply.jsp"/> 
+          	<p><jsp:include page="shopReply.jsp"/></p>
          </div>
            <div class="tab-pane fade show active" id="review">
-             <jsp:include page="shopReview.jsp"/>
+             <p><jsp:include page="shopReview.jsp"/></p>
  					</div>
          </div>
        </div>

@@ -61,7 +61,17 @@ width:100%;
 .mainPointer{
 cursor:pointer;
 }
+.swal-button {
+   background-color: #F5DF4D;
+}
 
+.swal-button:not([disabled]):hover {
+   background-color: #f0d700;
+}
+
+.swal-button:focus {
+   box-shadow: 0 0 0 3px #fff;
+}
 </style>
 </head>
 <body>

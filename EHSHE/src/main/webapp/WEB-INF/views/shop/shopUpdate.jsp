@@ -61,6 +61,17 @@ outline:none;
 .optionDelete{
 cursor:pointer;
 }
+.swal-button {
+   background-color: #F5DF4D;
+}
+
+.swal-button:not([disabled]):hover {
+   background-color: #f0d700;
+}
+
+.swal-button:focus {
+   box-shadow: 0 0 0 3px #fff;
+}
 
  
 </style>
@@ -89,7 +100,7 @@ cursor:pointer;
             		</div>
                 
                 <div id="fileArea" style="display:none;">
-				          	<input type="file" id="img0" name="images" onchange="LoadImg(this,0)"> 
+				          	<input type="file" id="img0" name="images" onchange="LoadImg(this,0)" required> 
                 </div> 
                
                   <div class="col-md-6"> 
@@ -521,5 +532,4 @@ $(document).ready(function() {
 		}
 
 </script>
-</html>
 </html>
