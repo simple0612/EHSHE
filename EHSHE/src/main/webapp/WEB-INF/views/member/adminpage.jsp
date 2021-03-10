@@ -15,6 +15,8 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/board/boardList.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
@@ -24,7 +26,9 @@
 <script src="https://kit.fontawesome.com/5a7a3b1a34.js"
 	crossorigin="anonymous"></script>
 
+
 <title>EHSHE</title>
+
 
 <style>
 a:link {
@@ -174,7 +178,7 @@ input[id="saveId"]:checked+label em {
 	<jsp:include page="../common/header.jsp" />
 
 	<div class="form-wrapper">
-		<br> <br> <br> <br> <br> <br> <br>
+		 <br> <br> <br>
 		<br>
 		<div class="title">
 			<h1>관리자 페이지</h1>
