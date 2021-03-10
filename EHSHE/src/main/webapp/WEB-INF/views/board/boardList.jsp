@@ -34,8 +34,13 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<div class="row">
-					<div class="col-md-12">
-						<h3 class="myPlace-header">나만의 장소</h3>
+					<div class="col-md-12 myPlace-header-img">
+						<img class="trans1 transHeader" src="${contextPath}/resources/bImages/bh1.png">&nbsp;&nbsp;
+						<img class="trans1 transHeader" src="${contextPath}/resources/bImages/bh2.png">&nbsp;&nbsp;
+						<img class="trans2 transHeader" src="${contextPath}/resources/bImages/bh3.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<img class="trans1 transHeader" src="${contextPath}/resources/bImages/bh4.png">&nbsp;&nbsp;
+						<img class="trans2 transHeader" src="${contextPath}/resources/bImages/bh5.png">&nbsp;&nbsp;
+						<img class="trans3 transHeader2" src="https://media.giphy.com/media/l41lIuaFyv0pleqT6/giphy.gif">&nbsp;&nbsp;
 					</div>
 				</div>
 				<div class="row myPlace">
@@ -208,6 +213,17 @@
 		// 검색 값 sv
 		$("input[name=sv]").val("${sv}");
 	});
+	
+	
+	$(function(){
+		$(".trans3").fadeTo(0, 0.0);
+	})
+	
+	$(".trans3").hover(function(){
+        $(this).fadeTo(1000, 1);
+    }, function(){
+        $(this).fadeTo(1000, 1);
+   });
 	</script>
 
 
