@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+
 <c:set var="contextPath"
 	value="${pageContext.servletContext.contextPath}" scope="application" />
 <!DOCTYPE html>
@@ -26,7 +27,7 @@
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/board/boardList.css">
 
-
+<script src="/resources/jquery/jquery-3.3.1.min.js"></script>
 </head>
 
 <body>
@@ -39,7 +40,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h1 class="myPlace-header">
-						<br> <br> <br>	결제확인<br> <br> <br>
+							<br> <br> <br> 결제확인<br> <br> <br>
 
 							<div>
 
@@ -64,7 +65,8 @@
 
 							<tr>
 
-								<th><input type="checkbox"></th>
+								<th><input type="checkbox" name="allCheck" id="allCheck" />
+									<label for="allCheck"></label></th>
 								<th>주문번호</th>
 								<th>주문일자</th>
 								<th>상품정보</th>
@@ -81,21 +83,22 @@
 
 							<c:if test="${!empty OList}">
 								<c:forEach var="order" items="${OList}" varStatus="vs">
-									
-									
-										<tr class="cklist">
-											<td><input type="checkbox" name="chk"></td>
 
 
-											<td>${order.orderNo}</td>
-											<td>${order.orderDate}</td>
-											<td>${order.orderContent}</td>
-											<td>${order.orderPrice}</td>
+									<tr class="cklist">
+										<td><input type="checkbox" name="chBox" class="chBox"
+											data-cartNum="${order.orderNo}" /></td>
+
+
+										<td>${order.orderNo}</td>
+										<td>${order.orderDate}</td>
+										<td>${order.orderContent}</td>
+										<td>${order.orderPrice}</td>
 
 
 
-										</tr>
-									
+									</tr>
+
 								</c:forEach>
 							</c:if>
 						</table>
@@ -114,6 +117,8 @@
 				<div class="row">
 					<div class="col-md-12 insert-btn">
 						<c:if test="${!empty loginMember }">
+
+					
 							<a class="btn ehsheYellow float-right writeBtn" href="#">삭제하기</a>
 							<!-- 	<button id="deleteBtn" class="btn ehsheYellow">1삭1제1</button>
  -->
@@ -188,22 +193,46 @@
 
 
 	<script>
-		//체크박스 선택시 전체 선택
-		$(document).ready(function() {
-			//최상단 체크박스 클릭
-			$("#checkall").click(function() {
-				//클릭되었으면
-				if ($("#checkall").prop("checked")) {
-					//input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
-					$("input[name=chk]").prop("checked", true);
-					//클릭이 안되있으면
-				} else {
-					//input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
-					$("input[name=chk]").prop("checked", false);
-				}
-			})
-		})
-	</script>
+	$("#allCheck").click(function(){
+		 var chk = $("#allCheck").prop("checked");
+		 if(chk) {
+		  $(".chBox").prop("checked", true);
+		 } else {
+		  $(".chBox").prop("checked", false);
+		 }
+		});	
+ 
+	$(".chBox").click(function(){
+		  $("#allCheck").prop("checked", false);
+		 });
+ 
+	
+	
+	 $(".selectDelete_btn").click(function(){
+		  var confirm_val = confirm("정말 삭제하시겠습니까?");
+		  
+		  if(confirm_val) {
+		   var checkArr = new Array();
+		   
+		   $("input[class='chBox']:checked").each(function(){
+		    checkArr.push($(this).attr("data-cartNum"));
+		   });
+		    
+		   $.ajax({
+		    url : "/page/deleteCart",
+		    type : "post",
+		    data : { chbox : checkArr },
+		    success : function(result){
+		    	  if(result == 1) {          
+		    	   location.href = "/shop/cartList";
+		    	  } else {
+		    	   alert("삭제 실패");
+		    	  }
+		    	 }
+		    	});
+ 	</script>
+
+
 
 
 

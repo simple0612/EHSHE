@@ -32,9 +32,9 @@
 <title>EHSHE</title>
 
 <style>
-a:link { 
+a:link {
 	color: black;
-	text-decoration: none; 
+	text-decoration: none;
 }
 
 a:visited {
@@ -56,8 +56,6 @@ a:hover {
 .form-wrapper {
 	margin: 50px 0 220px 0;
 }
-
-
 
 .title {
 	font-size: 2rem;
@@ -167,9 +165,9 @@ input[id="saveId"]:checked+label em {
 }
 
 .area {
-	
 	display: inline-block;
 }
+
 .form-container {
 	text-align: center;
 }
@@ -179,6 +177,7 @@ input[id="saveId"]:checked+label em {
 <body>
 
 	<jsp:include page="../common/header.jsp" />
+	<jsp:include page="../member/mypageSide.jsp" />
 
 	<div class="form-wrapper">
 		<br> <br> <br> <br> <br> <br> <br>
