@@ -90,13 +90,13 @@
 								<c:if test="${(!empty loginMember ) && (board.memberNo != loginMember.memberNo)}">
 			       			<c:choose>
 			            <c:when test="${likeFl == 0 }">
-			               <img src="${contextPath}/resources/pImages/h1.png" class="like">
+			               <img src="${contextPath}/resources/pImages/h2.png" class="like">
 			               <br>
 			     					<span id="likeFl">좋아요 하기</span>
 			            </c:when>
 			         
 			            <c:otherwise>
-			              <img src="${contextPath}/resources/pImages/h2.png" class="like">
+			              <img src="${contextPath}/resources/pImages/h1.png" class="like">
 			              <br>
 			     					<span id="likeFl">좋아요 취소</span>
 			            </c:otherwise>
@@ -207,7 +207,7 @@
 	
 	// 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
 	var iwContent = 
-		'<div><img class="markerImg" src="${contextPath}${thumbnailFilePath}/${fileName}"/></div><div style="padding:5px;text-align:center;">${board.boardTitle}</div>'; 
+		'<div><img class="markerImg" src="${contextPath}${firstFilePath}/${firstFileName}"/></div><div style="padding:5px;text-align:center;">${board.boardTitle}</div>'; 
 		
 	// 인포윈도우를 생성합니다
 	var infowindow = new kakao.maps.InfoWindow({
@@ -290,12 +290,12 @@
                // 좋아요 여부 상태 변경
                if(likeFl == 0){
                   likeFl = 1;
-                  $(".like").attr("src", "${contextPath}/resources/pImages/h2.png");
+                  $(".like").attr("src", "${contextPath}/resources/pImages/h1.png");
                   $("#likeFl").text("좋아요 취소");
                }
                else{
                   likeFl = 0;
-                  $(".like").attr("src", "${contextPath}/resources/pImages/h1.png");
+                  $(".like").attr("src", "${contextPath}/resources/pImages/h2.png");
                   $("#likeFl").text("좋아요 하기");
                }
                
