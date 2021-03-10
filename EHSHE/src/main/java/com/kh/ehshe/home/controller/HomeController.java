@@ -57,11 +57,11 @@ public class HomeController {
 			//System.out.println(piList);
 			
 		
-		model.addAttribute("serverTime", formattedDate );
-	    model.addAttribute("tList", tList);
-	    model.addAttribute("iList", iList);
-	    model.addAttribute("tpList", tpList);
-	    model.addAttribute("piList", piList);
+		/*
+		 * model.addAttribute("serverTime", formattedDate ); model.addAttribute("tList",
+		 * tList); model.addAttribute("iList", iList); model.addAttribute("tpList",
+		 * tpList); model.addAttribute("piList", piList);
+		 */
 		
 	    
 	    
