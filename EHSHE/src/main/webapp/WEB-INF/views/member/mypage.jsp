@@ -29,8 +29,8 @@
 z
 <title>EHSHE</title>
 
-<style> 
-a:link { 
+<style>
+a:link {
 	color: black;
 	text-decoration: none;
 }
@@ -137,7 +137,6 @@ input[id="saveId"]:checked+label em {
 	color: #191919;
 	background-color: #F5DF4D;
 	border-radius: 1rem;
-	
 }
 
 .btnCk {
@@ -197,13 +196,12 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	<jsp:include page="../common/header.jsp" />
 
 	<div class="form-wrapper">
-		<br> <br> <br> <br> <br> <br> <br>
 		<br>
 		<div class="title">
 			<h1>내정보 수정</h1>
 
 
-			<br> 
+			<br>
 
 			<div>
 
@@ -216,22 +214,13 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 		<br>
 		<div class="hr"></div>
-
-
-
-
-		<br>
 		<div class="form-container-my">
 
-			<br> <br> <br>
 			<div class="bg-white rounded shadow-sm container p-3">
 				<form method="POST" action="updateAction" name="updateForm"
 					onsubmit="return updateValidate();" class="form-horizontal"
 					role="form">
-
-
 					<br>
-
 					<!-- 아이디 -->
 
 					<div class="row mb-3 form-row">
@@ -242,107 +231,99 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 							<h5 id="id">${loginMember.memberId}</h5>
 						</div>
 					</div>
-
-
-
-
-
-
-
-						<!-- 이름 -->
-						<div class="row mb-3 form-row">
-							<div class="col-md-3">
-								<h6>이름</h6>
-							</div>
-							<div class="col-md-6">
-								<input type="text" class="form-control" id="name" name="name"
-									value="${loginMember.memberNm}">
-
-							</div>
+					<!-- 이름 -->
+					<div class="row mb-3 form-row">
+						<div class="col-md-3">
+							<h6>이름</h6>
 						</div>
-						<!-- 이름 -->
-						<div class="row mb-3 form-row">
-							<div class="col-md-3">
-								<h6>전화번호</h6>
-							</div>
-							<div class="col-md-6">
-								<input type="text" class="form-control" id="phone1"
-									name="phone1" value="${loginMember.memberPhone}">
-
-							</div>
-						</div>
-
-
-
-
-						<!-- 이메일 -->
-						<div class="row mb-3 form-row">
-							<div class="col-md-3">
-								<label for="memberEmail">이메일</label>
-							</div>
-							<div class="col-md-6">
-								<input type="email" class="form-control" id="email"
-									name="memberEmail" value="${loginMember.memberEmail}">
-
-							</div>
-						</div>
-
-
-
-
-						<br>
-						<c:set var="address"
-							value="${fn:split(loginMember.memberAddr,',') }" />
-
-						<!-- 주소 -->
-						<!-- 오픈소스 도로명 주소 API -->
-						<!-- https://www.poesis.org/postcodify/ -->
-						<div class="row mb-3 form-row">
-
-							<div class="col-md-3">
-								<label for="postcodify_search_button">우편번호</label>
-							</div>
-							<div class="col-md-3">
-								<input type="text" name="post" id="post"
-									class="form-control postcodify_postcode5" value="${address[0]}">
-							</div>
-							<div class="col-md-3">
-								<button type="button" class="btn btn-success"
-									id="postcodify_search_button">검색</button>
-							</div>
-						</div>
-
-						<div class="row mb-3 form-row">
-							<div class="col-md-3">
-								<label for="address1">도로명 주소</label>
-							</div>
-							<div class="col-md-9">
-								<input type="text" class="form-control postcodify_address"
-									name="address1" id="address1" value="${address[1]}">
-							</div>
-						</div>
-
-						<div class="row mb-3 form-row">
-							<div class="col-md-3">
-								<label for="address2">상세주소</label>
-							</div>
-							<div class="col-md-9">
-								<input type="text" class="form-control postcodify_details"
-									name="address2" id="address2" value="${address[2]}">
-							</div>
-						</div>
-						<div>
-						
-
-
-							<button class="btn btnCk btn-delete"
-								type="submit">수정 하기</button>
-
-
-						
-
+						<div class="col-md-6">
+							<input type="text" class="form-control" id="name" name="name"
+								value="${loginMember.memberNm}">
 
 						</div>
+					</div>
+					<!-- 이름 -->
+					<div class="row mb-3 form-row">
+						<div class="col-md-3">
+							<h6>전화번호</h6>
+						</div>
+						<div class="col-md-6">
+							<input type="text" class="form-control" id="phone1" name="phone1"
+								value="${loginMember.memberPhone}">
+
+						</div>
+					</div>
+
+
+
+
+					<!-- 이메일 -->
+					<div class="row mb-3 form-row">
+						<div class="col-md-3">
+							<label for="memberEmail">이메일</label>
+						</div>
+						<div class="col-md-6">
+							<input type="email" class="form-control" id="email"
+								name="memberEmail" value="${loginMember.memberEmail}">
+
+						</div>
+					</div>
+
+
+
+
+					<br>
+					<c:set var="address"
+						value="${fn:split(loginMember.memberAddr,',') }" />
+
+					<!-- 주소 -->
+					<!-- 오픈소스 도로명 주소 API -->
+					<!-- https://www.poesis.org/postcodify/ -->
+					<div class="row mb-3 form-row">
+
+						<div class="col-md-3">
+							<label for="postcodify_search_button">우편번호</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" name="post" id="post"
+								class="form-control postcodify_postcode5" value="${address[0]}">
+						</div>
+						<div class="col-md-3">
+							<button type="button" class="btn btn-success"
+								id="postcodify_search_button">검색</button>
+						</div>
+					</div>
+
+					<div class="row mb-3 form-row">
+						<div class="col-md-3">
+							<label for="address1">도로명 주소</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control postcodify_address"
+								name="address1" id="address1" value="${address[1]}">
+						</div>
+					</div>
+
+					<div class="row mb-3 form-row">
+						<div class="col-md-3">
+							<label for="address2">상세주소</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control postcodify_details"
+								name="address2" id="address2" value="${address[2]}">
+						</div>
+					</div>
+					<div>
+
+
+
+						<button class="btn btnCk btn-delete" type="submit">수정 하기</button>
+
+
+
+
+
+					</div>
 			</div>
 
 		</div>

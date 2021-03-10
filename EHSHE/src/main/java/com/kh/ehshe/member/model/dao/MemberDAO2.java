@@ -12,6 +12,7 @@ import com.kh.ehshe.board.model.vo.BReply;
 import com.kh.ehshe.board.model.vo.PageInfo;
 import com.kh.ehshe.board.model.vo.VBoard;
 import com.kh.ehshe.member.model.vo.Member;
+import com.kh.ehshe.place.model.vo.VPReview;
 import com.kh.ehshe.place.model.vo.VPlace;
 import com.kh.ehshe.shop.model.vo.ItemReview;
 import com.kh.ehshe.shop.model.vo.Order;
@@ -134,4 +135,42 @@ public class MemberDAO2 {
 		return sqlSession.selectList("memberMapper2.adminQandA", 0, rowBounds);
 	}
 
+	
+	
+	/** 장바구니 리스트 삭제
+	 * @param map
+	 * @return result
+	 */
+	public int deleteCartItem(Map<String, Object> map) {
+		
+		return sqlSession.delete("memberMapper2.deleteCartItem", map);
+	}
+
+
+
+
+
+	/** 장바구니 전체 목록 삭제
+	 * @param map
+	 * @return result
+	 */
+	public int deleteAllCartItem(Map<String, Object> map) {
+		
+		return sqlSession.delete("memberMapper2.deleteAllCartItem", map);
+	}
+
+	public List<VPReview> selectAreaReviewList(PageInfo pInfo, int memberNo) {
+		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+
+		return sqlSession.selectList("memberMapper2.selectAreaReviewList", memberNo, rowBounds);
+	}
+	
+	
+	
+	
+	
+	
+	
 }

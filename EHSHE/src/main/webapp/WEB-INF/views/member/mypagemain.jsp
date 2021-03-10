@@ -178,16 +178,11 @@ input[id="saveId"]:checked+label em {
 
 	<jsp:include page="../common/header.jsp" />
 	<jsp:include page="../member/mypageSide.jsp" />
-
 	<div class="form-wrapper">
-		<br> <br> <br> <br> <br> <br> <br>
 		<br>
 		<div class="title">
-			<h1>마이페이지</h1>
-
-			<br> <br>
+			<h3>마이페이지</h3>
 		</div>
-
 		<br>
 		<div class="hr"></div>
 
@@ -196,15 +191,15 @@ input[id="saveId"]:checked+label em {
 			<div class="area">
 				<a href="${contextPath}/page/checkpassward"> <img
 					src="${contextPath}/resources/images/mypageicon.png"
-					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>내정보</h1>
+					style="width: 100px; height: 100px; margin-bottom: 10px">
+					<h5>내정보</h5>
 			</div>
-
+	&nbsp;&nbsp;
 			<div class="area">
 				<a href="${contextPath}/page/paymentdetails"><img
 					src="${contextPath}/resources/images/pricelist.png"
-					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>결제내역</h1>
+				style="width: 100px; height: 100px; margin-bottom: 10px">
+					<h5>결제내역</h5>
 			</div>
 
 
@@ -213,14 +208,15 @@ input[id="saveId"]:checked+label em {
 			<div class="area">
 				<a href="${contextPath}/page/mywrite"><img
 					src="${contextPath}/resources/images/mytextlist.png"
-					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>내글</h1>
+					style="width: 100px; height: 100px; margin-bottom: 10px">
+					<h5>내글</h5>
 			</div>
+				&nbsp;&nbsp;
 			<div class="area">
 				<a href="${contextPath}/page/bookmark"><img
 					src="${contextPath}/resources/images/myfavorite.png"
-					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>즐겨 찾기</h1>
+					style="width: 100px; height: 100px; margin-bottom: 10px">
+					<h5>데이트</h5>
 			</div>
 
 		</div>
