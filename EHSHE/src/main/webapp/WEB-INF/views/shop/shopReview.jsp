@@ -159,8 +159,8 @@ margin-right: 5px;
 <script>
 
 var loginMemberId = "${loginMember.memberId}"; // 로그인한 회원 아이디 (있으면 아이디 없으면 빈문자열)
-var replyWriter = "${loginMember.memberNo}"; // 로그인한 회원 번호  -- > 자바스크립트에서는 "1" ==  1  == true
-var parentBoardNo = ${shop.itemNo}; // 게시글 번호  -- > 자바스크립트에서는 "1" ==  1  == true
+var replyWriter = "${loginMember.memberNo}";   // 로그인한 회원 번호  -- > 자바스크립트에서는 "1" ==  1  == true
+var parentBoardNo = ${shop.itemNo};            // 게시글 번호  -- > 자바스크립트에서는 "1" ==  1  == true
 
 			  var starRate = 0;
 
@@ -230,7 +230,7 @@ function selectShopViewReplyList(){
 	            
 	            // 로그인 되어 있고, 대댓글이 아닐 경우 경우에 답글 버튼 추가
 	            if(loginMemberId != "" && item.replyDepth != 1){
-	               var childReply = $("<button>").addClass("btn btn-sm btn-success ml-1 childReply").text("답글").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")");
+	               var childReply = $("<button type='button'>").addClass("btn btn-sm btn-success ml-1 childReply").text("답글").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")");
 	               replyBtnArea.append(childReply);
 	            }
 	            
@@ -238,8 +238,8 @@ function selectShopViewReplyList(){
 	            if(item.memberId == loginMemberId){
 	               
 	               // ** 추가되는 댓글에 onclick 이벤트를 부여하여 버튼 클릭 시 수정, 삭제를 수행할 수 있는 함수를 이벤트 핸들러로 추가함. 
-	               var showUpdate = $("<button>").addClass("btn btn-success btn-sm ml-1").text("수정").attr("onclick", "showUpdateReply(" + item.replyNo + ", this)");
-	               var deleteReply = $("<button>").addClass("btn btn-success btn-sm ml-1").text("삭제").attr("onclick", "deleteReply(" + item.replyNo + ")");
+	               var showUpdate = $("<button type='button'>").addClass("btn btn-success btn-sm ml-1").text("수정").attr("onclick", "showUpdateReply(" + item.replyNo + ", this)");
+	               var deleteReply = $("<button type='button'>").addClass("btn btn-success btn-sm ml-1").text("삭제").attr("onclick", "deleteReply(" + item.replyNo + ")");
 	               
 	               replyBtnArea.append(showUpdate, deleteReply);
 	            }
@@ -351,10 +351,10 @@ function showUpdateReply(replyNo, el){
 	   
 	   
 	   // 수정 버튼
-	   var updateReply = $("<button>").addClass("btn btn-success btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
+	   var updateReply = $("<button type='button'>").addClass("btn btn-success btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
 	   
 	   // 취소 버튼
-	   var cancelBtn = $("<button>").addClass("btn btn-success btn-sm ml-1 mb-4").text("취소").attr("onclick", "updateCancel(this)");
+	   var cancelBtn = $("<button type='button'>").addClass("btn btn-success btn-sm ml-1 mb-4").text("취소").attr("onclick", "updateCancel(this)");
 	   
 	   var replyBtnArea = $(el).parent();
 	   
