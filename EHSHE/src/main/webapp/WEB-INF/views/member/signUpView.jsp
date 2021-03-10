@@ -125,6 +125,18 @@ label > span {
 	background-color : #dbdbdb;
 }
 
+.swal-button {
+	background-color: #F5DF4D;
+}
+
+.swal-button:not([disabled]):hover {
+	background-color: #f0d700;
+}
+
+.swal-button:focus {
+	box-shadow: 0 0 0 3px #fff;
+}
+
 </style>
 </head>
 <body>
@@ -270,18 +282,11 @@ label > span {
 		</form>
 	</div>
 
-	<%-- footer --%>
-	<jsp:include page="../common/footer.jsp"></jsp:include>
-
 	<%-- 회원 가입 유효성 검사 및 이메일 인증 js --%>
 	<script src="${contextPath}/resources/js/memberValidation.js"></script>
 
-	<script>
-	// postcodify popup
-	$(function() {
-		$("#postcodify_search_button").postcodifyPopUp();
-	});
-	</script>
+	<%-- footer --%>
+	<jsp:include page="../common/footer.jsp"></jsp:include>
 
 </body>
 </html>

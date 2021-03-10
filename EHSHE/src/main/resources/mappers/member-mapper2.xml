@@ -64,6 +64,18 @@
 	</resultMap>
 
 
+	<resultMap type="VPReview" id="review_rm">
+		<result property="reviewNo" column="REVIEW_NO" />
+		<result property="reviewContent" column="REVIEW_CONTENT" />
+		<result property="reviewCreateDate" column="REVIEW_CREATE_DT" />
+		<result property="reviewModifyDate" column="REVIEW_MODIFY_DT" />
+		<result property="reviewDeleteFl" column="REVIEW_DELETE_FL" />
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="placeNo" column="PLACE_NO" />
+		<result property="reviewRating" column="REVIEW_RATING" />
+		<result property="ratingText" column="RATING_TEXT" />
+	</resultMap>
 
 	<resultMap type="ITemReview" id="itemreview_rm">
 		<id property="orderNo" column="ORDER_SPECIFY_NO" />
@@ -82,7 +94,7 @@
 		<result property="itemCategory" column="ITEM_CATEGORY" />
 		<result property="itemNm" column="ITEM_NM" />
 		<result property="itemNo" column="ITEM_NO" />
-		
+
 
 	</resultMap>
 
@@ -133,7 +145,7 @@
 		<result property="itemPrice" column="ITEM_PRICE" />
 		<result property="transCharge" column="TRANSPORT_CHARGE" />
 		<result property="itemDeleteFl" column="ITEM_DELETE_FL" />
-
+		<result property="itemCategory" column="ITEM_CATEGORY" />
 	</resultMap>
 
 
@@ -238,18 +250,29 @@
 	<!-- 상품 후기 조회 -->
 	<select id="selectItemReviewList" resultMap="itemreview_rm">
 
-        SELECT *
-        FROM EH_ITEM a,  
-		(SELECT	ITEM_NO
+		SELECT *
+		FROM EH_ITEM
+		a,
+		(SELECT ITEM_NO
 		FROM EH_ORDER O,EH_ITEM_REVIEW N
-		WHERE O.ORDER_NO= N.ORDER_SPECIFY_NO
-		AND	ORDER_CONFIRM ='Y'
-		AND O.MEMBER_NO=  #{memberNo} ) b
-        WHERE a.ITEM_NO= b.ITEM_NO
+		WHERE O.ORDER_NO=
+		N.ORDER_SPECIFY_NO
+		AND ORDER_CONFIRM ='Y'
+		AND O.MEMBER_NO= #{memberNo} )
+		b
+		WHERE a.ITEM_NO= b.ITEM_NO
 	</select>
 
 
+	<!-- 상품 후기 조회 -->
+	<!-- 상품 후기 조회 -->
+	<select id="selectAreaReviewList" resultMap="review_rm">
 
+		SELECT *
+		FROM
+		V_P_REVIEW
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 
 
 
@@ -257,9 +280,9 @@
 	<select id="myQandA" resultMap="QandA_rm">
 
 
-		SELECT QA_NO,QA_CONTENT,
-		QA_CREATE_DT,ITEM_NM,ITEM.ITEM_NO
-		FROM EH_ITEM_QA QA,EH_ITEM ITEM
+		SELECT *
+		FROM EH_ITEM_QA
+		QA,EH_ITEM ITEM
 		WHERE
 		QA.ITEM_NO=ITEM.ITEM_NO
 		AND MEMBER_NO = #{memberNo}
@@ -273,11 +296,13 @@
 
 
 		SELECT *
-		FROM EH_ITEM_QA QA,EH_ITEM ITEM
+		FROM EH_ITEM_QA
+		QA,EH_ITEM ITEM
 		WHERE
 		QA.ITEM_NO=ITEM.ITEM_NO
 		AND QA_STATUS = 'Y'
-		ORDER BY QA_NO DESC
+		ORDER BY
+		QA_NO DESC
 
 
 	</select>
@@ -303,6 +328,23 @@
 		AND MEMBER_ID = #{memberId})
 
 	</select>
+
+
+
+
+
+
+	<!-- 전체 삭제 -->
+	<delete id="deleteAllCartItem" parameterType="hashmap">
+		DELETE FROM EH_CART
+		WHERE MEMBER_NO = #{memberNo}
+		AND QA_NO IN
+		<foreach collection="qaNolist" item="optionNo" open="("
+			close=")" separator=",">
+			#{optionNo}
+		</foreach>
+	</delete>
+
 </mapper>
 
 

@@ -17,6 +17,9 @@
     		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
 </script>
 
+<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <!-- fontawesome -->
 <script src="https://kit.fontawesome.com/5a7a3b1a34.js" crossorigin="anonymous"></script>
 
@@ -126,10 +129,27 @@
 	background-color: #dbdbdb !important;
 }
 
+.swal-button {
+	background-color: #F5DF4D;
+}
+
+.swal-button:not([disabled]):hover {
+	background-color: #f0d700;
+}
+
+.swal-button:focus {
+	box-shadow: 0 0 0 3px #fff;
+}
 </style>
 
 </head>
 <body>	
+	<c:if test="${!empty swalTitle}">
+		<script>
+			swal({title : "${swalTitle}",
+				    text  : "${swalText}"});
+		</script>
+	</c:if>	
 	<div class="form-wrapper">
 		<div class="title">
 			<a href="${contextPath}">EHSHE</a>
@@ -150,7 +170,7 @@
 		
 		<br>
 		<%-- 비밀번호 찾기 form --%>
-		<form action="findPw" method="post">
+		<form action="findPw" method="POST" onsubmit="return validate();">
 			<div class="form-container">
 				<div class="form-group">
 					<input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요." class="form-control" required autofocus> 
@@ -172,7 +192,7 @@
 				
 				<%-- 이메일 인증 --%>		
 				<div class="form-group">
-					<input type="email" id="certify" name="certify" placeholder="인증번호를 입력해주세요." class="form-control"> 
+					<input type="text" class="form-control" id="certify" name="certify" placeholder="인증번호를 입력해주세요." autocomplete="off" required> 
 				</div>
 				
 				<div class="form-group">

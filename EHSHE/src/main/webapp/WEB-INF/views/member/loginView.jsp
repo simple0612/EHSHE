@@ -283,7 +283,7 @@ input[id="saveId"]:checked + label em {
 			}else{
 				$(".loginBtn").attr("style", "background-color: #f6f6f6")
 				.mouseover(function(){
-					$(this).attr("style", "background-color: #f0d700");	
+					$(this).attr("style", "background-color: #f0d700 !important;");	
 				})		
 				.mouseout(function(){
 					$(this).attr("style", "background-color: #F5DF4D");	
@@ -307,7 +307,7 @@ input[id="saveId"]:checked + label em {
 			}else{
 				$(".loginBtn").attr("style", "background-color: #f6f6f6")
 				.mouseover(function(){
-					$(this).attr("style", "background-color: #f0d700");	
+					$(this).attr("style", "background-color: #f0d700 !important;");	
 				})		
 				.mouseout(function(){
 					$(this).attr("style", "background-color: #F5DF4D");	

@@ -25,8 +25,8 @@
    <c:if test="${!empty swalTitle}">
       <script>
          swal({icon  : "${swalIcon}",
-              title : "${swalTitle}",
-              text  : "${swalText}"});
+              title  : "${swalTitle}",
+              text   : "${swalText}"});
       </script>
    </c:if>
    
@@ -71,13 +71,13 @@
                    <c:otherwise>
                  
                  <c:if test="${loginMember.memberGrade eq 'A'}">
-							<span><a href="${contextPath}/page/adminpage">${loginMember.memberNm}</a></span>
-							<!-- 아이디출력 -->
-						</c:if>
-						<c:if test="${loginMember.memberGrade eq 'G'}">
-							<span><a href="${contextPath}/page/mypagemain">${loginMember.memberNm}</a></span>
-							<!-- 아이디출력 -->
-						</c:if>
+                     <span><a href="${contextPath}/page/adminpage">${loginMember.memberNm}</a></span>
+                     <!-- 아이디출력 -->
+                  </c:if>
+                  <c:if test="${loginMember.memberGrade eq 'G'}">
+                     <span><a href="${contextPath}/page/mypagemain">${loginMember.memberNm}</a></span>
+                     <!-- 아이디출력 -->
+                  </c:if>
                  
                  
                     
@@ -117,15 +117,15 @@
                <c:otherwise>
              
              <c:if test="${loginMember.memberGrade eq 'A'}">
-						
-							   <li><a href="${contextPath}/page/adminpage">${loginMember.memberNm}</a></li> <!-- 아이디출력 -->
-							<!-- 아이디출력 -->
-						</c:if>
-						<c:if test="${loginMember.memberGrade ne  'A'}">
-							
-							   <li><a href="${contextPath}/page/mypagemain">${loginMember.memberNm}</a></li> <!-- 아이디출력 -->
-							<!-- 아이디출력 -->
-						</c:if>
+                  
+                        <li><a href="${contextPath}/page/adminpage">${loginMember.memberNm}</a></li> <!-- 아이디출력 -->
+                     <!-- 아이디출력 -->
+                  </c:if>
+                  <c:if test="${loginMember.memberGrade ne  'A'}">
+                     
+                        <li><a href="${contextPath}/page/mypagemain">${loginMember.memberNm}</a></li> <!-- 아이디출력 -->
+                     <!-- 아이디출력 -->
+                  </c:if>
              
             
                 <%-- <li><a href="${contextPath}/member/logout">로그아웃</a></li> --%>
