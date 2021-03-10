@@ -24,6 +24,13 @@ header {
 .swal2-styled.swal2-confirm{
 	background-color : #F5dF4D;
 }
+.swal-button{
+	background-color : #F5dF4D;
+	
+}
+.swal-button:not([disabled]):hover {
+   background-color: #f0d700;
+}
 </style>
 </head>
 <body>

@@ -75,6 +75,10 @@ nav{
                     <h2>THE BEST PLACE</h2>
                     <div class="places">
                     
+                  <%--   <c:if test="${empty pList }">
+                  <h5>존재하는 게시글이 없습니다.</h5>
+            </c:if> --%>
+                    
                   	<c:if test="${!empty tpList && !empty piList}">
                   		<c:forEach var="rankingPlace" items="${piList}" varStatus="avg">
 	                        <div class="place">
