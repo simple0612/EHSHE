@@ -52,6 +52,17 @@ cursor:pointer;
 .pagination li a{
    color:black;
 }
+.swal-button {
+   background-color: #F5DF4D;
+}
+
+.swal-button:not([disabled]):hover {
+   background-color: #f0d700;
+}
+
+.swal-button:focus {
+   box-shadow: 0 0 0 3px #fff;
+}
  
 </style>
 <body>
@@ -64,7 +75,7 @@ cursor:pointer;
 							<c:when test="${pInfo.shopType == 2}"><h1>Accessory</h1></c:when>
 							<c:when test="${pInfo.shopType == 3}"><h1>Etc</h1></c:when>
 						</c:choose> 
-        </div>
+          </div>
         <div class="row" style="margin-top: 50px;">
             <c:if test="${!empty sList}">
               <c:forEach var="shop" items="${sList}" varStatus="vs">
@@ -88,11 +99,8 @@ cursor:pointer;
           							 <c:forEach items="${starRating}" var="sr">
  														<c:choose>
  															 <c:when test="${sr.itemNo == shop.itemNo}">
-                            			<div><img class="shopimg" src="${contextPath}/resources/shopCommonImg/별모양.png" style="width: 20px; height: 20px;">${sr.score}</div>
+                            			<div><img class="shopimg" src="${contextPath}/resources/shopCommonImg/별모양.png" class="score"style="width: 20px; height: 20px;"> ${sr.score}</div>
  															</c:when>
- 															<c:otherwise>
- 															    <div><img class="shopimg" src="${contextPath}/resources/shopCommonImg/별모양.png" style="width: 20px; height: 20px;">0</div>
- 															</c:otherwise>
                         	 </c:choose>
                         </c:forEach>
                         </div>
@@ -216,6 +224,8 @@ cursor:pointer;
 					
 				}
     	
+				
+				
 		 });
     	
 		// 검색 값(sv)

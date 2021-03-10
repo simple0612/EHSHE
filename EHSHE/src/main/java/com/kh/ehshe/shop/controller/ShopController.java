@@ -84,8 +84,6 @@ public class ShopController {
 			
 			List<ShopScore> starRating = service.selectStarRation(sList);
 			
-	
-			System.out.println("ssss"+sList);
 			
 			if(starRating != null) { 
 				

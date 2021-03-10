@@ -6,7 +6,7 @@
 
 .replyWrite>table {
 width: 90%;
-margin-top : 100px;
+margin-top : 10px;
 } 
 
 #replyContentArea {
@@ -53,86 +53,91 @@ margin-top : 100px;
 	word-break:normal;
 }
 
-
 .sreplyBtnArea {
 	text-align: right;
 }
-
 
 .shopReplyUpdateContent {
 resize: none;
 width: 100%;
 }
 
-
 .shopReply-row{
 border-top : 1px solid #ccc;
 padding : 15px 0;
 }
 
-/* /* 답글(대댓글) */
-/* 	.childReply-li{
-	padding-left: 50px;  
-	}
-	
-	.childReplyArea{
-	padding-top : 30px;
-	width : 100%;
-	text-align: right;
-	}
-	
-	.childReplyContent{
-	resize: none;  
-	width : 100%; 
-	}  */
+/* 
+/* 답글(대댓글) */
+/* 
+.childReply-li{
+padding-left: 50px;  
+}
+
+.childReplyArea{
+padding-top : 30px;
+width : 100%;
+text-align: right;
+}
+
+.childReplyContent{
+resize: none;  
+width : 100%; 
+}  */
 .star-rating{
-font-family: 'Noto Sans KR', sans-serif;
-background-color: white;
-width: 280px;
-text-align: center;
-border-radius: 5px;
-padding: 5px;
+     width: 280px;
+     text-align: center;
+     border-radius: 5px;
+     padding: 5px;
+     height :35px;
 }
 .star-rating div{
-float:left;
-width: 50%;
-
+    float:left;
+    width: 50%;
 }
+.stars{
+   color: rgb(190, 190, 190);
+}
+
+.stars2{
+   color: rgb(190, 190, 190);
+}
+
+.stars2 img{
+   margin-left: 10px;
+}
+ 
 .stars .fa{
-font-size: 20px;
-cursor: pointer;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.fas{
+   color: yellow;
+}
+
+.starReview{
+  text-shadow: orange 0 0 5px;
+  font-size: 20px;
+}
+
+.star{
+   font-size: 20px;
 }
 .stars .fa.active{
-color: yellow;
-text-shadow: 0 0 5px;
+    color: yellow;
+    text-shadow: black 0 0 5px;
 }
 
 .print{
-color: black;
 }
 
 .print img{
-vertical-align: middle;
-margin-right: 5px;
-}
-.btnColor{
-  background-color: #F5dF4D;
-  color:white;
-}
-.btnColor2{
-  background-color: #939597;
-  color: white;
-}
-.stars2{
- color: rgb(190, 190, 190);
-}
-.stars2 img{
-margin-left: 10px;
-}
-.starReview{
-text-shadow: orange 0 0 5px;
-font-size: 20px;
-}
+    vertical-align: middle;
+    margin-right: 5px;
+    width:23px;
+    height:23px;
+ }
 
 </style>
     
@@ -156,8 +161,7 @@ font-size: 20px;
 		<table>
 			<tr>
 				<td id="replyContentArea">
-				
- 	   <div class="star-rating" style="margin-bottom:10px;">
+				<div class="star-rating">
         <div class="stars">
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
@@ -165,17 +169,12 @@ font-size: 20px;
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
         </div>
-        <div class="print">
-		   		   별점주기
-        </div>
-    </div>
-				
-				<textArea rows="3" id="replyShopContent">
-				</textArea>
-				
+        <div class="print">별점주기</div>
+    </div> 
+				<textArea rows="3" id="replyShopContent"></textArea>
 				</td>
 				<td id="sreplyBtnArea">
-					<button type="button" class="btn btnColor" id="addShopReply">댓글<br>등록</button>
+					<button type="button" class="btn btnColor" id="addShopReply" style="margin-top:22px;">후기<br>등록</button>
 				</td>
 			</tr>
 		</table>
@@ -315,7 +314,11 @@ $("#addShopReply").on("click", function(){
 	if(loginMemberId == ""){
 		swal({icon : "info", title:"로그인 이후 이용해주세요."})
 	
+	}else if(starRate == 0){  // 별점을 했는지 확인
+		swal({icon : "info", title:"별점을 평가해주시고 등록해주세요.!"})
+
 	}else{ // 로그인이 되어 있는 경우
+	
 		
 		var replyShopContent =$("#replyShopContent").val(); // 작성된 댓글 내용을 얻어와 저장
 		
@@ -337,6 +340,12 @@ $("#addShopReply").on("click", function(){
 					  swal({icon:"success", title : "댓글 삽입 성공"});
 					  selectShopViewReplyList();
 					}
+				  if(result == 0){
+					  $("#replyShopContent").val(""); // 작성한 댓글 내용을 삭제
+					 
+					  swal({icon:"info", title : "상품을 구매하신 후 후기를 작성해주세요!"});
+					  selectReplyList(); // 다시 목록 조회
+				  }
 					
 				}, error : function(){
 					console.log("댓글 삽입 실패");
