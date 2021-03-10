@@ -6,7 +6,7 @@
 
 .replyWrite>table {
 	width: 90%;
-	margin-top : 100px;
+  margin-top : 100px;
 }
 
 #replyContentArea {
@@ -59,43 +59,86 @@
 
 
 .replyUpdateContent {
-	resize: none;
-	width: 100%;
+resize: none;
+width: 100%;
 }
 
 
 .reply-row{
-	border-top : 1px solid #ccc;
-	padding : 15px 0;
+border-top : 1px solid #ccc;
+padding : 15px 0;
 }
 
 /* 답글(대댓글) */
 .childReply-li{
-	padding-left: 50px;  
+padding-left: 50px;  
 }
 
 .childReplyArea{
-	padding-top : 30px;
-	width : 100%;
-  text-align: right;
+padding-top : 30px;
+width : 100%;
+text-align: right;
 }
 
 .childReplyContent{
-	resize: none;  
-	width : 100%; 
+resize: none;  
+width : 100%; 
 }
-</style>
+.star-rating{
+font-family: 'Noto Sans KR', sans-serif;
+background-color: white;
+width: 280px;
+text-align: center;
+border-radius: 5px;
+padding: 5px;
+}
+.star-rating div{
+float:left;
+width: 50%;
 
-<div id="reply-area ">
+}
+.stars .fa{
+font-size: 20px;
+cursor: pointer;
+}
+.stars .fa.active{
+color: yellow;
+text-shadow: 0 0 5px;
+}
+
+.print{
+color: black;
+}
+
+.print img{
+vertical-align: middle;
+margin-right: 5px;
+}
+
+</style>
+    
+<div id="reply-area">
+	 
 	<!-- 댓글 작성 부분 -->
+     <div class="star-rating">
+        <div class="stars">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+        </div>
+        <div class="print">
+		   		   별점주기
+        </div>
+    </div>
 	<div class="replyWrite">
-		<table align="center">
+		<table>
 			<tr>
-				<td id="replyContentArea"><textArea rows="3" id="replyContent"></textArea>
+				<td id="replyContentArea"><textArea rows="3" id="replyShopContent"></textArea>
 				</td>
-				<td><jsp:include page="shopReviewStar.jsp"/></td>
 				<td id="replyBtnArea">
-					<button class="btn btn-success" id="addReply">댓글<br>등록</button>
+					<button type="button" class="btn btn-success" id="addShopReply">댓글<br>등록</button>
 				</td>
 			</tr>
 		</table>
@@ -114,22 +157,40 @@
 </div>
 
 <script>
+
 var loginMemberId = "${loginMember.memberId}"; // 로그인한 회원 아이디 (있으면 아이디 없으면 빈문자열)
-var replyWriter = "${loginMember.memberNo}"; 
-var loginMemberGrade = "${loginMemer.memberGrade}"// 로그인한 회원 번호  -- > 자바스크립트에서는 "1" ==  1  == true
+var replyWriter = "${loginMember.memberNo}"; // 로그인한 회원 번호  -- > 자바스크립트에서는 "1" ==  1  == true
 var parentBoardNo = ${shop.itemNo}; // 게시글 번호  -- > 자바스크립트에서는 "1" ==  1  == true
+
+			  var starRate = 0;
+
+	  $(".stars .fa").on("click", function(){
+		    $(this).addClass('active')
+		    $(this).prevAll().addClass('active')
+		    $(this).nextAll().removeClass('active')
+
+		    var num = $(this).index();
+		    starRate = num + 1;
+		 
+		    if(starRate == 1){$('.print').html('<img src="${contextPath}/resources/shopCommonImg/star-lv1.png">' + '별로예요')}
+		    else if(starRate == 2){$('.print').html('<img src="${contextPath}/resources/shopCommonImg/star-lv2.png">' + '보통이예요')}
+		    else if(starRate == 3){$('.print').html('<img src="${contextPath}/resources/shopCommonImg/star-lv3.png">' + '그냥 그래요')}
+		    else if(starRate == 4){$('.print').html('<img src="${contextPath}/resources/shopCommonImg/star-lv4.png">' + '맘에 들어요')}
+		    else{$('.print').html('<img src="${contextPath}/resources/shopCommonImg/star-lv5.png">' + '아주 좋아요')} 
+				});
+	
 
 // 댓글
 // 페이지 로딩 완료 시 댓글 목록 호출
 $(function(){
-	selectReplyList();
+	selectShopViewReplyList();
 });
 
 // 댓글 목록 불러오기(AJAX)
-function selectReplyList(){
+function selectShopViewReplyList(){
 	
 	$.ajax({
-		url : "${contextPath}/ShopReply/selectReplyList/" + parentBoardNo,
+		url : "${contextPath}/ShopReviewReply/selectReplyList/" + parentBoardNo,
 		type: "post",
 		dataType : "json",
 		success : function(rList){
@@ -203,9 +264,9 @@ function selectReplyList(){
 }
 
 //-----------------------------------------------------------------------------------------
-
+ 
 // 댓글 등록
-$("#addReply").on("click", function(){
+$("#addShopReply").on("click", function(){
 	
 	// 로그인 되어있는지 확인
 	if(loginMemberId == ""){
@@ -213,24 +274,24 @@ $("#addReply").on("click", function(){
 	
 	}else{ // 로그인이 되어 있는 경우
 		
-		var replyContent =$("#replyContent").val(); // 작성된 댓글 내용을 얻어와 저장
+		var replyShopContent =$("#replyShopContent").val(); // 작성된 댓글 내용을 얻어와 저장
 		
-		if(replyContent.trim().length == 0){ // 댓글이 작성되지 않은 경우
+		if(replyShopContent.trim().length == 0){ // 댓글이 작성되지 않은 경우
 			
 			swal({icon:"info",title: "댓글 작성 후 클릭해주세요."});			
 			
 		}else{ // 로그인 o , 댓글 작성 o 인 경우
 
 			$.ajax({
-				url : "${contextPath}/ShopReply/insertReply/" + parentBoardNo,
+				url : "${contextPath}/ShopReviewReply/insertReply/" + parentBoardNo,
 				type : "post",
-				data :{"replyWriter" : replyWriter, "replyContent" : replyContent},
+				data :{"replyWriter" : replyWriter , "replyContent" : replyContent ,"starRate" : starRate  },
 				success: function(result){
 					
 					if(result>0){ // 댓글 삽입 성공
-					  $("#replyContent").val(""); // 작성한 댓글 내용을 삭제
+					  $("#replyShopContent").val(""); // 작성한 댓글 내용을 삭제
 					  swal({icon:"success", title : "댓글 삽입 성공"});
-					  selectReplyList(); // 다시 목록 조회
+				//	  selectShopViewReplyList(); // 다시 목록 조회
 					}
 					
 					
@@ -330,14 +391,14 @@ function updateReply(replyNo, el){
 		 
 		 
 		 $.ajax({
-				url : "${contextPath}/ShopReply/updateReply/"+ replyNo,
+				url : "${contextPath}/ShopReviewReply/updateReply/"+ replyNo,
 				type: "post",
 				data: {"replyContent" : replyContent},
 				success : function(result){
 					
 					if(result > 0){
 						swal({icon : "success" , title : "댓글 수정 성공"});
-						selectReplyList();
+						selectShopViewReplyList();
 					}else{
 						swal({icon : "error" , title : "댓글 수정 실패"});
 					}
@@ -372,7 +433,7 @@ function deleteReply(replyNo){
 	if(confirm("정말로 삭제하시겠습니까?")){
 		
 		$.ajax({
-			url : "${contextPath}/ShopReply/deleteReply/" + replyNo,
+			url : "${contextPath}/ShopReviewReply/deleteReply/" + replyNo,
 			success: function(result) {
 				
 				// result : 댓글 삭제 결과, 성공 : 1, 실패 : 0
@@ -380,13 +441,13 @@ function deleteReply(replyNo){
 				if(result>0){
 					
 					swal({icon :"success",title:"댓글 삭제 성공"});
-					selectReplyList();
+					selectShopViewReplyList();
 					
 				}
 				
 			}, error:function(){
 				
-				console.log("댓글 삭제실패")
+				console.log("댓글 삭제실 패")
 			}
 			
 		});
@@ -402,7 +463,7 @@ function deleteReply(replyNo){
 // 		+ placeholder로  ' "댓글 작성자"에게 답글 작성하기'  라는 문구 추가
 // 2) 대댓글 작성 영역은 여러 개가 아닌 딱 하나만 생성되게 해야함.
 
-function addChildReplyArea(el,parentReplyNo){
+/*  function addChildReplyArea(el,parentReplyNo){
 	// el : 클릭한 답글 버튼
 	// parentReplyNo : 답글 버튼이 클릭된  부모 댓글 번호
 	
@@ -441,13 +502,12 @@ function addChildReplyArea(el,parentReplyNo){
 	// 추가된 대댓글 영역으로 포커스 이동
 	$(".childReplyContent").focus();
 	}
-}
+}  */
 //-------------------------------------------------
 
 
 // 답글(대댓글) 취소
-// 내용이 작성되어 있으면 취소버튼 클릭 시 confirm 창 띄우기
-function cancelChildReply(){
+/*  function cancelChildReply(){
 
 	// 대댓글 영역에 작성된 내용 얻어오기
 	var tmp = $(".childReplyContent").val();
@@ -476,12 +536,12 @@ function cancelChildReply(){
 	}
 	
 	
-}
+}  */
 
 // ---------------------------------------------------------------------------
 
 // 답글(대댓글 ) 등록
-function addChildReply(el,parentReplyNo){
+/*  function addChildReply(el,parentReplyNo){
 	// el : 대댓글 등록버튼
 	// parentReplyNo : 대댓글이 작성된 부모 댓글 번호
 	
@@ -494,7 +554,7 @@ function addChildReply(el,parentReplyNo){
 	}else{
 		
 		$.ajax({
-			url : "${contextPath}/ShopReply/insertChildReply/" + parentBoardNo,
+			url : "${contextPath}/ShopReviewReply/insertChildReply/" + parentBoardNo,
 			data : {"parentReplyNo" : parentReplyNo, 
 							"replyContent" : replyContent,
 							"replyWriter" : replyWriter},
@@ -505,7 +565,7 @@ function addChildReply(el,parentReplyNo){
 				if(result > 0){
 					
 					swal({icon:"success", title : "답글 등록 성공"});
-					selectReplyList();
+					selectShopViewReplyList();
 				}
 				
 			}, error : function(){
@@ -523,7 +583,7 @@ function addChildReply(el,parentReplyNo){
 	
 	
 	
-}
+} */
 
 
 </script>

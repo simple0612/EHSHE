@@ -127,6 +127,13 @@ public interface ShopService {
 	 */
 	ShopScore selectViewStarRation(int itemNo);
 
+	
+	/** 상품삭제
+	 * @param itemNo
+	 * @return result
+	 */
+	int deleteProduct(int itemNo);
+
 
 	
 

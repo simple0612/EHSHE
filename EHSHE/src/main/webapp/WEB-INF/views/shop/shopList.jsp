@@ -54,7 +54,7 @@ cursor:pointer;
 <body>
      <jsp:include page="../common/header.jsp"/>
     
-    <div class="container" style="margin-top:80px;">
+    <div class="container" style="margin-top:80px; padding-bottom:200px;">
         <div style="text-align: center;">
 						<c:choose>
 							<c:when test="${pInfo.shopType == 1}"><h1>Clothes</h1></c:when>
@@ -102,127 +102,13 @@ cursor:pointer;
                 </div>
                 </c:forEach>
             </c:if>
+             <c:if test="${empty sList}">
+            	<div style="margin:0px auto;"><Strong>검색된 결과가 없습니다.</Strong></div>
+            </c:if> 
           </div>
-          
-          
-             <!--  <div class="col-md-3">
-                <div class="mb-3 a">
-                    <img src="여행.jpg" class="rounded mx-auto d-block shopimg">
-                </div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div>
-                            <div><strong>커플옷</strong></div>
-                            <div>가격: 30,000원</div>
-                            <div>배송비: 무료</div>
-                            <img src="별모양.png" style="width: 20px; height: 20px;">  4.15
-                        </div>
-                    </div>
-                  </div>
-              </div>
-         
-              <div class="col-md-3">
-                <div class="mb-3 a">
-                    <img src="여행.jpg" class="rounded mx-auto d-block shopimg">
-                </div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div>
-                            <div><strong>커플옷</strong></div>
-                            <div>가격: 30,000원</div>
-                            <div>배송비: 무료</div>
-                            <img src="별모양.png" style="width: 20px; height: 20px;">  4.15
-                        </div>
-                    </div>
-                  </div>
-              </div>
-         
-              <div class="col-md-3">
-                <div class="mb-3 a">
-                    <img src="여행.jpg" class="rounded mx-auto d-block shopimg">
-                </div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div>
-                            <div><strong>커플옷</strong></div>
-                            <div>가격: 30,000원</div>
-                            <div>배송비: 무료</div>
-                            <img src="별모양.png" style="width: 20px; height: 20px;">  4.15
-                        </div>
-                    </div>
-                  </div>
-              </div>
-        </div>
-      
-        <div class="row">
-            <div class="col-md-3">
-                <div class="mb-3 a">
-                    <img src="여행.jpg" class="rounded mx-auto d-block shopimg">
-                </div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div>
-                            <div><strong>커플옷</strong></div>
-                            <div>가격: 30,000원</div>
-                            <div>배송비: 무료</div>
-                            <img src="별모양.png" style="width: 20px; height: 20px;">  4.15
-                        </div>
-                    </div>
-                  </div>
-                </div>
-             
-              <div class="col-md-3">
-                <div class="mb-3 a">
-                    <img src="여행.jpg" class="rounded mx-auto d-block shopimg">
-                </div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div>
-                            <div><strong>커플옷</strong></div>
-                            <div>가격: 30,000원</div>
-                            <div>배송비: 무료</div>
-                            <img src="별모양.png" style="width: 20px; height: 20px;" class="shopimg">  4.15
-                        </div>
-                    </div>
-                  </div>
-              </div>
-         
-              <div class="col-md-3">
-                <div class="mb-3 a">
-                    <img src="여행.jpg" class="rounded mx-auto d-block shopimg">
-                </div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div>
-                            <div><strong>커플옷</strong></div>
-                            <div>가격: 30,000원</div>
-                            <div>배송비: 무료</div>
-                            <img src="별모양.png" style="width: 20px; height: 20px;" class="shopimg">  4.15
-                        </div>
-                    </div>
-                  </div>
-              </div>
-         
-              <div class="col-md-3">
-                <div class="mb-3 a">
-                    <img src="여행.jpg" class="rounded mx-auto d-block shopimg">
-                </div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div>
-                            <div><strong>커플옷</strong></div>
-                            <div>가격: 30,000원</div>
-                            <div>배송비: 무료</div>
-                            <img src="별모양.png" style="width: 20px; height: 20px;"class="shopimg">  4.15
-                        </div>
-                    </div>
-                  </div>
-              </div>
-        </div> -->
-        
-        
-        <a class="btn btnColor float-right" href="../${pInfo.shopType}/shopInsert">등록</a>
-       
+       <c:if test="${loginMember.memberGrade == 'A' }">
+        	<a class="btn btnColor float-right" href="../${pInfo.shopType}/shopInsert">등록</a>
+       </c:if>
         <div aria-label="Page navigation example" style="margin-top:100px;">
         
 							
@@ -282,7 +168,7 @@ cursor:pointer;
             	<c:choose>
             		<c:when test="${pInfo.currentPage == page}">
             				<li>
-											<a class="page-link">${page}</a>
+											<a class="page-link btnColor">${page}</a>
 										</li>
             		</c:when>
             <c:otherwise>
@@ -306,7 +192,7 @@ cursor:pointer;
         
           <form action="../search/${pInfo.shopType}">
          <div class="form-row text-center" style="margin-top: 50px;">
-            <div class="form-group"  style="margin:0px auto;">
+     <div class="form-group"  style="margin:0px auto;">
        <select name="sk" class="form-control t" style="width: 150px; display: inline-block;">
 					<option value="tit">상품명</option>
 					<option value="con">내용</option>
@@ -314,16 +200,11 @@ cursor:pointer;
 			</select> 
 				<input type="text" name="sv" class="form-control t" style="width: 300px; display: inline-block;">
 				<button class="form-control btn btn-success t" type="submit" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
-            </div>
+     </div>
         </div>
         </form>
        </div>
-       <br>
-       <br>
-       <br>
-       <br>
-       <br>
-       <br>
+
        <jsp:include page="../common/footer.jsp" />		
        
     </body>

@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('#summernote').summernote({
         'width': '100%',
-        'height': '480',
+        'height': '700',
         lang : 'ko-KR', // 언어 : 한국어
 
         // 이미지 업로드 이벤트가 발생했을 때 콜백함수 수행

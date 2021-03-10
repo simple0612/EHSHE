@@ -23,6 +23,7 @@ import com.kh.ehshe.shop.model.vo.SearchShop;
 import com.kh.ehshe.shop.model.vo.Shop;
 import com.kh.ehshe.shop.model.vo.ShopAttachment;
 import com.kh.ehshe.shop.model.vo.ShopOption;
+import com.kh.ehshe.shop.model.vo.ShopOptionUpdate;
 import com.kh.ehshe.shop.model.vo.ShopPageInfo;
 import com.kh.ehshe.shop.model.vo.ShopScore;
 
@@ -104,15 +105,13 @@ public class ShopServiceImpl implements ShopService {
 			map.put("shopNo", shopNo); 
 			
 			result = dao.insertShopBoard(map); 
-
 			if(result > 0) {
 				
 		      	optionInsert = dao.insertOption(shopNo); // 옵션 번호 및 상품번호 추가
-				
 				if(optionInsert > 0) {
 					
 					shopOptionNo = dao.selectOptionNextNO(shopNo); // 옵션번호 조회하기
-					
+				
 					List<ShopOption> shopOption = new ArrayList<ShopOption>(); 
 				
 					
@@ -300,7 +299,7 @@ public class ShopServiceImpl implements ShopService {
 		updateShopBoard.setItemNm(replaceParameter(updateShopBoard.getItemNm()));
 		
 		int result = dao.updateShopBoard(updateShopBoard);
-
+        System.out.println(updateShopBoard.getItemNo()+"shopBoardUpdate");
 		
 		if(result > 0) {
 			
@@ -360,29 +359,99 @@ public class ShopServiceImpl implements ShopService {
 			}
 			
 
-			// 옵션 업데이트 
+			// 옵션 업데이트  가져오기
 			List<ShopOption> oldOption = dao.selectShopOptionList(updateShopBoard.getItemNo());
 			
-			// DB에 새로 추가할 이미지파일 정보를 모아둘 List 생성
-			List<ShopOption> newOptionList = new ArrayList<ShopOption>();
-			
+			List<ShopOptionUpdate> shopOption = new ArrayList<ShopOptionUpdate>(); 
+			List<ShopOption> shopOptionInsert = new ArrayList<ShopOption>(); 
+		
 			// DB에서 삭제할 옵션  LIST 생성
 			List<Integer> deleteOptionList = new ArrayList<Integer>();
 			
-			int optionInsert = dao.insertOption(updateShopBoard.getItemNo());
-			int shopOptionNo = dao.selectOptionNextNO(updateShopBoard.getItemNo());
+			List<Integer> optionSpecifyNo = new ArrayList<Integer>();
 			
+			List<String> OptionContentInsert = new ArrayList<String>();
+
+			int optionNo =dao.selectOption(updateShopBoard.getItemNo()); // 옵션번호알아오기
+
+			
+		
 			int oldCount = oldOption.size();
+			System.out.println(oldCount+"OLD");
 			int newCount = updateOption.size();
+			System.out.println(newCount+"NEW");
 			
+			//int optionInsert = dao.insertOption(updateShopBoard.getItemNo()); 
+			 
 			if(oldCount == newCount) {
 				
+				for (int i = 0; i<newCount; i++) {
+					
+				    ShopOptionUpdate opd = new ShopOptionUpdate(oldOption.get(i).getOptionSpecify_NO(),updateOption.get(i));
+					System.out.println("옵션이 같을 때 들어오는 값"+opd);
+					shopOption.add(opd);
+				}
+				
+				  	
+					int result2 =  dao.updateShopOption(shopOption); 
+					System.out.println(result2 + " 몇개?");
+					if(result2 > 0) {
+					  
+					  System.out.println("성공스!!");
+				  }
+				
+				  
+			}else if(oldCount > newCount) {
+				
+				for (int i = newCount; i < oldCount; i++) {
+						
+					deleteOptionList.add(oldOption.get(i).getOptionSpecify_NO()); // 삭제될 옵션상세번호
+					System.out.println("품절 리스트" + deleteOptionList);
+				}
+				
+				    dao.deleteOptionList(deleteOptionList);
+				   
+				
+				for (int i = 0; i < updateOption.size(); i++) {
+					
+					ShopOptionUpdate opd = new ShopOptionUpdate(oldOption.get(i).getOptionSpecify_NO(),updateOption.get(i));
+					System.out.println(" 올드가 컸을떄 옵션추가업데이트"+opd);
+					shopOption.add(opd);                                                                                                                                                                                                                                           
+				}
+				    dao.updateShopOption(shopOption); 
+
 				
 				
-			}
-			
-			
+			}else if(newCount > oldCount){
+				
+				for (int i = 0; i < oldCount-1; i++) {
+					//optionSpecifyNo.add(oldOption.get(i).getOptionSpecify_NO()); // 업데이트 될 옵션상세번호
+					//updateOptionContent.add(updateOption.get(i));  // 업데이트 될 상세내용
+					ShopOptionUpdate opd = new ShopOptionUpdate(oldOption.get(i).getOptionSpecify_NO(),updateOption.get(i));
+					shopOption.add(opd);                                                                                                                                                                                                                                           
+				}
+				
+				 dao.updateShopOption(shopOption);
+				
+				 
+				 
+				for (int i = oldCount; i < newCount; i++) {
+					
+					ShopOption opd = new ShopOption(optionNo,updateOption.get(i));
+					shopOptionInsert.add(opd);                                                                                                                                                                                                                                           
+
+				 }
 			 
+				    int optionUpdateInsert = dao.insertOptionDeatail(shopOptionInsert);
+				
+			} 
+			
+			
+			
+			
+			
+			
+			
 			
 			
 			/*
@@ -394,20 +463,21 @@ public class ShopServiceImpl implements ShopService {
 			 */
 			
 		
-			for(ShopOption old : oldOption ) {  // 올드와 뉴가 내용이 같지 않다면 올드를 delete에 담아주
-				
-				for(String news : updateOption){
-						
-					if(!old.getItemOptionContent().equals(news)) {
-					
-						deleteOptionList.add(old.getOptionSpecify_NO());
-						
-						
-					}
-					
-				}
-				
-	       }
+			/*
+			 * for(ShopOption old : oldOption) { // 올드와 뉴가 내용이 같지 않다면 올드를 delete에 담아주
+			 * 
+			 * for(String news : updateOption){
+			 * 
+			 * if(!old.getItemOptionContent().equals(news)) {
+			 * 
+			 * deleteOptionList.add(old.getOptionSpecify_NO());
+			 * 
+			 * }
+			 * 
+			 * }
+			 * 
+			 * }
+			 */
 			
 			
 			
@@ -588,18 +658,6 @@ public class ShopServiceImpl implements ShopService {
 			}
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			// 수정전 게시글 파일명 목록(oldFlies)와
 			// 수정된 파일 정보 목록(fileNameList)를 비교해서
 			// 수정전 게시글 파일명 하나를 기준으로 하여 수정 후 파일명과 순차적 비교를 진행
@@ -713,6 +771,11 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public ShopScore selectViewStarRation(int itemNo) {
 		return dao.selectViewStarRation(itemNo);
+	}
+
+	@Override
+	public int deleteProduct(int itemNo) {
+		return dao.deleteProduct(itemNo);
 	}
 
 	 

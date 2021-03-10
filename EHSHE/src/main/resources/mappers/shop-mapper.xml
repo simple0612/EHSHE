@@ -23,11 +23,18 @@
 	</resultMap>
 
 	<resultMap type="ShopOption" id="shopoption_rm">
-		<result property="itemOptionContent" column="ITEM_OPTION_CONTENT"/>
+		<result property="ItemOptionContent" column="ITEM_OPTION_CONTENT"/>
 		<result property="optionSpecify_NO" column="OPTION_SPECIFY_NO"/>
 		<result property="optionSpecifyContent" column="OPTION_SPECIFY_CONTENT"/>
 		<result property="itemNo" column="ITEM_NO"/>
+	  <result property="optionNo" column="OPTION_NO"/>
 	</resultMap>		
+	
+	<resultMap type="ShopOptionUpdate" id="shopoptionupdate_rm">
+		<result property="optionSpecify_NO" column="OPTION_SPECIFY_NO"/>
+		<result property="optionSpecifyContent" column="OPTION_SPECIFY_CONTENT"/>
+	</resultMap>		
+	
 
 		<resultMap type="ShopAttachment" id="shopattachment_rm">
 			<id property="fileNo" column="IMG_NO"/>
@@ -187,6 +194,78 @@
 </update>
 
 
+<!-- 상품의 옵션 번호 구해오기 -->
+<select id="selectOption" parameterType="_int" resultType="_int">
+    SELECT OPTION_NO
+	  FROM
+	  EH_ITEM_OPTION 
+	  WHERE ITEM_NO = #{itemNo}
+</select>
+
+
+<!-- 업데이트 옵션 -->
+	<update id="updateShopOption" parameterType="list">
+			<foreach collection="list" item="ShopOptionUpdate" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+	      UPDATE 
+	      EH_ITEM_OPTIONDETAIL 
+	      SET
+        OPTION_SPECIFY_CONTENT=#{ShopOptionUpdate.optionSpecifyContent}
+        WHERE 
+        OPTION_SPECIFY_NO=#{ShopOptionUpdate.optionSpecify_NO}
+			</foreach>
+		</update> 
+	
+<!-- 	<insert id="updateOptionInsert" parameterType="list">
+	
+		  INSERT INTO EH_ITEM_OPTIONDETAIL 
+	  	SELECT SEQ_IT_OPTION_DENO.NEXTVAL, A.* FROM (
+				<foreach collection="list" item="item"  separator=" UNION ALL ">
+					SELECT #{item.optionSpecifyContent} OPTION_SPECIFY_CONTENT,
+								 #{item.optionNo} OPTION_NO
+					FROM DUAL	
+				</foreach>
+			)A
+	
+	</insert>
+	 -->
+	
+<!-- 	<update id="updateShopOption" parameterType="list">
+  <foreach collection="list" item="ShopOptionUpdate" index="index">
+		 UPDATE
+  	 EH_ITEM_OPTIONDETAIL
+		 SET
+		 OPTION_SPECIFY_CONTENT = CASE OPTION_SPECIFY_NO WHEN #{ShopOptionUpdate.optionSpecify_NO} THEN #{ShopOptionUpdate.optionSpecifyContent} 
+		 ELSE OPTION_SPECIFY_CONTENT END
+		 WHERE OPTION_SPECIFY_NO IN
+		 	<foreach collection="list" item="ShopOptionUpdate" open="(" close=")" separator=",">
+	    #{ShopOptionUpdate.optionSpecify_NO}	
+	  </foreach>
+	</foreach>
+	</update>  -->
+
+		
+		
+		
+	<!-- update id="updateShopOption" parameterType="list">
+	      UPDATE 
+	      EH_ITEM_OPTIONDETAIL 
+	      SET
+			 <foreach collection="list" item="ShopOptionUpdate">
+        OPTION_SPECIFY_CONTENT=#{ShopOptionUpdate.optionSpecifyContent}
+			</foreach>
+        WHERE OPTION_SPECIFY_NO IN
+       <foreach collection="list" item="ShopOptionUpdate" open="(" close=")" separator=",">
+        #{ShopOptionUpdate.optionSpecify_NO}
+       </foreach>
+			
+		</update>  -->
+
+
+
+
+
+
+
  <!-- Shop 파일 정보 수정 summernote -->
 <select id="selectShopSummernoteImg" parameterType="_int" resultMap="shopattachment_rm">
 	SELECT * FROM EH_ITEM_IMG
@@ -203,13 +282,16 @@
 </delete>
 
 <!-- 옵션리스트 삭제 -->
-<delete id="deleteOptionList" parameterType="list">
-	DELETE FROM EH_ITEM_OPTIONDETAIL
-	WHERE OPTION_SPECIFY_NO IN
-	<foreach collection="list" item="optionSpecify_NO" open="(" close=")" separator=",">
-	#{optionSpecify_NO}	
+<update id="deleteOptionList" parameterType="list">
+	<foreach collection="list" item="deleteOptionList" separator=";" open="DECLARE BEGIN" close="; END;">
+	 UPDATE 
+	 EH_ITEM_OPTIONDETAIL
+	 SET
+	 OPTION_SPECIFY_CONTENT = '품절'
+   WHERE 
+   OPTION_SPECIFY_NO=#{deleteOptionList}	
 	</foreach>
-</delete>
+</update>
 
 
 
@@ -311,6 +393,10 @@ AND ITEM_CATEGORY = #{shopType}
 ORDER BY ITEM_NO DESC
 </select>	
 
+<update id="deleteProduct" parameterType="_int">
+UPDATE EH_ITEM SET ITEM_DELETE_FL = 'Y'
+WHERE ITEM_NO =#{itemNo}
+</update>
 	
 
 	

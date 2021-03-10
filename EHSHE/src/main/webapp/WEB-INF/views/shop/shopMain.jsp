@@ -14,6 +14,8 @@
    
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"> <!--CDN 링크 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"> <!--CDN 링크 -->
     <style>
 /*div{
 border: 1px solid black;
@@ -59,11 +61,12 @@ width:100%;
 .mainPointer{
 cursor:pointer;
 }
+
 </style>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
-   <div class="shopmain">
+   <div class="shopmain" style="padding-bottom:100px; margin-top:100px;">
    <div class="container">
     <div class="container">
         <div class="row">
@@ -155,8 +158,6 @@ cursor:pointer;
            </c:forEach>
              
           </div>
-
-
 
         <p><strong>인기상품(Hot!!)</strong></p>
         <div class="row">
@@ -404,7 +405,7 @@ cursor:pointer;
  <br>
 <jsp:include page="../common/footer.jsp" />		
 <script>
-	
+
 </script>
 </body>
 </html>

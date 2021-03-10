@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
+import com.kh.ehshe.member.model.vo.Member;
 import com.kh.ehshe.shop.model.service.ShopService;
 import com.kh.ehshe.shop.model.vo.SearchShop;
 import com.kh.ehshe.shop.model.vo.Shop;
@@ -110,6 +111,7 @@ public class ShopController {
 			RedirectAttributes ra,
 			HttpServletRequest request, HttpSession session) {
 
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		Shop shop = service.selectShopBoard(itemNo, type);
 
 		String url = null;
@@ -119,6 +121,7 @@ public class ShopController {
 			  ShopScore starRating = service.selectViewStarRation(itemNo);
 			  System.out.println(starRating+"dddddd");
 			  model.addAttribute("starRating",starRating);
+			  model.addAttribute("loginMember",loginMember);
 
 			
 			ShopAttachment ShopAttachmentList =service.selectShopAttachmentList(itemNo);
@@ -300,7 +303,7 @@ public class ShopController {
 		
 		model.addAttribute("shop", shop);
 		
-		
+		System.out.println(shop.getItemNo()+"에픽");
 		return "shop/shopUpdate";
 		
 		
@@ -318,7 +321,7 @@ public class ShopController {
     		 						@RequestParam (value="optionDetail" ,required=false) List<String> updateOption){
     	 
       
-    	 
+    System.out.println(updateOption + "뷰뷰뷰");
     updateShopBoard.setItemNo(itemNo);
     
     System.out.println("ccc"+updateOption);
@@ -345,7 +348,7 @@ public class ShopController {
 	
 	if(result > 0) {
 		swalIcon = "success";
-		swalTitle = "게시글 수정 성공";
+		swalTitle = "상품 수정 성공";
 		 //url = "redirect:../"+itemNo;
 		// url = "redirect:.."+categoryNo+"/" + result;
 		request.getSession().setAttribute("returnListURL", "../shopList/" + updateShopBoard.getItemCategory());
@@ -354,7 +357,7 @@ public class ShopController {
 	
 	}else {
 		swalIcon = "error";
-		swalTitle = "게시글 수정 실패";
+		swalTitle = "상품 수정 실패";
 		url = "redirect:" + request.getHeader("referer");
 	}
     	 
@@ -364,4 +367,42 @@ public class ShopController {
 	
 	return url;
      }
+     
+     
+     
+     // shop 삭제
+ 	@RequestMapping("{type}/{itemNo}/deleteProduct")
+	public String shopDelete(@PathVariable("itemNo") int itemNo,
+							 @PathVariable("type") int type,RedirectAttributes ra,
+							 HttpServletRequest request) {
+ 		
+ 		int result = service.deleteProduct(itemNo);
+ 		
+ 		String url =null;
+
+ 		if(result > 0 ){
+ 			swalIcon = "success";
+ 			swalTitle = "상품 삭제 성공";
+ 		    url = "redirect:../../shopList/"+type;
+ 		}else{
+ 			swalIcon = "error";
+ 			swalTitle = "상품 삭제 실패";
+ 			url = "redirect:" + request.getHeader("referer");
+ 		} 		
+ 		
+ 		ra.addFlashAttribute("swalIcon", swalIcon);
+ 		ra.addFlashAttribute("swalTitle", swalTitle); 
+ 		
+ 		return url;
+ 	}
+	
+
+
+     
+     
+     
+     
+     
+     
+     
 }

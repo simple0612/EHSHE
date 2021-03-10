@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shopReviewMapper">
+	
+	<resultMap type="ShopReview" id="shopreview_rm">
+		<id property="replyNo" column="ORDER_SPECIFY_NO"/>
+		<result property="replyContent" column="ITEM_CONTENT"/>
+		<result property="replyCreateDate" column="ITEM_CREATE_DT"/>
+		<result property="replyModifyDate" column="ITEM_RE_MODIFY_DT"/>
+		<result property="replyStatus" column="ITEM_DELETE_FL"/>
+		<result property="memberId" column="MEMBER_NM"/>
+		<result property="parentBoardNo" column="ITEM_NO"/>
+		<result property="parentReplyNo" column="ITEM_RE_PARENT_NO"/>
+		<result property="replyDepth" column="ITEM_RE_DEPTH"/>
+		<result property="itemRating" column="ITEM_RATING"/>
+	</resultMap>
+		
+
+	<!-- 댓글 목록 조회 -->
+	<select id="selectReplyList" parameterType="_int" resultMap="shopreview_rm">
+		SELECT * FROM V_ITEM_REVIEW
+		WHERE ITEM_DELETE_FL = 'N'
+		AND ITEM_NO = #{parentBoardNo}
+		AND ITEM_RE_PARENT_NO IN ( SELECT ORDER_SPECIFY_NO FROM V_ITEM_REVIEW
+                             WHERE ITEM_DELETE_FL = 'Y'
+                             AND ITEM_RE_DEPTH = 0
+                             AND ITEM_NO = #{parentBoardNo} )
+		ORDER BY ITEM_RE_PARENT_NO DESC,  
+	            CASE WHEN ITEM_RE_PARENT_NO = ORDER_SPECIFY_NO  THEN 99999999
+	            ELSE  ORDER_SPECIFY_NO END DESC
+ </select>
+	 
+
+	<!-- 댓글 삽입 -->
+<!-- 	<insert id="insertReply" parameterType="map">
+		INSERT INTO EH_ITEM_REVIEW(ORDER_SPECIFY_NO, ITEM_CONTENT,ITEM_NO,
+										  ITEM_RE_PARENT_NO, MEMBER_NM)
+	  VALUES(#{}, #{replyContent},#{parentBoardNo},
+			 	   SEQ_SRNO.CURRVAL, #{replyWriter})
+	</insert> -->
+	
+	<update id="updateReply" parameterType="ShopReview">
+		UPDATE EH_ITEM_REVIEW SET
+		ITEM_CONTENT = #{replyContent},
+		ITEM_RE_MODIFY_DT = SYSDATE
+		WHERE ORDER_SPECIFY_NO = #{replyNo}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<update id="deleteReply" parameterType="_int">
+		UPDATE EH_ITEM_REVIEW SET
+		QA_STATUS = 'Y'
+		WHERE ORDER_SPECIFY_NO = #{replyNo}
+	</update>
+	
+	<!--대댓글 삽입 -->
+	<insert id="insertChildReply" parameterType="map">
+	 INSERT INTO EH_ITEM_REVIEW
+	 (ORDER_SPECIFY_NO,ITEM_CONTENT,ITEM_NO,
+	 	ITEM_RE_PARENT_NO, MEMBER_NM,ITEM_RE_DEPTH)
+	 VALUES(ORDER_SPECIFY_NO,#{replyContent},#{parentBoardNo},
+	 #{parentReplyNo}, #{replyWriter},1)
+	</insert>	
+</mapper>

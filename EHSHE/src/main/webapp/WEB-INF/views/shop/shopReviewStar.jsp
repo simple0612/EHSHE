@@ -12,14 +12,14 @@
 
 <style>
 body{
-    font-family: 'Noto Sans KR', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height : 100vh; 
 }
 
 .star-rating{
+    display: flex;
+    justify-content: center;
+    height : 100vh; 
+    align-items: center;
+    font-family: 'Noto Sans KR', sans-serif;
     background-color: #333;
     width: 280px;
     text-align: center;
@@ -78,8 +78,8 @@ print img{
             $(this).nextAll().removeClass('active')
 
             var num = $(this).index()
-            var starRate = num + 1
-            //$('.print').text(starRate)
+            var starRate = num + 1;
+            $('.print').text(starRate);
 
             if(starRate == 1){$('.print').html('<img src="images/star-lv1.png">' + '별로예요')}
             else if(starRate == 2){$('.print').html('<img src="images/star-lv1.png">' + '보통이예요')}

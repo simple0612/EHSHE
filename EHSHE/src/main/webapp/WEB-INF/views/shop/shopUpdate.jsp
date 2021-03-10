@@ -28,20 +28,20 @@
   /*    div{
             border: 1px solid black;
         }   */ 
-  .a{
-  margin: 0px auto;
-  }
-  .ShopUpdateImg{
-      width: 100%;
-      height: 100%;
-  }
-  .b{
-      height: 200px;
-      width: 200px;
-      margin: 0px auto;
-  }
-  .q{
-      width: 1280px;
+.a{
+margin: 0px auto;
+}
+.ShopUpdateImg{
+    width: 100%;
+    height: 100%;
+}
+.b{
+    height: 200px;
+    width: 200px;
+    margin: 0px auto;
+}
+.q{
+    width: 1280px;
 }
 .btnColor{
   background-color: #F5dF4D;
@@ -153,9 +153,13 @@ cursor:pointer;
                     <input type="text" class="form-control" id="color" placeholder="예시 : RED,BLUE,GRAY ( ,로 구분)">
                 </div>
             </div>
-            
+
             <div class="row" style="margin-top: 20px;">
-               <div class="col-md-12" >
+               <div class="col-md-6" style="font-size:small ; font-weight:bolder  ;color:gray;">
+								  * 상위목록부터 옵션이 노출됩니다.
+							</div>
+              
+               <div class="col-md-12">
              		 <input type="button"class="btn btnColor2" id="optionBtn" value="옵션목록으로적용▼">
               </div>
             </div>
@@ -178,11 +182,13 @@ cursor:pointer;
 						           	 	<c:set var="end" value='${fn:indexOf(opt.optionSpecifyContent, ")" ) }'/>
 						            	<c:set var="color" value="${fn:substring(opt.optionSpecifyContent, start+1, end)}"/>  --%>
            
+									       <c:if test="${opt.optionSpecifyContent ne '품절'}">
 			                  <tr>
-					       					<th scope='row'><input type='checkbox'   class="optionDelete" name='optionCheckBox'style='text-align:center;'></th>
+					       					<th scope='row'><input type='checkbox'class="optionDelete" name='optionCheckBox'style='text-align:center;'></th>
 									        <td><input type="text" name="optionDetail" class="options" readonly value="${opt.optionSpecifyContent}"></td>
 									        <td><div id="deleteBtn"   class="optionDelete" style="margin-left:10px;"><i class="fas fa-times"></i></div></td>
 				        		  	</tr>
+									       </c:if>
           					 </c:forEach> 
                     </tbody>
                   </table>
