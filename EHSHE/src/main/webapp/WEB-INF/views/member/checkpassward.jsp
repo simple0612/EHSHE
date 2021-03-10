@@ -159,17 +159,15 @@ input[id="saveId"]:checked+label em {
 	<jsp:include page="../common/header.jsp" />
 
 	<div class="form-wrapper">
-		<br> <br> <br> <br> <br> <br> <br>
+		
 		<br>
 		<div class="title">
 			<div>
-
 				<a href="${contextPath}/page/mypagemain"> <img
 					src="${contextPath}/resources/images/mypageicon.png"
-					style="width: 100px; height: 100px; margin-bottom: 5px"></a>
-
+					style="width: 100px; height: 100px; margin-bottom: 10px"></a>
 			</div>
-			<br> <br>
+			<br>
 		</div>
 
 		<br>

@@ -22,6 +22,8 @@ public class QandA {
 	private int itemPrice;
 	private int transCharge;
 	private String itemDeleteFl;
+	private String itemCategory;
+	
 	
 	
 public QandA() {
@@ -29,9 +31,10 @@ public QandA() {
 }
 
 
+
 public QandA(int qaNo, String replyContent, Timestamp replyCreateDate, Timestamp replyModifyDate, String replyStatus,
 		String memberId, int parentBoardNo, int parentReplyNo, int replyDepth, int itemNo, String itemContent,
-		String itemNm, int itemPrice, int transCharge, String itemDeleteFl) {
+		String itemNm, int itemPrice, int transCharge, String itemDeleteFl, String itemCategory) {
 	super();
 	this.qaNo = qaNo;
 	this.replyContent = replyContent;
@@ -48,7 +51,9 @@ public QandA(int qaNo, String replyContent, Timestamp replyCreateDate, Timestamp
 	this.itemPrice = itemPrice;
 	this.transCharge = transCharge;
 	this.itemDeleteFl = itemDeleteFl;
+	this.itemCategory = itemCategory;
 }
+
 
 
 public int getQaNo() {
@@ -56,9 +61,11 @@ public int getQaNo() {
 }
 
 
+
 public void setQaNo(int qaNo) {
 	this.qaNo = qaNo;
 }
+
 
 
 public String getReplyContent() {
@@ -66,9 +73,11 @@ public String getReplyContent() {
 }
 
 
+
 public void setReplyContent(String replyContent) {
 	this.replyContent = replyContent;
 }
+
 
 
 public Timestamp getReplyCreateDate() {
@@ -76,9 +85,11 @@ public Timestamp getReplyCreateDate() {
 }
 
 
+
 public void setReplyCreateDate(Timestamp replyCreateDate) {
 	this.replyCreateDate = replyCreateDate;
 }
+
 
 
 public Timestamp getReplyModifyDate() {
@@ -86,9 +97,11 @@ public Timestamp getReplyModifyDate() {
 }
 
 
+
 public void setReplyModifyDate(Timestamp replyModifyDate) {
 	this.replyModifyDate = replyModifyDate;
 }
+
 
 
 public String getReplyStatus() {
@@ -96,9 +109,11 @@ public String getReplyStatus() {
 }
 
 
+
 public void setReplyStatus(String replyStatus) {
 	this.replyStatus = replyStatus;
 }
+
 
 
 public String getMemberId() {
@@ -106,9 +121,11 @@ public String getMemberId() {
 }
 
 
+
 public void setMemberId(String memberId) {
 	this.memberId = memberId;
 }
+
 
 
 public int getParentBoardNo() {
@@ -116,9 +133,11 @@ public int getParentBoardNo() {
 }
 
 
+
 public void setParentBoardNo(int parentBoardNo) {
 	this.parentBoardNo = parentBoardNo;
 }
+
 
 
 public int getParentReplyNo() {
@@ -126,9 +145,11 @@ public int getParentReplyNo() {
 }
 
 
+
 public void setParentReplyNo(int parentReplyNo) {
 	this.parentReplyNo = parentReplyNo;
 }
+
 
 
 public int getReplyDepth() {
@@ -136,9 +157,11 @@ public int getReplyDepth() {
 }
 
 
+
 public void setReplyDepth(int replyDepth) {
 	this.replyDepth = replyDepth;
 }
+
 
 
 public int getItemNo() {
@@ -146,9 +169,11 @@ public int getItemNo() {
 }
 
 
+
 public void setItemNo(int itemNo) {
 	this.itemNo = itemNo;
 }
+
 
 
 public String getItemContent() {
@@ -156,9 +181,11 @@ public String getItemContent() {
 }
 
 
+
 public void setItemContent(String itemContent) {
 	this.itemContent = itemContent;
 }
+
 
 
 public String getItemNm() {
@@ -166,9 +193,11 @@ public String getItemNm() {
 }
 
 
+
 public void setItemNm(String itemNm) {
 	this.itemNm = itemNm;
 }
+
 
 
 public int getItemPrice() {
@@ -176,9 +205,11 @@ public int getItemPrice() {
 }
 
 
+
 public void setItemPrice(int itemPrice) {
 	this.itemPrice = itemPrice;
 }
+
 
 
 public int getTransCharge() {
@@ -186,9 +217,11 @@ public int getTransCharge() {
 }
 
 
+
 public void setTransCharge(int transCharge) {
 	this.transCharge = transCharge;
 }
+
 
 
 public String getItemDeleteFl() {
@@ -196,9 +229,23 @@ public String getItemDeleteFl() {
 }
 
 
+
 public void setItemDeleteFl(String itemDeleteFl) {
 	this.itemDeleteFl = itemDeleteFl;
 }
+
+
+
+public String getItemCategory() {
+	return itemCategory;
+}
+
+
+
+public void setItemCategory(String itemCategory) {
+	this.itemCategory = itemCategory;
+}
+
 
 
 @Override
@@ -207,8 +254,10 @@ public String toString() {
 			+ ", replyModifyDate=" + replyModifyDate + ", replyStatus=" + replyStatus + ", memberId=" + memberId
 			+ ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo + ", replyDepth=" + replyDepth
 			+ ", itemNo=" + itemNo + ", itemContent=" + itemContent + ", itemNm=" + itemNm + ", itemPrice=" + itemPrice
-			+ ", transCharge=" + transCharge + ", itemDeleteFl=" + itemDeleteFl + "]";
+			+ ", transCharge=" + transCharge + ", itemDeleteFl=" + itemDeleteFl + ", itemCategory=" + itemCategory
+			+ "]";
 }
+
 
 
 

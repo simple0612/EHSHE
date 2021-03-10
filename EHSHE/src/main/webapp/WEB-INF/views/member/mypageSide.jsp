@@ -116,7 +116,7 @@ body {
 
 		<ul class="sideMenu">
 
-			<li><a href="${contextPath}/place/placeMain">내정보</a></li>
+			<li><a href="${contextPath}/member/mapage">내정보</a></li>
 
 			<li class="popup"><a href="${contextPath}/shop/shopMain">결제내역</a>
 				<ul>

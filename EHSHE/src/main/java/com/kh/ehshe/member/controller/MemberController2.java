@@ -1,5 +1,6 @@
 package com.kh.ehshe.member.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -20,6 +22,7 @@ import com.kh.ehshe.board.model.vo.PageInfo;
 import com.kh.ehshe.board.model.vo.VBoard;
 import com.kh.ehshe.member.model.service.MemberService2;
 import com.kh.ehshe.member.model.vo.Member;
+import com.kh.ehshe.place.model.vo.VPReview;
 import com.kh.ehshe.place.model.vo.VPlace;
 import com.kh.ehshe.shop.model.vo.ItemReview;
 import com.kh.ehshe.shop.model.vo.Order;
@@ -29,7 +32,6 @@ import com.kh.ehshe.shop.model.vo.ShopReply;
 @Controller // 프레젠테이션 레이어, 웹 애플리케이션 전달된 요청 응답을 처리하는 클래스 + bean 등록
 @RequestMapping("/page/*")
 @SessionAttributes({ "loginMember" })
-
 public class MemberController2 {
 
 	@Autowired // 해당 자료형과 일치하는 bean을 의존성주입(DI)
@@ -322,8 +324,9 @@ public class MemberController2 {
 
 		int memberNo = loginMember.getMemberNo();
 		PageInfo pInfo = service.getPageInfo(cp,memberNo);
-	
+		
 		List<ItemReview> ItemReview = service.selectItemReviewList(pInfo, memberNo);
+		List<VPReview> areaReview = service.selectAreaReviewList(pInfo, memberNo);
 
 		//List<BReply> BReply = service.selectReplyList(pInfo, memberNo);
 
@@ -331,7 +334,8 @@ public class MemberController2 {
 		//model.addAttribute("bList", ItemReview);
 		model.addAttribute("pInfo", pInfo);
 		model.addAttribute("ItemReview", ItemReview);
-		System.out.println(ItemReview);
+		model.addAttribute("areaReview", areaReview);
+
 		return "member/review";
 	}
 
@@ -354,6 +358,37 @@ public class MemberController2 {
 		
 		
 		return "member/bulletin";
+	}
+	
+
+	
+	@RequestMapping("deleteAllCartItem")
+	@ResponseBody
+	public int deleteAllCartItem(@ModelAttribute("loginMember") Member loginMember,
+								 @RequestParam("qaNoList") String qaNoList ) {
+		
+		int memberNo =loginMember.getMemberNo();
+		
+		System.out.println("qaNoList" + qaNoList);
+		
+	
+		String[] str = qaNoList.split(",");
+		
+		
+		ArrayList<String> optionSNL = new ArrayList<String>();
+		
+	
+		for(int i=0; i<str.length; i++) {
+			optionSNL.add(str[i]);
+		}
+		
+
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("qaNoList", optionSNL);
+		map.put("memberNo", memberNo);
+		
+		return service.deleteAllCartItem(map);
 	}
 
 }

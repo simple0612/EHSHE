@@ -13,6 +13,7 @@ import com.kh.ehshe.board.model.vo.PageInfo;
 import com.kh.ehshe.board.model.vo.VBoard;
 import com.kh.ehshe.member.model.dao.MemberDAO2;
 import com.kh.ehshe.member.model.vo.Member;
+import com.kh.ehshe.place.model.vo.VPReview;
 import com.kh.ehshe.place.model.vo.VPlace;
 import com.kh.ehshe.shop.model.vo.ItemReview;
 import com.kh.ehshe.shop.model.vo.Order;
@@ -177,5 +178,20 @@ public class MemberService2Impl implements MemberService2 {
 	public List<QandA> adminQandA(PageInfo pInfo) {
 		return dao.adminQandA(pInfo);
 	}
+
+	@Override
+	public int deleteCartItem(Map<String, Object> map) {
+		return dao.deleteCartItem(map);
+	}
+
+	@Override
+	public int deleteAllCartItem(Map<String, Object> map) {
+		return dao.deleteAllCartItem(map);
+	}
+
+	@Override
+	public List<VPReview> selectAreaReviewList(PageInfo pInfo, int memberNo) {
+		return dao.selectAreaReviewList(pInfo,memberNo);
+		}
 
 }

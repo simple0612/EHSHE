@@ -179,20 +179,16 @@ input[id="saveId"]:checked+label em {
 	<jsp:include page="../common/header.jsp" />
 
 	<div class="form-wrapper">
-		<br> <br> <br> <br> <br> <br> <br>
 		<br>
 		<div class="title">
-			<h1>개인정보 수정</h1>
+	
 				<div>
-	<br>
 				<a href="${contextPath}/page/mypagemain"> <img
 					src="${contextPath}/resources/images/mypageicon.png"
-					style="width: 100px; height: 100px; margin-bottom: 5px">
+					style="width: 100px; height: 100px; margin-bottom: 10px">
 				</a>
+			<h5>개인정보 수정</h5>
 			</div>
-			
-			
-					<br> <br>
 			</div>
 
 			<br>
@@ -203,8 +199,8 @@ input[id="saveId"]:checked+label em {
 				<div class="area">
 					<a href="${contextPath}/page/mypage"> <img
 						src="${contextPath}/resources/images/mypageicon.png"
-						style="width: 200px; height: 200px; margin-bottom: 5px">
-						<h1>mypage수정</h1>
+							style="width: 100px; height: 100px; margin-bottom: 10px">
+						<h5>내정보수정</h5>
 				</div>
 
 
@@ -214,14 +210,15 @@ input[id="saveId"]:checked+label em {
 				<div class="area">
 					<a href="${contextPath}/page/changePwd"><img
 						src="${contextPath}/resources/images/pricelist.png"
-						style="width: 200px; height: 200px; margin-bottom: 5px">
-						<h1>비밀번호 수정</h1>
+							style="width: 100px; height: 100px; margin-bottom: 10px">
+						<h5>비밀번호 수정</h5>
 				</div>
+					&nbsp;&nbsp;
 				<div class="area">
 					<a href="${contextPath}/page/deletemember"><img
 						src="${contextPath}/resources/images/mytextlist.png"
-						style="width: 200px; height: 200px; margin-bottom: 5px">
-						<h1>계정 삭제</h1>
+							style="width: 100px; height: 100px; margin-bottom: 10px">
+						<h5>계정 삭제</h5>
 				</div>
 			
 			</div>

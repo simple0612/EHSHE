@@ -198,10 +198,10 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	<jsp:include page="../common/header.jsp" />
 
 	<div class="form-wrapper">
-		<br> <br> <br> <br> <br> <br> <br>
+	
 		<br>
 		<div class="title">
-			<h1>비밀번호 수정</h1>
+			<h5>비밀번호 수정</h5>
 
 
 			<br> 
@@ -210,7 +210,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 				<a href="${contextPath}/page/mypagemain"> <img
 					src="${contextPath}/resources/images/mypageicon.png"
-					style="width: 100px; height: 100px; margin-bottom: 5px">
+					style="width: 100px; height: 100px; margin-bottom: 10px">
 				</a>
 			</div>
 		</div>
@@ -224,7 +224,6 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 		<br>
 		<div class="form-container-my">
 
-			<hr>
 			<div class="bg-white rounded shadow-sm container p-3">
 				<form method="POST" action="checkPwd" onsubmit="return validate();"
 					class="form-horizontal" role="form">

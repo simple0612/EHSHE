@@ -178,12 +178,11 @@ input[id="saveId"]:checked+label em {
 	<jsp:include page="../common/header.jsp" />
 
 	<div class="form-wrapper">
-		 <br> <br> <br>
+
 		<br>
 		<div class="title">
 			<h1>관리자 페이지</h1>
 
-			<br> <br>
 		</div>
 
 		<br>
@@ -195,27 +194,23 @@ input[id="saveId"]:checked+label em {
 			<div class="area">
 				<a href="${contextPath}/page/adminQandA"><img
 					src="${contextPath}/resources/images/adminQandA.png"
-					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>QandA확인</h1>
+					style="width: 100px; height: 100px; margin-bottom: 10px">
+					<h5>QandA확인</h5>
 			</div>
-			
-
-
-
-			<br> <br>
+			<br>
 
 			<div class="area">
 				<a href="${contextPath}/shop/2/shopInsert"> <img
 					src="${contextPath}/resources/images/adminshop.png"
-					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>관리자 상품</h1>
+					style="width: 100px; height: 100px; margin-bottom: 10px">
+					<h5>상품 등록</h5>
 			</div>
-
+&nbsp;&nbsp;&nbsp;&nbsp;
 			<div class="area">
 				<a href="${contextPath}/place/insertPlace"><img
 					src="${contextPath}/resources/images/adminarea.png"
-					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>관리자 장소</h1>
+				style="width: 100px; height: 100px; margin-bottom: 10px">
+					<h5>장소 등록</h5>
 			</div>
 		</div>
 		<%-- form-wrapper end --%>

@@ -7,6 +7,7 @@ import com.kh.ehshe.board.model.vo.BReply;
 import com.kh.ehshe.board.model.vo.PageInfo;
 import com.kh.ehshe.board.model.vo.VBoard;
 import com.kh.ehshe.member.model.vo.Member;
+import com.kh.ehshe.place.model.vo.VPReview;
 import com.kh.ehshe.place.model.vo.VPlace;
 import com.kh.ehshe.shop.model.vo.ItemReview;
 import com.kh.ehshe.shop.model.vo.Order;
@@ -82,7 +83,14 @@ public interface MemberService2 {
 
 	public abstract List<VPlace> selectbookmarkList(PageInfo pInfo, String memberId);
 
+	public abstract List<VPReview> selectAreaReviewList(PageInfo pInfo, int memberNo);
+
 	public abstract List<QandA> adminQandA(PageInfo pInfo);
+
+	public abstract int deleteCartItem(Map<String, Object> map);
+
+	public abstract int deleteAllCartItem(Map<String, Object> map);
+
 
 
 	

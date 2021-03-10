@@ -178,17 +178,16 @@ input[id="saveId"]:checked+label em {
 	<jsp:include page="../common/header.jsp" />
 
 	<div class="form-wrapper">
-		<br> <br> <br> <br> <br> <br> <br>
+	
 		<br>
 		<div class="title">
-			<h1>내글</h1>
 			<div class="area">
 				<a href="${contextPath}/page/mypagemain"><img
 					src="${contextPath}/resources/images/mytextlist.png"
-					style="width: 100px; height: 100px; margin-bottom: 5px">
+					style="width: 100px; height: 100px; margin-bottom: 10px">
 			
 			</div>
-			<br> <br>
+			<h5>내글</h5>
 		</div>
 
 		<br>
@@ -201,8 +200,8 @@ input[id="saveId"]:checked+label em {
 			<div class="area">
 				<a href="${contextPath}/page/bulletin"> <img
 					src="${contextPath}/resources/images/bulletin.png"
-					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>게시글</h1>
+				style="width: 100px; height: 100px; margin-bottom: 10px">
+					<h5>커뮤니티</h5>
 			</div>
 
 
@@ -211,14 +210,14 @@ input[id="saveId"]:checked+label em {
 			<div class="area">
 				<a href="${contextPath}/page/review"><img
 					src="${contextPath}/resources/images/review.png"
-					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h3>상품&장소 후기</h3>
-			</div>
+				style="width: 100px; height: 100px; margin-bottom: 10px">
+					<h5>상품&장소 리뷰</h5>
+			</div>&nbsp;&nbsp;&nbsp;&nbsp;
 			<div class="area">
 				<a href="${contextPath}/page/myQandA"><img
 					src="${contextPath}/resources/images/QandA.png"
-					style="width: 200px; height: 200px; margin-bottom: 5px">
-					<h1>Q&A</h1>
+					style="width: 100px; height: 100px; margin-bottom: 10px">
+					<h5>shop</h5>
 			</div>
 
 		</div>
