@@ -58,7 +58,6 @@ public class ShopController {
 			
 			List<ShopScore> starRating = service.selectStarRation(sList);
 			model.addAttribute("starRating",starRating);
-			System.out.println(starRating+"dddddd");
 			
 			
 			List<ShopAttachment> thumbnailList  = service.selectMainAttachmentlList(sList);
@@ -137,9 +136,11 @@ public class ShopController {
 				model.addAttribute("ShopOptionList",ShopOptionList);
 				
 			}
-		    //session.setAttribute("returnListURL",referer);
+			
+		    session.setAttribute("returnListURL",referer);
 			model.addAttribute("shop", shop);
-			request.getSession().setAttribute("returnListURL", "../shopMain");
+		 
+			//request.getSession().setAttribute("returnListURL", "../shopMain");
 
 			url ="shop/shopView";
 		}else {

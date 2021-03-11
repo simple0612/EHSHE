@@ -92,24 +92,20 @@ cursor:pointer;
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img class="d-block w-100 rounded mx-auto d-block" alt="Carousel Bootstrap First" src="${contextPath}/resources/shopCommonImg/화이트데이광고2.jpg" />
+                            <img class="d-block w-100 rounded mx-auto d-block" alt="Carousel Bootstrap First" src="${contextPath}/resources/shopCommonImg/애쉬배너1.png" />
                             <div class="carousel-caption">
                                 <h4>
-                                    First Thumbnail label
                                 </h4>
                                 <p>
-                                    Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
                                 </p>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100 rounded mx-auto d-block" alt="Carousel Bootstrap Second" src="https://www.layoutit.com/img/sports-q-c-1600-500-2.jpg" />
+                            <img class="d-block w-100 rounded mx-auto d-block" alt="Carousel Bootstrap Second" src="${contextPath}/resources/shopCommonImg/고객리뷰2.png" />
                             <div class="carousel-caption">
                                 <h4>
-                                    Second Thumbnail label
                                 </h4>
                                 <p>
-                                    Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
                                 </p>
                             </div>
                         </div>
@@ -158,7 +154,7 @@ cursor:pointer;
     												</c:forEach> 
     												</c:when>  
 	 													<c:otherwise>	
-	 														<div><img src="${contextPath}/resources/shopCommonImg/별모양.png" class="mainImg" style="width: 20px; height: 20px;"> 별점없음</div>
+	 														<div><img src="${contextPath}/resources/shopCommonImg/별모양.png" class="mainImg" style="width: 20px; height: 20px;"> 0</div>
     												</c:otherwise>
     												</c:choose>                 
                         </div>
