@@ -100,9 +100,9 @@ cursor:pointer;
  															 <c:when test="${sr.itemNo == shop.itemNo}">
                             			<div><img class="shopimg" src="${contextPath}/resources/shopCommonImg/별모양.png" class="score"style="width: 20px; height: 20px;"> ${sr.score}</div>
  															</c:when>
- 															<c:when test="${sr.itemNo ne  shop.itemNo}">
+ 										<%-- 					<c:when test="${sr.itemNo ne  shop.itemNo}">
  															    <div><img class="shopimg" src="${contextPath}/resources/shopCommonImg/별모양.png" class="score"style="width: 20px; height: 20px;"> 0</div>
- 															</c:when>
+ 															</c:when> --%>
                         	 </c:choose>
                         </c:forEach>
                         </div>
