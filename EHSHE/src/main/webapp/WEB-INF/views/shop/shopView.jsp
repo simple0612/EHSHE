@@ -103,9 +103,9 @@ line-height:55px;
 										<c:set var="returnListURL" value="../shopList/${shop.shopType}" scope="session"/>
 								</c:if>
 	 							<a class="btn btnColor2"  href="${sessionScope.returnListURL}">목록으로</a>
-				      			<button type="button" class="btn btnColor" data-toggle="modal" data-target="#myModal">
+<!-- 				      			<button type="button" class="btn btnColor" data-toggle="modal" data-target="#myModal">
 				 	   					  쇼핑후기등록
-				 						</button>
+				 						</button> -->
 			        </div>
 	 						
 			        
