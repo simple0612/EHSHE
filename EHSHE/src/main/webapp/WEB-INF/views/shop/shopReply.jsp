@@ -125,6 +125,7 @@
 <script>
 var loginMemberId = "${loginMember.memberId}"; // 로그인한 회원 아이디 (있으면 아이디 없으면 빈문자열)
 var replyWriter = "${loginMember.memberNo}"; 
+var replyGrade = "${loginMember.memberGrade}";
 var parentBoardNo = ${shop.itemNo}; // 게시글 번호  -- > 자바스크립트에서는 "1" ==  1  == true
 
 // 댓글
