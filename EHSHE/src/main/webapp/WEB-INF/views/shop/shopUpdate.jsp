@@ -100,7 +100,7 @@ cursor:pointer;
             		</div>
                 
                 <div id="fileArea" style="display:none;">
-				          	<input type="file" id="img0" name="images" onchange="LoadImg(this,0)" required> 
+				          	<input type="file" id="img0" name="images" onchange="LoadImg(this,0)"> 
                 </div> 
                
                   <div class="col-md-6"> 
