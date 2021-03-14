@@ -271,8 +271,7 @@ header {
 												merchant_uid : 'merchant_'
 														+ new Date().getTime(),
 												name : orderItemName, //결제창에 나오는 이름.
-												//amount : '${tsprice}',    // 결제 가격.
-												amount : '100', // 결제 가격.
+												amount : '${tsprice}',  // 결제 가격.
 												buyer_email : '${loginMember.memberEmail}', //결제완료후 나오는 이메일 번호
 												buyer_name : orderRecipient, // 결제완료후 나오는 구매자 이름.
 												buyer_tel : phone,
