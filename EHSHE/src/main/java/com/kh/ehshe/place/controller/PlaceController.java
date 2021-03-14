@@ -54,15 +54,6 @@ public class PlaceController {
 		List<VPlace> bestList = service.selectbestList(pInfo);
 		List<VPlace> pList = service.selectList(pInfo);
 		
-		
-		
-		if (pList != null && !pList.isEmpty()) {
-			List<PAttachment> thumbnailList = service.selectThumbnailList(pList);
-
-			if (thumbnailList != null) {
-				model.addAttribute("thList", thumbnailList);
-			}
-		}
 		model.addAttribute("rastList", rastList);
 		model.addAttribute("bestList", bestList);
 		model.addAttribute("pList", pList);

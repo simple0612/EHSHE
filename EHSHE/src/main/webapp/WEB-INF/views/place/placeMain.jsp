@@ -69,7 +69,7 @@
 				</div>
 				
 				<div class="row">
-					<div class="col-md-12 placeMain11"> 
+					<div class="col-md-12 placeMain11 moveList"> 
 						<img class="" src="${contextPath}/resources/pImages/placeMain11.png"/>
 					</div>
 				</div>
@@ -101,7 +101,7 @@
 				</div>
 
 				<div class="row">
-					<div class="col-md-12 placeMain11"> 
+					<div class="col-md-12 placeMain11 moveList"> 
 						<img class="" src="${contextPath}/resources/pImages/placeMain22.png"/>
 					</div>
 				</div>
